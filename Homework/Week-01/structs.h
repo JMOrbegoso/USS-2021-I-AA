@@ -2,7 +2,7 @@
 
 using namespace std;
 
-/* * */
+/* Medic struct */
 
 struct medic {
   string code;
@@ -24,7 +24,7 @@ struct medicsList {
   int length;
 };
 
-/* * */
+/* Medical Room struct */
 
 struct medicalRoom {
   int roomNumber;
@@ -43,7 +43,7 @@ struct medicalRoomsList {
   int length;
 };
 
-/* * */
+/* Medical Patient struct */
 
 struct medicalPatient {
   string firstName;
@@ -63,7 +63,7 @@ struct medicalPatientsList {
   int length;
 };
 
-/* * */
+/* Nurse struct */
 
 struct nurse {
   string firstName;
@@ -81,7 +81,7 @@ struct nursesList {
   int length;
 };
 
-/* *  *
+/*
 
 struct receptionist {
   string firstName;
@@ -98,8 +98,10 @@ struct receptionistsList {
   receptionistNode *firstNode;
   int length;
 };
+*/
 
-* *  */
+/* Medical Speciality struct  */
+
 struct medicalSpeciality {
   string name;
   float price;
@@ -119,7 +121,7 @@ struct medicalSpecialitiesList {
   int length;
 };
 
-/* * */
+/* Clinic struct */
 
 struct clinic {
   string businessName;

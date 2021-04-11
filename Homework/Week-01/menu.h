@@ -4,11 +4,13 @@ using namespace std;
 
 #pragma region Forward declarations
 
-void showAppTitle();
-int requestMenuOption();
+void updateClinicProperties(clinic &clinic);
+
+void showAppTitle(clinic clinic);
+int requestMenuOption(clinic clinic);
 
 void registerNewMedicalSpeciality(clinic &clinic);
-void showMedicalSpecialities(clinic &clinic);
+void showMedicalSpecialities(clinic clinic);
 
 void registerNewMedic();
 void showMedics();
@@ -24,57 +26,68 @@ void showMedicalPatients();
 
 #pragma endregion Forward declarations
 
-void mainMenu() {
+void mainMenu(clinic &clinic) {
 
   int selectedOption;
 
-  clinic clinic;
-
-  dataInitialization(clinic);
-
   do {
-    selectedOption = requestMenuOption();
+    selectedOption = requestMenuOption(clinic);
 
     if (selectedOption != 0) {
       switch (selectedOption) {
       case 1:
-        registerNewMedicalSpeciality(clinic);
+        updateClinicProperties(clinic);
+        addDelay(3);
         break;
 
       case 2:
-        showMedicalSpecialities(clinic);
+        registerNewMedicalSpeciality(clinic);
+        addDelay(3);
         break;
 
       case 3:
-        registerNewMedic();
+        showMedicalSpecialities(clinic);
+        pauseProcess();
         break;
 
       case 4:
-        showMedics();
+        registerNewMedic();
+        addDelay(3);
         break;
 
       case 5:
-        registerNewMedicalRoom();
+        showMedics();
+        pauseProcess();
         break;
 
       case 6:
-        showMedicalRooms();
+        registerNewMedicalRoom();
+        addDelay(3);
         break;
 
       case 7:
-        registerNewNurse();
+        showMedicalRooms();
+        pauseProcess();
         break;
 
       case 8:
-        showNurses();
+        registerNewNurse();
+        addDelay(3);
         break;
 
       case 9:
-        registerNewMedicalPatient();
+        showNurses();
+        pauseProcess();
         break;
 
       case 10:
+        registerNewMedicalPatient();
+        addDelay(3);
+        break;
+
+      case 11:
         showMedicalPatients();
+        pauseProcess();
         break;
       }
     }
@@ -85,35 +98,63 @@ void mainMenu() {
 
 #pragma region Menu functions
 
-void showAppTitle() {
-  cout << endl;
-  cout << "-----------------------------------------------------------";
-  cout << endl << "\t\t Sistema virtual de La Clínica" << endl << endl;
-  cout << "-----------------------------------------------------------";
+void showAppTitle(clinic clinic) {
+  cout << endl
+       << "-----------------------------------------------------------" << endl;
+  cout << "\t\t Sistema virtual de " << clinic.businessName << endl;
+  cout << endl
+       << "-----------------------------------------------------------" << endl;
+  cout << "Dirección: " << clinic.address << endl;
+  cout << "RUC: " << clinic.ruc << endl;
+  cout << endl
+       << "-----------------------------------------------------------" << endl;
 }
 
-int requestMenuOption() {
+void updateClinicProperties(clinic &clinic) {
+
+  string businessName, address, ruc;
+
+  businessName =
+      requestText("Ingrese el nuevo nombre de la institución medica", 3);
+  clinic.businessName = businessName;
+
+  address =
+      requestText("Ingrese la nueva dirección de la institución medica", 5);
+  clinic.address = address;
+
+  ruc = requestRUC();
+  clinic.ruc = ruc;
+
+  cout << endl
+       << "Los datos de la institución medica han sido actualizados "
+          "correctamente"
+       << endl;
+}
+
+int requestMenuOption(clinic clinic) {
   int selectedOption;
 
   clearScreen();
-  showAppTitle();
+  showAppTitle(clinic);
 
   cout << endl << "Por favor seleccione la opción deseada:" << endl << endl;
 
-  cout << "[1] Registrar nueva especialidad medica" << endl;
-  cout << "[2] Ver la lista de especialidades medicas" << endl;
+  cout << "[1] Actualizar datos de la institución medica" << endl;
 
-  cout << "[3] Registrar nuevo doctor" << endl;
-  cout << "[4] Ver la lista de doctores" << endl;
+  cout << "[2] Registrar nueva especialidad medica" << endl;
+  cout << "[3] Ver la lista de especialidades medicas" << endl;
 
-  cout << "[5] Registrar nuevo consultorio" << endl;
-  cout << "[6] Ver la lista de consultorios" << endl;
+  cout << "[4] Registrar nuevo doctor" << endl;
+  cout << "[5] Ver la lista de doctores" << endl;
 
-  cout << "[7] Registrar nueva enfermera" << endl;
-  cout << "[8] Ver la lista de enfermeras" << endl;
+  cout << "[6] Registrar nuevo consultorio" << endl;
+  cout << "[7] Ver la lista de consultorios" << endl;
 
-  cout << "[9] Registrar nuevo paciente" << endl;
-  cout << "[10] Ver la lista de pacientes" << endl;
+  cout << "[8] Registrar nueva enfermera" << endl;
+  cout << "[9] Ver la lista de enfermeras" << endl;
+
+  cout << "[10] Registrar nuevo paciente" << endl;
+  cout << "[11] Ver la lista de pacientes" << endl;
 
   cout << "[0] Cerrar" << endl;
 
@@ -134,47 +175,32 @@ int requestMenuOption() {
 
 void registerNewMedicalSpeciality(clinic &clinic) {
   cout << "placeholder: Register new medical speciality";
-  addDelay(3);
 }
-void showMedicalSpecialities(clinic &clinic) {
-  cout << "placeholder: Show medical specialities";
-  pauseProcess();
+void showMedicalSpecialities(clinic clinic) {
+  cout << "Especialidades medicas en La Clinica" << endl;
+
+  medicalSpecialityNode *node = clinic.medicalSpecialitiesList.firstNode;
+
+  while (node != NULL) {
+    showMedicalSpeciality(node->medicalSpeciality);
+    node = node->next;
+  }
 }
 
-void registerNewMedic() {
-  cout << "placeholder: Register new medic";
-  addDelay(3);
-}
-void showMedics() {
-  cout << "placeholder: Show medics";
-  pauseProcess();
-}
+void registerNewMedic() { cout << "placeholder: Register new medic"; }
+void showMedics() { cout << "placeholder: Show medics"; }
 
 void registerNewMedicalRoom() {
   cout << "placeholder: Register new medical rooms";
-  addDelay(3);
 }
-void showMedicalRooms() {
-  cout << "placeholder: Show medical rooms";
-  pauseProcess();
-}
+void showMedicalRooms() { cout << "placeholder: Show medical rooms"; }
 
-void registerNewNurse() {
-  cout << "placeholder: Register new nurse";
-  addDelay(3);
-}
-void showNurses() {
-  cout << "placeholder: Show nurses";
-  pauseProcess();
-}
+void registerNewNurse() { cout << "placeholder: Register new nurse"; }
+void showNurses() { cout << "placeholder: Show nurses"; }
 
 void registerNewMedicalPatient() {
   cout << "placeholder: Register new medical patient";
-  addDelay(3);
 }
-void showMedicalPatients() {
-  cout << "placeholder: Show medical patients";
-  pauseProcess();
-}
+void showMedicalPatients() { cout << "placeholder: Show medical patients"; }
 
 #pragma endregion

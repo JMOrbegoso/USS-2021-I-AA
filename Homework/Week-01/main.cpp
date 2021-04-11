@@ -3,7 +3,11 @@
 using namespace std;
 
 int main() {
-  mainMenu();
+  clinic clinic;
+
+  dataInitialization(clinic);
+
+  mainMenu(clinic);
 
   return 0;
 }
