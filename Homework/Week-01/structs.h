@@ -6,7 +6,7 @@ using namespace std;
 
 struct medicStruct {
   string code;
-  string fistName;
+  string firstName;
   string lastName;
   string address;
   string phoneNumber;
