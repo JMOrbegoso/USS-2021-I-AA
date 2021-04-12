@@ -60,6 +60,20 @@ void addDelay(int sec) {
 #endif
 }
 
+void gotoxy(int x, int y) {
+#if defined(WIN32) || defined(_WIN32) ||                                       \
+    defined(__WIN32) && !defined(__CYGWIN__)
+  HANDLE hcon;
+  hcon = GetStdHandle(STD_OUTPUT_HANDLE);
+  COORD dwPos;
+  dwPos.X = x;
+  dwPos.Y = y;
+  SetConsoleCursorPosition(hcon, dwPos);
+#else
+
+#endif
+}
+
 string requestText(string message, long unsigned int minLength) {
   string text;
 
