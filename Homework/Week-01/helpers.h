@@ -11,8 +11,6 @@
 
 using namespace std;
 
-#pragma region Basic functions
-
 string toLowerCase(string text) {
   /*for_each(text.begin(), text.end(), [](char& c) {
       c = ::tolower(c);
@@ -61,10 +59,6 @@ void addDelay(int sec) {
   system(toCharArray("sleep " + toString(sec)));
 #endif
 }
-
-#pragma endregion
-
-#pragma region Basic functions of data entry
 
 string requestText(string message, int minLength) {
   string text;
@@ -261,5 +255,3 @@ string requestDate() {
 
   return toString(year) + "/" + months[selectedMonth] + "/" + toString(day);
 }
-
-#pragma endregion

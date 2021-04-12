@@ -2,7 +2,7 @@
 
 using namespace std;
 
-#pragma region Forward declarations
+// Forward declarations
 
 void updateClinicProperties(clinic &clinic);
 
@@ -24,7 +24,7 @@ void showNurses();
 void registerNewMedicalPatient();
 void showMedicalPatients();
 
-#pragma endregion Forward declarations
+// Main menu function
 
 void mainMenu(clinic &clinic) {
 
@@ -96,7 +96,7 @@ void mainMenu(clinic &clinic) {
   cout << "Gracias por usar la app, tenga un buen día!";
 }
 
-#pragma region Menu functions
+// Menu functions
 
 void showAppTitle(clinic clinic) {
   cout << endl
@@ -169,9 +169,7 @@ int requestMenuOption(clinic clinic) {
   return selectedOption;
 }
 
-#pragma endregion
-
-#pragma region Menu options
+// Menu options
 
 void registerNewMedicalSpeciality(clinic &clinic) {
   cout << "placeholder: Register new medical speciality";
@@ -202,5 +200,3 @@ void registerNewMedicalPatient() {
   cout << "placeholder: Register new medical patient";
 }
 void showMedicalPatients() { cout << "placeholder: Show medical patients"; }
-
-#pragma endregion

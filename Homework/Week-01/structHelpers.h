@@ -4,8 +4,6 @@
 
 using namespace std;
 
-#pragma region functions
-
 void dataInitialization(clinic &clinic) {
   clinic.address = "Calle Los Algoritmos #487, Pimentel";
   clinic.businessName = "La Clinica";
@@ -32,5 +30,3 @@ void dataInitialization(clinic &clinic) {
 void showMedicalSpeciality(medicalSpeciality medicalSpeciality) {
   cout << medicalSpeciality.name << endl;
 }
-
-#pragma endregion
