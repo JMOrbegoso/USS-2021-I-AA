@@ -172,8 +172,20 @@ int requestMenuOption(clinicStruct clinic) {
 // Menu options
 
 void registerNewMedicalSpeciality(clinicStruct &clinic) {
-  cout << "placeholder: Register new medical speciality";
+  medicalSpecialityStruct newMedicalSpeciality;
+  string name;
+  float price;
+
+  cout << "Va a registrar una nueva especialidad medica" << endl << endl;
+
+  name = requestText("Ingrese el nombre de la nueva especialidad medica", 3);
+  price = requestMoney("Ingrese el precio de la nueva especialidad medica", 1);
+
+  newMedicalSpeciality = buildMedicalSpecialityStruct(name, price);
+
+  addNewMedicalSpeciality(clinic, newMedicalSpeciality);
 }
+
 void showMedicalSpecialities(clinicStruct clinic) {
   cout << "Especialidades medicas en La Clinica" << endl;
 
@@ -186,17 +198,21 @@ void showMedicalSpecialities(clinicStruct clinic) {
 }
 
 void registerNewMedic() { cout << "placeholder: Register new medic"; }
+
 void showMedics() { cout << "placeholder: Show medics"; }
 
 void registerNewMedicalRoom() {
   cout << "placeholder: Register new medical rooms";
 }
+
 void showMedicalRooms() { cout << "placeholder: Show medical rooms"; }
 
 void registerNewNurse() { cout << "placeholder: Register new nurse"; }
+
 void showNurses() { cout << "placeholder: Show nurses"; }
 
 void registerNewMedicalPatient() {
   cout << "placeholder: Register new medical patient";
 }
+
 void showMedicalPatients() { cout << "placeholder: Show medical patients"; }

@@ -4,27 +4,70 @@
 
 using namespace std;
 
+// Forward declarations
+void collectionsInitialization(clinicStruct &clinic);
+medicalSpecialityStruct buildMedicalSpecialityStruct(string name, float price);
+void addNewMedicalSpeciality(clinicStruct &clinic,
+                             medicalSpecialityStruct newMedicalSpeciality);
+
+// Functions
+
+void collectionsInitialization(clinicStruct &clinic) {
+  clinic.medicalSpecialities.firstNode = NULL;
+  clinic.medicalSpecialities.length = 0;
+
+  clinic.nurses.firstNode = NULL;
+  clinic.nurses.length = 0;
+
+  clinic.medicalPatients.firstNode = NULL;
+  clinic.medicalPatients.length = 0;
+}
+
 void dataInitialization(clinicStruct &clinic) {
+
+  medicalSpecialityStruct pediatric;
+  medicalSpecialityStruct obstetrics;
+
   clinic.address = "Calle Los Algoritmos #487, Pimentel";
   clinic.businessName = "La Clinica";
   clinic.ruc = "12345678910";
 
-  /* pediatric area */
+  pediatric = buildMedicalSpecialityStruct("Pediatría", 400);
+  addNewMedicalSpeciality(clinic, pediatric);
 
-  medicalSpecialityStruct pediatric;
-  pediatric.name = "Pediatría";
-  pediatric.price = 400;
+  obstetrics = buildMedicalSpecialityStruct("Obstetricia", 300);
+  addNewMedicalSpeciality(clinic, obstetrics);
+}
 
-  medicalSpecialityNode pediatricNode;
-  pediatricNode.medicalSpeciality = pediatric;
-  pediatricNode.next = NULL;
+medicalSpecialityStruct buildMedicalSpecialityStruct(string name, float price) {
+  medicalSpecialityStruct newMedicalSpeciality;
+  newMedicalSpeciality.name = name;
+  newMedicalSpeciality.price = price;
 
-  clinic.medicalSpecialities.firstNode = &pediatricNode;
-  clinic.medicalSpecialities.length = 1;
+  return newMedicalSpeciality;
+}
 
-  /* obstetrics area */
+void addNewMedicalSpeciality(clinicStruct &clinic,
+                             medicalSpecialityStruct newMedicalSpeciality) {
+  medicalSpecialityNode *newNode = new medicalSpecialityNode();
 
-  medicalSpecialityStruct obstetrics;
+  medicalSpecialityNode *lastNode = clinic.medicalSpecialities.firstNode;
+
+  newNode->medicalSpeciality = newMedicalSpeciality;
+  newNode->next = NULL;
+
+  if (clinic.medicalSpecialities.firstNode == NULL) {
+    clinic.medicalSpecialities.firstNode = newNode;
+    return;
+  }
+
+  while (lastNode->next != NULL) {
+    lastNode = lastNode->next;
+  }
+
+  lastNode->next = newNode;
+
+  clinic.medicalSpecialities.length++;
 }
 
 void showMedicalSpeciality(medicalSpecialityStruct medicalSpeciality) {
