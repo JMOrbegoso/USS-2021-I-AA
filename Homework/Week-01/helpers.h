@@ -60,7 +60,7 @@ void addDelay(int sec) {
 #endif
 }
 
-string requestText(string message, int minLength) {
+string requestText(string message, long unsigned int minLength) {
   string text;
 
   cout << message << " (Mínimo " << minLength << " caracteres)" << endl;
@@ -73,7 +73,8 @@ string requestText(string message, int minLength) {
   return text;
 }
 
-string requestText(string message, int minLength, int maxLength) {
+string requestText(string message, long unsigned int minLength,
+                   long unsigned int maxLength) {
   string text;
 
   cout << message << " (Mínimo " << minLength << " y máximo " << maxLength
