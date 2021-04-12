@@ -4,13 +4,13 @@ using namespace std;
 
 // Forward declarations
 
-void updateClinicProperties(clinic &clinic);
+void updateClinicProperties(clinicStruct &clinic);
 
-void showAppTitle(clinic clinic);
-int requestMenuOption(clinic clinic);
+void showAppTitle(clinicStruct clinic);
+int requestMenuOption(clinicStruct clinic);
 
-void registerNewMedicalSpeciality(clinic &clinic);
-void showMedicalSpecialities(clinic clinic);
+void registerNewMedicalSpeciality(clinicStruct &clinic);
+void showMedicalSpecialities(clinicStruct clinic);
 
 void registerNewMedic();
 void showMedics();
@@ -26,7 +26,7 @@ void showMedicalPatients();
 
 // Main menu function
 
-void mainMenu(clinic &clinic) {
+void mainMenu(clinicStruct &clinic) {
 
   int selectedOption;
 
@@ -98,7 +98,7 @@ void mainMenu(clinic &clinic) {
 
 // Menu functions
 
-void showAppTitle(clinic clinic) {
+void showAppTitle(clinicStruct clinic) {
   cout << endl
        << "-----------------------------------------------------------" << endl;
   cout << "\t\t Sistema virtual de " << clinic.businessName << endl;
@@ -110,7 +110,7 @@ void showAppTitle(clinic clinic) {
        << "-----------------------------------------------------------" << endl;
 }
 
-void updateClinicProperties(clinic &clinic) {
+void updateClinicProperties(clinicStruct &clinic) {
 
   string businessName, address, ruc;
 
@@ -131,7 +131,7 @@ void updateClinicProperties(clinic &clinic) {
        << endl;
 }
 
-int requestMenuOption(clinic clinic) {
+int requestMenuOption(clinicStruct clinic) {
   int selectedOption;
 
   clearScreen();
@@ -171,13 +171,13 @@ int requestMenuOption(clinic clinic) {
 
 // Menu options
 
-void registerNewMedicalSpeciality(clinic &clinic) {
+void registerNewMedicalSpeciality(clinicStruct &clinic) {
   cout << "placeholder: Register new medical speciality";
 }
-void showMedicalSpecialities(clinic clinic) {
+void showMedicalSpecialities(clinicStruct clinic) {
   cout << "Especialidades medicas en La Clinica" << endl;
 
-  medicalSpecialityNode *node = clinic.medicalSpecialitiesList.firstNode;
+  medicalSpecialityNode *node = clinic.medicalSpecialities.firstNode;
 
   while (node != NULL) {
     showMedicalSpeciality(node->medicalSpeciality);

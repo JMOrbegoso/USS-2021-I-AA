@@ -3,7 +3,7 @@
 using namespace std;
 
 int main() {
-  clinic clinic;
+  clinicStruct clinic;
 
   dataInitialization(clinic);
 

@@ -4,7 +4,7 @@ using namespace std;
 
 /* Medic struct */
 
-struct medic {
+struct medicStruct {
   string code;
   string fistName;
   string lastName;
@@ -15,7 +15,7 @@ struct medic {
 };
 
 struct medicNode {
-  medic medic;
+  medicStruct medic;
   medicNode *next;
 };
 
@@ -26,7 +26,7 @@ struct medicsList {
 
 /* Medical Room struct */
 
-struct medicalRoom {
+struct medicalRoomStruct {
   int roomNumber;
   int floor;
   string address;
@@ -34,7 +34,7 @@ struct medicalRoom {
 };
 
 struct medicalRoomNode {
-  medicalRoom medicalRoom;
+  medicalRoomStruct medicalRoom;
   medicalRoomNode *next;
 };
 
@@ -45,7 +45,7 @@ struct medicalRoomsList {
 
 /* Medical Patient struct */
 
-struct medicalPatient {
+struct medicalPatientStruct {
   string firstName;
   string lastName;
   string address;
@@ -54,7 +54,7 @@ struct medicalPatient {
 };
 
 struct medicalPatientNode {
-  medicalPatient medicalPatient;
+  medicalPatientStruct medicalPatient;
   medicalPatientNode *next;
 };
 
@@ -65,14 +65,14 @@ struct medicalPatientsList {
 
 /* Nurse struct */
 
-struct nurse {
+struct nurseStruct {
   string firstName;
   string lastName;
   string dni;
 };
 
 struct nurseNode {
-  nurse nurse;
+  nurseStruct nurse;
   nurseNode *next;
 };
 
@@ -83,14 +83,14 @@ struct nursesList {
 
 /*
 
-struct receptionist {
+struct receptionistStruct {
   string firstName;
   string lastName;
   string dni;
 };
 
 struct receptionistNode {
-  receptionist receptionist;
+  receptionistStruct receptionist;
   receptionistNode *receptionistNode;
 };
 
@@ -102,17 +102,17 @@ struct receptionistsList {
 
 /* Medical Speciality struct  */
 
-struct medicalSpeciality {
+struct medicalSpecialityStruct {
   string name;
   float price;
   string employeeInChargeFirstName;
   string employeeInChargeLastName;
-  medicsList medicsList;
-  medicalRoomsList medicalRoomsList;
+  medicsList medics;
+  medicalRoomsList medicalRooms;
 };
 
 struct medicalSpecialityNode {
-  medicalSpeciality medicalSpeciality;
+  medicalSpecialityStruct medicalSpeciality;
   medicalSpecialityNode *next;
 };
 
@@ -123,11 +123,11 @@ struct medicalSpecialitiesList {
 
 /* Clinic struct */
 
-struct clinic {
+struct clinicStruct {
   string businessName;
   string ruc;
   string address;
-  medicalSpecialitiesList medicalSpecialitiesList;
-  medicalPatientsList medicalPatientsList;
-  nursesList nursesList;
+  medicalSpecialitiesList medicalSpecialities;
+  medicalPatientsList medicalPatients;
+  nursesList nurses;
 };
