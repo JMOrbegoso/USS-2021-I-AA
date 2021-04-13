@@ -81,7 +81,7 @@ struct nursesList {
   int length;
 };
 
-/*
+/* Nurse struct */
 
 struct receptionistStruct {
   string firstName;
@@ -91,24 +91,19 @@ struct receptionistStruct {
 
 struct receptionistNode {
   receptionistStruct receptionist;
-  receptionistNode *receptionistNode;
+  receptionistNode *next;
 };
 
 struct receptionistsList {
   receptionistNode *firstNode;
   int length;
 };
-*/
 
 /* Medical Speciality struct  */
 
 struct medicalSpecialityStruct {
   string name;
   float price;
-  string employeeInChargeFirstName;
-  string employeeInChargeLastName;
-  medicsList medics;
-  medicalRoomsList medicalRooms;
 };
 
 struct medicalSpecialityNode {
@@ -128,6 +123,9 @@ struct clinicStruct {
   string ruc;
   string address;
   medicalSpecialitiesList medicalSpecialities;
-  medicalPatientsList medicalPatients;
   nursesList nurses;
+  medicalPatientsList medicalPatients;
+  medicsList medics;
+  medicalRoomsList medicalRooms;
+  receptionistsList receptionists;
 };
