@@ -2,6 +2,23 @@
 
 using namespace std;
 
+/* Medical Speciality struct  */
+
+struct medicalSpecialityStruct {
+  string name;
+  float price;
+};
+
+struct medicalSpecialityNode {
+  medicalSpecialityStruct medicalSpeciality;
+  medicalSpecialityNode *next;
+};
+
+struct medicalSpecialitiesList {
+  medicalSpecialityNode *firstNode;
+  int length;
+};
+
 /* Medic struct */
 
 struct medicStruct {
@@ -43,23 +60,21 @@ struct medicalRoomsList {
   int length;
 };
 
-/* Medical Patient struct */
+/* receptionist struct */
 
-struct medicalPatientStruct {
+struct receptionistStruct {
   string firstName;
   string lastName;
-  string address;
-  string bornDate;
   string dni;
 };
 
-struct medicalPatientNode {
-  medicalPatientStruct medicalPatient;
-  medicalPatientNode *next;
+struct receptionistNode {
+  receptionistStruct receptionist;
+  receptionistNode *next;
 };
 
-struct medicalPatientsList {
-  medicalPatientNode *firstNode;
+struct receptionistsList {
+  receptionistNode *firstNode;
   int length;
 };
 
@@ -81,38 +96,23 @@ struct nursesList {
   int length;
 };
 
-/* Nurse struct */
+/* Medical Patient struct */
 
-struct receptionistStruct {
+struct medicalPatientStruct {
   string firstName;
   string lastName;
+  string address;
+  string bornDate;
   string dni;
 };
 
-struct receptionistNode {
-  receptionistStruct receptionist;
-  receptionistNode *next;
+struct medicalPatientNode {
+  medicalPatientStruct medicalPatient;
+  medicalPatientNode *next;
 };
 
-struct receptionistsList {
-  receptionistNode *firstNode;
-  int length;
-};
-
-/* Medical Speciality struct  */
-
-struct medicalSpecialityStruct {
-  string name;
-  float price;
-};
-
-struct medicalSpecialityNode {
-  medicalSpecialityStruct medicalSpeciality;
-  medicalSpecialityNode *next;
-};
-
-struct medicalSpecialitiesList {
-  medicalSpecialityNode *firstNode;
+struct medicalPatientsList {
+  medicalPatientNode *firstNode;
   int length;
 };
 
