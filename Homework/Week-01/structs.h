@@ -5,6 +5,7 @@ using namespace std;
 /* Medical Speciality struct  */
 
 struct medicalSpecialityStruct {
+  int id;
   string name;
   float price;
 };
@@ -29,6 +30,7 @@ struct medicStruct {
   string phoneNumber;
   float salary;
   string dni;
+  int medicalSpecialityId;
 };
 
 struct medicNode {
@@ -44,10 +46,12 @@ struct medicsList {
 /* Medical Room struct */
 
 struct medicalRoomStruct {
+  int id;
   int roomNumber;
   int floor;
   string address;
   string area;
+  int medicalSpecialityId;
 };
 
 struct medicalRoomNode {
@@ -66,6 +70,7 @@ struct receptionistStruct {
   string firstName;
   string lastName;
   string dni;
+  int medicalSpecialityId;
 };
 
 struct receptionistNode {
@@ -84,6 +89,7 @@ struct nurseStruct {
   string firstName;
   string lastName;
   string dni;
+  int medicalRoomId;
 };
 
 struct nurseNode {
@@ -104,6 +110,7 @@ struct medicalPatientStruct {
   string address;
   string bornDate;
   string dni;
+  int medicalRoomId;
 };
 
 struct medicalPatientNode {

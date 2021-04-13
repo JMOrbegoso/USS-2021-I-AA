@@ -281,3 +281,13 @@ string requestDate() {
 
   return toString(year) + "/" + months[selectedMonth] + "/" + toString(day);
 }
+
+bool contains(int *integerArray, int arrayLength, int integer) {
+  for (int i = 0; i < arrayLength; i++) {
+    if (integerArray[i] == integer) {
+      return true;
+    }
+  }
+
+  return false;
+}

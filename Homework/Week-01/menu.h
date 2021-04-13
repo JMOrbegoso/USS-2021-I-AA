@@ -189,16 +189,22 @@ int requestMenuOption(clinicStruct clinic) {
 
 void registerNewMedicalSpeciality(clinicStruct &clinic) {
   medicalSpecialityStruct newMedicalSpeciality;
+  int id;
   string name;
   float price;
 
   cout << "Va a registrar una nueva especialidad medica" << endl << endl;
 
+  do {
+    id = requestIntegerNumber("Ingrese el Id de la nueva especialidad medica, "
+                              "este no debe de estar repetido",
+                              1);
+  } while (checkIfIdExist(clinic.medicalSpecialities, id));
   name = requestText("Ingrese el nombre de la nueva especialidad medica", 3);
   price = requestMoney(
       "Ingrese el precio de consulta de la nueva especialidad medica", 1);
 
-  newMedicalSpeciality = buildMedicalSpeciality(name, price);
+  newMedicalSpeciality = buildMedicalSpeciality(id, name, price);
 
   addNewMedicalSpeciality(clinic, newMedicalSpeciality);
 
@@ -219,8 +225,8 @@ void showMedicalSpecialities(clinicStruct clinic) {
 }
 
 void registerNewNurse(clinicStruct &clinic) {
-
   nurseStruct newNurse;
+  int medicalRoomId;
   string firstName, lastName, dni;
 
   cout << "Va a registrar una nueva enfermera" << endl << endl;
@@ -228,8 +234,9 @@ void registerNewNurse(clinicStruct &clinic) {
   firstName = requestText("Ingrese el nombre de la nueva enfermera", 3);
   lastName = requestText("Ingrese el apellido de la nueva enfermera", 3);
   dni = requestDNI();
+  medicalRoomId = requestMedicalRoomId(clinic);
 
-  newNurse = buildNurse(firstName, lastName, dni);
+  newNurse = buildNurse(firstName, lastName, dni, medicalRoomId);
 
   addNewNurse(clinic, newNurse);
 
@@ -250,20 +257,21 @@ void showNurses(clinicStruct clinic) {
 }
 
 void registerNewMedicalPatient(clinicStruct &clinic) {
-
   medicalPatientStruct newMedicalPatient;
+  int medicalRoomId;
   string firstName, lastName, dni, address, bornDate;
 
   cout << "Va a registrar un nuevo paciente" << endl << endl;
 
+  medicalRoomId = requestMedicalRoomId(clinic);
   firstName = requestText("Ingrese el nombre del nuevo paciente", 3);
   lastName = requestText("Ingrese el apellido del nuevo paciente", 3);
   dni = requestDNI();
   address = requestText("Ingrese la dirección del nuevo paciente", 5);
   bornDate = requestDate();
 
-  newMedicalPatient =
-      buildMedicalPatient(firstName, lastName, dni, address, bornDate);
+  newMedicalPatient = buildMedicalPatient(firstName, lastName, dni, address,
+                                          bornDate, medicalRoomId);
 
   addNewMedicalPatient(clinic, newMedicalPatient);
 
@@ -284,13 +292,14 @@ void showMedicalPatients(clinicStruct clinic) {
 }
 
 void registerNewMedic(clinicStruct &clinic) {
-
   medicStruct newMedic;
+  int medicalSpecialityId;
   string firstName, lastName, phoneNumber, dni, address, code;
   float salary;
 
   cout << "Va a registrar un nuevo medico" << endl << endl;
 
+  medicalSpecialityId = requestMedicalSpecialityId(clinic);
   firstName = requestText("Ingrese el nombre del nuevo medico", 3);
   lastName = requestText("Ingrese el apellido del nuevo medico", 3);
   phoneNumber =
@@ -300,8 +309,8 @@ void registerNewMedic(clinicStruct &clinic) {
   code = requestText("Ingrese el codigo del nuevo medico", 2);
   salary = requestMoney("Cual es el salario del nuevo medico", 100);
 
-  newMedic =
-      buildMedic(firstName, lastName, phoneNumber, dni, address, code, salary);
+  newMedic = buildMedic(firstName, lastName, phoneNumber, dni, address, code,
+                        salary, medicalSpecialityId);
 
   addNewMedic(clinic, newMedic);
 
@@ -322,21 +331,27 @@ void showMedics(clinicStruct clinic) {
 }
 
 void registerNewMedicalRoom(clinicStruct &clinic) {
-
   medicalRoomStruct newMedicalRoom;
+  int id, floor, roomNumber, medicalSpecialityId;
   string area, address;
-  int floor, roomNumber;
 
   cout << "Va a registrar un nuevo consultorio medico" << endl << endl;
 
+  do {
+    id = requestIntegerNumber("Ingrese el Id del nuevo consultorio medico, "
+                              "este no debe de estar repetido",
+                              1);
+  } while (checkIfIdExist(clinic.medicalRooms, id));
   area = requestText("Ingrese el area del nuevo consultorio medico", 3);
   area = requestText("Ingrese la direccion del nuevo consultorio medico", 3);
   floor =
       requestIntegerNumber("Ingrese el piso del nuevo consultorio medico", 1);
   roomNumber =
       requestIntegerNumber("Ingrese el numero del nuevo consultorio medico", 1);
+  medicalSpecialityId = requestMedicalRoomId(clinic);
 
-  newMedicalRoom = buildMedicalRoom(area, address, floor, roomNumber);
+  newMedicalRoom = buildMedicalRoom(id, area, address, floor, roomNumber,
+                                    medicalSpecialityId);
 
   addNewMedicalRoom(clinic, newMedicalRoom);
 
@@ -357,17 +372,19 @@ void showMedicalRooms(clinicStruct clinic) {
 }
 
 void registerNewReceptionist(clinicStruct &clinic) {
-
   receptionistStruct newReceptionist;
+  int medicalSpecialityId;
   string firstName, lastName, dni;
 
   cout << "Va a registrar un nuevo consultorio medico" << endl << endl;
 
+  medicalSpecialityId = requestMedicalSpecialityId(clinic);
   firstName = requestText("Ingrese el nombre del recepcionista", 3);
   lastName = requestText("Ingrese el apellido del recepcionista", 3);
   dni = requestDNI();
 
-  newReceptionist = buildReceptionist(firstName, lastName, dni);
+  newReceptionist =
+      buildReceptionist(firstName, lastName, dni, medicalSpecialityId);
 
   addNewReceptionist(clinic, newReceptionist);
 
