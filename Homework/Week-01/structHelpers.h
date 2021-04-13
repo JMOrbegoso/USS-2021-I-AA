@@ -41,6 +41,14 @@ void dataInitialization(clinicStruct &clinic) {
   medicalSpecialityStruct pediatric;
   medicalSpecialityStruct obstetrics;
 
+  nurseStruct nurse_1;
+  nurseStruct nurse_2;
+  nurseStruct nurse_3;
+
+  medicalPatientStruct patient_1;
+  medicalPatientStruct patient_2;
+  medicalPatientStruct patient_3;
+
   clinic.address = "Calle Los Algoritmos #487, Pimentel";
   clinic.businessName = "La Clinica";
   clinic.ruc = "12345678910";
@@ -50,6 +58,23 @@ void dataInitialization(clinicStruct &clinic) {
 
   obstetrics = buildMedicalSpeciality("Obstetricia", 300);
   addNewMedicalSpeciality(clinic, obstetrics);
+
+  nurse_1 = buildNurse("Maria", "Rosas", "11111111");
+  addNewNurse(clinic, nurse_1);
+  nurse_2 = buildNurse("Julia", "Gomez", "22222222");
+  addNewNurse(clinic, nurse_2);
+  nurse_3 = buildNurse("Clara", "Garcia", "33333333");
+  addNewNurse(clinic, nurse_3);
+
+  patient_1 = buildMedicalPatient("Julio", "Rojas", "44444444",
+                                  "Av. Las Condes #444", "1980-01-01");
+  addNewMedicalPatient(clinic, patient_1);
+  patient_2 = buildMedicalPatient("Tulio", "Martinez", "55555555",
+                                  "Av. Los Geranios #444", "1981-01-01");
+  addNewMedicalPatient(clinic, patient_2);
+  patient_3 = buildMedicalPatient("Ramon", "Gonzales", "66666666",
+                                  "Av. Las Petunias #444", "1982-01-01");
+  addNewMedicalPatient(clinic, patient_3);
 }
 
 medicalSpecialityStruct buildMedicalSpeciality(string name, float price) {
@@ -176,7 +201,7 @@ void addNewMedicalPatient(clinicStruct &clinic,
 }
 
 void showMedicalSpeciality(medicalSpecialityStruct medicalSpeciality) {
-  cout << medicalSpeciality.name << endl;
+  cout << medicalSpeciality.name << "|" << medicalSpeciality.price << endl;
 }
 
 void showNurse(nurseStruct nurse) {

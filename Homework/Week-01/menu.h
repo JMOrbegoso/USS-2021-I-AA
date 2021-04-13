@@ -160,7 +160,7 @@ int requestMenuOption(clinicStruct clinic) {
 
   cout << endl << "Por favor ingrese una de las opciones:" << endl;
   cin >> selectedOption;
-  while (!(0 <= selectedOption && selectedOption <= 10)) {
+  while (!(0 <= selectedOption && selectedOption <= 11)) {
     cout << "La opcion seleccionada fue inválida, por favor seleccione una "
             "opcion válida:"
          << endl;
@@ -215,7 +215,7 @@ void registerNewNurse(clinicStruct &clinic) {
 
   addNewNurse(clinic, newNurse);
 
-  cout << "La especialidad medica ha sido registrada correctamente";
+  cout << "La enfermera ha sido registrada correctamente";
 }
 
 void showNurses(clinicStruct clinic) {
@@ -247,7 +247,7 @@ void registerNewMedicalPatient(clinicStruct &clinic) {
 
   addNewMedicalPatient(clinic, newMedicalPatient);
 
-  cout << "La especialidad medica ha sido registrada correctamente";
+  cout << "El paciente ha sido registrado correctamente";
 }
 
 void showMedicalPatients(clinicStruct clinic) {
@@ -262,13 +262,13 @@ void showMedicalPatients(clinicStruct clinic) {
 }
 
 void registerNewMedic(clinicStruct &clinic) {
-  cout << "La especialidad medica ha sido registrada correctamente";
+  cout << "El medico ha sido registrado correctamente";
 }
 
 void showMedics(clinicStruct clinic) { cout << "placeholder: Show medics"; }
 
 void registerNewMedicalRoom(clinicStruct &clinic) {
-  cout << "La especialidad medica ha sido registrada correctamente";
+  cout << "El consultorio ha sido registrado correctamente";
 }
 
 void showMedicalRooms(clinicStruct clinic) {
