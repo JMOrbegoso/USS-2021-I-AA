@@ -12,17 +12,17 @@ int requestMenuOption(clinicStruct clinic);
 void registerNewMedicalSpeciality(clinicStruct &clinic);
 void showMedicalSpecialities(clinicStruct clinic);
 
-void registerNewMedic();
-void showMedics();
+void registerNewNurse(clinicStruct &clinic);
+void showNurses(clinicStruct clinic);
 
-void registerNewMedicalRoom();
-void showMedicalRooms();
+void registerNewMedicalPatient(clinicStruct &clinic);
+void showMedicalPatients(clinicStruct clinic);
 
-void registerNewNurse();
-void showNurses();
+void registerNewMedic(clinicStruct &clinic);
+void showMedics(clinicStruct clinic);
 
-void registerNewMedicalPatient();
-void showMedicalPatients();
+void registerNewMedicalRoom(clinicStruct &clinic);
+void showMedicalRooms(clinicStruct clinic);
 
 // Main menu function
 
@@ -51,42 +51,42 @@ void mainMenu(clinicStruct &clinic) {
         break;
 
       case 4:
-        registerNewMedic();
+        registerNewMedic(clinic);
         addDelay(3);
         break;
 
       case 5:
-        showMedics();
+        showMedics(clinic);
         pauseProcess();
         break;
 
       case 6:
-        registerNewMedicalRoom();
+        registerNewMedicalRoom(clinic);
         addDelay(3);
         break;
 
       case 7:
-        showMedicalRooms();
+        showMedicalRooms(clinic);
         pauseProcess();
         break;
 
       case 8:
-        registerNewNurse();
+        registerNewNurse(clinic);
         addDelay(3);
         break;
 
       case 9:
-        showNurses();
+        showNurses(clinic);
         pauseProcess();
         break;
 
       case 10:
-        registerNewMedicalPatient();
+        registerNewMedicalPatient(clinic);
         addDelay(3);
         break;
 
       case 11:
-        showMedicalPatients();
+        showMedicalPatients(clinic);
         pauseProcess();
         break;
       }
@@ -179,15 +179,18 @@ void registerNewMedicalSpeciality(clinicStruct &clinic) {
   cout << "Va a registrar una nueva especialidad medica" << endl << endl;
 
   name = requestText("Ingrese el nombre de la nueva especialidad medica", 3);
-  price = requestMoney("Ingrese el precio de la nueva especialidad medica", 1);
+  price = requestMoney(
+      "Ingrese el precio de consulta de la nueva especialidad medica", 1);
 
-  newMedicalSpeciality = buildMedicalSpecialityStruct(name, price);
+  newMedicalSpeciality = buildMedicalSpeciality(name, price);
 
   addNewMedicalSpeciality(clinic, newMedicalSpeciality);
+
+  cout << "La especialidad medica ha sido registrada correctamente";
 }
 
 void showMedicalSpecialities(clinicStruct clinic) {
-  cout << "Especialidades medicas en La Clinica" << endl;
+  cout << "Especialidades medicas en " << clinic.businessName << endl;
 
   medicalSpecialityNode *node = clinic.medicalSpecialities.firstNode;
 
@@ -197,22 +200,77 @@ void showMedicalSpecialities(clinicStruct clinic) {
   }
 }
 
-void registerNewMedic() { cout << "placeholder: Register new medic"; }
+void registerNewNurse(clinicStruct &clinic) {
 
-void showMedics() { cout << "placeholder: Show medics"; }
+  nurseStruct newNurse;
+  string firstName, lastName, dni;
 
-void registerNewMedicalRoom() {
-  cout << "placeholder: Register new medical rooms";
+  cout << "Va a registrar una nueva enfermera" << endl << endl;
+
+  firstName = requestText("Ingrese el nombre de la nueva enfermera", 3);
+  lastName = requestText("Ingrese el apellido de la nueva enfermera", 3);
+  dni = requestDNI();
+
+  newNurse = buildNurse(firstName, lastName, dni);
+
+  addNewNurse(clinic, newNurse);
+
+  cout << "La especialidad medica ha sido registrada correctamente";
 }
 
-void showMedicalRooms() { cout << "placeholder: Show medical rooms"; }
+void showNurses(clinicStruct clinic) {
+  cout << "Enfermeras en " << clinic.businessName << endl;
 
-void registerNewNurse() { cout << "placeholder: Register new nurse"; }
+  nurseNode *node = clinic.nurses.firstNode;
 
-void showNurses() { cout << "placeholder: Show nurses"; }
-
-void registerNewMedicalPatient() {
-  cout << "placeholder: Register new medical patient";
+  while (node != NULL) {
+    showNurse(node->nurse);
+    node = node->next;
+  }
 }
 
-void showMedicalPatients() { cout << "placeholder: Show medical patients"; }
+void registerNewMedicalPatient(clinicStruct &clinic) {
+
+  medicalPatientStruct newMedicalPatient;
+  string firstName, lastName, dni, address, bornDate;
+
+  cout << "Va a registrar un nuevo paciente" << endl << endl;
+
+  firstName = requestText("Ingrese el nombre del nuevo paciente", 3);
+  lastName = requestText("Ingrese el apellido del nuevo paciente", 3);
+  dni = requestDNI();
+  address = requestText("Ingrese la dirección del nuevo paciente", 5);
+  bornDate = requestDate();
+
+  newMedicalPatient =
+      buildMedicalPatient(firstName, lastName, dni, address, bornDate);
+
+  addNewMedicalPatient(clinic, newMedicalPatient);
+
+  cout << "La especialidad medica ha sido registrada correctamente";
+}
+
+void showMedicalPatients(clinicStruct clinic) {
+  cout << "Pacientes en " << clinic.businessName << endl;
+
+  medicalPatientNode *node = clinic.medicalPatients.firstNode;
+
+  while (node != NULL) {
+    showMedicalPatient(node->medicalPatient);
+    node = node->next;
+  }
+}
+
+void registerNewMedic(clinicStruct &clinic) {
+  cout << "La especialidad medica ha sido registrada correctamente";
+}
+
+void showMedics(clinicStruct clinic) { cout << "placeholder: Show medics"; }
+
+void registerNewMedicalRoom(clinicStruct &clinic) {
+  cout << "La especialidad medica ha sido registrada correctamente";
+}
+
+void showMedicalRooms(clinicStruct clinic) {
+  cout << "placeholder: Show medical rooms";
+}

@@ -7,7 +7,7 @@ using namespace std;
 // Forward declarations
 void collectionsInitialization(clinicStruct &clinic);
 
-medicalSpecialityStruct buildMedicalSpecialityStruct(string name, float price);
+medicalSpecialityStruct buildMedicalSpeciality(string name, float price);
 nurseStruct buildNurse(string firstName, string lastName, string dni);
 medicalPatientStruct buildMedicalPatient(string firstName, string lastName,
                                          string dni, string address,
@@ -45,14 +45,14 @@ void dataInitialization(clinicStruct &clinic) {
   clinic.businessName = "La Clinica";
   clinic.ruc = "12345678910";
 
-  pediatric = buildMedicalSpecialityStruct("Pediatría", 400);
+  pediatric = buildMedicalSpeciality("Pediatría", 400);
   addNewMedicalSpeciality(clinic, pediatric);
 
-  obstetrics = buildMedicalSpecialityStruct("Obstetricia", 300);
+  obstetrics = buildMedicalSpeciality("Obstetricia", 300);
   addNewMedicalSpeciality(clinic, obstetrics);
 }
 
-medicalSpecialityStruct buildMedicalSpecialityStruct(string name, float price) {
+medicalSpecialityStruct buildMedicalSpeciality(string name, float price) {
   medicalSpecialityStruct newMedicalSpeciality;
   newMedicalSpeciality.name = name;
   newMedicalSpeciality.price = price;
@@ -177,4 +177,20 @@ void addNewMedicalPatient(clinicStruct &clinic,
 
 void showMedicalSpeciality(medicalSpecialityStruct medicalSpeciality) {
   cout << medicalSpeciality.name << endl;
+}
+
+void showNurse(nurseStruct nurse) {
+  cout << nurse.firstName << "|" << nurse.lastName << endl;
+}
+
+void showMedicalPatient(medicalPatientStruct medicalPatient) {
+  cout << medicalPatient.firstName << endl;
+}
+
+void showMedicalRoom(medicalRoomStruct medicalRoom) {
+  cout << medicalRoom.address << endl;
+}
+
+void showMedic(medicStruct medic) {
+  cout << medic.firstName << " |" << medic.lastName;
 }
