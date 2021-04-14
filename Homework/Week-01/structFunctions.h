@@ -35,6 +35,10 @@ void addToCollection(clinicStruct &clinic, medicStruct newMedic);
 void addToCollection(clinicStruct &clinic, medicalRoomStruct newMedicalRoom);
 void addToCollection(clinicStruct &clinic, receptionistStruct newReceptionist);
 
+string getMedicalSpecialityName(medicalSpecialitiesList medicalSpecialities,
+                                int medicalSpecialityId);
+string getMedicalRoomNumber(medicalRoomsList medicalRooms, int medicalRoomId);
+
 // Functions
 
 void collectionsInitialization(clinicStruct &clinic) {
@@ -444,33 +448,111 @@ void addToCollection(clinicStruct &clinic, receptionistStruct newReceptionist) {
 }
 
 void showMedicalSpeciality(medicalSpecialityStruct medicalSpeciality, int i) {
-  cout << "#" << i << "-" << medicalSpeciality.name << "|"
-       << medicalSpeciality.price << endl;
+  gotoxy(0, 13 + i);
+  cout << i;
+  gotoxy(5, 13 + i);
+  cout << medicalSpeciality.id;
+  gotoxy(20, 13 + i);
+  cout << medicalSpeciality.name;
+  gotoxy(40, 13 + i);
+  cout << medicalSpeciality.price;
 }
 
-void showNurse(nurseStruct nurse, int i) {
-  cout << "#" << i << "-" << nurse.firstName << "|" << nurse.lastName << endl;
+void showNurse(medicalRoomsList medicalRooms, nurseStruct nurse, int i) {
+  gotoxy(0, 13 + i);
+  cout << i;
+  gotoxy(5, 13 + i);
+  cout << nurse.firstName;
+  gotoxy(20, 13 + i);
+  cout << nurse.lastName;
+  gotoxy(40, 13 + i);
+  cout << nurse.dni;
+  gotoxy(50, 13 + i);
+  cout << getGenre(nurse.genre);
+  gotoxy(60, 13 + i);
+  cout << getMedicalRoomNumber(medicalRooms, nurse.medicalRoomId);
 }
 
-void showMedicalPatient(medicalPatientStruct medicalPatient, int i) {
-  cout << "#" << i << "-" << medicalPatient.firstName << endl;
+void showMedicalPatient(medicalRoomsList medicalRooms,
+                        medicalPatientStruct medicalPatient, int i) {
+  gotoxy(0, 13 + i);
+  cout << i;
+  gotoxy(5, 13 + i);
+  cout << medicalPatient.firstName;
+  gotoxy(20, 13 + i);
+  cout << medicalPatient.lastName;
+  gotoxy(35, 13 + i);
+  cout << medicalPatient.address;
+  gotoxy(60, 13 + i);
+  cout << medicalPatient.bornDate;
+  gotoxy(75, 13 + i);
+  cout << medicalPatient.dni;
+  gotoxy(85, 13 + i);
+  cout << getGenre(medicalPatient.genre);
+  gotoxy(98, 13 + i);
+  cout << getMedicalRoomNumber(medicalRooms, medicalPatient.medicalRoomId);
 }
 
-void showMedicalRoom(medicalRoomStruct medicalRoom, int i) {
-  cout << "#" << i << "-" << medicalRoom.address << endl;
+void showMedicalRoom(medicalSpecialitiesList medicalSpecialities,
+                     medicalRoomStruct medicalRoom, int i) {
+  gotoxy(0, 13 + i);
+  cout << i;
+  gotoxy(5, 13 + i);
+  cout << medicalRoom.roomCode;
+  gotoxy(20, 13 + i);
+  cout << medicalRoom.floor;
+  gotoxy(35, 13 + i);
+  cout << medicalRoom.address;
+  gotoxy(60, 13 + i);
+  cout << medicalRoom.area;
+  gotoxy(70, 13 + i);
+  cout << getMedicalSpecialityName(medicalSpecialities,
+                                   medicalRoom.medicalSpecialityId);
 }
 
-void showMedic(medicStruct medic, int i) {
-  cout << "#" << i << "-" << medic.firstName << " |" << medic.lastName << endl;
+void showMedic(medicalSpecialitiesList medicalSpecialities, medicStruct medic,
+               int i) {
+  gotoxy(0, 13 + i);
+  cout << i;
+  gotoxy(5, 13 + i);
+  cout << medic.firstName;
+  gotoxy(20, 13 + i);
+  cout << medic.lastName;
+  gotoxy(35, 13 + i);
+  cout << medic.address;
+  gotoxy(60, 13 + i);
+  cout << medic.code;
+  gotoxy(70, 13 + i);
+  cout << medic.dni;
+  gotoxy(80, 13 + i);
+  cout << getGenre(medic.genre);
+  gotoxy(93, 13 + i);
+  cout << getMedicalSpecialityName(medicalSpecialities,
+                                   medic.medicalSpecialityId);
+  gotoxy(108, 13 + i);
+  cout << medic.salary;
 }
 
-void showReceptionist(receptionistStruct receptionist, int i) {
-  cout << "#" << i << "-" << receptionist.firstName << "|"
-       << receptionist.lastName << "|" << receptionist.dni << endl;
+void showReceptionist(medicalSpecialitiesList medicalSpecialities,
+                      receptionistStruct receptionist, int i) {
+  gotoxy(0, 13 + i);
+  cout << i;
+  gotoxy(5, 13 + i);
+  cout << receptionist.firstName;
+  gotoxy(20, 13 + i);
+  cout << receptionist.lastName;
+  gotoxy(35, 13 + i);
+  cout << receptionist.dni;
+  gotoxy(45, 13 + i);
+  cout << getGenre(receptionist.genre);
+  gotoxy(55, 13 + i);
+  cout << getMedicalSpecialityName(medicalSpecialities,
+                                   receptionist.medicalSpecialityId);
 }
 
-string getMedicalSpecialityName(clinicStruct clinic, int medicalSpecialityId) {
-  medicalSpecialityNode *node = clinic.medicalSpecialities.firstNode;
+string getMedicalSpecialityName(medicalSpecialitiesList medicalSpecialities,
+                                int medicalSpecialityId) {
+  medicalSpecialityNode *node = medicalSpecialities.firstNode;
 
   while (node != NULL) {
     if (node->medicalSpeciality.id == medicalSpecialityId)
@@ -481,8 +563,8 @@ string getMedicalSpecialityName(clinicStruct clinic, int medicalSpecialityId) {
   return "ERROR";
 }
 
-string getMedicalRoomNumber(clinicStruct clinic, int medicalRoomId) {
-  medicalRoomNode *node = clinic.medicalRooms.firstNode;
+string getMedicalRoomNumber(medicalRoomsList medicalRooms, int medicalRoomId) {
+  medicalRoomNode *node = medicalRooms.firstNode;
 
   while (node != NULL) {
     if (node->medicalRoom.id == medicalRoomId)

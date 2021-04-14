@@ -208,9 +208,22 @@ void registerNewMedicalSpeciality(clinicStruct &clinic) {
 }
 
 void showMedicalSpecialities(clinicStruct clinic) {
+  clearScreen();
+  showAppTitle(clinic);
+
+  gotoxy(10, 10);
   cout << "Especialidades medicas en " << clinic.businessName << endl;
 
   medicalSpecialityNode *node = clinic.medicalSpecialities.firstNode;
+
+  gotoxy(0, 12);
+  cout << "#";
+  gotoxy(5, 12);
+  cout << "Id";
+  gotoxy(20, 12);
+  cout << "Nombre";
+  gotoxy(40, 12);
+  cout << "Precio";
 
   int i = 1;
   while (node != NULL) {
@@ -218,6 +231,8 @@ void showMedicalSpecialities(clinicStruct clinic) {
     node = node->next;
     i++;
   }
+
+  cout << endl << endl;
 }
 
 void registerNewNurse(clinicStruct &clinic) {
@@ -242,16 +257,35 @@ void registerNewNurse(clinicStruct &clinic) {
 }
 
 void showNurses(clinicStruct clinic) {
+  clearScreen();
+  showAppTitle(clinic);
+
+  gotoxy(10, 10);
   cout << "Enfermeras en " << clinic.businessName << endl;
 
   nurseNode *node = clinic.nurses.firstNode;
 
+  gotoxy(0, 12);
+  cout << "#";
+  gotoxy(5, 12);
+  cout << "Nombres";
+  gotoxy(20, 12);
+  cout << "Apellidos";
+  gotoxy(40, 12);
+  cout << "DNI";
+  gotoxy(50, 12);
+  cout << "Genero";
+  gotoxy(60, 12);
+  cout << "Consultorio";
+
   int i = 1;
   while (node != NULL) {
-    showNurse(node->nurse, i);
+    showNurse(clinic.medicalRooms, node->nurse, i);
     node = node->next;
     i++;
   }
+
+  cout << endl << endl;
 }
 
 void registerNewMedicalPatient(clinicStruct &clinic) {
@@ -279,16 +313,39 @@ void registerNewMedicalPatient(clinicStruct &clinic) {
 }
 
 void showMedicalPatients(clinicStruct clinic) {
+  clearScreen();
+  showAppTitle(clinic);
+
+  gotoxy(10, 10);
   cout << "Pacientes en " << clinic.businessName << endl;
 
   medicalPatientNode *node = clinic.medicalPatients.firstNode;
 
+  gotoxy(0, 12);
+  cout << "#";
+  gotoxy(5, 12);
+  cout << "Nombres";
+  gotoxy(20, 12);
+  cout << "Apellidos";
+  gotoxy(35, 12);
+  cout << "Dirección";
+  gotoxy(55, 12);
+  cout << "Fecha Nacimiento";
+  gotoxy(75, 12);
+  cout << "DNI";
+  gotoxy(85, 12);
+  cout << "Genero";
+  gotoxy(98, 12);
+  cout << "Consultorio";
+
   int i = 1;
   while (node != NULL) {
-    showMedicalPatient(node->medicalPatient, i);
+    showMedicalPatient(clinic.medicalRooms, node->medicalPatient, i);
     node = node->next;
     i++;
   }
+
+  cout << endl << endl;
 }
 
 void registerNewMedic(clinicStruct &clinic) {
@@ -320,16 +377,41 @@ void registerNewMedic(clinicStruct &clinic) {
 }
 
 void showMedics(clinicStruct clinic) {
+  clearScreen();
+  showAppTitle(clinic);
+
+  gotoxy(10, 10);
   cout << "Medicos en " << clinic.businessName << endl;
 
   medicNode *node = clinic.medics.firstNode;
 
+  gotoxy(0, 12);
+  cout << "#";
+  gotoxy(5, 12);
+  cout << "Nombres";
+  gotoxy(20, 12);
+  cout << "Apellidos";
+  gotoxy(35, 12);
+  cout << "Dirección";
+  gotoxy(60, 12);
+  cout << "Codigo";
+  gotoxy(70, 12);
+  cout << "DNI";
+  gotoxy(80, 12);
+  cout << "Genero";
+  gotoxy(93, 12);
+  cout << "Especialidad";
+  gotoxy(108, 12);
+  cout << "Salario";
+
   int i = 1;
   while (node != NULL) {
-    showMedic(node->medic, i);
+    showMedic(clinic.medicalSpecialities, node->medic, i);
     node = node->next;
     i++;
   }
+
+  cout << endl << endl;
 }
 
 void registerNewMedicalRoom(clinicStruct &clinic) {
@@ -356,16 +438,35 @@ void registerNewMedicalRoom(clinicStruct &clinic) {
 }
 
 void showMedicalRooms(clinicStruct clinic) {
+  clearScreen();
+  showAppTitle(clinic);
+
+  gotoxy(10, 10);
   cout << "Consultorios en " << clinic.businessName << endl;
 
   medicalRoomNode *node = clinic.medicalRooms.firstNode;
 
+  gotoxy(0, 12);
+  cout << "#";
+  gotoxy(5, 12);
+  cout << "Codigo";
+  gotoxy(20, 12);
+  cout << "Piso";
+  gotoxy(35, 12);
+  cout << "Dirección";
+  gotoxy(60, 12);
+  cout << "Area";
+  gotoxy(70, 12);
+  cout << "Especialidad Medica";
+
   int i = 1;
   while (node != NULL) {
-    showMedicalRoom(node->medicalRoom, i);
+    showMedicalRoom(clinic.medicalSpecialities, node->medicalRoom, i);
     node = node->next;
     i++;
   }
+
+  cout << endl << endl;
 }
 
 void registerNewReceptionist(clinicStruct &clinic) {
@@ -391,14 +492,33 @@ void registerNewReceptionist(clinicStruct &clinic) {
 }
 
 void showReceptionists(clinicStruct clinic) {
+  clearScreen();
+  showAppTitle(clinic);
+
+  gotoxy(10, 10);
   cout << "Recepcionistas en " << clinic.businessName << endl;
 
   receptionistNode *node = clinic.receptionists.firstNode;
 
+  gotoxy(0, 12);
+  cout << "#";
+  gotoxy(5, 12);
+  cout << "Nombres";
+  gotoxy(20, 12);
+  cout << "Apellidos";
+  gotoxy(35, 12);
+  cout << "DNI";
+  gotoxy(45, 12);
+  cout << "Genero";
+  gotoxy(55, 12);
+  cout << "Especialidad";
+
   int i = 1;
   while (node != NULL) {
-    showReceptionist(node->receptionist, i);
+    showReceptionist(clinic.medicalSpecialities, node->receptionist, i);
     node = node->next;
     i++;
   }
+
+  cout << endl << endl;
 }
