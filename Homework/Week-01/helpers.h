@@ -85,6 +85,16 @@ void gotoxy(int x, int y) {
 #endif
 }
 
+bool contains(int *integerArray, int arrayLength, int integer) {
+  for (int i = 0; i < arrayLength; i++) {
+    if (integerArray[i] == integer) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 string requestText(string message, long unsigned int minLength) {
   string text;
 
@@ -113,14 +123,16 @@ string requestText(string message, long unsigned int minLength,
   return text;
 }
 
-char requestGenre() {
+char requestGenre(string message) {
   char genre;
 
-  cout << "¿Es de genero masculino (m) o femenino (f)?" << endl;
+  cout << message
+       << "Ingrese 'm' para genero masculino o 'f' para genero femenino?"
+       << endl;
   cin >> genre;
 
   while (!(genre == 'm' || genre == 'f')) {
-    cout << "Por favor, solo ingrese 'm' o 'f':" << endl;
+    cout << "Por favor, ingrese solo 'm' o 'f':" << endl;
     fflush(stdin);
     cin >> genre;
   }
@@ -157,34 +169,6 @@ int requestIntegerNumber(string message, int min, int max) {
   }
 
   return integer;
-}
-
-int requestAge(int minAge) {
-  return requestIntegerNumber("¿Cúal es su edad?", 18);
-}
-
-string requestDNI() {
-  string dni;
-
-  dni = requestText("¿Cúal es su DNI?", 8, 8);
-
-  return dni;
-}
-
-string requestRUC() {
-  string dni;
-
-  dni = requestText("¿Cúal es el RUC?", 11, 11);
-
-  return dni;
-}
-
-string requestPassword() {
-  string clave;
-
-  clave = requestText("¿Cúal es su clave?", 6);
-
-  return clave;
 }
 
 float requestMoney(string message, int min) {
@@ -224,11 +208,11 @@ string requestSearchTerm() {
   return requestText("Ingrese el termino de busqueda", 2);
 }
 
-string requestDate() {
+string requestDate(string message) {
   string date;
 
   // Year
-  int year = requestIntegerNumber("¿Cúal es el año actual?", 2000, 2050);
+  int year = requestIntegerNumber("Año:", 1900, 2050);
 
   // Month
   int selectedMonth;
@@ -246,7 +230,7 @@ string requestDate() {
   months[10] = "Noviembre";
   months[11] = "Diciembre";
 
-  cout << endl << "¿Hoy en que mes no encontramos?" << endl << endl;
+  cout << endl << "Mes:" << endl << endl;
 
   for (int i = 0; i < 12; i++) {
     cout << "[" << (i + 1) << "] " << months[i] << endl;
@@ -277,17 +261,7 @@ string requestDate() {
   }
 
   // Day
-  int day = requestIntegerNumber("¿Hoy que día del mes es?", 1, maxDays);
+  int day = requestIntegerNumber("Día del mes:", 1, maxDays);
 
   return toString(year) + "/" + months[selectedMonth] + "/" + toString(day);
-}
-
-bool contains(int *integerArray, int arrayLength, int integer) {
-  for (int i = 0; i < arrayLength; i++) {
-    if (integerArray[i] == integer) {
-      return true;
-    }
-  }
-
-  return false;
 }

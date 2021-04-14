@@ -135,7 +135,7 @@ void updateClinicProperties(clinicStruct &clinic) {
       requestText("Ingrese la nueva dirección de la institución medica", 5);
   clinic.address = address;
 
-  ruc = requestRUC();
+  ruc = requestText("Ingrese el RUC de la institución medica:", 11, 11);
   clinic.ruc = ruc;
 
   cout << endl
@@ -233,7 +233,7 @@ void registerNewNurse(clinicStruct &clinic) {
 
   firstName = requestText("Ingrese el nombre de la nueva enfermera", 3);
   lastName = requestText("Ingrese el apellido de la nueva enfermera", 3);
-  dni = requestDNI();
+  dni = requestText("Ingrese el DNI de la nueva enfermera", 8, 8);
   medicalRoomId = requestMedicalRoomId(clinic);
 
   newNurse = buildNurse(firstName, lastName, dni, medicalRoomId);
@@ -266,9 +266,9 @@ void registerNewMedicalPatient(clinicStruct &clinic) {
   medicalRoomId = requestMedicalRoomId(clinic);
   firstName = requestText("Ingrese el nombre del nuevo paciente", 3);
   lastName = requestText("Ingrese el apellido del nuevo paciente", 3);
-  dni = requestDNI();
+  dni = requestText("Ingrese el DNI del nuevo paciente", 8, 8);
   address = requestText("Ingrese la dirección del nuevo paciente", 5);
-  bornDate = requestDate();
+  bornDate = requestDate("Ingrese la fecha de nacimiento del nuevo paciente");
 
   newMedicalPatient = buildMedicalPatient(firstName, lastName, dni, address,
                                           bornDate, medicalRoomId);
@@ -304,7 +304,7 @@ void registerNewMedic(clinicStruct &clinic) {
   lastName = requestText("Ingrese el apellido del nuevo medico", 3);
   phoneNumber =
       requestText("Ingrese el numero telefonico del nuevo medico", 9, 9);
-  dni = requestDNI();
+  dni = requestText("Ingrese el DNI del nuevo medico", 8, 8);
   address = requestText("Ingrese la dirección del nuevo medico", 5);
   code = requestText("Ingrese el codigo del nuevo medico", 2);
   salary = requestMoney("Cual es el salario del nuevo medico", 100);
@@ -379,9 +379,9 @@ void registerNewReceptionist(clinicStruct &clinic) {
   cout << "Va a registrar un nuevo consultorio medico" << endl << endl;
 
   medicalSpecialityId = requestMedicalSpecialityId(clinic);
-  firstName = requestText("Ingrese el nombre del recepcionista", 3);
-  lastName = requestText("Ingrese el apellido del recepcionista", 3);
-  dni = requestDNI();
+  firstName = requestText("Ingrese el nombre del nuevo recepcionista", 3);
+  lastName = requestText("Ingrese el apellido del nuevo recepcionista", 3);
+  dni = requestText("Ingrese el DNI del nuevo recepcionista", 8, 8);
 
   newReceptionist =
       buildReceptionist(firstName, lastName, dni, medicalSpecialityId);
