@@ -95,6 +95,15 @@ bool contains(int *integerArray, int arrayLength, int integer) {
   return false;
 }
 
+string getGenre(char genre) {
+  if (genre == 'm')
+    return "masculino";
+  else if (genre == 'f')
+    return "femenino";
+  else
+    return "genero no valido";
+}
+
 string requestText(string message, long unsigned int minLength) {
   string text;
 

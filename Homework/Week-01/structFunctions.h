@@ -17,7 +17,7 @@ medicalPatientStruct buildMedicalPatient(string firstName, string lastName,
                                          string bornDate, char genre,
                                          int medicalRoomId);
 medicalRoomStruct buildMedicalRoom(int medicalRoomId, string area,
-                                   string address, int floor, int roomNumber,
+                                   string address, int floor, string roomCode,
                                    int medicalSpecialityId);
 medicStruct buildMedic(string firstName, string lastName, string phoneNumber,
                        string dni, string address, string code, float salary,
@@ -89,8 +89,10 @@ void dataInitialization(clinicStruct &clinic) {
   addToCollection(clinic, pediatric);
   addToCollection(clinic, obstetrics);
 
-  medicalRoom_1 = buildMedicalRoom(1, "A-1", "Av. Algoritmos #200", 2, 200, 1);
-  medicalRoom_2 = buildMedicalRoom(2, "A-2", "Av. Algoritmos #200", 3, 300, 2);
+  medicalRoom_1 =
+      buildMedicalRoom(1, "A-1", "Av. Algoritmos #200", 2, "A-200", 1);
+  medicalRoom_2 =
+      buildMedicalRoom(2, "A-2", "Av. Algoritmos #200", 3, "A-300", 2);
 
   addToCollection(clinic, medicalRoom_1);
   addToCollection(clinic, medicalRoom_2);
@@ -190,7 +192,7 @@ int requestMedicalRoomId(clinicStruct clinic) {
   cout << endl << "Escoja un consultorio:" << endl << endl;
 
   while (node != NULL) {
-    cout << "[" << i << "] - " << node->medicalRoom.roomNumber << endl;
+    cout << "[" << i << "] - " << node->medicalRoom.roomCode << endl;
     validOptions[i] = node->medicalRoom.id;
     node = node->next;
     i++;
@@ -264,14 +266,14 @@ medicalPatientStruct buildMedicalPatient(string firstName, string lastName,
 }
 
 medicalRoomStruct buildMedicalRoom(int medicalRoomId, string area,
-                                   string address, int floor, int roomNumber,
+                                   string address, int floor, string roomCode,
                                    int medicalSpecialityId) {
   medicalRoomStruct medicalRoom;
   medicalRoom.id = medicalRoomId;
   medicalRoom.area = area;
   medicalRoom.address = address;
   medicalRoom.floor = floor;
-  medicalRoom.roomNumber = roomNumber;
+  medicalRoom.roomCode = roomCode;
   medicalRoom.medicalSpecialityId = medicalSpecialityId;
 
   return medicalRoom;
@@ -465,4 +467,28 @@ void showMedic(medicStruct medic, int i) {
 void showReceptionist(receptionistStruct receptionist, int i) {
   cout << "#" << i << "-" << receptionist.firstName << "|"
        << receptionist.lastName << "|" << receptionist.dni << endl;
+}
+
+string getMedicalSpecialityName(clinicStruct clinic, int medicalSpecialityId) {
+  medicalSpecialityNode *node = clinic.medicalSpecialities.firstNode;
+
+  while (node != NULL) {
+    if (node->medicalSpeciality.id == medicalSpecialityId)
+      return node->medicalSpeciality.name;
+
+    node = node->next;
+  }
+  return "ERROR";
+}
+
+string getMedicalRoomNumber(clinicStruct clinic, int medicalRoomId) {
+  medicalRoomNode *node = clinic.medicalRooms.firstNode;
+
+  while (node != NULL) {
+    if (node->medicalRoom.id == medicalRoomId)
+      return node->medicalRoom.roomCode;
+
+    node = node->next;
+  }
+  return "ERROR";
 }

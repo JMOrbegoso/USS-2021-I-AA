@@ -334,8 +334,8 @@ void showMedics(clinicStruct clinic) {
 
 void registerNewMedicalRoom(clinicStruct &clinic) {
   medicalRoomStruct newMedicalRoom;
-  int id, floor, roomNumber, medicalSpecialityId;
-  string area, address;
+  int id, floor, medicalSpecialityId;
+  string area, address, roomCode;
 
   cout << "Va a registrar un nuevo consultorio medico" << endl << endl;
 
@@ -344,12 +344,11 @@ void registerNewMedicalRoom(clinicStruct &clinic) {
   area = requestText("Ingrese la direccion del nuevo consultorio medico", 3);
   floor =
       requestIntegerNumber("Ingrese el piso del nuevo consultorio medico", 1);
-  roomNumber =
-      requestIntegerNumber("Ingrese el numero del nuevo consultorio medico", 1);
+  roomCode = requestText("Ingrese el codigo del nuevo consultorio medico", 1);
   medicalSpecialityId = requestMedicalRoomId(clinic);
 
-  newMedicalRoom = buildMedicalRoom(id, area, address, floor, roomNumber,
-                                    medicalSpecialityId);
+  newMedicalRoom =
+      buildMedicalRoom(id, area, address, floor, roomCode, medicalSpecialityId);
 
   addToCollection(clinic, newMedicalRoom);
 

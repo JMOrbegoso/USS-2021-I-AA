@@ -48,7 +48,7 @@ struct medicsList {
 
 struct medicalRoomStruct {
   int id;
-  int roomNumber;
+  string roomCode;
   int floor;
   string address;
   string area;
