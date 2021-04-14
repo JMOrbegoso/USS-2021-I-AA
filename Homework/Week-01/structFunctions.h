@@ -206,6 +206,26 @@ int requestMedicalRoomId(clinicStruct clinic) {
   return validOptions[selectedOption];
 }
 
+int requestNewMedicalSpecialityId(clinicStruct clinic) {
+  int id;
+  do {
+    id = requestIntegerNumber("Ingrese el Id de la nueva especialidad medica, "
+                              "este no debe de estar repetido",
+                              1);
+  } while (checkIfIdExist(clinic.medicalSpecialities, id));
+  return id;
+}
+
+int requestNewMedicalRoomId(clinicStruct clinic) {
+  int id;
+  do {
+    id = requestIntegerNumber("Ingrese el Id del nuevo consultorio medico, "
+                              "este no debe de estar repetido",
+                              1);
+  } while (checkIfIdExist(clinic.medicalRooms, id));
+  return id;
+}
+
 medicalSpecialityStruct buildMedicalSpeciality(int medicalSpecialityId,
                                                string name, float price) {
   medicalSpecialityStruct medicalSpeciality;
