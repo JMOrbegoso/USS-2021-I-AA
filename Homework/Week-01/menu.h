@@ -228,15 +228,17 @@ void registerNewNurse(clinicStruct &clinic) {
   nurseStruct newNurse;
   int medicalRoomId;
   string firstName, lastName, dni;
+  char genre;
 
   cout << "Va a registrar una nueva enfermera" << endl << endl;
 
   firstName = requestText("Ingrese el nombre de la nueva enfermera", 3);
   lastName = requestText("Ingrese el apellido de la nueva enfermera", 3);
   dni = requestText("Ingrese el DNI de la nueva enfermera", 8, 8);
+  genre = requestGenre("Ingrese el genero de la nueva enfermera");
   medicalRoomId = requestMedicalRoomId(clinic);
 
-  newNurse = buildNurse(firstName, lastName, dni, medicalRoomId);
+  newNurse = buildNurse(firstName, lastName, dni, genre, medicalRoomId);
 
   addNewNurse(clinic, newNurse);
 
@@ -260,18 +262,20 @@ void registerNewMedicalPatient(clinicStruct &clinic) {
   medicalPatientStruct newMedicalPatient;
   int medicalRoomId;
   string firstName, lastName, dni, address, bornDate;
+  char genre;
 
   cout << "Va a registrar un nuevo paciente" << endl << endl;
 
-  medicalRoomId = requestMedicalRoomId(clinic);
   firstName = requestText("Ingrese el nombre del nuevo paciente", 3);
   lastName = requestText("Ingrese el apellido del nuevo paciente", 3);
   dni = requestText("Ingrese el DNI del nuevo paciente", 8, 8);
   address = requestText("Ingrese la dirección del nuevo paciente", 5);
   bornDate = requestDate("Ingrese la fecha de nacimiento del nuevo paciente");
+  genre = requestGenre("Ingrese el genero del nuevo paciente");
+  medicalRoomId = requestMedicalRoomId(clinic);
 
   newMedicalPatient = buildMedicalPatient(firstName, lastName, dni, address,
-                                          bornDate, medicalRoomId);
+                                          bornDate, genre, medicalRoomId);
 
   addNewMedicalPatient(clinic, newMedicalPatient);
 
@@ -296,10 +300,10 @@ void registerNewMedic(clinicStruct &clinic) {
   int medicalSpecialityId;
   string firstName, lastName, phoneNumber, dni, address, code;
   float salary;
+  char genre;
 
   cout << "Va a registrar un nuevo medico" << endl << endl;
 
-  medicalSpecialityId = requestMedicalSpecialityId(clinic);
   firstName = requestText("Ingrese el nombre del nuevo medico", 3);
   lastName = requestText("Ingrese el apellido del nuevo medico", 3);
   phoneNumber =
@@ -307,10 +311,12 @@ void registerNewMedic(clinicStruct &clinic) {
   dni = requestText("Ingrese el DNI del nuevo medico", 8, 8);
   address = requestText("Ingrese la dirección del nuevo medico", 5);
   code = requestText("Ingrese el codigo del nuevo medico", 2);
-  salary = requestMoney("Cual es el salario del nuevo medico", 100);
+  salary = requestMoney("Ingrese el salario del nuevo medico", 100);
+  genre = requestGenre("Ingrese el genero del nuevo medico");
+  medicalSpecialityId = requestMedicalSpecialityId(clinic);
 
   newMedic = buildMedic(firstName, lastName, phoneNumber, dni, address, code,
-                        salary, medicalSpecialityId);
+                        salary, genre, medicalSpecialityId);
 
   addNewMedic(clinic, newMedic);
 
@@ -375,16 +381,18 @@ void registerNewReceptionist(clinicStruct &clinic) {
   receptionistStruct newReceptionist;
   int medicalSpecialityId;
   string firstName, lastName, dni;
+  char genre;
 
   cout << "Va a registrar un nuevo consultorio medico" << endl << endl;
 
-  medicalSpecialityId = requestMedicalSpecialityId(clinic);
   firstName = requestText("Ingrese el nombre del nuevo recepcionista", 3);
   lastName = requestText("Ingrese el apellido del nuevo recepcionista", 3);
   dni = requestText("Ingrese el DNI del nuevo recepcionista", 8, 8);
+  genre = requestGenre("Ingrese el genero del nuevo recepcionista");
+  medicalSpecialityId = requestMedicalSpecialityId(clinic);
 
   newReceptionist =
-      buildReceptionist(firstName, lastName, dni, medicalSpecialityId);
+      buildReceptionist(firstName, lastName, dni, genre, medicalSpecialityId);
 
   addNewReceptionist(clinic, newReceptionist);
 

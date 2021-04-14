@@ -11,18 +11,20 @@ void collectionsInitialization(clinicStruct &clinic);
 medicalSpecialityStruct buildMedicalSpeciality(int medicalSpecialityId,
                                                string name, float price);
 nurseStruct buildNurse(string firstName, string lastName, string dni,
-                       int medicalRoomId);
+                       char genre, int medicalRoomId);
 medicalPatientStruct buildMedicalPatient(string firstName, string lastName,
                                          string dni, string address,
-                                         string bornDate, int medicalRoomId);
+                                         string bornDate, char genre,
+                                         int medicalRoomId);
 medicalRoomStruct buildMedicalRoom(int medicalRoomId, string area,
                                    string address, int floor, int roomNumber,
                                    int medicalSpecialityId);
 medicStruct buildMedic(string firstName, string lastName, string phoneNumber,
                        string dni, string address, string code, float salary,
-                       int medicalSpecialityId);
+                       char genre, int medicalSpecialityId);
 receptionistStruct buildReceptionist(string firstName, string lastName,
-                                     string dni, int medicalSpecialityId);
+                                     string dni, char genre,
+                                     int medicalSpecialityId);
 
 void addNewMedicalSpeciality(clinicStruct &clinic,
                              medicalSpecialityStruct newMedicalSpeciality);
@@ -95,33 +97,35 @@ void dataInitialization(clinicStruct &clinic) {
   addNewMedicalRoom(clinic, medicalRoom_2);
 
   medic_1 = buildMedic("Alfredo", "Lamadrid", "961111111", "15423268",
-                       "Av. Algoritmos #111", "AC-111", 4000, 1);
+                       "Av. Algoritmos #111", "AC-111", 4000, 'm', 1);
   medic_2 = buildMedic("Monserrat", "Torrent", "962222222", "32657814",
-                       "Av. Algoritmos #222", "AC-222", 3600, 2);
+                       "Av. Algoritmos #222", "AC-222", 3600, 'f', 2);
 
   addNewMedic(clinic, medic_1);
   addNewMedic(clinic, medic_2);
 
-  receptionist_1 = buildReceptionist("Ramon", "Riveiro", "12454658", 1);
-  receptionist_2 = buildReceptionist("Ciro", "Alegria", "45457896", 2);
+  receptionist_1 = buildReceptionist("Ramon", "Riveiro", "12454658", 'm', 1);
+  receptionist_2 = buildReceptionist("Ciro", "Alegria", "45457896", 'm', 2);
 
   addNewReceptionist(clinic, receptionist_1);
   addNewReceptionist(clinic, receptionist_2);
 
-  nurse_1 = buildNurse("Maria", "Rosas", "11111111", 1);
-  nurse_2 = buildNurse("Julia", "Gomez", "22222222", 1);
-  nurse_3 = buildNurse("Clara", "Garcia", "33333333", 2);
+  nurse_1 = buildNurse("Maria", "Rosas", "11111111", 'f', 1);
+  nurse_2 = buildNurse("Julia", "Gomez", "22222222", 'f', 1);
+  nurse_3 = buildNurse("Clara", "Garcia", "33333333", 'f', 2);
 
   addNewNurse(clinic, nurse_1);
   addNewNurse(clinic, nurse_2);
   addNewNurse(clinic, nurse_3);
 
   patient_1 = buildMedicalPatient("Julio", "Rojas", "44444444",
-                                  "Av. Las Condes #444", "1980-01-01", 1);
-  patient_2 = buildMedicalPatient("Tulio", "Martinez", "55555555",
-                                  "Av. Los Geranios #444", "1981-01-01", 1);
-  patient_3 = buildMedicalPatient("Ramon", "Gonzales", "66666666",
-                                  "Av. Las Petunias #444", "1982-01-01", 2);
+                                  "Av. Las Condes #444", "1980-01-01", 'm', 1);
+  patient_2 =
+      buildMedicalPatient("Tulio", "Martinez", "55555555",
+                          "Av. Los Geranios #444", "1981-01-01", 'm', 1);
+  patient_3 =
+      buildMedicalPatient("Ramon", "Gonzales", "66666666",
+                          "Av. Las Petunias #444", "1982-01-01", 'm', 2);
 
   addNewMedicalPatient(clinic, patient_1);
   addNewMedicalPatient(clinic, patient_2);
@@ -213,11 +217,12 @@ medicalSpecialityStruct buildMedicalSpeciality(int medicalSpecialityId,
 }
 
 nurseStruct buildNurse(string firstName, string lastName, string dni,
-                       int medicalRoomId) {
+                       char genre, int medicalRoomId) {
   nurseStruct nurse;
   nurse.firstName = firstName;
   nurse.lastName = lastName;
   nurse.dni = dni;
+  nurse.genre = genre;
   nurse.medicalRoomId = medicalRoomId;
 
   return nurse;
@@ -225,13 +230,15 @@ nurseStruct buildNurse(string firstName, string lastName, string dni,
 
 medicalPatientStruct buildMedicalPatient(string firstName, string lastName,
                                          string dni, string address,
-                                         string bornDate, int medicalRoomId) {
+                                         string bornDate, char genre,
+                                         int medicalRoomId) {
   medicalPatientStruct medicalPatient;
   medicalPatient.firstName = firstName;
   medicalPatient.lastName = lastName;
   medicalPatient.dni = dni;
   medicalPatient.address = address;
   medicalPatient.bornDate = bornDate;
+  medicalPatient.genre = genre;
   medicalPatient.medicalRoomId = medicalRoomId;
 
   return medicalPatient;
@@ -253,7 +260,7 @@ medicalRoomStruct buildMedicalRoom(int medicalRoomId, string area,
 
 medicStruct buildMedic(string firstName, string lastName, string phoneNumber,
                        string dni, string address, string code, float salary,
-                       int medicalSpecialityId) {
+                       char genre, int medicalSpecialityId) {
   medicStruct medic;
   medic.firstName = firstName;
   medic.lastName = lastName;
@@ -262,18 +269,21 @@ medicStruct buildMedic(string firstName, string lastName, string phoneNumber,
   medic.address = address;
   medic.code = code;
   medic.salary = salary;
+  medic.genre = genre;
   medic.medicalSpecialityId = medicalSpecialityId;
 
   return medic;
 }
 
 receptionistStruct buildReceptionist(string firstName, string lastName,
-                                     string dni, int medicalSpecialityId) {
+                                     string dni, char genre,
+                                     int medicalSpecialityId) {
   receptionistStruct receptionist;
   receptionist.firstName = firstName;
   receptionist.lastName = lastName;
   receptionist.dni = dni;
   receptionist.medicalSpecialityId = medicalSpecialityId;
+  receptionist.genre = genre;
 
   return receptionist;
 }

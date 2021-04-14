@@ -30,6 +30,7 @@ struct medicStruct {
   string phoneNumber;
   float salary;
   string dni;
+  char genre;
   int medicalSpecialityId;
 };
 
@@ -70,6 +71,7 @@ struct receptionistStruct {
   string firstName;
   string lastName;
   string dni;
+  char genre;
   int medicalSpecialityId;
 };
 
@@ -89,6 +91,7 @@ struct nurseStruct {
   string firstName;
   string lastName;
   string dni;
+  char genre;
   int medicalRoomId;
 };
 
@@ -110,6 +113,7 @@ struct medicalPatientStruct {
   string address;
   string bornDate;
   string dni;
+  char genre;
   int medicalRoomId;
 };
 
