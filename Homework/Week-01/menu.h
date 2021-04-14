@@ -202,7 +202,7 @@ void registerNewMedicalSpeciality(clinicStruct &clinic) {
 
   newMedicalSpeciality = buildMedicalSpeciality(id, name, price);
 
-  addNewMedicalSpeciality(clinic, newMedicalSpeciality);
+  addToCollection(clinic, newMedicalSpeciality);
 
   cout << "La especialidad medica ha sido registrada correctamente";
 }
@@ -236,7 +236,7 @@ void registerNewNurse(clinicStruct &clinic) {
 
   newNurse = buildNurse(firstName, lastName, dni, genre, medicalRoomId);
 
-  addNewNurse(clinic, newNurse);
+  addToCollection(clinic, newNurse);
 
   cout << "La enfermera ha sido registrada correctamente";
 }
@@ -273,7 +273,7 @@ void registerNewMedicalPatient(clinicStruct &clinic) {
   newMedicalPatient = buildMedicalPatient(firstName, lastName, dni, address,
                                           bornDate, genre, medicalRoomId);
 
-  addNewMedicalPatient(clinic, newMedicalPatient);
+  addToCollection(clinic, newMedicalPatient);
 
   cout << "El paciente ha sido registrado correctamente";
 }
@@ -314,7 +314,7 @@ void registerNewMedic(clinicStruct &clinic) {
   newMedic = buildMedic(firstName, lastName, phoneNumber, dni, address, code,
                         salary, genre, medicalSpecialityId);
 
-  addNewMedic(clinic, newMedic);
+  addToCollection(clinic, newMedic);
 
   cout << "El medico ha sido registrado correctamente";
 }
@@ -351,7 +351,7 @@ void registerNewMedicalRoom(clinicStruct &clinic) {
   newMedicalRoom = buildMedicalRoom(id, area, address, floor, roomNumber,
                                     medicalSpecialityId);
 
-  addNewMedicalRoom(clinic, newMedicalRoom);
+  addToCollection(clinic, newMedicalRoom);
 
   cout << "El consultorio ha sido registrado correctamente";
 }
@@ -386,7 +386,7 @@ void registerNewReceptionist(clinicStruct &clinic) {
   newReceptionist =
       buildReceptionist(firstName, lastName, dni, genre, medicalSpecialityId);
 
-  addNewReceptionist(clinic, newReceptionist);
+  addToCollection(clinic, newReceptionist);
 
   cout << "El recepcionista ha sido registrado correctamente";
 }

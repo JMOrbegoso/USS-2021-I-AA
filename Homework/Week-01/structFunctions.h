@@ -26,15 +26,14 @@ receptionistStruct buildReceptionist(string firstName, string lastName,
                                      string dni, char genre,
                                      int medicalSpecialityId);
 
-void addNewMedicalSpeciality(clinicStruct &clinic,
-                             medicalSpecialityStruct newMedicalSpeciality);
-void addNewNurse(clinicStruct &clinic, nurseStruct newNurse);
-void addNewMedicalPatient(clinicStruct &clinic,
-                          medicalPatientStruct newMedicalPatient);
-void addNewMedic(clinicStruct &clinic, medicStruct newMedic);
-void addNewMedicalRoom(clinicStruct &clinic, medicalRoomStruct newMedicalRoom);
-void addNewReceptionist(clinicStruct &clinic,
-                        receptionistStruct newReceptionist);
+void addToCollection(clinicStruct &clinic,
+                     medicalSpecialityStruct newMedicalSpeciality);
+void addToCollection(clinicStruct &clinic, nurseStruct newNurse);
+void addToCollection(clinicStruct &clinic,
+                     medicalPatientStruct newMedicalPatient);
+void addToCollection(clinicStruct &clinic, medicStruct newMedic);
+void addToCollection(clinicStruct &clinic, medicalRoomStruct newMedicalRoom);
+void addToCollection(clinicStruct &clinic, receptionistStruct newReceptionist);
 
 // Functions
 
@@ -87,36 +86,36 @@ void dataInitialization(clinicStruct &clinic) {
   pediatric = buildMedicalSpeciality(1, "Pediatría", 400);
   obstetrics = buildMedicalSpeciality(2, "Obstetricia", 300);
 
-  addNewMedicalSpeciality(clinic, pediatric);
-  addNewMedicalSpeciality(clinic, obstetrics);
+  addToCollection(clinic, pediatric);
+  addToCollection(clinic, obstetrics);
 
   medicalRoom_1 = buildMedicalRoom(1, "A-1", "Av. Algoritmos #200", 2, 200, 1);
   medicalRoom_2 = buildMedicalRoom(2, "A-2", "Av. Algoritmos #200", 3, 300, 2);
 
-  addNewMedicalRoom(clinic, medicalRoom_1);
-  addNewMedicalRoom(clinic, medicalRoom_2);
+  addToCollection(clinic, medicalRoom_1);
+  addToCollection(clinic, medicalRoom_2);
 
   medic_1 = buildMedic("Alfredo", "Lamadrid", "961111111", "15423268",
                        "Av. Algoritmos #111", "AC-111", 4000, 'm', 1);
   medic_2 = buildMedic("Monserrat", "Torrent", "962222222", "32657814",
                        "Av. Algoritmos #222", "AC-222", 3600, 'f', 2);
 
-  addNewMedic(clinic, medic_1);
-  addNewMedic(clinic, medic_2);
+  addToCollection(clinic, medic_1);
+  addToCollection(clinic, medic_2);
 
   receptionist_1 = buildReceptionist("Ramon", "Riveiro", "12454658", 'm', 1);
   receptionist_2 = buildReceptionist("Ciro", "Alegria", "45457896", 'm', 2);
 
-  addNewReceptionist(clinic, receptionist_1);
-  addNewReceptionist(clinic, receptionist_2);
+  addToCollection(clinic, receptionist_1);
+  addToCollection(clinic, receptionist_2);
 
   nurse_1 = buildNurse("Maria", "Rosas", "11111111", 'f', 1);
   nurse_2 = buildNurse("Julia", "Gomez", "22222222", 'f', 1);
   nurse_3 = buildNurse("Clara", "Garcia", "33333333", 'f', 2);
 
-  addNewNurse(clinic, nurse_1);
-  addNewNurse(clinic, nurse_2);
-  addNewNurse(clinic, nurse_3);
+  addToCollection(clinic, nurse_1);
+  addToCollection(clinic, nurse_2);
+  addToCollection(clinic, nurse_3);
 
   patient_1 = buildMedicalPatient("Julio", "Rojas", "44444444",
                                   "Av. Las Condes #444", "1980-01-01", 'm', 1);
@@ -127,9 +126,9 @@ void dataInitialization(clinicStruct &clinic) {
       buildMedicalPatient("Ramon", "Gonzales", "66666666",
                           "Av. Las Petunias #444", "1982-01-01", 'm', 2);
 
-  addNewMedicalPatient(clinic, patient_1);
-  addNewMedicalPatient(clinic, patient_2);
-  addNewMedicalPatient(clinic, patient_3);
+  addToCollection(clinic, patient_1);
+  addToCollection(clinic, patient_2);
+  addToCollection(clinic, patient_3);
 }
 
 bool checkIfIdExist(medicalSpecialitiesList medicalSpecialities, int id) {
@@ -308,8 +307,8 @@ receptionistStruct buildReceptionist(string firstName, string lastName,
   return receptionist;
 }
 
-void addNewMedicalSpeciality(clinicStruct &clinic,
-                             medicalSpecialityStruct newMedicalSpeciality) {
+void addToCollection(clinicStruct &clinic,
+                     medicalSpecialityStruct newMedicalSpeciality) {
   medicalSpecialityNode *newNode = new medicalSpecialityNode();
 
   medicalSpecialityNode *lastNode = clinic.medicalSpecialities.firstNode;
@@ -331,7 +330,7 @@ void addNewMedicalSpeciality(clinicStruct &clinic,
   clinic.medicalSpecialities.length++;
 }
 
-void addNewNurse(clinicStruct &clinic, nurseStruct newNurse) {
+void addToCollection(clinicStruct &clinic, nurseStruct newNurse) {
   nurseNode *newNode = new nurseNode();
 
   nurseNode *lastNode = clinic.nurses.firstNode;
@@ -353,8 +352,8 @@ void addNewNurse(clinicStruct &clinic, nurseStruct newNurse) {
   clinic.nurses.length++;
 }
 
-void addNewMedicalPatient(clinicStruct &clinic,
-                          medicalPatientStruct newMedicalPatient) {
+void addToCollection(clinicStruct &clinic,
+                     medicalPatientStruct newMedicalPatient) {
   medicalPatientNode *newNode = new medicalPatientNode();
 
   medicalPatientNode *lastNode = clinic.medicalPatients.firstNode;
@@ -376,7 +375,7 @@ void addNewMedicalPatient(clinicStruct &clinic,
   clinic.medicalPatients.length++;
 }
 
-void addNewMedic(clinicStruct &clinic, medicStruct newMedic) {
+void addToCollection(clinicStruct &clinic, medicStruct newMedic) {
   medicNode *newNode = new medicNode();
 
   medicNode *lastNode = clinic.medics.firstNode;
@@ -398,7 +397,7 @@ void addNewMedic(clinicStruct &clinic, medicStruct newMedic) {
   clinic.medics.length++;
 }
 
-void addNewMedicalRoom(clinicStruct &clinic, medicalRoomStruct newMedicalRoom) {
+void addToCollection(clinicStruct &clinic, medicalRoomStruct newMedicalRoom) {
   medicalRoomNode *newNode = new medicalRoomNode();
 
   medicalRoomNode *lastNode = clinic.medicalRooms.firstNode;
@@ -420,8 +419,7 @@ void addNewMedicalRoom(clinicStruct &clinic, medicalRoomStruct newMedicalRoom) {
   clinic.medicalRooms.length++;
 }
 
-void addNewReceptionist(clinicStruct &clinic,
-                        receptionistStruct newReceptionist) {
+void addToCollection(clinicStruct &clinic, receptionistStruct newReceptionist) {
   receptionistNode *newNode = new receptionistNode();
 
   receptionistNode *lastNode = clinic.receptionists.firstNode;
