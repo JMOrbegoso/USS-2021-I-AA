@@ -136,7 +136,7 @@ char requestGenre(string message) {
   char genre;
 
   cout << message
-       << "Ingrese 'm' para genero masculino o 'f' para genero femenino?"
+       << ". Ingrese 'm' para genero masculino o 'f' para genero femenino?"
        << endl;
   cin >> genre;
 
