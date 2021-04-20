@@ -188,15 +188,14 @@ unsigned short requestAge(string message, int min, int max) {
   return requestIntegerNumber(message, min, max);
 }
 
-float requestMoney(string message, int min) {
+float requestFloatNumber(string message, float min) {
   float amount;
 
-  cout << message << "(Mínimo S/" << min << ")" << endl;
+  cout << message << "(Mínimo " << min << ")" << endl;
   cin >> amount;
 
   while (!(min <= amount)) {
-    cout << "Por favor, ingrese una cantidad mínima de S/" << min << "."
-         << endl;
+    cout << "Por favor, ingrese una cantidad mínima de " << min << "." << endl;
     fflush(stdin);
     cin >> amount;
   }
@@ -204,21 +203,28 @@ float requestMoney(string message, int min) {
   return amount;
 }
 
-float requestMoney(string message, int min, int max) {
+float requestFloatNumber(string message, float min, float max) {
   float amount;
 
-  cout << message << "(Mínimo S/" << min << " y máximo S/" << max << ")"
-       << endl;
+  cout << message << "(Mínimo " << min << " y máximo " << max << ")" << endl;
   cin >> amount;
 
   while (!(min <= amount && amount <= max)) {
-    cout << "Por favor, ingrese una cantidad mínima de S/" << min
-         << " y máxima de S/" << max << "." << endl;
+    cout << "Por favor, ingrese una cantidad mínima de " << min
+         << " y máxima de " << max << "." << endl;
     fflush(stdin);
     cin >> amount;
   }
 
   return amount;
+}
+
+float requestMoney(string message, float min) {
+  return requestFloatNumber(message, min);
+}
+
+float requestMoney(string message, float min, float max) {
+  return requestFloatNumber(message, min, max);
 }
 
 string requestSearchTerm() {

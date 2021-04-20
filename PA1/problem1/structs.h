@@ -7,7 +7,7 @@ struct carStruct {
   string license;
   float cylinderCapacity;
   string color;
-  float perfomance;
+  float performance;
 };
 
 struct carNode {

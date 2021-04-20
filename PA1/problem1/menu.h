@@ -47,16 +47,58 @@ void registerNewBrand(concessionaireStruct &concessionaire) {
   brandStruct newBrand;
   string code, name, country;
 
-  cout << "Va a registrar una nueva marca" << endl << endl;
+  cout << "Va a registrar una nueva marca de automóviles" << endl << endl;
 
   code = requestText("Ingrese el código de la nueva marca", 1);
   name = requestText("Ingrese el nombre de la nueva marca", 1);
   country = requestText("Ingrese el país de procedencia de la nueva marca", 1);
 
   newBrand = buildBrand(code, name, country);
-  addToCollection(concessionaire, newBrand);
+
+  addToCollection(concessionaire.brands, newBrand);
 
   cout << "La marca de automóviles ha sido registrada correctamente";
+}
+
+void registerNewModel(concessionaireStruct &concessionaire) {
+  modelStruct newModel;
+  brandStruct *brandPointer;
+  string code, name, type;
+
+  cout << "Va a registrar un nuevo modelo de automóviles" << endl << endl;
+
+  code = requestText("Ingrese el código del nuevo modelo", 1);
+  name = requestText("Ingrese el nombre del nuevo modelo", 1);
+  type = requestText("Ingrese el tipo del nuevo modelo", 1);
+  brandPointer = requestBrand(concessionaire);
+
+  newModel = buildModel(code, name, type);
+  addToCollection(brandPointer->models, newModel);
+
+  cout << "El modelo de automóviles ha sido registrado correctamente";
+}
+
+void registerNewCar(concessionaireStruct &concessionaire) {
+  carStruct newCar;
+  modelStruct *modelPointer;
+  string code, license, color;
+  float cylinderCapacity, performance;
+
+  cout << "Va a registrar un nuevo automóvil" << endl << endl;
+
+  code = requestText("Ingrese el código del nuevo automóvil", 1);
+  license = requestText("Ingrese el nombre del nuevo modelo", 1);
+  cylinderCapacity =
+      requestFloatNumber("Ingrese el cilindraje del nuevo automóvil (cc)", 1);
+  color = requestText("Ingrese el tipo del nuevo modelo", 1);
+  performance =
+      requestFloatNumber("Ingrese el performance del nuevo automóvil (CV)", 1);
+  modelPointer = requestModel(concessionaire);
+
+  newCar = buildCar(code, license, cylinderCapacity, color, performance);
+  addToCollection(modelPointer->cars, newCar);
+
+  cout << "El modelo de automóviles ha sido registrado correctamente";
 }
 
 void showBrands(concessionaireStruct concessionaire) {
@@ -103,8 +145,7 @@ void mainMenu(concessionaireStruct &concessionaire) {
         break;
 
       case 2:
-        showBrands(concessionaire);
-        //   registerNewModel(concessionaire);
+        registerNewModel(concessionaire);
         addDelay(2);
         break;
 
