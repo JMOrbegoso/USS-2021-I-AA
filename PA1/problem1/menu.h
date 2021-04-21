@@ -27,14 +27,16 @@ int requestMenuOption(concessionaireStruct concessionaire) {
   cout << "[1] Registrar nueva marca de automóviles" << endl;
   cout << "[2] Registrar nuevo modelo de automóviles" << endl;
   cout << "[3] Registrar nuevo automóvil" << endl;
-  cout << "[4] Buscar un automóvil por por placa" << endl;
-  cout << "[5] Listar todos los automóviles" << endl;
-  cout << "[6] Listar automóviles por modelo" << endl;
+  cout << "[4] Listar todas las marcas de automóviles" << endl;
+  cout << "[5] Listar todos los modelos de automóviles" << endl;
+  cout << "[6] Listar todos los automóviles" << endl;
+  cout << "[7] Listar automóviles por modelo" << endl;
+  cout << "[8] Buscar un automóvil por placa" << endl;
   cout << "[0] Cerrar" << endl;
 
   cout << endl << "Por favor ingrese una de las opciones:" << endl;
   cin >> selectedOption;
-  while (!(0 <= selectedOption && selectedOption <= 6)) {
+  while (!(0 <= selectedOption && selectedOption <= 8)) {
     cout << "La opcion seleccionada fue inválida, por favor seleccione una "
             "opcion válida:"
          << endl;
@@ -80,6 +82,7 @@ void registerNewModel(concessionaireStruct &concessionaire) {
 
 void registerNewCar(concessionaireStruct &concessionaire) {
   carStruct newCar;
+  brandStruct *brandPointer;
   modelStruct *modelPointer;
   string code, license, color;
   float cylinderCapacity, performance;
@@ -87,44 +90,171 @@ void registerNewCar(concessionaireStruct &concessionaire) {
   cout << "Va a registrar un nuevo automóvil" << endl << endl;
 
   code = requestText("Ingrese el código del nuevo automóvil", 1);
-  license = requestText("Ingrese el nombre del nuevo modelo", 1);
+  license = requestText("Ingrese la matricula del nuevo automóvil", 1, 10);
   cylinderCapacity =
       requestFloatNumber("Ingrese el cilindraje del nuevo automóvil (cc)", 1);
-  color = requestText("Ingrese el tipo del nuevo modelo", 1);
+  color = requestText("Ingrese el color del nuevo automóvil", 1);
   performance =
       requestFloatNumber("Ingrese el performance del nuevo automóvil (CV)", 1);
-  modelPointer = requestModel(concessionaire);
+  brandPointer = requestBrand(concessionaire);
+  modelPointer = requestModel(*brandPointer);
 
   newCar = buildCar(code, license, cylinderCapacity, color, performance);
   addToCollection(modelPointer->cars, newCar);
 
-  cout << "El modelo de automóviles ha sido registrado correctamente";
+  cout << "El automóvil ha sido registrado correctamente";
 }
 
 void showBrands(concessionaireStruct concessionaire) {
   clearScreen();
   showAppTitle(concessionaire);
 
-  gotoxy(10, 6);
+  gotoxy(20, 10);
   cout << "Marcas de automóviles" << endl;
+
+  gotoxy(0, 12);
+  cout << "#";
+  gotoxy(5, 12);
+  cout << "Código";
+  gotoxy(20, 12);
+  cout << "Nombre";
+  gotoxy(35, 12);
+  cout << "País";
+  gotoxy(50, 12);
+  cout << "# de Modelos";
 
   brandNode *node = concessionaire.brands.firstNode;
 
-  gotoxy(0, 8);
-  cout << "#";
-  gotoxy(5, 8);
-  cout << "Código";
-  gotoxy(20, 8);
-  cout << "Nombre";
-  gotoxy(35, 8);
-  cout << "País";
-  gotoxy(50, 8);
-  cout << "# de Modelos";
-
-  int i = 1;
-  while (node != NULL) {
+  for (int i = 1; node != NULL; i++) {
     showBrand(node->brand, i);
     node = node->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showModels(concessionaireStruct concessionaire) {
+  brandNode *brand_node;
+  modelNode *model_node;
+  int i = 1;
+  clearScreen();
+  showAppTitle(concessionaire);
+
+  gotoxy(20, 10);
+  cout << "Modelos de automóviles" << endl;
+
+  gotoxy(0, 12);
+  cout << "#";
+  gotoxy(5, 12);
+  cout << "Código";
+  gotoxy(20, 12);
+  cout << "Nombre";
+  gotoxy(35, 12);
+  cout << "Tipo";
+  gotoxy(50, 12);
+  cout << "# de automóviles";
+  gotoxy(70, 12);
+  cout << "Marca";
+
+  brand_node = concessionaire.brands.firstNode;
+
+  while (brand_node != NULL) {
+    model_node = brand_node->brand.models.firstNode;
+    while (model_node != NULL) {
+      showModel(model_node->model, brand_node->brand.name, i);
+      model_node = model_node->next;
+      i++;
+    }
+
+    brand_node = brand_node->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showCars(concessionaireStruct concessionaire) {
+  brandNode *brand_node;
+  modelNode *model_node;
+  carNode *car_node;
+  int i = 1;
+
+  clearScreen();
+  showAppTitle(concessionaire);
+
+  gotoxy(20, 10);
+  cout << "Automóviles" << endl;
+
+  gotoxy(0, 12);
+  cout << "#";
+  gotoxy(5, 12);
+  cout << "Código";
+  gotoxy(20, 12);
+  cout << "Licensia";
+  gotoxy(35, 12);
+  cout << "Cilindraje";
+  gotoxy(50, 12);
+  cout << "Color";
+  gotoxy(60, 12);
+  cout << "Potencia";
+  gotoxy(70, 12);
+  cout << "Modelo";
+  gotoxy(80, 12);
+  cout << "Marca";
+
+  brand_node = concessionaire.brands.firstNode;
+
+  while (brand_node != NULL) {
+    model_node = brand_node->brand.models.firstNode;
+    while (model_node != NULL) {
+      car_node = model_node->model.cars.firstNode;
+      while (car_node != NULL) {
+        showCar(car_node->car, brand_node->brand.name, model_node->model.name,
+                i);
+        car_node = car_node->next;
+        i++;
+      }
+
+      model_node = model_node->next;
+    }
+
+    brand_node = brand_node->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showCars(concessionaireStruct concessionaire, modelStruct model,
+              string brandName) {
+  carNode *car_node;
+  int i = 1;
+
+  clearScreen();
+  showAppTitle(concessionaire);
+
+  gotoxy(20, 10);
+  cout << "Automóviles" << endl;
+
+  gotoxy(0, 12);
+  cout << "#";
+  gotoxy(5, 12);
+  cout << "Código";
+  gotoxy(20, 12);
+  cout << "Licensia";
+  gotoxy(35, 12);
+  cout << "Cilindraje";
+  gotoxy(50, 12);
+  cout << "Color";
+  gotoxy(60, 12);
+  cout << "Potencia";
+  gotoxy(70, 12);
+  cout << "Modelo";
+  gotoxy(80, 12);
+  cout << "Marca";
+
+  car_node = model.cars.firstNode;
+  while (car_node != NULL) {
+    showCar(car_node->car, brandName, model.name, i);
+    car_node = car_node->next;
     i++;
   }
 
@@ -150,28 +280,38 @@ void mainMenu(concessionaireStruct &concessionaire) {
         break;
 
       case 3:
-        // registerNewCar(concessionaire);
+        registerNewCar(concessionaire);
         addDelay(2);
         break;
-        ;
 
       case 4:
-        // findCarByLicense(concessionaire);
+        showBrands(concessionaire);
         pauseProcess();
         break;
 
       case 5:
-        //  showAllCars(concessionaire);
+        showModels(concessionaire);
         pauseProcess();
         break;
 
       case 6:
-        //  showCarsByModel(concessionaire);
+        showCars(concessionaire);
         pauseProcess();
         break;
+
+      case 7:
+        brandStruct brand = *requestBrand(concessionaire);
+        modelStruct model = *requestModel(brand);
+        showCars(concessionaire, model, brand.name);
+        pauseProcess();
+        break;
+
+        /* case 8: */
+        /*   findCarByLicense(concessionaire); */
+        /*   pauseProcess(); */
+        /*   break; */
       }
     }
-
   } while (!(selectedOption == 0));
 
   cout << "Gracias por usar la app, tenga un buen día!";

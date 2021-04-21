@@ -148,17 +148,14 @@ brandStruct *requestBrand(concessionaireStruct concessionaire) {
   do {
     cin >> selectedOption;
   } while (
-      !(0 < selectedOption && selectedOption < concessionaire.brands.length));
+      !(0 < selectedOption && selectedOption <= concessionaire.brands.length));
 
   return validOptions[selectedOption];
 }
 
-modelStruct *requestModel(concessionaireStruct concessionaire) {
-  brandStruct brand;
+modelStruct *requestModel(brandStruct brand) {
   int selectedOption;
   modelStruct *validOptions[100];
-
-  brand = *requestBrand(concessionaire);
 
   cout << endl
        << "Escoja un modelo automóviles de la marca " << brand.name << ":"
@@ -177,48 +174,54 @@ modelStruct *requestModel(concessionaireStruct concessionaire) {
 
   do {
     cin >> selectedOption;
-  } while (!(0 < selectedOption && selectedOption < brand.models.length));
+  } while (!(0 < selectedOption && selectedOption <= brand.models.length));
 
   return validOptions[selectedOption];
 }
 
 void showBrand(brandStruct brand, int i) {
-  gotoxy(0, 9 + i);
+  gotoxy(0, 13 + i);
   cout << i;
-  gotoxy(5, 9 + i);
+  gotoxy(5, 13 + i);
   cout << brand.code;
-  gotoxy(20, 9 + i);
+  gotoxy(20, 13 + i);
   cout << brand.name;
-  gotoxy(35, 9 + i);
+  gotoxy(35, 13 + i);
   cout << brand.country;
-  gotoxy(50, 9 + i);
+  gotoxy(50, 13 + i);
   cout << brand.models.length;
 }
 
-void showModel(modelStruct model, int i) {
-  gotoxy(0, 9 + i);
+void showModel(modelStruct model, string brandName, int i) {
+  gotoxy(0, 13 + i);
   cout << i;
-  gotoxy(5, 9 + i);
+  gotoxy(5, 13 + i);
   cout << model.code;
-  gotoxy(20, 9 + i);
+  gotoxy(20, 13 + i);
   cout << model.name;
-  gotoxy(35, 9 + i);
+  gotoxy(35, 13 + i);
   cout << model.type;
-  gotoxy(50, 9 + i);
+  gotoxy(50, 13 + i);
   cout << model.cars.length;
+  gotoxy(70, 13 + i);
+  cout << brandName;
 }
 
-void showCar(carStruct car, int i) {
-  gotoxy(0, 9 + i);
+void showCar(carStruct car, string brandName, string modelName, int i) {
+  gotoxy(0, 13 + i);
   cout << i;
-  gotoxy(5, 9 + i);
+  gotoxy(5, 13 + i);
   cout << car.code;
-  gotoxy(20, 9 + i);
+  gotoxy(20, 13 + i);
   cout << car.license;
-  gotoxy(35, 9 + i);
+  gotoxy(35, 13 + i);
   cout << car.cylinderCapacity;
-  gotoxy(50, 9 + i);
+  gotoxy(50, 13 + i);
   cout << car.color;
-  gotoxy(60, 9 + i);
+  gotoxy(60, 13 + i);
   cout << car.performance;
+  gotoxy(70, 13 + i);
+  cout << modelName;
+  gotoxy(80, 13 + i);
+  cout << brandName;
 }
