@@ -31,7 +31,7 @@ int requestMenuOption(concessionaireStruct concessionaire) {
   cout << "[5] Listar todos los modelos de automóviles" << endl;
   cout << "[6] Listar todos los automóviles" << endl;
   cout << "[7] Listar automóviles por modelo" << endl;
-  cout << "[8] Buscar un automóvil por placa" << endl;
+  cout << "[8] Buscar un automóvil por licencia" << endl;
   cout << "[0] Cerrar" << endl;
 
   cout << endl << "Por favor ingrese una de las opciones:" << endl;
@@ -189,7 +189,7 @@ void showCars(concessionaireStruct concessionaire) {
   gotoxy(5, 12);
   cout << "Código";
   gotoxy(20, 12);
-  cout << "Licensia";
+  cout << "Licencia";
   gotoxy(35, 12);
   cout << "Cilindraje";
   gotoxy(50, 12);
@@ -239,7 +239,7 @@ void showCars(concessionaireStruct concessionaire, modelStruct model,
   gotoxy(5, 12);
   cout << "Código";
   gotoxy(20, 12);
-  cout << "Licensia";
+  cout << "Licencia";
   gotoxy(35, 12);
   cout << "Cilindraje";
   gotoxy(50, 12);
@@ -261,8 +261,68 @@ void showCars(concessionaireStruct concessionaire, modelStruct model,
   cout << endl << endl;
 }
 
+void findCarByLicense(concessionaireStruct concessionaire) {
+  brandNode *brand_node;
+  modelNode *model_node;
+  carNode *car_node;
+  int i = 1;
+  string licenseToFind;
+
+  licenseToFind = requestText("Ingrese la licencia a buscar:", 1);
+
+  clearScreen();
+  showAppTitle(concessionaire);
+
+  gotoxy(20, 10);
+  cout << "Automóviles con la placa: " << licenseToFind << endl;
+
+  brand_node = concessionaire.brands.firstNode;
+
+  while (brand_node != NULL) {
+    model_node = brand_node->brand.models.firstNode;
+    while (model_node != NULL) {
+      car_node = model_node->model.cars.firstNode;
+      while (car_node != NULL) {
+
+        if (containsText(car_node->car.license, licenseToFind)) {
+          gotoxy(0, 12);
+          cout << "#";
+          gotoxy(5, 12);
+          cout << "Código";
+          gotoxy(20, 12);
+          cout << "Licencia";
+          gotoxy(35, 12);
+          cout << "Cilindraje";
+          gotoxy(50, 12);
+          cout << "Color";
+          gotoxy(60, 12);
+          cout << "Potencia";
+          gotoxy(70, 12);
+          cout << "Modelo";
+          gotoxy(80, 12);
+          cout << "Marca";
+
+          showCar(car_node->car, brand_node->brand.name, model_node->model.name,
+                  i);
+        }
+
+        car_node = car_node->next;
+        i++;
+      }
+
+      model_node = model_node->next;
+    }
+
+    brand_node = brand_node->next;
+  }
+
+  cout << endl << endl;
+}
+
 void mainMenu(concessionaireStruct &concessionaire) {
   int selectedOption;
+  brandStruct brand;
+  modelStruct model;
 
   do {
     selectedOption = requestMenuOption(concessionaire);
@@ -300,16 +360,16 @@ void mainMenu(concessionaireStruct &concessionaire) {
         break;
 
       case 7:
-        brandStruct brand = *requestBrand(concessionaire);
-        modelStruct model = *requestModel(brand);
+        brand = *requestBrand(concessionaire);
+        model = *requestModel(brand);
         showCars(concessionaire, model, brand.name);
         pauseProcess();
         break;
 
-        /* case 8: */
-        /*   findCarByLicense(concessionaire); */
-        /*   pauseProcess(); */
-        /*   break; */
+      case 8:
+        findCarByLicense(concessionaire);
+        pauseProcess();
+        break;
       }
     }
   } while (!(selectedOption == 0));
