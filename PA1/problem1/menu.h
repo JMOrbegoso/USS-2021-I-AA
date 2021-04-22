@@ -112,16 +112,7 @@ void showBrands(concessionaireStruct concessionaire) {
   gotoxy(20, 10);
   cout << "Marcas de automóviles" << endl;
 
-  gotoxy(0, 12);
-  cout << "#";
-  gotoxy(5, 12);
-  cout << "Código";
-  gotoxy(20, 12);
-  cout << "Nombre";
-  gotoxy(35, 12);
-  cout << "País";
-  gotoxy(50, 12);
-  cout << "# de Modelos";
+  showBrandsListHeaders(12);
 
   brandNode *node = concessionaire.brands.firstNode;
 
@@ -143,18 +134,7 @@ void showModels(concessionaireStruct concessionaire) {
   gotoxy(20, 10);
   cout << "Modelos de automóviles" << endl;
 
-  gotoxy(0, 12);
-  cout << "#";
-  gotoxy(5, 12);
-  cout << "Código";
-  gotoxy(20, 12);
-  cout << "Nombre";
-  gotoxy(35, 12);
-  cout << "Tipo";
-  gotoxy(50, 12);
-  cout << "# de automóviles";
-  gotoxy(70, 12);
-  cout << "Marca";
+  showModelsListHeaders(12);
 
   brand_node = concessionaire.brands.firstNode;
 
@@ -181,25 +161,7 @@ void showCars(concessionaireStruct concessionaire) {
   clearScreen();
   showAppTitle(concessionaire);
 
-  gotoxy(20, 10);
-  cout << "Automóviles" << endl;
-
-  gotoxy(0, 12);
-  cout << "#";
-  gotoxy(5, 12);
-  cout << "Código";
-  gotoxy(20, 12);
-  cout << "Licencia";
-  gotoxy(35, 12);
-  cout << "Cilindraje";
-  gotoxy(50, 12);
-  cout << "Color";
-  gotoxy(60, 12);
-  cout << "Potencia";
-  gotoxy(70, 12);
-  cout << "Modelo";
-  gotoxy(80, 12);
-  cout << "Marca";
+  showCarsListHeaders(12);
 
   brand_node = concessionaire.brands.firstNode;
 
@@ -234,22 +196,7 @@ void showCars(concessionaireStruct concessionaire, modelStruct model,
   gotoxy(20, 10);
   cout << "Automóviles" << endl;
 
-  gotoxy(0, 12);
-  cout << "#";
-  gotoxy(5, 12);
-  cout << "Código";
-  gotoxy(20, 12);
-  cout << "Licencia";
-  gotoxy(35, 12);
-  cout << "Cilindraje";
-  gotoxy(50, 12);
-  cout << "Color";
-  gotoxy(60, 12);
-  cout << "Potencia";
-  gotoxy(70, 12);
-  cout << "Modelo";
-  gotoxy(80, 12);
-  cout << "Marca";
+  showCarsListHeaders(12);
 
   car_node = model.cars.firstNode;
   while (car_node != NULL) {
@@ -265,8 +212,8 @@ void findCarByLicense(concessionaireStruct concessionaire) {
   brandNode *brand_node;
   modelNode *model_node;
   carNode *car_node;
-  int i = 1;
   string licenseToFind;
+  int i = 1;
 
   licenseToFind = requestText("Ingrese la licencia a buscar:", 1);
 
@@ -283,25 +230,8 @@ void findCarByLicense(concessionaireStruct concessionaire) {
     while (model_node != NULL) {
       car_node = model_node->model.cars.firstNode;
       while (car_node != NULL) {
-
+        showCarsListHeaders(12);
         if (containsText(car_node->car.license, licenseToFind)) {
-          gotoxy(0, 12);
-          cout << "#";
-          gotoxy(5, 12);
-          cout << "Código";
-          gotoxy(20, 12);
-          cout << "Licencia";
-          gotoxy(35, 12);
-          cout << "Cilindraje";
-          gotoxy(50, 12);
-          cout << "Color";
-          gotoxy(60, 12);
-          cout << "Potencia";
-          gotoxy(70, 12);
-          cout << "Modelo";
-          gotoxy(80, 12);
-          cout << "Marca";
-
           showCar(car_node->car, brand_node->brand.name, model_node->model.name,
                   i);
         }

@@ -179,6 +179,53 @@ modelStruct *requestModel(brandStruct brand) {
   return validOptions[selectedOption];
 }
 
+void showBrandsListHeaders(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Código";
+  gotoxy(20, y);
+  cout << "Nombre";
+  gotoxy(35, y);
+  cout << "País";
+  gotoxy(50, y);
+  cout << "# de Modelos";
+}
+
+void showModelsListHeaders(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Código";
+  gotoxy(20, y);
+  cout << "Nombre";
+  gotoxy(35, y);
+  cout << "Tipo";
+  gotoxy(50, y);
+  cout << "# de automóviles";
+  gotoxy(70, y);
+  cout << "Marca";
+}
+
+void showCarsListHeaders(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Código";
+  gotoxy(20, y);
+  cout << "Licencia";
+  gotoxy(35, y);
+  cout << "Cilindraje";
+  gotoxy(50, y);
+  cout << "Color";
+  gotoxy(60, y);
+  cout << "Potencia";
+  gotoxy(70, y);
+  cout << "Modelo";
+  gotoxy(80, y);
+  cout << "Marca";
+}
+
 void showBrand(brandStruct brand, int i) {
   gotoxy(0, 13 + i);
   cout << i;
