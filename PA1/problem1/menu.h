@@ -221,7 +221,7 @@ void findCarByLicense(concessionaireStruct concessionaire) {
   showAppTitle(concessionaire);
 
   gotoxy(20, 10);
-  cout << "Automóviles con la placa: " << licenseToFind << endl;
+  cout << "Automóviles con la licencia: " << licenseToFind << endl;
 
   brand_node = concessionaire.brands.firstNode;
 
