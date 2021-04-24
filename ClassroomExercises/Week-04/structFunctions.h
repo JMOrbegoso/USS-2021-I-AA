@@ -86,36 +86,38 @@ void collectionsInitialization(libraryStruct &library) {
 }
 
 void dataInitialization(libraryStruct &library) {
-  bookStruct platero, color, tercer, quijote, cid, odisea;
-  writerStruct jimenez, lovecraft, lobsang, cervantes, anonimo, homero;
+  bookStruct platero, color, tercer, quijote, granja, divina;
+  writerStruct jimenez, lovecraft, lobsang, cervantes, orwell, dante, virgilio;
 
   platero = buildBook("Platero y Yo", "py", 10, 200);
   color = buildBook("El color que caýo del cielo", "cc", 20, 150);
   tercer = buildBook("La apertura del tercer ojo", "ojo", 30, 250);
   quijote = buildBook("Quijote de la mancha", "quj", 40, 120);
-  cid = buildBook("Mio Cid", "cid", 20, 130);
-  odisea = buildBook("La Odisea", "od", 10, 140);
+  granja = buildBook("Revelion en la granja", "cid", 20, 130);
+  divina = buildBook("La Divina Comedia", "dc", 10, 140);
 
   jimenez = buildWriter("Julio Ramon", "Jimenez", 70, 'm');
   lovecraft = buildWriter("H.P.", "Lovecraft", 70, 'm');
   lobsang = buildWriter("Lobsang", "Rampa", 70, 'm');
   cervantes = buildWriter("Miguel", "De Cervantes", 70, 'm');
-  anonimo = buildWriter("Anonimo", "-", 70, 'm');
-  homero = buildWriter("Homero", "-", 70, 'm');
+  orwell = buildWriter("George", "Orwell", 70, 'm');
+  dante = buildWriter("Dante", "Alighieri", 70, 'm');
+  virgilio = buildWriter("Virgilio", "", 70, 'm');
 
   addToCollection(platero.writers, jimenez);
   addToCollection(color.writers, lovecraft);
   addToCollection(tercer.writers, lobsang);
   addToCollection(quijote.writers, cervantes);
-  addToCollection(cid.writers, anonimo);
-  addToCollection(odisea.writers, homero);
+  addToCollection(granja.writers, orwell);
+  addToCollection(divina.writers, dante);
+  addToCollection(divina.writers, virgilio);
 
   addToCollection(library.books, platero);
   addToCollection(library.books, color);
   addToCollection(library.books, tercer);
   addToCollection(library.books, quijote);
-  addToCollection(library.books, cid);
-  addToCollection(library.books, odisea);
+  addToCollection(library.books, granja);
+  addToCollection(library.books, divina);
 }
 
 void showWritersListHeader(int y) {
