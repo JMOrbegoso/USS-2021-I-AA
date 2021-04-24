@@ -78,14 +78,14 @@ void showBooks(libraryStruct library) {
   gotoxy(40, 6);
   cout << "Libros existentes:" << endl;
 
-  bookNode *node = library.books.head;
+  bookNode *book_node = library.books.head;
 
   showBooksListHeader(8);
 
   int i = 1;
-  while (node != NULL) {
-    showBook(node->book, i, i + 9);
-    node = node->next;
+  while (book_node != NULL) {
+    showBook(book_node->book, i, i + 9);
+    book_node = book_node->next;
     i++;
   }
 
@@ -142,6 +142,39 @@ void findBookByTitle(libraryStruct library) {
   cout << endl << endl;
 }
 
+void findWriterByLastName(libraryStruct library) {
+  string textToFind;
+  bookNode *book_node;
+  writerNode *writer_node;
+
+  textToFind = requestText("Ingrese el apellido del escritor a buscar", 3);
+
+  clearScreen();
+  showAppTitle(library);
+
+  gotoxy(40, 6);
+  cout << "Escritores con un apellido similar a :" << textToFind << endl;
+
+  book_node = library.books.head;
+
+  showWritersListHeader(8);
+
+  int i = 1;
+  while (book_node != NULL) {
+    writer_node = book_node->book.writers.head;
+    while (writer_node != NULL) {
+      if (containsText(writer_node->writer.lastName, textToFind)) {
+        showWriter(writer_node->writer, i, i + 9);
+        i++;
+      }
+      writer_node = writer_node->next;
+    }
+    book_node = book_node->next;
+  }
+
+  cout << endl << endl;
+}
+
 void mainMenu(libraryStruct &library) {
 
   int selectedOption;
@@ -168,6 +201,11 @@ void mainMenu(libraryStruct &library) {
 
       case 5:
         findBookByTitle(library);
+        pauseProcess();
+        break;
+
+      case 6:
+        findWriterByLastName(library);
         pauseProcess();
         break;
       }

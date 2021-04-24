@@ -102,7 +102,7 @@ void dataInitialization(libraryStruct &library) {
   cervantes = buildWriter("Miguel", "De Cervantes", 70, 'm');
   orwell = buildWriter("George", "Orwell", 70, 'm');
   dante = buildWriter("Dante", "Alighieri", 70, 'm');
-  virgilio = buildWriter("Virgilio", "", 70, 'm');
+  virgilio = buildWriter("-", "Virgilio", 70, 'm');
 
   addToCollection(platero.writers, jimenez);
   addToCollection(color.writers, lovecraft);
@@ -124,9 +124,9 @@ void showWritersListHeader(int y) {
   gotoxy(0, y);
   cout << "#";
   gotoxy(5, y);
-  cout << "Titulo";
+  cout << "Nombres";
   gotoxy(20, y);
-  cout << "";
+  cout << "Apellidos";
   gotoxy(40, y);
   cout << "Edad";
   gotoxy(45, y);
@@ -143,7 +143,7 @@ void showWriter(writerStruct writer, int i, int y) {
   gotoxy(40, y);
   cout << writer.age;
   gotoxy(45, y);
-  cout << writer.genre;
+  cout << getGenre(writer.genre);
 }
 
 void showBooksListHeader(int y) {
