@@ -131,9 +131,7 @@ void showWritersListHeader(int y) {
   cout << "Genero";
 }
 
-void showWriter(writerStruct writer, int i) {
-  int y = 13 + i;
-
+void showWriter(writerStruct writer, int i, int y) {
   gotoxy(0, y);
   cout << i;
   gotoxy(5, y);
@@ -159,9 +157,7 @@ void showBooksListHeader(int y) {
   cout << "Nº Hojas";
 }
 
-void showBook(bookStruct book, int i) {
-  int y = 13 + i;
-
+void showBook(bookStruct book, int i, int y) {
   gotoxy(0, y);
   cout << i;
   gotoxy(5, y);
