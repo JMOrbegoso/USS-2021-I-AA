@@ -92,6 +92,27 @@ void showBooks(libraryStruct library) {
   cout << endl << endl;
 }
 
+void showBooksWithWriters(libraryStruct library) {
+  clearScreen();
+  showAppTitle(library);
+
+  gotoxy(40, 6);
+  cout << "Libros existentes y sus escritores:" << endl;
+
+  bookNode *book_node = library.books.head;
+
+  showBooksWithWritersListHeader(8);
+
+  int i = 1;
+  while (book_node != NULL) {
+    showBookWithWriter(book_node->book, i, i + 9);
+    book_node = book_node->next;
+    i++;
+  }
+
+  cout << endl << endl;
+}
+
 void findBookByTitle(libraryStruct library) {
   string textToFind;
   bool bookFound = false;
@@ -137,6 +158,11 @@ void mainMenu(libraryStruct &library) {
 
       case 3:
         showBooks(library);
+        pauseProcess();
+        break;
+
+      case 4:
+        showBooksWithWriters(library);
         pauseProcess();
         break;
 

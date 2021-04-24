@@ -274,3 +274,10 @@ string requestDate(string message) {
 
   return toString(year) + "/" + months[selectedMonth] + "/" + toString(day);
 }
+
+string concatenateStrings(string acumulator, string toAdd, string separator) {
+  if (acumulator.length() > 0)
+    return acumulator + separator + toAdd;
+  else
+    return toAdd;
+}

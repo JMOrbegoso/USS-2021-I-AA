@@ -169,3 +169,36 @@ void showBook(bookStruct book, int i, int y) {
   gotoxy(70, y);
   cout << book.pagesQuantity;
 }
+
+void showBooksWithWritersListHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Nombre";
+  gotoxy(44, y);
+  cout << "Codigo";
+  gotoxy(60, y);
+  cout << "Escritores";
+}
+
+void showBookWithWriter(bookStruct book, int i, int y) {
+  string writers;
+  writerNode *writer_node = book.writers.head;
+
+  while (writer_node != NULL) {
+    writers = concatenateStrings(writers,
+                                 writer_node->writer.firstName + " " +
+                                     writer_node->writer.lastName,
+                                 ", ");
+    writer_node = writer_node->next;
+  }
+
+  gotoxy(0, y);
+  cout << i;
+  gotoxy(5, y);
+  cout << book.title;
+  gotoxy(44, y);
+  cout << book.code;
+  gotoxy(60, y);
+  cout << writers;
+}
