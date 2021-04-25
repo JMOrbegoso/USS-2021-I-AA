@@ -85,7 +85,7 @@ void registerWriter(libraryStruct &library) {
   gotoxy(40, 6);
   cout << "Va a registrar el escritor de un libro:" << endl;
 
-  bookPointer = library.books.length > 4 ? requestBookWithSearcher(library)
+  bookPointer = library.books.length > 7 ? requestBookWithSearcher(library)
                                          : requestBookWithSelector(library);
 
   if (bookPointer == NULL) {
@@ -93,6 +93,10 @@ void registerWriter(libraryStruct &library) {
     return;
   }
   book = *bookPointer;
+
+  cout << endl
+       << "Va añadir un autor al libro titulado: " << book.title << endl
+       << endl;
 
   firstName = requestText("Ingrese los nombres del nuevo autor", 1);
   lastName = requestText("Ingrese los apellidos del nuevo autor", 1);
