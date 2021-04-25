@@ -1,2 +1,3 @@
 # USS-2021-I-AA
-AA-2021-I
+
+Resolución de problemas del curso de Análisis de Algoritmos de la USS ciclo 2021 - I.
