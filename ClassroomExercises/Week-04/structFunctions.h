@@ -89,12 +89,12 @@ void dataInitialization(libraryStruct &library) {
   bookStruct platero, color, tercer, quijote, granja, divina;
   writerStruct jimenez, lovecraft, lobsang, cervantes, orwell, dante, virgilio;
 
-  platero = buildBook("Platero y Yo", "py", 10, 200);
-  color = buildBook("El color que caýo del cielo", "cc", 20, 150);
+  platero = buildBook("Platero y Yo", "pla", 10, 200);
+  color = buildBook("El color que caýo del cielo", "col", 20, 150);
   tercer = buildBook("La apertura del tercer ojo", "ojo", 30, 250);
   quijote = buildBook("Quijote de la mancha", "quj", 40, 120);
-  granja = buildBook("Revelion en la granja", "cid", 20, 130);
-  divina = buildBook("La Divina Comedia", "dc", 10, 140);
+  granja = buildBook("Revelion en la granja", "gra", 20, 130);
+  divina = buildBook("La Divina Comedia", "ldc", 10, 140);
 
   jimenez = buildWriter("Julio Ramon", "Jimenez", 70, 'm');
   lovecraft = buildWriter("H.P.", "Lovecraft", 70, 'm');
@@ -118,6 +118,46 @@ void dataInitialization(libraryStruct &library) {
   addToCollection(library.books, quijote);
   addToCollection(library.books, granja);
   addToCollection(library.books, divina);
+}
+
+bookStruct *requestBookWithSearcher(libraryStruct library) {
+  string textToFind;
+  bookNode *book_node;
+
+  textToFind = requestText("Ingrese el titulo exacto del libro del autor", 1);
+
+  book_node = library.books.head;
+
+  while (book_node != NULL) {
+    if (book_node->book.title == textToFind) {
+      return &(book_node->book);
+    }
+    book_node = book_node->next;
+  }
+  return NULL;
+}
+
+bookStruct *requestBookWithSelector(libraryStruct library) {
+  int selectedOption;
+  bookStruct *validOptions[100];
+
+  cout << endl << "Escoja una libro para añadir el autor:" << endl << endl;
+
+  bookNode *book_node = library.books.head;
+
+  for (int i = 1; book_node != NULL; i++) {
+    cout << "[" << i << "] - " << book_node->book.title << endl;
+    validOptions[i] = &book_node->book;
+    book_node = book_node->next;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+
+  do {
+    cin >> selectedOption;
+  } while (!(0 < selectedOption && selectedOption <= library.books.length));
+
+  return validOptions[selectedOption];
 }
 
 void showWritersListHeader(int y) {

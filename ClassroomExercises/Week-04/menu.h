@@ -71,6 +71,41 @@ void registerBook(libraryStruct &library) {
   cout << "El libro fue añadido de forma exitosa" << endl;
 }
 
+void registerWriter(libraryStruct &library) {
+  string firstName, lastName;
+  unsigned short age;
+  char genre;
+  writerStruct newWriter;
+  bookStruct *bookPointer;
+  bookStruct book;
+
+  clearScreen();
+  showAppTitle(library);
+
+  gotoxy(40, 6);
+  cout << "Va a registrar el escritor de un libro:" << endl;
+
+  bookPointer = library.books.length > 4 ? requestBookWithSearcher(library)
+                                         : requestBookWithSelector(library);
+
+  if (bookPointer == NULL) {
+    cout << "No se encontró el libro";
+    return;
+  }
+  book = *bookPointer;
+
+  firstName = requestText("Ingrese los nombres del nuevo autor", 1);
+  lastName = requestText("Ingrese los apellidos del nuevo autor", 1);
+  age = requestIntegerNumber("Ingrese la edad del nuevo autor", 18);
+  genre = requestGenre("Ingrese el genero del nuevo autor");
+
+  newWriter = buildWriter(firstName, lastName, age, genre);
+
+  addToCollection(book.writers, newWriter);
+
+  cout << "El escritor del libro fue añadido de forma exitosa" << endl;
+}
+
 void showBooks(libraryStruct library) {
   clearScreen();
   showAppTitle(library);
@@ -186,6 +221,11 @@ void mainMenu(libraryStruct &library) {
       switch (selectedOption) {
       case 1:
         registerBook(library);
+        addDelay(2);
+        break;
+
+      case 2:
+        registerWriter(library);
         addDelay(2);
         break;
 
