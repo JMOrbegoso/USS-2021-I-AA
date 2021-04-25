@@ -324,14 +324,13 @@ void addToCollection(clinicStruct &clinic,
 
   if (clinic.medicalSpecialities.firstNode == NULL) {
     clinic.medicalSpecialities.firstNode = newNode;
-    return;
-  }
+  } else {
+    while (lastNode->next != NULL) {
+      lastNode = lastNode->next;
+    }
 
-  while (lastNode->next != NULL) {
-    lastNode = lastNode->next;
+    lastNode->next = newNode;
   }
-
-  lastNode->next = newNode;
 
   clinic.medicalSpecialities.length++;
 }
@@ -346,15 +345,13 @@ void addToCollection(clinicStruct &clinic, nurseStruct newNurse) {
 
   if (clinic.nurses.firstNode == NULL) {
     clinic.nurses.firstNode = newNode;
-    return;
+  } else {
+    while (lastNode->next != NULL) {
+      lastNode = lastNode->next;
+    }
+
+    lastNode->next = newNode;
   }
-
-  while (lastNode->next != NULL) {
-    lastNode = lastNode->next;
-  }
-
-  lastNode->next = newNode;
-
   clinic.nurses.length++;
 }
 
@@ -369,14 +366,13 @@ void addToCollection(clinicStruct &clinic,
 
   if (clinic.medicalPatients.firstNode == NULL) {
     clinic.medicalPatients.firstNode = newNode;
-    return;
-  }
+  } else {
+    while (lastNode->next != NULL) {
+      lastNode = lastNode->next;
+    }
 
-  while (lastNode->next != NULL) {
-    lastNode = lastNode->next;
+    lastNode->next = newNode;
   }
-
-  lastNode->next = newNode;
 
   clinic.medicalPatients.length++;
 }
@@ -391,14 +387,13 @@ void addToCollection(clinicStruct &clinic, medicStruct newMedic) {
 
   if (clinic.medics.firstNode == NULL) {
     clinic.medics.firstNode = newNode;
-    return;
-  }
+  } else {
+    while (lastNode->next != NULL) {
+      lastNode = lastNode->next;
+    }
 
-  while (lastNode->next != NULL) {
-    lastNode = lastNode->next;
+    lastNode->next = newNode;
   }
-
-  lastNode->next = newNode;
 
   clinic.medics.length++;
 }
@@ -413,14 +408,13 @@ void addToCollection(clinicStruct &clinic, medicalRoomStruct newMedicalRoom) {
 
   if (clinic.medicalRooms.firstNode == NULL) {
     clinic.medicalRooms.firstNode = newNode;
-    return;
-  }
+  } else {
+    while (lastNode->next != NULL) {
+      lastNode = lastNode->next;
+    }
 
-  while (lastNode->next != NULL) {
-    lastNode = lastNode->next;
+    lastNode->next = newNode;
   }
-
-  lastNode->next = newNode;
 
   clinic.medicalRooms.length++;
 }
@@ -435,14 +429,13 @@ void addToCollection(clinicStruct &clinic, receptionistStruct newReceptionist) {
 
   if (clinic.receptionists.firstNode == NULL) {
     clinic.receptionists.firstNode = newNode;
-    return;
-  }
+  } else {
+    while (lastNode->next != NULL) {
+      lastNode = lastNode->next;
+    }
 
-  while (lastNode->next != NULL) {
-    lastNode = lastNode->next;
+    lastNode->next = newNode;
   }
-
-  lastNode->next = newNode;
 
   clinic.receptionists.length++;
 }

@@ -40,15 +40,14 @@ void addToCollection(booksList &books, bookStruct newBook) {
   if (books.head == NULL) {
     books.head = newNode;
     books.head->previous = NULL;
-    return;
-  }
+  } else {
+    while (lastNode->next != NULL) {
+      lastNode = lastNode->next;
+    }
 
-  while (lastNode->next != NULL) {
-    lastNode = lastNode->next;
+    lastNode->next = newNode;
+    newNode->previous = lastNode;
   }
-
-  lastNode->next = newNode;
-  newNode->previous = lastNode;
 
   books.length++;
 }
@@ -64,15 +63,14 @@ void addToCollection(writersList &writers, writerStruct newWriter) {
   if (writers.head == NULL) {
     writers.head = newNode;
     writers.head->previous = NULL;
-    return;
-  }
+  } else {
+    while (lastNode->next != NULL) {
+      lastNode = lastNode->next;
+    }
 
-  while (lastNode->next != NULL) {
-    lastNode = lastNode->next;
+    lastNode->next = newNode;
+    newNode->previous = lastNode;
   }
-
-  lastNode->next = newNode;
-  newNode->previous = lastNode;
 
   writers.length++;
 }

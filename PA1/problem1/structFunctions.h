@@ -51,16 +51,14 @@ void addToCollection(brandsList &brands, brandStruct newBrand) {
   if (brands.firstNode == NULL) {
     brands.firstNode = newNode;
     brands.firstNode->previous = NULL;
-    brands.length = 1;
-    return;
-  }
+  } else {
+    while (lastNode->next != NULL) {
+      lastNode = lastNode->next;
+    }
 
-  while (lastNode->next != NULL) {
-    lastNode = lastNode->next;
+    lastNode->next = newNode;
+    newNode->previous = lastNode;
   }
-
-  lastNode->next = newNode;
-  newNode->previous = lastNode;
 
   brands.length++;
 }
@@ -75,15 +73,13 @@ void addToCollection(modelsList &models, modelStruct newModel) {
 
   if (models.firstNode == NULL) {
     models.firstNode = newNode;
-    models.length = 1;
-    return;
-  }
+  } else {
+    while (lastNode->next != NULL) {
+      lastNode = lastNode->next;
+    }
 
-  while (lastNode->next != NULL) {
-    lastNode = lastNode->next;
+    lastNode->next = newNode;
   }
-
-  lastNode->next = newNode;
 
   models.length++;
 }
@@ -98,15 +94,13 @@ void addToCollection(carsList &cars, carStruct newCar) {
 
   if (cars.firstNode == NULL) {
     cars.firstNode = newNode;
-    cars.length = 1;
-    return;
-  }
+  } else {
+    while (lastNode->next != NULL) {
+      lastNode = lastNode->next;
+    }
 
-  while (lastNode->next != NULL) {
-    lastNode = lastNode->next;
+    lastNode->next = newNode;
   }
-
-  lastNode->next = newNode;
 
   cars.length++;
 }

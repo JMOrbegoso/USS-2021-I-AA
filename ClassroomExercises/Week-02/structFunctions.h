@@ -49,15 +49,14 @@ void addToCollection(authorsList &authors, authorStruct newAuthor) {
   if (authors.firstNode == NULL) {
     authors.firstNode = newNode;
     authors.firstNode->previous = NULL;
-    return;
-  }
+  } else {
+    while (lastNode->next != NULL) {
+      lastNode = lastNode->next;
+    }
 
-  while (lastNode->next != NULL) {
-    lastNode = lastNode->next;
+    lastNode->next = newNode;
+    newNode->previous = lastNode;
   }
-
-  lastNode->next = newNode;
-  newNode->previous = lastNode;
 
   authors.length++;
 }
