@@ -118,6 +118,48 @@ void dataInitialization(libraryStruct &library) {
   addToCollection(library.books, divina);
 }
 
+bookStruct *iterateBooksList(booksList books, int index) {
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > books.length) {
+    return NULL;
+  }
+
+  bookNode *book_node = books.head;
+
+  for (int i = 1; book_node != NULL; i++) {
+    if (i == index) {
+      return &(book_node->book);
+    }
+    book_node = book_node->next;
+  }
+
+  return NULL;
+}
+
+bookStruct *requestBookWithSelector(libraryStruct library) {
+  int selectedOption;
+
+  cout << endl << "Escoja una libro para añadir el autor:" << endl << endl;
+
+  bookNode *book_node = library.books.head;
+
+  for (int i = 1; book_node != NULL; i++) {
+    cout << "[" << i << "] - " << book_node->book.title << endl;
+    book_node = book_node->next;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+
+  do {
+    cin >> selectedOption;
+  } while (!(0 < selectedOption && selectedOption <= library.books.length));
+
+  return iterateBooksList(library.books, selectedOption);
+}
+
 bookStruct *requestBookWithSearcher(libraryStruct library) {
   string textToFind;
   bookNode *book_node;
@@ -133,29 +175,6 @@ bookStruct *requestBookWithSearcher(libraryStruct library) {
     book_node = book_node->next;
   }
   return NULL;
-}
-
-bookStruct *requestBookWithSelector(libraryStruct library) {
-  int selectedOption;
-  bookStruct *validOptions[100];
-
-  cout << endl << "Escoja una libro para añadir el autor:" << endl << endl;
-
-  bookNode *book_node = library.books.head;
-
-  for (int i = 1; book_node != NULL; i++) {
-    cout << "[" << i << "] - " << book_node->book.title << endl;
-    validOptions[i] = &book_node->book;
-    book_node = book_node->next;
-  }
-
-  cout << endl << "Introduzca la opción deseada:" << endl;
-
-  do {
-    cin >> selectedOption;
-  } while (!(0 < selectedOption && selectedOption <= library.books.length));
-
-  return validOptions[selectedOption];
 }
 
 void showWritersListHeader(int y) {
