@@ -155,6 +155,94 @@ void dataInitialization(departmentStruct &department) {
   addToCollection(department.provinces, lambayeque);
 }
 
+provinceStruct *iterateProvincesList(provincesList provinces, int index) {
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > provinces.length) {
+    return NULL;
+  }
+
+  provinceNode *province_node = provinces.head;
+
+  for (int i = 1; province_node != NULL; i++) {
+    if (i == index) {
+      return &(province_node->province);
+    }
+    province_node = province_node->next;
+  }
+
+  return NULL;
+}
+
+districtStruct *iterateDistrictsList(districtsList districts, int index) {
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > districts.length) {
+    return NULL;
+  }
+
+  districtNode *district_node = districts.head;
+
+  for (int i = 1; district_node != NULL; i++) {
+    if (i == index) {
+      return &(district_node->district);
+    }
+    district_node = district_node->next;
+  }
+
+  return NULL;
+}
+
+provinceStruct *requestProvinceWithSelector(departmentStruct department,
+                                            string message) {
+  int selectedOption;
+
+  cout << endl << message << endl << endl;
+
+  provinceNode *province_node = department.provinces.head;
+
+  for (int i = 1; province_node != NULL; i++) {
+    cout << "[" << i << "] - " << province_node->province.name << endl;
+    province_node = province_node->next;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+
+  do {
+    cin >> selectedOption;
+  } while (
+      !(0 < selectedOption && selectedOption <= department.provinces.length));
+
+  return iterateProvincesList(department.provinces, selectedOption);
+}
+
+districtStruct *requestDistrictWithSelector(provinceStruct province,
+                                            string message) {
+  int selectedOption;
+
+  cout << endl << message << endl << endl;
+
+  districtNode *district_node = province.districts.head;
+
+  for (int i = 1; district_node != NULL; i++) {
+    cout << "[" << i << "] - " << district_node->district.name << endl;
+    district_node = district_node->next;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+
+  do {
+    cin >> selectedOption;
+  } while (
+      !(0 < selectedOption && selectedOption <= province.districts.length));
+
+  return iterateDistrictsList(province.districts, selectedOption);
+}
+
 void showProvincesListHeaders(int y) {
   gotoxy(0, y);
   cout << "#";
