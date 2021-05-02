@@ -114,17 +114,11 @@ void addToCollection(personsList &persons, personStruct newPerson) {
 }
 
 void dataInitialization(departmentStruct &department) {
-  provinceStruct chiclayo;
-  provinceStruct ferrenafe;
-  provinceStruct lambayeque;
+  provinceStruct chiclayo, ferrenafe, lambayeque;
 
-  districtStruct eten;
-  districtStruct pitipo;
-  districtStruct olmos;
+  districtStruct eten, pitipo, olmos;
 
-  personStruct person_1;
-  personStruct person_2;
-  personStruct person_3;
+  personStruct person_1, person_2, person_3, person_4, person_5, person_6;
 
   department.name = "Lambayeque";
   department.motto = "Cuna de la cultura Moche";
@@ -139,12 +133,18 @@ void dataInitialization(departmentStruct &department) {
   olmos = buildDistrict("Olmos", 50251, 5335.25, 1835);
 
   person_1 = buildPerson("Julio", "Gomez", 'm', 47);
-  person_2 = buildPerson("Rosa", "Jimenez", 'f', 32);
-  person_3 = buildPerson("Ramon", "Martinez", 'm', 28);
+  person_2 = buildPerson("Maria", "Izquierdo", 'f', 15);
+  person_3 = buildPerson("Julio", "Gomez", 'm', 27);
+  person_4 = buildPerson("Tulio", "Rojas", 'm', 11);
+  person_5 = buildPerson("Rosa", "Jimenez", 'f', 72);
+  person_6 = buildPerson("Alex", "Rodrigez", 'm', 28);
 
   addToCollection(eten.persons, person_1);
-  addToCollection(pitipo.persons, person_2);
-  addToCollection(olmos.persons, person_3);
+  addToCollection(eten.persons, person_2);
+  addToCollection(pitipo.persons, person_3);
+  addToCollection(pitipo.persons, person_4);
+  addToCollection(olmos.persons, person_5);
+  addToCollection(olmos.persons, person_6);
 
   addToCollection(chiclayo.districts, eten);
   addToCollection(ferrenafe.districts, pitipo);
