@@ -134,7 +134,7 @@ void dataInitialization(departmentStruct &department) {
 
   person_1 = buildPerson("Julio", "Gomez", 'm', 47);
   person_2 = buildPerson("Maria", "Izquierdo", 'f', 15);
-  person_3 = buildPerson("Julio", "Gomez", 'm', 27);
+  person_3 = buildPerson("Luis", "Lopez", 'm', 27);
   person_4 = buildPerson("Tulio", "Rojas", 'm', 11);
   person_5 = buildPerson("Rosa", "Jimenez", 'f', 72);
   person_6 = buildPerson("Alex", "Rodrigez", 'm', 28);
@@ -319,4 +319,39 @@ void showPerson(personStruct person, int i, int y) {
   cout << getGenre(person.genre);
   gotoxy(55, y);
   cout << person.age;
+}
+
+void showPersonsListWithUbicationDataHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Nombres";
+  gotoxy(20, y);
+  cout << "Apellidos";
+  gotoxy(40, y);
+  cout << "Genero";
+  gotoxy(55, y);
+  cout << "Edad";
+  gotoxy(65, y);
+  cout << "Provincia";
+  gotoxy(80, y);
+  cout << "Distrito";
+}
+
+void showPersonWithUbicationData(personStruct person, provinceStruct province,
+                                 districtStruct district, int i, int y) {
+  gotoxy(0, y);
+  cout << i;
+  gotoxy(5, y);
+  cout << person.firstName;
+  gotoxy(20, y);
+  cout << person.lastName;
+  gotoxy(40, y);
+  cout << getGenre(person.genre);
+  gotoxy(55, y);
+  cout << person.age;
+  gotoxy(65, y);
+  cout << province.name;
+  gotoxy(80, y);
+  cout << district.name;
 }
