@@ -205,6 +205,41 @@ void findPersonByDistrict(departmentStruct department) {
   cout << endl << endl;
 }
 
+void showAllPersonsData(departmentStruct department) {
+  provinceNode *province_node;
+  districtNode *district_node;
+  personNode *person_node;
+
+  clearScreen();
+  showAppTitle(department);
+
+  gotoxy(40, 10);
+  cout << "Personas de todo el departamento de " << department.name << endl;
+
+  province_node = department.provinces.head;
+
+  showPersonsListWithUbicationDataHeader(12);
+
+  int i = 1;
+  while (province_node != NULL) {
+    district_node = province_node->province.districts.head;
+    while (district_node != NULL) {
+      person_node = district_node->district.persons.head;
+      while (person_node != NULL) {
+        showPersonWithUbicationData(person_node->person,
+                                    province_node->province,
+                                    district_node->district, i, i + 12);
+        person_node = person_node->next;
+        i++;
+      }
+      district_node = district_node->next;
+    }
+    province_node = province_node->next;
+  }
+
+  cout << endl << endl;
+}
+
 void mainMenu(departmentStruct &department) {
   int selectedOption;
 
@@ -239,7 +274,7 @@ void mainMenu(departmentStruct &department) {
         break;
 
       case 6:
-        //   showAllDepartmentData(department);
+        showAllPersonsData(department);
         pauseProcess();
         break;
       }
