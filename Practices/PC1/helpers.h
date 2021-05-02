@@ -180,7 +180,40 @@ int requestIntegerNumber(string message, int min, int max) {
   return integer;
 }
 
-float requestMoney(string message, int min) {
+float requestArea(string message, float min) {
+  float area;
+
+  cout << message << "(Mínimo " << min << " Km2)" << endl;
+  cin >> area;
+
+  while (!(min <= area)) {
+    cout << "Por favor, ingrese una cantidad mínima de " << min << " Km2."
+         << endl;
+    fflush(stdin);
+    cin >> area;
+  }
+
+  return area;
+}
+
+float requestArea(string message, float min, float max) {
+  float area;
+
+  cout << message << "(Mínimo " << min << " Km2 y máximo " << max << " Km2)"
+       << endl;
+  cin >> area;
+
+  while (!(min <= area && area <= max)) {
+    cout << "Por favor, ingrese una cantidad mínima de " << min
+         << " Km2 y máxima de " << max << " Km2." << endl;
+    fflush(stdin);
+    cin >> area;
+  }
+
+  return area;
+}
+
+float requestMoney(string message, float min) {
   float amount;
 
   cout << message << "(Mínimo S/" << min << ")" << endl;
@@ -196,7 +229,7 @@ float requestMoney(string message, int min) {
   return amount;
 }
 
-float requestMoney(string message, int min, int max) {
+float requestMoney(string message, float min, float max) {
   float amount;
 
   cout << message << "(Mínimo S/" << min << " y máximo S/" << max << ")"
