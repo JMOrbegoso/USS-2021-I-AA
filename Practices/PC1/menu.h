@@ -166,6 +166,45 @@ void showPersonsByDistrict(departmentStruct department) {
   cout << endl << endl;
 }
 
+void findPersonByDistrict(departmentStruct department) {
+  provinceStruct province;
+  districtStruct district;
+  string lastNameToFind;
+  bool personFound = false;
+  province = *requestProvinceWithSelector(
+      department, "Ingrese la provincia de las personas que desea listar:");
+  district = *requestDistrictWithSelector(
+      province, "Ingrese el distrito de las personas que desea listar:");
+  lastNameToFind = requestText("Ingrese el apellido a buscar", 2);
+
+  clearScreen();
+  showAppTitle(department);
+
+  gotoxy(40, 10);
+  cout << "Personas del distrito de " << district.name
+       << " con un apellido similar a " << lastNameToFind << ":" << endl;
+
+  personNode *person_node = district.persons.head;
+
+  showPersonsListHeader(12);
+
+  int i = 1;
+  while (person_node != NULL) {
+    if (containsText(person_node->person.lastName, lastNameToFind)) {
+      personFound = true;
+      showPerson(person_node->person, i, i + 13);
+      i++;
+    }
+    person_node = person_node->next;
+    i++;
+  }
+
+  if (!personFound)
+    cout << endl << endl << "No se encontro ninguna persona con ese apellido";
+
+  cout << endl << endl;
+}
+
 void mainMenu(departmentStruct &department) {
   int selectedOption;
 
@@ -195,7 +234,7 @@ void mainMenu(departmentStruct &department) {
         break;
 
       case 5:
-        // findPersonByDistrict(department);
+        findPersonByDistrict(department);
         pauseProcess();
         break;
 
