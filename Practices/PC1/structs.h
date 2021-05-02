@@ -22,7 +22,7 @@ struct personsList {
 
 struct districtStruct {
   string name;
-  unsigned short population;
+  unsigned long population;
   float area;
   unsigned short creationYear;
   personsList persons;
@@ -40,7 +40,7 @@ struct districtsList {
 
 struct provinceStruct {
   string name;
-  unsigned short population;
+  unsigned long population;
   float area;
   unsigned short creationYear;
   districtsList districts;
@@ -59,6 +59,6 @@ struct provincesList {
 struct departmentStruct {
   string name;
   string motto;
-  string creationYear;
+  unsigned short creationYear;
   provincesList provinces;
 };
