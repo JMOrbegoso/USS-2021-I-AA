@@ -18,15 +18,8 @@ string toLowerCase(string text) {
   return text;
 }
 
-bool containsText(string textBase, string textToFind) {
-  if (toLowerCase(textBase).find(toLowerCase(textToFind), 0) != string::npos) {
-    return true;
-  }
-  return false;
-}
-
-string toString(int number) { return std::to_string(number); }
-string toString(float number) { return std::to_string(number); }
+string toString(int number) { return to_string(number); }
+string toString(float number) { return to_string(number); }
 
 char *toCharArray(string text) {
   char *charArray;
@@ -85,13 +78,17 @@ void gotoxy(int x, int y) {
 #endif
 }
 
-bool contains(int *integerArray, int arrayLength, int integer) {
-  for (int i = 0; i < arrayLength; i++) {
-    if (integerArray[i] == integer) {
-      return true;
-    }
-  }
+string concatenateStrings(string acumulator, string toAdd, string separator) {
+  if (acumulator.length() > 0)
+    return acumulator + separator + toAdd;
+  else
+    return toAdd;
+}
 
+bool containsText(string textBase, string textToFind) {
+  if (toLowerCase(textBase).find(toLowerCase(textToFind), 0) != string::npos) {
+    return true;
+  }
   return false;
 }
 
@@ -101,7 +98,7 @@ string getGenre(char genre) {
   else if (genre == 'f')
     return "Femenino";
   else
-    return "genero no valido";
+    return "Genero no valido";
 }
 
 string requestText(string message, long unsigned int minLength) {
@@ -136,7 +133,7 @@ char requestGenre(string message) {
   char genre;
 
   cout << message
-       << ". Ingrese 'm' para genero masculino o 'f' para genero femenino?"
+       << ". Ingrese 'm' para genero masculino o 'f' para genero femenino."
        << endl;
   cin >> genre;
 
@@ -180,14 +177,6 @@ int requestIntegerNumber(string message, int min, int max) {
   return integer;
 }
 
-unsigned short requestAge(string message, int min) {
-  return requestIntegerNumber(message, min);
-}
-
-unsigned short requestAge(string message, int min, int max) {
-  return requestIntegerNumber(message, min, max);
-}
-
 float requestFloatNumber(string message, float min) {
   float amount;
 
@@ -219,16 +208,70 @@ float requestFloatNumber(string message, float min, float max) {
   return amount;
 }
 
+float requestArea(string message, float min) {
+  float area;
+
+  cout << message << "(Mínimo " << min << " Km2)" << endl;
+  cin >> area;
+
+  while (!(min <= area)) {
+    cout << "Por favor, ingrese una cantidad mínima de " << min << " Km2."
+         << endl;
+    fflush(stdin);
+    cin >> area;
+  }
+
+  return area;
+}
+
+float requestArea(string message, float min, float max) {
+  float area;
+
+  cout << message << "(Mínimo " << min << " Km2 y máximo " << max << " Km2)"
+       << endl;
+  cin >> area;
+
+  while (!(min <= area && area <= max)) {
+    cout << "Por favor, ingrese una cantidad mínima de " << min
+         << " Km2 y máxima de " << max << " Km2." << endl;
+    fflush(stdin);
+    cin >> area;
+  }
+
+  return area;
+}
+
 float requestMoney(string message, float min) {
-  return requestFloatNumber(message, min);
+  float amount;
+
+  cout << message << "(Mínimo S/" << min << ")" << endl;
+  cin >> amount;
+
+  while (!(min <= amount)) {
+    cout << "Por favor, ingrese una cantidad mínima de S/" << min << "."
+         << endl;
+    fflush(stdin);
+    cin >> amount;
+  }
+
+  return amount;
 }
 
 float requestMoney(string message, float min, float max) {
-  return requestFloatNumber(message, min, max);
-}
+  float amount;
 
-string requestSearchTerm() {
-  return requestText("Ingrese el termino de busqueda", 2);
+  cout << message << "(Mínimo S/" << min << " y máximo S/" << max << ")"
+       << endl;
+  cin >> amount;
+
+  while (!(min <= amount && amount <= max)) {
+    cout << "Por favor, ingrese una cantidad mínima de S/" << min
+         << " y máxima de S/" << max << "." << endl;
+    fflush(stdin);
+    cin >> amount;
+  }
+
+  return amount;
 }
 
 string requestDate(string message) {
