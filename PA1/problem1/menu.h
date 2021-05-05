@@ -114,7 +114,7 @@ void showBrands(concessionaireStruct concessionaire) {
 
   showBrandsListHeaders(12);
 
-  brandNode *node = concessionaire.brands.firstNode;
+  brandNode *node = concessionaire.brands.head;
 
   for (int i = 1; node != NULL; i++) {
     showBrand(node->brand, i);
@@ -136,10 +136,10 @@ void showModels(concessionaireStruct concessionaire) {
 
   showModelsListHeaders(12);
 
-  brand_node = concessionaire.brands.firstNode;
+  brand_node = concessionaire.brands.head;
 
   while (brand_node != NULL) {
-    model_node = brand_node->brand.models.firstNode;
+    model_node = brand_node->brand.models.head;
     while (model_node != NULL) {
       showModel(model_node->model, brand_node->brand.name, i);
       model_node = model_node->next;
@@ -163,12 +163,12 @@ void showCars(concessionaireStruct concessionaire) {
 
   showCarsListHeaders(12);
 
-  brand_node = concessionaire.brands.firstNode;
+  brand_node = concessionaire.brands.head;
 
   while (brand_node != NULL) {
-    model_node = brand_node->brand.models.firstNode;
+    model_node = brand_node->brand.models.head;
     while (model_node != NULL) {
-      car_node = model_node->model.cars.firstNode;
+      car_node = model_node->model.cars.head;
       while (car_node != NULL) {
         showCar(car_node->car, brand_node->brand.name, model_node->model.name,
                 i);
@@ -198,7 +198,7 @@ void showCars(concessionaireStruct concessionaire, modelStruct model,
 
   showCarsListHeaders(12);
 
-  car_node = model.cars.firstNode;
+  car_node = model.cars.head;
   while (car_node != NULL) {
     showCar(car_node->car, brandName, model.name, i);
     car_node = car_node->next;
@@ -223,12 +223,12 @@ void findCarByLicense(concessionaireStruct concessionaire) {
   gotoxy(20, 10);
   cout << "Automóviles con la licencia: " << licenseToFind << endl;
 
-  brand_node = concessionaire.brands.firstNode;
+  brand_node = concessionaire.brands.head;
 
   while (brand_node != NULL) {
-    model_node = brand_node->brand.models.firstNode;
+    model_node = brand_node->brand.models.head;
     while (model_node != NULL) {
-      car_node = model_node->model.cars.firstNode;
+      car_node = model_node->model.cars.head;
       while (car_node != NULL) {
         showCarsListHeaders(12);
         if (containsText(car_node->car.license, licenseToFind)) {

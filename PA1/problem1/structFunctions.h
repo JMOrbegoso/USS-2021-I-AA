@@ -7,7 +7,7 @@ using namespace std;
 concessionaireStruct buildConcessionaireStruct() {
   concessionaireStruct concessionaire;
 
-  concessionaire.brands.firstNode = NULL;
+  concessionaire.brands.head = NULL;
   concessionaire.brands.length = 0;
 
   return concessionaire;
@@ -20,7 +20,7 @@ brandStruct buildBrand(string code, string name, string country) {
   brand.name = name;
   brand.country = country;
 
-  brand.models.firstNode = NULL;
+  brand.models.head = NULL;
   brand.models.length = 0;
 
   return brand;
@@ -33,7 +33,7 @@ modelStruct buildModel(string code, string name, string type) {
   model.name = name;
   model.type = type;
 
-  model.cars.firstNode = NULL;
+  model.cars.head = NULL;
   model.cars.length = 0;
 
   return model;
@@ -55,14 +55,14 @@ carStruct buildCar(string code, string license, float cylinderCapacity,
 void addToCollection(brandsList &brands, brandStruct newBrand) {
   brandNode *newNode = new brandNode();
 
-  brandNode *lastNode = brands.firstNode;
+  brandNode *lastNode = brands.head;
 
   newNode->brand = newBrand;
   newNode->next = NULL;
 
-  if (brands.firstNode == NULL) {
-    brands.firstNode = newNode;
-    brands.firstNode->previous = NULL;
+  if (brands.head == NULL) {
+    brands.head = newNode;
+    brands.head->previous = NULL;
   } else {
     while (lastNode->next != NULL) {
       lastNode = lastNode->next;
@@ -78,13 +78,13 @@ void addToCollection(brandsList &brands, brandStruct newBrand) {
 void addToCollection(modelsList &models, modelStruct newModel) {
   modelNode *newNode = new modelNode();
 
-  modelNode *lastNode = models.firstNode;
+  modelNode *lastNode = models.head;
 
   newNode->model = newModel;
   newNode->next = NULL;
 
-  if (models.firstNode == NULL) {
-    models.firstNode = newNode;
+  if (models.head == NULL) {
+    models.head = newNode;
   } else {
     while (lastNode->next != NULL) {
       lastNode = lastNode->next;
@@ -99,13 +99,13 @@ void addToCollection(modelsList &models, modelStruct newModel) {
 void addToCollection(carsList &cars, carStruct newCar) {
   carNode *newNode = new carNode();
 
-  carNode *lastNode = cars.firstNode;
+  carNode *lastNode = cars.head;
 
   newNode->car = newCar;
   newNode->next = NULL;
 
-  if (cars.firstNode == NULL) {
-    cars.firstNode = newNode;
+  if (cars.head == NULL) {
+    cars.head = newNode;
   } else {
     while (lastNode->next != NULL) {
       lastNode = lastNode->next;
@@ -141,7 +141,7 @@ brandStruct *requestBrand(concessionaireStruct concessionaire) {
 
   cout << endl << "Escoja una marca de automóviles:" << endl << endl;
 
-  brandNode *node = concessionaire.brands.firstNode;
+  brandNode *node = concessionaire.brands.head;
 
   for (int i = 1; node != NULL; i++) {
     cout << "[" << i << "] - " << node->brand.name << endl;
@@ -168,7 +168,7 @@ modelStruct *requestModel(brandStruct brand) {
        << endl
        << endl;
 
-  modelNode *node = brand.models.firstNode;
+  modelNode *node = brand.models.head;
 
   for (int i = 1; node != NULL; i++) {
     cout << "[" << i << "] - " << node->model.name << endl;

@@ -16,7 +16,7 @@ struct carNode {
 };
 
 struct carsList {
-  carNode *firstNode;
+  carNode *head;
   int length;
 };
 
@@ -33,7 +33,7 @@ struct modelNode {
 };
 
 struct modelsList {
-  modelNode *firstNode;
+  modelNode *head;
   int length;
 };
 
@@ -51,7 +51,7 @@ struct brandNode {
 };
 
 struct brandsList {
-  brandNode *firstNode;
+  brandNode *head;
   int length;
 };
 
