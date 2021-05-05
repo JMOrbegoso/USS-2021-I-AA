@@ -5,7 +5,8 @@ using namespace std;
 int main() {
   concessionaireStruct concessionaire;
 
-  collectionsInitialization(concessionaire);
+  concessionaire = buildConcessionaireStruct();
+
   dataInitialization(concessionaire);
 
   mainMenu(concessionaire);

@@ -4,39 +4,51 @@
 
 using namespace std;
 
-void collectionsInitialization(concessionaireStruct &concessionaire) {
+concessionaireStruct buildConcessionaireStruct() {
+  concessionaireStruct concessionaire;
+
   concessionaire.brands.firstNode = NULL;
   concessionaire.brands.length = 0;
+
+  return concessionaire;
 }
 
 brandStruct buildBrand(string code, string name, string country) {
   brandStruct brand;
+
   brand.code = code;
   brand.name = name;
   brand.country = country;
+
   brand.models.firstNode = NULL;
   brand.models.length = 0;
+
   return brand;
 }
 
 modelStruct buildModel(string code, string name, string type) {
   modelStruct model;
+
   model.code = code;
   model.name = name;
   model.type = type;
+
   model.cars.firstNode = NULL;
   model.cars.length = 0;
+
   return model;
 }
 
 carStruct buildCar(string code, string license, float cylinderCapacity,
                    string color, float performance) {
   carStruct car;
+
   car.code = code;
   car.license = license;
   car.cylinderCapacity = cylinderCapacity;
   car.color = color;
   car.performance = performance;
+
   return car;
 }
 
