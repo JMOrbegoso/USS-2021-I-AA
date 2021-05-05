@@ -92,10 +92,12 @@ void registerNewCar(concessionaireStruct &concessionaire) {
   code = requestText("Ingrese el código del nuevo automóvil", 1);
   license = requestText("Ingrese la matricula del nuevo automóvil", 1, 10);
   cylinderCapacity =
-      requestFloatNumber("Ingrese el cilindraje del nuevo automóvil (cc)", 1);
+      requestFloatNumber("Ingrese el cilindraje del nuevo automóvil (cc)",
+                         "Por favor ingrese un cilindraje mayor de 1 cc", 1);
   color = requestText("Ingrese el color del nuevo automóvil", 1);
   performance =
-      requestFloatNumber("Ingrese el performance del nuevo automóvil (CV)", 1);
+      requestFloatNumber("Ingrese el performance del nuevo automóvil (CV)",
+                         "Por favor ingrese un permormance mayor de 1 CV", 1);
   brandPointer = requestBrand(concessionaire);
   modelPointer = requestModel(*brandPointer);
 
