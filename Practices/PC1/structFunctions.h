@@ -212,10 +212,13 @@ provinceStruct *requestProvinceWithSelector(departmentStruct department,
 
   cout << endl << "Introduzca la opción deseada:" << endl;
 
-  do {
+  while (
+      !(0 < selectedOption && selectedOption <= department.provinces.length)) {
+    cout << "Por favor, introduzca un valor entre 1 y "
+         << department.provinces.length << "." << endl;
+    fflush(stdin);
     cin >> selectedOption;
-  } while (
-      !(0 < selectedOption && selectedOption <= department.provinces.length));
+  }
 
   return iterateProvincesList(department.provinces, selectedOption);
 }
@@ -235,10 +238,12 @@ districtStruct *requestDistrictWithSelector(provinceStruct province,
 
   cout << endl << "Introduzca la opción deseada:" << endl;
 
-  do {
+  while (!(0 < selectedOption && selectedOption <= province.districts.length)) {
+    cout << "Por favor, introduzca un valor entre 1 y "
+         << province.districts.length << "." << endl;
+    fflush(stdin);
     cin >> selectedOption;
-  } while (
-      !(0 < selectedOption && selectedOption <= province.districts.length));
+  }
 
   return iterateDistrictsList(province.districts, selectedOption);
 }
