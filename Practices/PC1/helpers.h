@@ -18,15 +18,8 @@ string toLowerCase(string text) {
   return text;
 }
 
-bool containsText(string textBase, string textToFind) {
-  if (toLowerCase(textBase).find(toLowerCase(textToFind), 0) != string::npos) {
-    return true;
-  }
-  return false;
-}
-
-string toString(int number) { return std::to_string(number); }
-string toString(float number) { return std::to_string(number); }
+string toString(int number) { return to_string(number); }
+string toString(float number) { return to_string(number); }
 
 char *toCharArray(string text) {
   char *charArray;
@@ -85,23 +78,27 @@ void gotoxy(int x, int y) {
 #endif
 }
 
-bool contains(int *integerArray, int arrayLength, int integer) {
-  for (int i = 0; i < arrayLength; i++) {
-    if (integerArray[i] == integer) {
-      return true;
-    }
-  }
+string concatenateStrings(string acumulator, string toAdd, string separator) {
+  if (acumulator.length() > 0)
+    return acumulator + separator + toAdd;
+  else
+    return toAdd;
+}
 
+bool containsText(string textBase, string textToFind) {
+  if (toLowerCase(textBase).find(toLowerCase(textToFind), 0) != string::npos) {
+    return true;
+  }
   return false;
 }
 
 string getGenre(char genre) {
   if (genre == 'm')
-    return "masculino";
+    return "Masculino";
   else if (genre == 'f')
-    return "femenino";
+    return "Femenino";
   else
-    return "genero no valido";
+    return "Genero no valido";
 }
 
 string requestText(string message, long unsigned int minLength) {
@@ -136,7 +133,7 @@ char requestGenre(string message) {
   char genre;
 
   cout << message
-       << ". Ingrese 'm' para genero masculino o 'f' para genero femenino?"
+       << ". Ingrese 'm' para genero masculino o 'f' para genero femenino."
        << endl;
   cin >> genre;
 
@@ -149,14 +146,14 @@ char requestGenre(string message) {
   return genre;
 }
 
-int requestIntegerNumber(string message, int min) {
+int requestIntegerNumber(string requestMessage, string errorMessage, int min) {
   int integer;
 
-  cout << message << " (Mínimo " << min << ")" << endl;
+  cout << requestMessage << endl;
   cin >> integer;
 
   while (!(min <= integer)) {
-    cout << "Por favor, introduzca un valor mínimo de " << min << "." << endl;
+    cout << errorMessage << endl;
     fflush(stdin);
     cin >> integer;
   }
@@ -164,15 +161,15 @@ int requestIntegerNumber(string message, int min) {
   return integer;
 }
 
-int requestIntegerNumber(string message, int min, int max) {
+int requestIntegerNumber(string requestMessage, string errorMessage, int min,
+                         int max) {
   int integer;
 
-  cout << message << "(Mínimo " << min << " y máximo " << max << ")" << endl;
+  cout << requestMessage << endl;
   cin >> integer;
 
   while (!(min <= integer && integer <= max)) {
-    cout << "Por favor, introduzca un valor mínimo de " << min
-         << " o máximo de " << max << "." << endl;
+    cout << errorMessage << endl;
     fflush(stdin);
     cin >> integer;
   }
@@ -180,48 +177,15 @@ int requestIntegerNumber(string message, int min, int max) {
   return integer;
 }
 
-float requestArea(string message, float min) {
-  float area;
-
-  cout << message << "(Mínimo " << min << " Km2)" << endl;
-  cin >> area;
-
-  while (!(min <= area)) {
-    cout << "Por favor, ingrese una cantidad mínima de " << min << " Km2."
-         << endl;
-    fflush(stdin);
-    cin >> area;
-  }
-
-  return area;
-}
-
-float requestArea(string message, float min, float max) {
-  float area;
-
-  cout << message << "(Mínimo " << min << " Km2 y máximo " << max << " Km2)"
-       << endl;
-  cin >> area;
-
-  while (!(min <= area && area <= max)) {
-    cout << "Por favor, ingrese una cantidad mínima de " << min
-         << " Km2 y máxima de " << max << " Km2." << endl;
-    fflush(stdin);
-    cin >> area;
-  }
-
-  return area;
-}
-
-float requestMoney(string message, float min) {
+float requestFloatNumber(string requestMessage, string errorMessage,
+                         float min) {
   float amount;
 
-  cout << message << "(Mínimo S/" << min << ")" << endl;
+  cout << requestMessage << endl;
   cin >> amount;
 
   while (!(min <= amount)) {
-    cout << "Por favor, ingrese una cantidad mínima de S/" << min << "."
-         << endl;
+    cout << errorMessage << endl;
     fflush(stdin);
     cin >> amount;
   }
@@ -229,16 +193,15 @@ float requestMoney(string message, float min) {
   return amount;
 }
 
-float requestMoney(string message, float min, float max) {
+float requestFloatNumber(string requestMessage, string errorMessage, float min,
+                         float max) {
   float amount;
 
-  cout << message << "(Mínimo S/" << min << " y máximo S/" << max << ")"
-       << endl;
+  cout << requestMessage << endl;
   cin >> amount;
 
   while (!(min <= amount && amount <= max)) {
-    cout << "Por favor, ingrese una cantidad mínima de S/" << min
-         << " y máxima de S/" << max << "." << endl;
+    cout << errorMessage << endl;
     fflush(stdin);
     cin >> amount;
   }
@@ -246,15 +209,54 @@ float requestMoney(string message, float min, float max) {
   return amount;
 }
 
-string requestSearchTerm() {
-  return requestText("Ingrese el termino de busqueda", 2);
+float requestArea(string message, float min) {
+  string requestMessage, errorMessage;
+
+  requestMessage = message + " (Mínimo " + toString(min) + " Km2)";
+  errorMessage =
+      "Por favor, ingrese una cantidad mínima de " + toString(min) + " Km2.";
+
+  return requestFloatNumber(requestMessage, errorMessage, min);
+}
+
+float requestArea(string message, float min, float max) {
+  string requestMessage, errorMessage;
+
+  requestMessage = message + " (Mínimo " + toString(min) + " Km2 y máximo de " +
+                   toString(max) + " Km2)";
+  errorMessage = "Por favor, ingrese una cantidad mínima de " + toString(min) +
+                 " Km2 y máxima de " + toString(max) + " Km2.";
+
+  return requestFloatNumber(requestMessage, errorMessage, min);
+}
+
+float requestMoney(string message, float min) {
+  string requestMessage, errorMessage;
+
+  requestMessage = message + " (Mínimo S/" + toString(min) + ")";
+  errorMessage =
+      "Por favor, ingrese una cantidad mínima de S/" + toString(min) + ".";
+
+  return requestFloatNumber(requestMessage, errorMessage, min);
+}
+
+float requestMoney(string message, float min, float max) {
+  string requestMessage, errorMessage;
+
+  requestMessage = message + " (Mínimo S/" + toString(min) + " y máximo de S/" +
+                   toString(max) + ")";
+  errorMessage = "Por favor, ingrese una cantidad mínima de S/" +
+                 toString(min) + " y máxima de S/" + toString(max) + ".";
+
+  return requestFloatNumber(requestMessage, errorMessage, min);
 }
 
 string requestDate(string message) {
   string date;
 
   // Year
-  int year = requestIntegerNumber("Año:", 1900, 2050);
+  int year = requestIntegerNumber(
+      "Año:", "Por favor ingrese un valor entre 1900 y 2050", 1900, 2050);
 
   // Month
   int selectedMonth;
@@ -303,14 +305,9 @@ string requestDate(string message) {
   }
 
   // Day
-  int day = requestIntegerNumber("Día del mes:", 1, maxDays);
+  int day = requestIntegerNumber(
+      "Día del mes:",
+      "Por favor ingrese un valor entre 1 y " + toString(maxDays), 1, maxDays);
 
   return toString(year) + "/" + months[selectedMonth] + "/" + toString(day);
-}
-
-string concatenateStrings(string acumulator, string toAdd, string separator) {
-  if (acumulator.length() > 0)
-    return acumulator + separator + toAdd;
-  else
-    return toAdd;
 }

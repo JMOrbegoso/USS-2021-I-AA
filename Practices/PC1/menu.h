@@ -60,10 +60,13 @@ void registerNewProvince(departmentStruct &department) {
 
   name = requestText("Ingrese el nombre de la nueva provincia", 2);
   population = requestIntegerNumber(
-      "Ingrese la cantidad de habitantes de la nueva provincia", 0);
-  area = requestArea("Ingrese el área total de la nueva provincia", 0);
-  creationYear = requestIntegerNumber(
-      "Ingrese el año de creacion de la nueva provincia", 1800);
+      "Ingrese la cantidad de habitantes de la nueva provincia",
+      "Por favor ingrese un numero de habitantes mayor a 0", 0);
+  area = requestFloatNumber("Ingrese el área total de la nueva provincia",
+                            "Por favor ingrese un area mayor a 0 Km2", 0);
+  creationYear =
+      requestIntegerNumber("Ingrese el año de creacion de la nueva provincia",
+                           "Por favor ingrese un año mayor a 1800", 1800);
 
   newProvince = buildProvince(name, population, area, creationYear);
 
@@ -89,10 +92,13 @@ void registerNewDistrict(departmentStruct &department) {
 
   name = requestText("Ingrese el nombre del nuevo distrito", 2);
   population = requestIntegerNumber(
-      "Ingrese la cantidad de habitantes del nuevo distrito", 0);
-  area = requestArea("Ingrese el área total del nuevo distrito", 0);
-  creationYear = requestIntegerNumber(
-      "Ingrese el año de creacion del nuevo distrito", 1800);
+      "Ingrese la cantidad de habitantes del nuevo distrito",
+      "Por favor ingrese un numero de habitantes mayor a 0", 0);
+  area = requestFloatNumber("Ingrese el área total del nuevo distrito",
+                            "Por favor ingrese un area mayor a 0 Km2", 0);
+  creationYear =
+      requestIntegerNumber("Ingrese el año de creacion del nuevo distrito",
+                           "Por favor ingrese un año mayor a 1800", 1800);
 
   newDistrict = buildDistrict(name, population, area, creationYear);
 
@@ -123,7 +129,9 @@ void registerNewPerson(departmentStruct &department) {
   firstName = requestText("Ingrese los nombres de la nueva persona", 2);
   lastName = requestText("Ingrese los apellidos de la nueva persona", 2);
   genre = requestGenre("Ingrese el genero de la nueva persona");
-  age = requestIntegerNumber("Ingrese la edad de la nueva persona", 0);
+  age = requestIntegerNumber(
+      "Ingrese la edad de la nueva persona",
+      "Por favor ingrese una edad mayor a 0 y menor a 110", 0, 110);
 
   newPerson = buildPerson(firstName, lastName, genre, age);
 
