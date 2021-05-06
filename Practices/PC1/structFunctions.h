@@ -200,22 +200,29 @@ districtStruct *iterateDistrictsList(districtsList districts, int index) {
 provinceStruct *requestProvinceWithSelector(departmentStruct department,
                                             string message) {
   int selectedOption;
+  int provincesQuantity;
+  provinceNode *node;
 
-  cout << endl << message << endl << endl;
+  provincesQuantity = department.provinces.length;
+  node = department.provinces.head;
 
-  provinceNode *province_node = department.provinces.head;
+  cout << endl
+       << message << ". Escoja entre las " << provincesQuantity
+       << " provincias siguientes:" << endl
+       << endl;
 
-  for (int i = 1; province_node != NULL; i++) {
-    cout << "[" << i << "] - " << province_node->province.name << endl;
-    province_node = province_node->next;
+  for (int i = 1; node != NULL; i++) {
+    cout << "[" << i << "] - " << node->province.name << " - "
+         << node->province.districts.length << " distritos en esta provincia"
+         << endl;
+    node = node->next;
   }
 
   cout << endl << "Introduzca la opción deseada:" << endl;
 
-  while (
-      !(0 < selectedOption && selectedOption <= department.provinces.length)) {
-    cout << "Por favor, introduzca un valor entre 1 y "
-         << department.provinces.length << "." << endl;
+  while (!(1 <= selectedOption && selectedOption <= provincesQuantity)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << provincesQuantity
+         << "." << endl;
     fflush(stdin);
     cin >> selectedOption;
   }
@@ -226,21 +233,29 @@ provinceStruct *requestProvinceWithSelector(departmentStruct department,
 districtStruct *requestDistrictWithSelector(provinceStruct province,
                                             string message) {
   int selectedOption;
+  int districtsQuantity;
+  districtNode *node;
 
-  cout << endl << message << endl << endl;
+  districtsQuantity = province.districts.length;
+  node = province.districts.head;
 
-  districtNode *district_node = province.districts.head;
+  cout << endl
+       << message << ". Escoja entre los " << districtsQuantity
+       << " distritos siguientes:" << endl
+       << endl;
 
-  for (int i = 1; district_node != NULL; i++) {
-    cout << "[" << i << "] - " << district_node->district.name << endl;
-    district_node = district_node->next;
+  for (int i = 1; node != NULL; i++) {
+    cout << "[" << i << "] - " << node->district.name << " - "
+         << node->district.persons.length << " personas en este distrito"
+         << endl;
+    node = node->next;
   }
 
   cout << endl << "Introduzca la opción deseada:" << endl;
 
-  while (!(0 < selectedOption && selectedOption <= province.districts.length)) {
-    cout << "Por favor, introduzca un valor entre 1 y "
-         << province.districts.length << "." << endl;
+  while (!(1 <= selectedOption && selectedOption <= districtsQuantity)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << districtsQuantity
+         << "." << endl;
     fflush(stdin);
     cin >> selectedOption;
   }
