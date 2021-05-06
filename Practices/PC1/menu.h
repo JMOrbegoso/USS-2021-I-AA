@@ -129,6 +129,17 @@ void registerNewPerson(departmentStruct &department) {
 
   province = *requestProvinceWithSelector(
       department, "Ingrese la provincia de la persona:");
+
+  while (!(province.districts.head != NULL)) {
+    cout << endl
+         << "La provincia elegida no tiene distritos, por favor elija una "
+            "provincia con distritos."
+         << endl;
+
+    province = *requestProvinceWithSelector(
+        department, "Ingrese la provincia de la persona:");
+  }
+
   district = *requestDistrictWithSelector(province,
                                           "Ingrese el distrito de la persona:");
 
