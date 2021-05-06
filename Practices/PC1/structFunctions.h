@@ -199,8 +199,7 @@ districtStruct *iterateDistrictsList(districtsList districts, int index) {
 
 provinceStruct *requestProvinceWithSelector(departmentStruct department,
                                             string message) {
-  int selectedOption;
-  int provincesQuantity;
+  int selectedOption, provincesQuantity;
   provinceNode *node;
 
   provincesQuantity = department.provinces.length;
@@ -211,8 +210,10 @@ provinceStruct *requestProvinceWithSelector(departmentStruct department,
        << " provincias siguientes:" << endl
        << endl;
 
-  for (int i = 1; node != NULL; i++) {
-    cout << "[" << i << "] - " << node->province.name << " - "
+  provincesQuantity = 0;
+  while (node != NULL) {
+    provincesQuantity++;
+    cout << "[" << provincesQuantity << "] - " << node->province.name << " - "
          << node->province.districts.length << " distritos en esta provincia"
          << endl;
     node = node->next;
@@ -232,8 +233,7 @@ provinceStruct *requestProvinceWithSelector(departmentStruct department,
 
 districtStruct *requestDistrictWithSelector(provinceStruct province,
                                             string message) {
-  int selectedOption;
-  int districtsQuantity;
+  int selectedOption, districtsQuantity;
   districtNode *node;
 
   districtsQuantity = province.districts.length;
@@ -244,8 +244,10 @@ districtStruct *requestDistrictWithSelector(provinceStruct province,
        << " distritos siguientes:" << endl
        << endl;
 
-  for (int i = 1; node != NULL; i++) {
-    cout << "[" << i << "] - " << node->district.name << " - "
+  districtsQuantity = 0;
+  while (node != NULL) {
+    districtsQuantity++;
+    cout << "[" << districtsQuantity << "] - " << node->district.name << " - "
          << node->district.persons.length << " personas en este distrito"
          << endl;
     node = node->next;
