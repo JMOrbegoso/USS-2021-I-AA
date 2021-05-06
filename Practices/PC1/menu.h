@@ -144,6 +144,8 @@ void registerNewPerson(departmentStruct &department) {
             "provincia con distritos."
          << endl;
 
+    addDelay(1);
+
     province = *requestProvinceWithSelector(
         department, "Ingrese la provincia de la persona:");
   }
