@@ -106,7 +106,8 @@ void registerNewDistrict(departmentStruct &department) {
   newDistrict = buildDistrict(name, population, area, creationYear);
 
   province = *requestProvinceWithSelector(
-      department, "Ingrese la provincia a la que este distrito pertenece:");
+      department.provinces,
+      "Ingrese la provincia a la que este distrito pertenece:");
 
   addToCollection(province.districts, newDistrict);
 
@@ -139,7 +140,7 @@ void registerNewPerson(departmentStruct &department) {
   newPerson = buildPerson(firstName, lastName, genre, age);
 
   province = *requestProvinceWithSelector(
-      department, "Ingrese la provincia de la persona:");
+      department.provinces, "Ingrese la provincia de la persona:");
 
   while (!(province.districts.head != NULL)) {
     cout << endl
@@ -150,10 +151,10 @@ void registerNewPerson(departmentStruct &department) {
     addDelay(1);
 
     province = *requestProvinceWithSelector(
-        department, "Ingrese la provincia de la persona:");
+        department.provinces, "Ingrese la provincia de la persona:");
   }
 
-  district = *requestDistrictWithSelector(province,
+  district = *requestDistrictWithSelector(province.districts,
                                           "Ingrese el distrito de la persona:");
 
   addToCollection(district.persons, newPerson);
@@ -166,9 +167,11 @@ void showPersonsByDistrict(departmentStruct department) {
   districtStruct district;
 
   province = *requestProvinceWithSelector(
-      department, "Ingrese la provincia de las personas que desea listar:");
+      department.provinces,
+      "Ingrese la provincia de las personas que desea listar:");
   district = *requestDistrictWithSelector(
-      province, "Ingrese el distrito de las personas que desea listar:");
+      province.districts,
+      "Ingrese el distrito de las personas que desea listar:");
 
   clearScreen();
   showAppTitle(department);
@@ -196,9 +199,11 @@ void findPersonByDistrict(departmentStruct department) {
   string lastNameToFind;
   bool personFound = false;
   province = *requestProvinceWithSelector(
-      department, "Ingrese la provincia de las personas que desea listar:");
+      department.provinces,
+      "Ingrese la provincia de las personas que desea listar:");
   district = *requestDistrictWithSelector(
-      province, "Ingrese el distrito de las personas que desea listar:");
+      province.districts,
+      "Ingrese el distrito de las personas que desea listar:");
   lastNameToFind = requestText("Ingrese el apellido a buscar", 2);
 
   clearScreen();

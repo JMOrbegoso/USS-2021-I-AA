@@ -197,13 +197,13 @@ districtStruct *iterateDistrictsList(districtsList districts, int index) {
   return NULL;
 }
 
-provinceStruct *requestProvinceWithSelector(departmentStruct department,
+provinceStruct *requestProvinceWithSelector(provincesList &provinces,
                                             string message) {
   int selectedOption, provincesQuantity;
   provinceNode *node;
 
-  provincesQuantity = department.provinces.length;
-  node = department.provinces.head;
+  provincesQuantity = provinces.length;
+  node = provinces.head;
 
   cout << endl
        << message << ". Escoja entre las " << provincesQuantity
@@ -228,16 +228,16 @@ provinceStruct *requestProvinceWithSelector(departmentStruct department,
     cin >> selectedOption;
   }
 
-  return iterateProvincesList(department.provinces, selectedOption);
+  return iterateProvincesList(provinces, selectedOption);
 }
 
-districtStruct *requestDistrictWithSelector(provinceStruct province,
+districtStruct *requestDistrictWithSelector(districtsList &districts,
                                             string message) {
   int selectedOption, districtsQuantity;
   districtNode *node;
 
-  districtsQuantity = province.districts.length;
-  node = province.districts.head;
+  districtsQuantity = districts.length;
+  node = districts.head;
 
   cout << endl
        << message << ". Escoja entre los " << districtsQuantity
@@ -262,7 +262,7 @@ districtStruct *requestDistrictWithSelector(provinceStruct province,
     cin >> selectedOption;
   }
 
-  return iterateDistrictsList(province.districts, selectedOption);
+  return iterateDistrictsList(districts, selectedOption);
 }
 
 void showProvincesListHeaders(int y) {
