@@ -31,11 +31,14 @@ int requestMenuOption(departmentStruct department) {
   cout << "[5] Buscar persona" << endl;
   cout << "[6] Mostrar provincias con sus distritos y sus personas" << endl;
 
+  cout << "[7] Mostrar todas las provincias" << endl;
+  cout << "[8] Mostrar todos los distritos" << endl;
+
   cout << "[0] Cerrar" << endl;
 
   cout << endl << "Por favor ingrese una de las opciones:" << endl;
   cin >> selectedOption;
-  while (!(0 <= selectedOption && selectedOption <= 6)) {
+  while (!(0 <= selectedOption && selectedOption <= 8)) {
     cout << "La opcion seleccionada fue inválida, por favor seleccione una "
             "opcion válida:"
          << endl;
@@ -261,6 +264,59 @@ void showAllPersonsData(departmentStruct department) {
   cout << endl << endl;
 }
 
+void showProvinces(departmentStruct department) {
+  provinceNode *province_node;
+
+  clearScreen();
+  showAppTitle(department);
+
+  gotoxy(40, 10);
+  cout << "Todas las provincias del departamento de " << department.name
+       << endl;
+
+  province_node = department.provinces.head;
+
+  showProvincesListHeaders(12);
+
+  int i = 1;
+  while (province_node != NULL) {
+    showProvince(province_node->province, i, i + 13);
+    province_node = province_node->next;
+    i++;
+  }
+
+  cout << endl << endl;
+}
+
+void showDistricts(departmentStruct department) {
+  provinceNode *province_node;
+  districtNode *district_node;
+
+  clearScreen();
+  showAppTitle(department);
+
+  gotoxy(40, 10);
+  cout << "Todos los distritos de todo el departamento de " << department.name
+       << endl;
+
+  province_node = department.provinces.head;
+
+  showDistrictsListHeaders(12);
+
+  int i = 1;
+  while (province_node != NULL) {
+    district_node = province_node->province.districts.head;
+    while (district_node != NULL) {
+      showDistrict(district_node->district, i, i + 13);
+      district_node = district_node->next;
+      i++;
+    }
+    province_node = province_node->next;
+  }
+
+  cout << endl << endl;
+}
+
 void mainMenu(departmentStruct &department) {
   int selectedOption;
 
@@ -296,6 +352,16 @@ void mainMenu(departmentStruct &department) {
 
       case 6:
         showAllPersonsData(department);
+        pauseProcess();
+        break;
+
+      case 7:
+        showProvinces(department);
+        pauseProcess();
+        break;
+
+      case 8:
+        showDistricts(department);
         pauseProcess();
         break;
       }
