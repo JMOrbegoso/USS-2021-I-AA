@@ -69,6 +69,29 @@ void registerNewPerson(personsQueue &persons) {
   cout << "La persona fue añadida de forma exitosa" << endl;
 }
 
+void servePerson(personsQueue &persons) {
+  personStruct person;
+
+  clearScreen();
+  showAppTitle();
+
+  gotoxy(40, 10);
+  cout << "Persona atendida:" << endl;
+
+  if (isQueueEmpty(persons)) {
+    cout << endl << "No hay personas en cola." << endl << endl;
+    return;
+  }
+
+  person = dequeue(persons);
+
+  showPersonsListHeader(12);
+
+  showPerson(person, 1, 13);
+
+  cout << endl << endl;
+}
+
 void findPerson(personsQueue persons) {
   personNode *person_node;
   string lastNameToFind;
@@ -129,6 +152,34 @@ void showPersons(personsQueue persons) {
   cout << endl << endl;
 }
 
+void emptyQueue(personsQueue &persons) {
+  personStruct person;
+  personNode *aux;
+
+  aux = persons.head;
+
+  clearScreen();
+  showAppTitle();
+
+  gotoxy(40, 10);
+  cout << "Personas removidas:" << endl;
+
+  if (isQueueEmpty(persons)) {
+    cout << endl << "No hay personas en cola." << endl << endl;
+    return;
+  }
+
+  showPersonsListHeader(12);
+
+  for (int i = 1; aux != NULL; i++) {
+    person = dequeue(persons);
+    showPerson(person, i, i + 12);
+    aux = aux->next;
+  }
+
+  cout << endl << endl;
+}
+
 void mainMenu(personsQueue &persons) {
   int selectedOption;
 
@@ -143,8 +194,8 @@ void mainMenu(personsQueue &persons) {
         break;
 
       case 2:
-        // registerNewDistrict(department);
-        addDelay(2);
+        servePerson(persons);
+        pauseProcess();
         break;
 
       case 3:
@@ -158,12 +209,7 @@ void mainMenu(personsQueue &persons) {
         break;
 
       case 5:
-        // findPersonByDistrict(department);
-        pauseProcess();
-        break;
-
-      case 6:
-        // showAllPersonsData(department);
+        emptyQueue(persons);
         pauseProcess();
         break;
       }

@@ -38,7 +38,22 @@ void enqueue(personsQueue &persons, personStruct newPerson) {
   persons.length++;
 }
 
-void dequeue() {}
+bool isQueueEmpty(personsQueue persons) { return persons.head == NULL; }
+
+personStruct dequeue(personsQueue &persons) {
+  personStruct person;
+  personNode *aux;
+
+  aux = persons.head;
+  person = aux->person;
+
+  persons.head = persons.head->next;
+  persons.length--;
+
+  delete aux;
+
+  return person;
+}
 
 void dataInitialization(personsQueue &persons) {
   personStruct person_1, person_2, person_3, person_4, person_5, person_6;
