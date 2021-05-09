@@ -155,7 +155,9 @@ void dataInitialization(departmentStruct &department) {
   addToCollection(department.provinces, lambayeque);
 }
 
-provinceStruct *iterateProvincesList(provincesList provinces, int index) {
+provinceNode *iterateProvincesList(provincesList provinces, int index) {
+  provinceNode *provinceNodePointer;
+
   if (0 >= index) {
     return NULL;
   }
@@ -164,19 +166,21 @@ provinceStruct *iterateProvincesList(provincesList provinces, int index) {
     return NULL;
   }
 
-  provinceNode *province_node = provinces.head;
+  provinceNodePointer = provinces.head;
 
-  for (int i = 1; province_node != NULL; i++) {
+  for (int i = 1; provinceNodePointer != NULL; i++) {
     if (i == index) {
-      return &(province_node->province);
+      return provinceNodePointer;
     }
-    province_node = province_node->next;
+    provinceNodePointer = provinceNodePointer->next;
   }
 
   return NULL;
 }
 
-districtStruct *iterateDistrictsList(districtsList districts, int index) {
+districtNode *iterateDistrictsList(districtsList districts, int index) {
+  districtNode *districtNodePointer;
+
   if (0 >= index) {
     return NULL;
   }
@@ -185,20 +189,20 @@ districtStruct *iterateDistrictsList(districtsList districts, int index) {
     return NULL;
   }
 
-  districtNode *district_node = districts.head;
+  districtNodePointer = districts.head;
 
-  for (int i = 1; district_node != NULL; i++) {
+  for (int i = 1; districtNodePointer != NULL; i++) {
     if (i == index) {
-      return &(district_node->district);
+      return districtNodePointer;
     }
-    district_node = district_node->next;
+    districtNodePointer = districtNodePointer->next;
   }
 
   return NULL;
 }
 
-provinceStruct *requestProvinceWithSelector(provincesList &provinces,
-                                            string message) {
+provinceNode *requestProvinceWithSelector(provincesList &provinces,
+                                          string message) {
   int selectedOption, provincesQuantity;
   provinceNode *node;
 
@@ -231,8 +235,8 @@ provinceStruct *requestProvinceWithSelector(provincesList &provinces,
   return iterateProvincesList(provinces, selectedOption);
 }
 
-districtStruct *requestDistrictWithSelector(districtsList &districts,
-                                            string message) {
+districtNode *requestDistrictWithSelector(districtsList &districts,
+                                          string message) {
   int selectedOption, districtsQuantity;
   districtNode *node;
 

@@ -83,7 +83,7 @@ void registerNewDistrict(departmentStruct &department) {
   unsigned long population;
   float area;
   unsigned short creationYear;
-  provinceStruct province;
+  provinceNode *provinceNodePointer;
 
   districtStruct newDistrict;
 
@@ -105,11 +105,11 @@ void registerNewDistrict(departmentStruct &department) {
 
   newDistrict = buildDistrict(name, population, area, creationYear);
 
-  province = *requestProvinceWithSelector(
+  provinceNodePointer = requestProvinceWithSelector(
       department.provinces,
       "Ingrese la provincia a la que este distrito pertenece:");
 
-  addToCollection(province.districts, newDistrict);
+  addToCollection(provinceNodePointer->province.districts, newDistrict);
 
   cout << "El distrito fue añadido de forma exitosa" << endl;
 }
@@ -119,8 +119,8 @@ void registerNewPerson(departmentStruct &department) {
   string lastName;
   char genre;
   unsigned short age;
-  provinceStruct province;
-  districtStruct district;
+  provinceNode *provinceNodePointer;
+  districtNode *districtNodePointer;
 
   personStruct newPerson;
 
@@ -139,10 +139,10 @@ void registerNewPerson(departmentStruct &department) {
 
   newPerson = buildPerson(firstName, lastName, genre, age);
 
-  province = *requestProvinceWithSelector(
+  provinceNodePointer = requestProvinceWithSelector(
       department.provinces, "Ingrese la provincia de la persona:");
 
-  while (!(province.districts.head != NULL)) {
+  while (!(provinceNodePointer->province.districts.head != NULL)) {
     cout << endl
          << "La provincia elegida no tiene distritos, por favor elija una "
             "provincia con distritos."
@@ -150,43 +150,46 @@ void registerNewPerson(departmentStruct &department) {
 
     addDelay(1);
 
-    province = *requestProvinceWithSelector(
+    provinceNodePointer = requestProvinceWithSelector(
         department.provinces, "Ingrese la provincia de la persona:");
   }
 
-  district = *requestDistrictWithSelector(province.districts,
-                                          "Ingrese el distrito de la persona:");
+  districtNodePointer =
+      requestDistrictWithSelector(provinceNodePointer->province.districts,
+                                  "Ingrese el distrito de la persona:");
 
-  addToCollection(district.persons, newPerson);
+  addToCollection(districtNodePointer->district.persons, newPerson);
 
   cout << "La persona fue añadida de forma exitosa" << endl;
 }
 
 void showPersonsByDistrict(departmentStruct department) {
-  provinceStruct province;
-  districtStruct district;
+  provinceNode *provinceNodePointer;
+  districtNode *districtNodePointer;
+  personNode *personNodePointer;
 
-  province = *requestProvinceWithSelector(
+  provinceNodePointer = requestProvinceWithSelector(
       department.provinces,
       "Ingrese la provincia de las personas que desea listar:");
-  district = *requestDistrictWithSelector(
-      province.districts,
+  districtNodePointer = requestDistrictWithSelector(
+      provinceNodePointer->province.districts,
       "Ingrese el distrito de las personas que desea listar:");
 
   clearScreen();
   showAppTitle(department);
 
   gotoxy(40, 10);
-  cout << "Personas del distrito de " << district.name << endl;
+  cout << "Personas del distrito de " << districtNodePointer->district.name
+       << endl;
 
-  personNode *person_node = district.persons.head;
+  personNodePointer = districtNodePointer->district.persons.head;
 
   showPersonsListHeader(12);
 
   int i = 1;
-  while (person_node != NULL) {
-    showPerson(person_node->person, i, i + 13);
-    person_node = person_node->next;
+  while (personNodePointer != NULL) {
+    showPerson(personNodePointer->person, i, i + 13);
+    personNodePointer = personNodePointer->next;
     i++;
   }
 
@@ -194,15 +197,17 @@ void showPersonsByDistrict(departmentStruct department) {
 }
 
 void findPersonByDistrict(departmentStruct department) {
-  provinceStruct province;
-  districtStruct district;
+  provinceNode *provinceNodePointer;
+  districtNode *districtNodePointer;
+  personNode *personNodePointer;
   string lastNameToFind;
   bool personFound = false;
-  province = *requestProvinceWithSelector(
+
+  provinceNodePointer = requestProvinceWithSelector(
       department.provinces,
       "Ingrese la provincia de las personas que desea listar:");
-  district = *requestDistrictWithSelector(
-      province.districts,
+  districtNodePointer = requestDistrictWithSelector(
+      provinceNodePointer->province.districts,
       "Ingrese el distrito de las personas que desea listar:");
   lastNameToFind = requestText("Ingrese el apellido a buscar", 2);
 
@@ -210,21 +215,21 @@ void findPersonByDistrict(departmentStruct department) {
   showAppTitle(department);
 
   gotoxy(40, 10);
-  cout << "Personas del distrito de " << district.name
+  cout << "Personas del distrito de " << districtNodePointer->district.name
        << " con un apellido similar a " << lastNameToFind << ":" << endl;
 
-  personNode *person_node = district.persons.head;
+  personNodePointer = districtNodePointer->district.persons.head;
 
   showPersonsListHeader(12);
 
   int i = 1;
-  while (person_node != NULL) {
-    if (containsText(person_node->person.lastName, lastNameToFind)) {
+  while (personNodePointer != NULL) {
+    if (containsText(personNodePointer->person.lastName, lastNameToFind)) {
       personFound = true;
-      showPerson(person_node->person, i, i + 13);
+      showPerson(personNodePointer->person, i, i + 13);
       i++;
     }
-    person_node = person_node->next;
+    personNodePointer = personNodePointer->next;
     i++;
   }
 
@@ -235,9 +240,9 @@ void findPersonByDistrict(departmentStruct department) {
 }
 
 void showAllPersonsData(departmentStruct department) {
-  provinceNode *province_node;
-  districtNode *district_node;
-  personNode *person_node;
+  provinceNode *provinceNodePointer;
+  districtNode *districtNodePointer;
+  personNode *personNodePointer;
 
   clearScreen();
   showAppTitle(department);
@@ -245,32 +250,32 @@ void showAllPersonsData(departmentStruct department) {
   gotoxy(40, 10);
   cout << "Personas de todo el departamento de " << department.name << endl;
 
-  province_node = department.provinces.head;
+  provinceNodePointer = department.provinces.head;
 
   showPersonsListWithUbicationDataHeader(12);
 
   int i = 1;
-  while (province_node != NULL) {
-    district_node = province_node->province.districts.head;
-    while (district_node != NULL) {
-      person_node = district_node->district.persons.head;
-      while (person_node != NULL) {
-        showPersonWithUbicationData(person_node->person,
-                                    province_node->province,
-                                    district_node->district, i, i + 12);
-        person_node = person_node->next;
+  while (provinceNodePointer != NULL) {
+    districtNodePointer = provinceNodePointer->province.districts.head;
+    while (districtNodePointer != NULL) {
+      personNodePointer = districtNodePointer->district.persons.head;
+      while (personNodePointer != NULL) {
+        showPersonWithUbicationData(personNodePointer->person,
+                                    provinceNodePointer->province,
+                                    districtNodePointer->district, i, i + 12);
+        personNodePointer = personNodePointer->next;
         i++;
       }
-      district_node = district_node->next;
+      districtNodePointer = districtNodePointer->next;
     }
-    province_node = province_node->next;
+    provinceNodePointer = provinceNodePointer->next;
   }
 
   cout << endl << endl;
 }
 
 void showProvinces(departmentStruct department) {
-  provinceNode *province_node;
+  provinceNode *provinceNodePointer;
 
   clearScreen();
   showAppTitle(department);
@@ -279,14 +284,14 @@ void showProvinces(departmentStruct department) {
   cout << "Todas las provincias del departamento de " << department.name
        << endl;
 
-  province_node = department.provinces.head;
+  provinceNodePointer = department.provinces.head;
 
   showProvincesListHeaders(12);
 
   int i = 1;
-  while (province_node != NULL) {
-    showProvince(province_node->province, i, i + 13);
-    province_node = province_node->next;
+  while (provinceNodePointer != NULL) {
+    showProvince(provinceNodePointer->province, i, i + 13);
+    provinceNodePointer = provinceNodePointer->next;
     i++;
   }
 
@@ -294,8 +299,8 @@ void showProvinces(departmentStruct department) {
 }
 
 void showDistricts(departmentStruct department) {
-  provinceNode *province_node;
-  districtNode *district_node;
+  provinceNode *provinceNodePointer;
+  districtNode *districtNodePointer;
 
   clearScreen();
   showAppTitle(department);
@@ -304,19 +309,19 @@ void showDistricts(departmentStruct department) {
   cout << "Todos los distritos de todo el departamento de " << department.name
        << endl;
 
-  province_node = department.provinces.head;
+  provinceNodePointer = department.provinces.head;
 
   showDistrictsListHeaders(12);
 
   int i = 1;
-  while (province_node != NULL) {
-    district_node = province_node->province.districts.head;
-    while (district_node != NULL) {
-      showDistrict(district_node->district, i, i + 13);
-      district_node = district_node->next;
+  while (provinceNodePointer != NULL) {
+    districtNodePointer = provinceNodePointer->province.districts.head;
+    while (districtNodePointer != NULL) {
+      showDistrict(districtNodePointer->district, i, i + 13);
+      districtNodePointer = districtNodePointer->next;
       i++;
     }
-    province_node = province_node->next;
+    provinceNodePointer = provinceNodePointer->next;
   }
 
   cout << endl << endl;
