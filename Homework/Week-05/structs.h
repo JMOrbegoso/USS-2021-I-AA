@@ -2,9 +2,11 @@
 
 using namespace std;
 
+// Record
+
 struct recordStruct {
   string code;
-  string type;
+  string name;
 };
 
 struct recordNode {
@@ -16,6 +18,8 @@ struct recordsStack {
   recordNode *top;
   int length;
 };
+
+// Client
 
 struct clientStruct {
   string firstName;
@@ -36,8 +40,31 @@ struct clientsQueue {
   int length;
 };
 
+// Cashier
+
+struct cashierStruct {
+  string firstName;
+  string lastName;
+  char genre;
+  unsigned short age;
+  clientsQueue clients;
+};
+
+struct cashierNode {
+  cashierStruct cashier;
+  cashierNode *next;
+};
+
+struct cashiersList {
+  cashierNode *head;
+  int length;
+};
+
+// Bank
+
 struct bankStruct {
   string name;
   string address;
-  clientsQueue clients;
+  string ruc;
+  cashiersList cashiers;
 };
