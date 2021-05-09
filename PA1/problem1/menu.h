@@ -64,7 +64,7 @@ void registerNewBrand(concessionaireStruct &concessionaire) {
 
 void registerNewModel(concessionaireStruct &concessionaire) {
   modelStruct newModel;
-  brandStruct *brandPointer;
+  brandNode *brandNodePointer;
   string code, name, type;
 
   cout << "Va a registrar un nuevo modelo de automóviles" << endl << endl;
@@ -72,18 +72,20 @@ void registerNewModel(concessionaireStruct &concessionaire) {
   code = requestText("Ingrese el código del nuevo modelo", 1);
   name = requestText("Ingrese el nombre del nuevo modelo", 1);
   type = requestText("Ingrese el tipo del nuevo modelo", 1);
-  brandPointer = requestBrand(concessionaire);
+  brandNodePointer = requestBrandWithSelector(
+      concessionaire.brands,
+      "Ingrese la marca del nuevo modelo de automóviles:");
 
   newModel = buildModel(code, name, type);
-  addToCollection(brandPointer->models, newModel);
+  addToCollection(brandNodePointer->brand.models, newModel);
 
   cout << "El modelo de automóviles ha sido registrado correctamente";
 }
 
 void registerNewCar(concessionaireStruct &concessionaire) {
   carStruct newCar;
-  brandStruct *brandPointer;
-  modelStruct *modelPointer;
+  brandNode *brandNodePointer;
+  modelNode *modelNodePointer;
   string code, license, color;
   float cylinderCapacity, performance;
 
@@ -98,16 +100,33 @@ void registerNewCar(concessionaireStruct &concessionaire) {
   performance =
       requestFloatNumber("Ingrese el performance del nuevo automóvil (CV)",
                          "Por favor ingrese un permormance mayor de 1 CV", 1);
-  brandPointer = requestBrand(concessionaire);
-  modelPointer = requestModel(*brandPointer);
+  brandNodePointer = requestBrandWithSelector(
+      concessionaire.brands, "Ingrese la marca del automóvil:");
+
+  while (!(brandNodePointer->brand.models.head != NULL)) {
+    cout << endl
+         << "La marca elegida no tiene modelos, por favor elija una "
+            "marca con modelos."
+         << endl;
+
+    addDelay(1);
+
+    brandNodePointer = requestBrandWithSelector(
+        concessionaire.brands, "Ingrese la marca del automóvil:");
+  }
+
+  modelNodePointer = requestModelWithSelector(
+      brandNodePointer->brand.models, "Ahora ingrese el modelo del automóvil:");
 
   newCar = buildCar(code, license, cylinderCapacity, color, performance);
-  addToCollection(modelPointer->cars, newCar);
+  addToCollection(modelNodePointer->model.cars, newCar);
 
   cout << "El automóvil ha sido registrado correctamente";
 }
 
 void showBrands(concessionaireStruct concessionaire) {
+  brandNode *brandNodePointer;
+
   clearScreen();
   showAppTitle(concessionaire);
 
@@ -116,20 +135,21 @@ void showBrands(concessionaireStruct concessionaire) {
 
   showBrandsListHeaders(12);
 
-  brandNode *node = concessionaire.brands.head;
+  brandNodePointer = concessionaire.brands.head;
 
-  for (int i = 1; node != NULL; i++) {
-    showBrand(node->brand, i);
-    node = node->next;
+  for (int i = 1; brandNodePointer != NULL; i++) {
+    showBrand(brandNodePointer->brand, i);
+    brandNodePointer = brandNodePointer->next;
   }
 
   cout << endl << endl;
 }
 
 void showModels(concessionaireStruct concessionaire) {
-  brandNode *brand_node;
-  modelNode *model_node;
+  brandNode *brandNodePointer;
+  modelNode *modelNodePointer;
   int i = 1;
+
   clearScreen();
   showAppTitle(concessionaire);
 
@@ -138,26 +158,26 @@ void showModels(concessionaireStruct concessionaire) {
 
   showModelsListHeaders(12);
 
-  brand_node = concessionaire.brands.head;
+  brandNodePointer = concessionaire.brands.head;
 
-  while (brand_node != NULL) {
-    model_node = brand_node->brand.models.head;
-    while (model_node != NULL) {
-      showModel(model_node->model, brand_node->brand.name, i);
-      model_node = model_node->next;
+  while (brandNodePointer != NULL) {
+    modelNodePointer = brandNodePointer->brand.models.head;
+    while (modelNodePointer != NULL) {
+      showModel(modelNodePointer->model, brandNodePointer->brand.name, i);
+      modelNodePointer = modelNodePointer->next;
       i++;
     }
 
-    brand_node = brand_node->next;
+    brandNodePointer = brandNodePointer->next;
   }
 
   cout << endl << endl;
 }
 
 void showCars(concessionaireStruct concessionaire) {
-  brandNode *brand_node;
-  modelNode *model_node;
-  carNode *car_node;
+  brandNode *brandNodePointer;
+  modelNode *modelNodePointer;
+  carNode *carNodePointer;
   int i = 1;
 
   clearScreen();
@@ -165,32 +185,50 @@ void showCars(concessionaireStruct concessionaire) {
 
   showCarsListHeaders(12);
 
-  brand_node = concessionaire.brands.head;
+  brandNodePointer = concessionaire.brands.head;
 
-  while (brand_node != NULL) {
-    model_node = brand_node->brand.models.head;
-    while (model_node != NULL) {
-      car_node = model_node->model.cars.head;
-      while (car_node != NULL) {
-        showCar(car_node->car, brand_node->brand.name, model_node->model.name,
-                i);
-        car_node = car_node->next;
+  while (brandNodePointer != NULL) {
+    modelNodePointer = brandNodePointer->brand.models.head;
+    while (modelNodePointer != NULL) {
+      carNodePointer = modelNodePointer->model.cars.head;
+      while (carNodePointer != NULL) {
+        showCar(carNodePointer->car, brandNodePointer->brand.name,
+                modelNodePointer->model.name, i);
+        carNodePointer = carNodePointer->next;
         i++;
       }
 
-      model_node = model_node->next;
+      modelNodePointer = modelNodePointer->next;
     }
 
-    brand_node = brand_node->next;
+    brandNodePointer = brandNodePointer->next;
   }
 
   cout << endl << endl;
 }
 
-void showCars(concessionaireStruct concessionaire, modelStruct model,
-              string brandName) {
-  carNode *car_node;
-  int i = 1;
+void showCarsByModel(concessionaireStruct concessionaire) {
+  brandNode *brandNodePointer;
+  modelNode *modelNodePointer;
+  carNode *carNodePointer;
+
+  brandNodePointer = requestBrandWithSelector(
+      concessionaire.brands, "Ingrese la marca del automóvil:");
+
+  while (!(brandNodePointer->brand.models.head != NULL)) {
+    cout << endl
+         << "La marca elegida no tiene modelos, por favor elija una "
+            "marca con modelos."
+         << endl;
+
+    addDelay(1);
+
+    brandNodePointer = requestBrandWithSelector(
+        concessionaire.brands, "Ingrese la marca del automóvil:");
+  }
+
+  modelNodePointer = requestModelWithSelector(
+      brandNodePointer->brand.models, "Ahora ingrese el modelo del automóvil:");
 
   clearScreen();
   showAppTitle(concessionaire);
@@ -200,20 +238,21 @@ void showCars(concessionaireStruct concessionaire, modelStruct model,
 
   showCarsListHeaders(12);
 
-  car_node = model.cars.head;
-  while (car_node != NULL) {
-    showCar(car_node->car, brandName, model.name, i);
-    car_node = car_node->next;
-    i++;
+  carNodePointer = modelNodePointer->model.cars.head;
+
+  for (int i = 1; carNodePointer != NULL; i++) {
+    showCar(carNodePointer->car, brandNodePointer->brand.name,
+            modelNodePointer->model.name, i);
+    carNodePointer = carNodePointer->next;
   }
 
   cout << endl << endl;
 }
 
 void findCarByLicense(concessionaireStruct concessionaire) {
-  brandNode *brand_node;
-  modelNode *model_node;
-  carNode *car_node;
+  brandNode *brandNodePointer;
+  modelNode *modelNodePointer;
+  carNode *carNodePointer;
   string licenseToFind;
   int i = 1;
 
@@ -225,27 +264,27 @@ void findCarByLicense(concessionaireStruct concessionaire) {
   gotoxy(20, 10);
   cout << "Automóviles con la licencia: " << licenseToFind << endl;
 
-  brand_node = concessionaire.brands.head;
+  brandNodePointer = concessionaire.brands.head;
 
-  while (brand_node != NULL) {
-    model_node = brand_node->brand.models.head;
-    while (model_node != NULL) {
-      car_node = model_node->model.cars.head;
-      while (car_node != NULL) {
+  while (brandNodePointer != NULL) {
+    modelNodePointer = brandNodePointer->brand.models.head;
+    while (modelNodePointer != NULL) {
+      carNodePointer = modelNodePointer->model.cars.head;
+      while (carNodePointer != NULL) {
         showCarsListHeaders(12);
-        if (containsText(car_node->car.license, licenseToFind)) {
-          showCar(car_node->car, brand_node->brand.name, model_node->model.name,
-                  i);
+        if (containsText(carNodePointer->car.license, licenseToFind)) {
+          showCar(carNodePointer->car, brandNodePointer->brand.name,
+                  modelNodePointer->model.name, i);
         }
 
-        car_node = car_node->next;
+        carNodePointer = carNodePointer->next;
         i++;
       }
 
-      model_node = model_node->next;
+      modelNodePointer = modelNodePointer->next;
     }
 
-    brand_node = brand_node->next;
+    brandNodePointer = brandNodePointer->next;
   }
 
   cout << endl << endl;
@@ -253,8 +292,6 @@ void findCarByLicense(concessionaireStruct concessionaire) {
 
 void mainMenu(concessionaireStruct &concessionaire) {
   int selectedOption;
-  brandStruct brand;
-  modelStruct model;
 
   do {
     selectedOption = requestMenuOption(concessionaire);
@@ -292,9 +329,7 @@ void mainMenu(concessionaireStruct &concessionaire) {
         break;
 
       case 7:
-        brand = *requestBrand(concessionaire);
-        model = *requestModel(brand);
-        showCars(concessionaire, model, brand.name);
+        showCarsByModel(concessionaire);
         pauseProcess();
         break;
 

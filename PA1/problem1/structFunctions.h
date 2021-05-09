@@ -135,54 +135,110 @@ void dataInitialization(concessionaireStruct &concessionaire) {
   addToCollection(concessionaire.brands, toyota);
 }
 
-brandStruct *requestBrand(concessionaireStruct concessionaire) {
-  int selectedOption;
-  brandStruct *validOptions[100];
+brandNode *iterateBrandsList(brandsList brands, int index) {
+  brandNode *brandNodePointer;
 
-  cout << endl << "Escoja una marca de automóviles:" << endl << endl;
-
-  brandNode *node = concessionaire.brands.head;
-
-  for (int i = 1; node != NULL; i++) {
-    cout << "[" << i << "] - " << node->brand.name << endl;
-    validOptions[i] = &node->brand;
-    node = node->next;
+  if (0 >= index) {
+    return NULL;
   }
 
-  cout << endl << "Introduzca la opción deseada:" << endl;
+  if (index > brands.length) {
+    return NULL;
+  }
 
-  do {
-    cin >> selectedOption;
-  } while (
-      !(0 < selectedOption && selectedOption <= concessionaire.brands.length));
+  brandNodePointer = brands.head;
 
-  return validOptions[selectedOption];
+  for (int i = 1; brandNodePointer != NULL; i++) {
+    if (i == index) {
+      return brandNodePointer;
+    }
+    brandNodePointer = brandNodePointer->next;
+  }
+
+  return NULL;
 }
 
-modelStruct *requestModel(brandStruct brand) {
+modelNode *iterateModelsList(modelsList models, int index) {
+  modelNode *modelNodePointer;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > models.length) {
+    return NULL;
+  }
+
+  modelNodePointer = models.head;
+
+  for (int i = 1; modelNodePointer != NULL; i++) {
+    if (i == index) {
+      return modelNodePointer;
+    }
+    modelNodePointer = modelNodePointer->next;
+  }
+
+  return NULL;
+}
+
+brandNode *requestBrandWithSelector(brandsList &brands, string message) {
   int selectedOption;
-  modelStruct *validOptions[100];
+  brandNode *brandNodePointer;
 
   cout << endl
-       << "Escoja un modelo automóviles de la marca " << brand.name << ":"
-       << endl
+       << message << ". Escoja entre las " << brands.length
+       << " marcas de automóviles siguientes:" << endl
        << endl;
 
-  modelNode *node = brand.models.head;
+  brandNodePointer = brands.head;
 
-  for (int i = 1; node != NULL; i++) {
-    cout << "[" << i << "] - " << node->model.name << endl;
-    validOptions[i] = &node->model;
-    node = node->next;
+  for (int i = 1; brandNodePointer != NULL; i++) {
+    cout << "[" << i << "] - " << brandNodePointer->brand.name << " - "
+         << brandNodePointer->brand.models.length
+         << " modelos en esta marca de automóviles" << endl;
+    brandNodePointer = brandNodePointer->next;
   }
 
   cout << endl << "Introduzca la opción deseada:" << endl;
 
-  do {
+  while (!(1 <= selectedOption && selectedOption <= brands.length)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << brands.length << "."
+         << endl;
+    fflush(stdin);
     cin >> selectedOption;
-  } while (!(0 < selectedOption && selectedOption <= brand.models.length));
+  }
 
-  return validOptions[selectedOption];
+  return iterateBrandsList(brands, selectedOption);
+}
+
+modelNode *requestModelWithSelector(modelsList &models, string message) {
+  int selectedOption;
+  modelNode *modelNodePointer;
+
+  modelNodePointer = models.head;
+
+  cout << endl
+       << message << ". Escoja entre los " << models.length
+       << " modelos de automóviles siguientes:" << endl
+       << endl;
+
+  for (int i = 1; modelNodePointer != NULL; i++) {
+    cout << "[" << i << "] - " << modelNodePointer->model.name << " - "
+         << modelNodePointer->model.cars.length << " automóviles de este modelo"
+         << endl;
+    modelNodePointer = modelNodePointer->next;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+
+  while (!(1 <= selectedOption && selectedOption <= models.length)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << models.length << "."
+         << endl;
+    fflush(stdin);
+    cin >> selectedOption;
+  }
+
+  return iterateModelsList(models, selectedOption);
 }
 
 void showBrandsListHeaders(int y) {
