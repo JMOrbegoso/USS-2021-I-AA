@@ -271,11 +271,13 @@ void showProvincesListHeaders(int y) {
   gotoxy(5, y);
   cout << "Name";
   gotoxy(25, y);
-  cout << "Poblacion (hab)";
-  gotoxy(50, y);
+  cout << "Poblacion";
+  gotoxy(40, y);
   cout << "Area (km2)";
-  gotoxy(60, y);
-  cout << "Año de fundacion";
+  gotoxy(55, y);
+  cout << "Fundado (Año)";
+  gotoxy(75, y);
+  cout << "Distritos";
 }
 
 void showProvince(provinceStruct province, int i, int y) {
@@ -285,10 +287,12 @@ void showProvince(provinceStruct province, int i, int y) {
   cout << province.name;
   gotoxy(25, y);
   cout << province.population;
-  gotoxy(50, y);
+  gotoxy(40, y);
   cout << province.area;
-  gotoxy(60, y);
+  gotoxy(55, y);
   cout << province.creationYear;
+  gotoxy(75, y);
+  cout << province.districts.length;
 }
 
 void showDistrictsListHeaders(int y) {
@@ -297,11 +301,13 @@ void showDistrictsListHeaders(int y) {
   gotoxy(5, y);
   cout << "Name";
   gotoxy(25, y);
-  cout << "Poblacion (hab)";
-  gotoxy(50, y);
+  cout << "Poblacion";
+  gotoxy(40, y);
   cout << "Area (km2)";
-  gotoxy(60, y);
-  cout << "Año de fundacion";
+  gotoxy(55, y);
+  cout << "Fundado (Año)";
+  gotoxy(75, y);
+  cout << "Personas";
 }
 
 void showDistrict(districtStruct district, int i, int y) {
@@ -311,10 +317,12 @@ void showDistrict(districtStruct district, int i, int y) {
   cout << district.name;
   gotoxy(25, y);
   cout << district.population;
-  gotoxy(50, y);
+  gotoxy(40, y);
   cout << district.area;
-  gotoxy(60, y);
+  gotoxy(55, y);
   cout << district.creationYear;
+  gotoxy(75, y);
+  cout << district.persons.length;
 }
 
 void showPersonsListHeader(int y) {
