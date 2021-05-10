@@ -9,8 +9,8 @@ void collectionsInitialization(bankStruct &bank) {
   bank.cashiers.length = 0;
 }
 
-cashierStruct buildCashier(string firstName, string lastName, char genre,
-                           string dni) {
+cashierStruct buildCashier(string dni, string firstName, string lastName,
+                           char genre) {
   cashierStruct cashier;
 
   cashier.firstName = firstName;
@@ -25,8 +25,8 @@ cashierStruct buildCashier(string firstName, string lastName, char genre,
   return cashier;
 }
 
-clientStruct buildClient(string firstName, string lastName, char genre,
-                         string dni) {
+clientStruct buildClient(string dni, string firstName, string lastName,
+                         char genre) {
   clientStruct client;
 
   client.firstName = firstName;
@@ -123,16 +123,16 @@ void dataInitialization(bankStruct &bank) {
   bank.address = "Av. Los Algoritmos #444";
   bank.ruc = "12345678910";
 
-  cashier_1 = buildCashier("Julio", "Gomez", 'm', "16987532");
-  cashier_2 = buildCashier("Maria", "Izquierdo", 'f', "13249687");
-  cashier_3 = buildCashier("Luis", "Lopez", 'm', "96458721");
+  cashier_1 = buildCashier("16987532", "Julio", "Gomez", 'm');
+  cashier_2 = buildCashier("13249687", "Maria", "Izquierdo", 'f');
+  cashier_3 = buildCashier("96458721", "Luis", "Lopez", 'm');
 
-  client_1 = buildClient("Tulio", "Rojas", 'm', "13582198");
-  client_2 = buildClient("Rosa", "Jimenez", 'f', "30249856");
-  client_3 = buildClient("Teodoro", "Rodriguez", 'm', "10298375");
-  client_4 = buildClient("Mario", "Flores", 'm', "90305798");
-  client_5 = buildClient("Fabricia", "Marquez", 'f', "10203608");
-  client_6 = buildClient("Paolo", "Fermi", 'm', "90025017");
+  client_1 = buildClient("13582198", "Tulio", "Rojas", 'm');
+  client_2 = buildClient("30249856", "Rosa", "Jimenez", 'f');
+  client_3 = buildClient("10298375", "Teodoro", "Rodriguez", 'm');
+  client_4 = buildClient("90305798", "Mario", "Flores", 'm');
+  client_5 = buildClient("10203608", "Fabricia", "Marquez", 'f');
+  client_6 = buildClient("11111111", "Paolo", "Fermi", 'm');
 
   record_1 = buildRecord("r-01", "Prestamo");
   record_2 = buildRecord("r-02", "Pago de deuda");

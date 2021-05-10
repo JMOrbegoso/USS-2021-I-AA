@@ -66,7 +66,7 @@ void registerNewCashier(bankStruct &bank) {
   genre = requestGenre("Ingrese el genero del nuevo cajero");
   dni = requestText("Ingrese el DNI del nuevo cajero", 8, 8);
 
-  newCashier = buildCashier(firstName, lastName, genre, dni);
+  newCashier = buildCashier(dni, firstName, lastName, genre);
 
   addToCollection(bank.cashiers, newCashier);
 
@@ -90,7 +90,7 @@ void registerNewClient(bankStruct &bank) {
   genre = requestGenre("Ingrese el genero del nuevo cliente");
   dni = requestText("Ingrese el DNI del nuevo cliente", 8, 8);
 
-  newClient = buildClient(firstName, lastName, genre, dni);
+  newClient = buildClient(dni, firstName, lastName, genre);
 
   cashierNodePointer = requestCashierWithSelector(
       bank.cashiers, "Ingrese el cajero al que este cliente se dirije:");
