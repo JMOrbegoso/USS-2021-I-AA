@@ -310,6 +310,68 @@ void findRecordByName(bankStruct bank) {
   cout << endl << endl;
 }
 
+void showClientsByCashier(bankStruct bank) {
+  cashierNode *cashierNodePointer;
+  clientNode *clientNodePointer;
+
+  cashierNodePointer = requestCashierWithSelector(
+      bank.cashiers, "Ingrese el cajero de la cola de clientes que desea ver:");
+
+  clearScreen();
+  showAppTitle(bank);
+
+  gotoxy(40, 10);
+  cout << "Clientes haciendo cola con el cajero "
+       << cashierNodePointer->cashier.lastName << " "
+       << cashierNodePointer->cashier.firstName << ":" << endl;
+
+  clientNodePointer = cashierNodePointer->cashier.clients.head;
+
+  showClientsListHeader(12);
+
+  int i = 1;
+  while (clientNodePointer != NULL) {
+    showClient(cashierNodePointer->cashier, clientNodePointer->client, i,
+               i + 13);
+    clientNodePointer = clientNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showRecordsByClient(bankStruct bank) {
+  cashierNode *cashierNodePointer;
+  clientNode *clientNodePointer;
+  recordNode *recordNodePointer;
+
+  cashierNodePointer = requestCashierWithSelector(
+      bank.cashiers, "Ingrese el cajero de la persona que desea revisar:");
+  clientNodePointer = requestClientWithSelector(
+      cashierNodePointer->cashier.clients,
+      "Ingrese el cliente de los expedientes que desea listar:");
+
+  clearScreen();
+  showAppTitle(bank);
+
+  gotoxy(40, 10);
+  cout << "Expedientes de " << clientNodePointer->client.lastName << " "
+       << clientNodePointer->client.firstName << ":" << endl;
+
+  recordNodePointer = clientNodePointer->client.records.top;
+
+  showRecordsListHeader(12);
+
+  int i = 1;
+  while (recordNodePointer != NULL) {
+    showRecord(cashierNodePointer->cashier, clientNodePointer->client,
+               recordNodePointer->record, i, i + 13);
+    recordNodePointer = recordNodePointer->next;
+    i++;
+  }
+
+  cout << endl << endl;
+}
+
 void mainMenu(bankStruct &bank) {
   int selectedOption;
 
@@ -364,12 +426,12 @@ void mainMenu(bankStruct &bank) {
         break;
 
       case 10:
-        // showClientsByCashier(bank);
+        showClientsByCashier(bank);
         pauseProcess();
         break;
 
       case 11:
-        // showRecordsByClient(bank);
+        showRecordsByClient(bank);
         pauseProcess();
         break;
       }
