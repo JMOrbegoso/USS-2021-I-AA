@@ -26,13 +26,13 @@ int requestMenuOption(bankStruct bank) {
   cout << "[2] Registrar cliente" << endl;
   cout << "[3] Registrar expediente" << endl;
 
-  cout << "[4] Listar cajeros" << endl;
-  cout << "[5] Listar clientes" << endl;
-  cout << "[6] Listar expedientes" << endl;
+  cout << "[4] Listar cajeros del banco" << endl;
+  cout << "[5] Listar clientes haciendo cola" << endl;
+  cout << "[6] Listar expedientes de los clientes haciendo cola" << endl;
 
   cout << "[7] Buscar cajero por apellido" << endl;
   cout << "[8] Buscar cliente por apellido" << endl;
-  cout << "[9] Buscar expediente por nombre" << endl;
+  cout << "[9] Buscar expediente por nombre de expediente" << endl;
 
   cout << "[10] Listar clientes por cajero" << endl;
   cout << "[11] Listar expedientes por persona" << endl;
@@ -41,7 +41,7 @@ int requestMenuOption(bankStruct bank) {
 
   cout << endl << "Por favor ingrese una de las opciones:" << endl;
   cin >> selectedOption;
-  while (!(0 <= selectedOption && selectedOption <= 8)) {
+  while (!(0 <= selectedOption && selectedOption <= 11)) {
     cout << "La opcion seleccionada fue inválida, por favor seleccione una "
             "opcion válida:"
          << endl;
@@ -100,6 +100,216 @@ void registerNewClient(bankStruct &bank) {
   cout << "El cliente fue añadido de forma exitosa" << endl;
 }
 
+void showAllCashiers(bankStruct bank) {
+  cashierNode *cashierNodePointer;
+
+  clearScreen();
+  showAppTitle(bank);
+
+  gotoxy(40, 10);
+  cout << "Todos los cajeros del banco " << bank.name << endl;
+
+  cashierNodePointer = bank.cashiers.head;
+
+  showCashiersListHeader(12);
+
+  for (int i = 1; cashierNodePointer != NULL; i++) {
+    showCashier(cashierNodePointer->cashier, i, i + 13);
+    cashierNodePointer = cashierNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showAllClients(bankStruct bank) {
+  cashierNode *cashierNodePointer;
+  clientNode *clientNodePointer;
+
+  clearScreen();
+  showAppTitle(bank);
+
+  gotoxy(40, 10);
+  cout << "Todos los clientes formando cola en el banco " << bank.name << endl;
+
+  cashierNodePointer = bank.cashiers.head;
+
+  showClientsListHeader(12);
+
+  int i = 1;
+  while (cashierNodePointer != NULL) {
+    clientNodePointer = cashierNodePointer->cashier.clients.head;
+    while (clientNodePointer != NULL) {
+      showClient(cashierNodePointer->cashier, clientNodePointer->client, i,
+                 i + 13);
+      clientNodePointer = clientNodePointer->next;
+      i++;
+    }
+    cashierNodePointer = cashierNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showAllRecords(bankStruct bank) {
+  cashierNode *cashierNodePointer;
+  clientNode *clientNodePointer;
+  recordNode *recordNodePointer;
+
+  clearScreen();
+  showAppTitle(bank);
+
+  gotoxy(40, 10);
+  cout << "Todos los expedientes de los clientes haciendo cola en el banco "
+       << bank.name << endl;
+
+  cashierNodePointer = bank.cashiers.head;
+
+  showRecordsListHeader(12);
+
+  int i = 1;
+  while (cashierNodePointer != NULL) {
+    clientNodePointer = cashierNodePointer->cashier.clients.head;
+    while (clientNodePointer != NULL) {
+      recordNodePointer = clientNodePointer->client.records.top;
+      while (recordNodePointer != NULL) {
+        showRecord(cashierNodePointer->cashier, clientNodePointer->client,
+                   recordNodePointer->record, i, i + 12);
+        recordNodePointer = recordNodePointer->next;
+        i++;
+      }
+      clientNodePointer = clientNodePointer->next;
+    }
+    cashierNodePointer = cashierNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
+void findCashierByLastName(bankStruct bank) {
+  cashierNode *cashierNodePointer;
+  string lastNameToFind;
+  bool cashierFound = false;
+
+  lastNameToFind = requestText("Ingrese el apellido a buscar", 2);
+
+  clearScreen();
+  showAppTitle(bank);
+
+  gotoxy(40, 10);
+  cout << "Cajeros del banco con un apellido similar a " << lastNameToFind
+       << ":" << endl;
+
+  cashierNodePointer = bank.cashiers.head;
+
+  showCashiersListHeader(12);
+
+  int i = 1;
+  while (cashierNodePointer != NULL) {
+    if (containsText(cashierNodePointer->cashier.lastName, lastNameToFind)) {
+      cashierFound = true;
+      showCashier(cashierNodePointer->cashier, i, i + 13);
+      i++;
+    }
+    cashierNodePointer = cashierNodePointer->next;
+  }
+
+  if (!cashierFound)
+    cout << endl << endl << "No se encontro ningun cajero con ese apellido.";
+
+  cout << endl << endl;
+}
+
+void findClientByLastName(bankStruct bank) {
+  cashierNode *cashierNodePointer;
+  clientNode *clientNodePointer;
+  string lastNameToFind;
+  bool clientFound = false;
+
+  lastNameToFind =
+      requestText("Ingrese el apellido del cajero que desea buscar", 2);
+
+  clearScreen();
+  showAppTitle(bank);
+
+  gotoxy(40, 10);
+  cout << "Clientes haciendo cola con un apellido similar a " << lastNameToFind
+       << ":" << endl;
+
+  cashierNodePointer = bank.cashiers.head;
+
+  showClientsListHeader(12);
+
+  int i = 1;
+  while (cashierNodePointer != NULL) {
+    clientNodePointer = cashierNodePointer->cashier.clients.head;
+    while (clientNodePointer != NULL) {
+      if (containsText(clientNodePointer->client.lastName, lastNameToFind)) {
+        clientFound = true;
+        showClient(cashierNodePointer->cashier, clientNodePointer->client, i,
+                   i + 13);
+        i++;
+      }
+      clientNodePointer = clientNodePointer->next;
+    }
+    cashierNodePointer = cashierNodePointer->next;
+  }
+
+  if (!clientFound)
+    cout << endl
+         << endl
+         << "No se encontro ningun cliente con ese apellido haciendo cola.";
+
+  cout << endl << endl;
+}
+
+void findRecordByName(bankStruct bank) {
+  cashierNode *cashierNodePointer;
+  clientNode *clientNodePointer;
+  recordNode *recordNodePointer;
+  string nameToFind;
+  bool recordFound = false;
+
+  nameToFind =
+      requestText("Ingrese el nombre/tipo de expediente que desea buscar", 2);
+
+  clearScreen();
+  showAppTitle(bank);
+
+  gotoxy(40, 10);
+  cout << "Expedientes con un nombre/tipo similar a " << nameToFind << ":"
+       << endl;
+
+  cashierNodePointer = bank.cashiers.head;
+
+  showRecordsListHeader(12);
+
+  int i = 1;
+  while (cashierNodePointer != NULL) {
+    clientNodePointer = cashierNodePointer->cashier.clients.head;
+    while (clientNodePointer != NULL) {
+      recordNodePointer = clientNodePointer->client.records.top;
+      while (recordNodePointer != NULL) {
+        if (containsText(recordNodePointer->record.name, nameToFind)) {
+          recordFound = true;
+          showRecord(cashierNodePointer->cashier, clientNodePointer->client,
+                     recordNodePointer->record, i, i + 13);
+          i++;
+        }
+        recordNodePointer = recordNodePointer->next;
+      }
+      clientNodePointer = clientNodePointer->next;
+    }
+    cashierNodePointer = cashierNodePointer->next;
+  }
+
+  if (!recordFound)
+    cout << endl
+         << endl
+         << "No se encontro ningun expediente con ese nombre/tipo.";
+
+  cout << endl << endl;
+}
+
 void mainMenu(bankStruct &bank) {
   int selectedOption;
 
@@ -124,32 +334,32 @@ void mainMenu(bankStruct &bank) {
         break;
 
       case 4:
-        // showAllCashiers(bank);
+        showAllCashiers(bank);
         pauseProcess();
         break;
 
       case 5:
-        // showAllClients(bank);
+        showAllClients(bank);
         pauseProcess();
         break;
 
       case 6:
-        // showAllRecords(bank);
+        showAllRecords(bank);
         pauseProcess();
         break;
 
       case 7:
-        // findCashierByLastName(bank);
+        findCashierByLastName(bank);
         pauseProcess();
         break;
 
       case 8:
-        // findClientByLastName(bank);
+        findClientByLastName(bank);
         pauseProcess();
         break;
 
       case 9:
-        // findRecordByName(bank);
+        findRecordByName(bank);
         pauseProcess();
         break;
 
