@@ -357,7 +357,7 @@ void showRecordsListHeader(int y) {
   cout << "En el cajero";
 }
 
-void showClient(cashierStruct cashier, clientStruct client, recordStruct record,
+void showRecord(cashierStruct cashier, clientStruct client, recordStruct record,
                 int i, int y) {
   gotoxy(0, y);
   cout << i;
