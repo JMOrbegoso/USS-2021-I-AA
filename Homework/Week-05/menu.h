@@ -51,9 +51,8 @@ int requestMenuOption(bankStruct bank) {
 }
 
 void registerNewCashier(bankStruct &bank) {
-  string firstName, lastName;
+  string firstName, lastName, dni;
   char genre;
-  unsigned short age;
   cashierStruct newCashier;
 
   clearScreen();
@@ -65,11 +64,9 @@ void registerNewCashier(bankStruct &bank) {
   firstName = requestText("Ingrese los nombres del nuevo cajero", 2);
   lastName = requestText("Ingrese los apellidos del nuevo cajero", 2);
   genre = requestGenre("Ingrese el genero del nuevo cajero");
-  age =
-      requestIntegerNumber("Ingrese la edad del nuevo cajero",
-                           "Por favor ingrese una edad mayor o igual a 18", 18);
+  dni = requestText("Ingrese el DNI del nuevo cajero", 8, 8);
 
-  newCashier = buildCashier(firstName, lastName, genre, age);
+  newCashier = buildCashier(firstName, lastName, genre, dni);
 
   addToCollection(bank.cashiers, newCashier);
 
@@ -77,9 +74,8 @@ void registerNewCashier(bankStruct &bank) {
 }
 
 void registerNewClient(bankStruct &bank) {
-  string firstName, lastName;
+  string firstName, lastName, dni;
   char genre;
-  unsigned short age;
   cashierNode *cashierNodePointer;
   clientStruct newClient;
 
@@ -92,11 +88,9 @@ void registerNewClient(bankStruct &bank) {
   firstName = requestText("Ingrese los nombres del nuevo cliente", 2);
   lastName = requestText("Ingrese los apellidos del nuevo cliente", 2);
   genre = requestGenre("Ingrese el genero del nuevo cliente");
-  age =
-      requestIntegerNumber("Ingrese la edad del nuevo cliente",
-                           "Por favor ingrese una edad mayor o igual a 18", 18);
+  dni = requestText("Ingrese el DNI del nuevo cliente", 8, 8);
 
-  newClient = buildClient(firstName, lastName, genre, age);
+  newClient = buildClient(firstName, lastName, genre, dni);
 
   cashierNodePointer = requestCashierWithSelector(
       bank.cashiers, "Ingrese el cajero al que este cliente se dirije:");

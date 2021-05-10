@@ -10,13 +10,13 @@ void collectionsInitialization(bankStruct &bank) {
 }
 
 cashierStruct buildCashier(string firstName, string lastName, char genre,
-                           unsigned short age) {
+                           string dni) {
   cashierStruct cashier;
 
   cashier.firstName = firstName;
   cashier.lastName = lastName;
   cashier.genre = genre;
-  cashier.age = age;
+  cashier.dni = dni;
 
   cashier.clients.head = NULL;
   cashier.clients.tail = NULL;
@@ -26,13 +26,13 @@ cashierStruct buildCashier(string firstName, string lastName, char genre,
 }
 
 clientStruct buildClient(string firstName, string lastName, char genre,
-                         unsigned short age) {
+                         string dni) {
   clientStruct client;
 
   client.firstName = firstName;
   client.lastName = lastName;
   client.genre = genre;
-  client.age = age;
+  client.dni = dni;
 
   client.records.top = NULL;
   client.records.length = 0;
@@ -123,16 +123,16 @@ void dataInitialization(bankStruct &bank) {
   bank.address = "Av. Los Algoritmos #444";
   bank.ruc = "12345678910";
 
-  cashier_1 = buildCashier("Julio", "Gomez", 'm', 47);
-  cashier_2 = buildCashier("Maria", "Izquierdo", 'f', 15);
-  cashier_3 = buildCashier("Luis", "Lopez", 'm', 27);
+  cashier_1 = buildCashier("Julio", "Gomez", 'm', "16987532");
+  cashier_2 = buildCashier("Maria", "Izquierdo", 'f', "13249687");
+  cashier_3 = buildCashier("Luis", "Lopez", 'm', "96458721");
 
-  client_1 = buildClient("Tulio", "Rojas", 'm', 11);
-  client_2 = buildClient("Rosa", "Jimenez", 'f', 72);
-  client_3 = buildClient("Teodoro", "Rodriguez", 'm', 75);
-  client_4 = buildClient("Mario", "Flores", 'm', 32);
-  client_5 = buildClient("Fabricia", "Marquez", 'f', 19);
-  client_6 = buildClient("Paolo", "Fermi", 'm', 40);
+  client_1 = buildClient("Tulio", "Rojas", 'm', "13582198");
+  client_2 = buildClient("Rosa", "Jimenez", 'f', "30249856");
+  client_3 = buildClient("Teodoro", "Rodriguez", 'm', "10298375");
+  client_4 = buildClient("Mario", "Flores", 'm', "90305798");
+  client_5 = buildClient("Fabricia", "Marquez", 'f', "10203608");
+  client_6 = buildClient("Paolo", "Fermi", 'm', "90025017");
 
   record_1 = buildRecord("r-01", "Prestamo");
   record_2 = buildRecord("r-02", "Pago de deuda");
@@ -290,7 +290,7 @@ void showCashiersListHeader(int y) {
   gotoxy(40, y);
   cout << "Genero";
   gotoxy(55, y);
-  cout << "Edad";
+  cout << "DNI";
   gotoxy(65, y);
   cout << "# de clientes en cola";
 }
@@ -305,7 +305,7 @@ void showCashier(cashierStruct cashier, int i, int y) {
   gotoxy(40, y);
   cout << getGenre(cashier.genre);
   gotoxy(55, y);
-  cout << cashier.age;
+  cout << cashier.dni;
   gotoxy(65, y);
   cout << cashier.clients.length;
 }
@@ -320,7 +320,7 @@ void showClientsListHeader(int y) {
   gotoxy(40, y);
   cout << "Genero";
   gotoxy(55, y);
-  cout << "Edad";
+  cout << "DNI";
   gotoxy(65, y);
   cout << "# de expedientes";
   gotoxy(80, y);
@@ -337,7 +337,7 @@ void showClient(cashierStruct cashier, clientStruct client, int i, int y) {
   gotoxy(40, y);
   cout << getGenre(client.genre);
   gotoxy(55, y);
-  cout << client.age;
+  cout << client.dni;
   gotoxy(65, y);
   cout << client.records.length;
   gotoxy(80, y);

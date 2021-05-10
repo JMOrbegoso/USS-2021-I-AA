@@ -25,7 +25,7 @@ struct clientStruct {
   string firstName;
   string lastName;
   char genre;
-  unsigned short age;
+  string dni;
   recordsStack records;
 };
 
@@ -46,7 +46,7 @@ struct cashierStruct {
   string firstName;
   string lastName;
   char genre;
-  unsigned short age;
+  string dni;
   clientsQueue clients;
 };
 
