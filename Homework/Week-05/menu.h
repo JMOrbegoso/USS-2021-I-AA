@@ -100,6 +100,57 @@ void registerNewClient(bankStruct &bank) {
   cout << "El cliente fue añadido de forma exitosa" << endl;
 }
 
+void registerNewRecord(bankStruct bank) {
+  string code, name, dniToFind;
+  cashierNode *cashierNodePointer;
+  clientNode *clientNodePointer;
+  recordStruct newRecord;
+  bool clientFound = false;
+
+  dniToFind = requestText("Ingrese el DNI del cliente que desea buscar", 2);
+
+  cashierNodePointer = bank.cashiers.head;
+
+  while (cashierNodePointer != NULL) {
+    clientNodePointer = cashierNodePointer->cashier.clients.head;
+    while (clientNodePointer != NULL) {
+      if (clientNodePointer->client.dni == dniToFind) {
+        clientFound = true;
+      }
+      clientNodePointer = clientNodePointer->next;
+    }
+    cashierNodePointer = cashierNodePointer->next;
+  }
+
+  if (!clientFound) {
+    cout << endl
+         << endl
+         << "No se encontro ningun cliente con ese apellido haciendo cola."
+         << endl
+         << endl;
+    return;
+  }
+
+  clearScreen();
+  showAppTitle(bank);
+
+  gotoxy(40, 10);
+  cout << "Registrar nuevo expediente en el cliente "
+       << clientNodePointer->client.lastName << " "
+       << clientNodePointer->client.firstName << ":" << endl;
+
+  code = requestText("Ingrese el codigo del nuevo expediente", 2);
+  name = requestText("Ingrese el nombre/tipo del nuevo expediente", 2);
+
+  newRecord = buildRecord(code, name);
+
+  push(clientNodePointer->client.records, newRecord);
+
+  cout << "El expediente fue añadido de forma exitosa en el cliente "
+       << clientNodePointer->client.lastName << " "
+       << clientNodePointer->client.firstName << "." << endl;
+}
+
 void showAllCashiers(bankStruct bank) {
   cashierNode *cashierNodePointer;
 
@@ -190,7 +241,7 @@ void findCashierByLastName(bankStruct bank) {
   string lastNameToFind;
   bool cashierFound = false;
 
-  lastNameToFind = requestText("Ingrese el apellido a buscar", 2);
+  lastNameToFind = requestText("Ingrese el apellido del cajero a buscar", 2);
 
   clearScreen();
   showAppTitle(bank);
@@ -226,7 +277,7 @@ void findClientByLastName(bankStruct bank) {
   bool clientFound = false;
 
   lastNameToFind =
-      requestText("Ingrese el apellido del cajero que desea buscar", 2);
+      requestText("Ingrese el apellido del cliente que desea buscar", 2);
 
   clearScreen();
   showAppTitle(bank);
@@ -391,7 +442,7 @@ void mainMenu(bankStruct &bank) {
         break;
 
       case 3:
-        // registerNewRecord(bank);
+        registerNewRecord(bank);
         addDelay(2);
         break;
 
