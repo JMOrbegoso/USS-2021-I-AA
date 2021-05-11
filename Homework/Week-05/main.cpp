@@ -11,7 +11,7 @@
 // Mostrar expedientes de una persona
 //
 
-#include "menu.h"
+#include "menu.cpp"
 
 using namespace std;
 

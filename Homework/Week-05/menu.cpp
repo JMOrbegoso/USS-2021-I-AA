@@ -1,4 +1,4 @@
-#include "structFunctions.h"
+#include "structFunctions.cpp"
 
 using namespace std;
 
