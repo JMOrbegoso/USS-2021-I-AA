@@ -225,7 +225,7 @@ void showAllRecords(bankStruct bank) {
       recordNodePointer = clientNodePointer->client.records.top;
       while (recordNodePointer != NULL) {
         showRecord(cashierNodePointer->cashier, clientNodePointer->client,
-                   recordNodePointer->record, i, i + 12);
+                   recordNodePointer->record, i, i + 13);
         recordNodePointer = recordNodePointer->next;
         i++;
       }
