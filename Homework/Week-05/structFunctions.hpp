@@ -115,9 +115,10 @@ void push(recordsStack &records, recordStruct newRecord) {
 
 void dataInitialization(bankStruct &bank) {
   cashierStruct cashier_1, cashier_2, cashier_3;
-  clientStruct client_1, client_2, client_3, client_4, client_5, client_6;
+  clientStruct client_1, client_2, client_3, client_4, client_5, client_6,
+      client_7;
   recordStruct record_1, record_2, record_3, record_4, record_5, record_6,
-      record_7, record_8, record_9, record_10, record_11, record_12;
+      record_7, record_8, record_9, record_10, record_11, record_12, record_13;
 
   bank.name = "El Banco";
   bank.address = "Av. Los Algoritmos #444";
@@ -133,6 +134,7 @@ void dataInitialization(bankStruct &bank) {
   client_4 = buildClient("90305798", "Mario", "Flores", 'm');
   client_5 = buildClient("10203608", "Fabricia", "Marquez", 'f');
   client_6 = buildClient("11111111", "Paolo", "Fermi", 'm');
+  client_7 = buildClient("22222222", "Cesar", "Chavez", 'm');
 
   record_1 = buildRecord("r-01", "Prestamo");
   record_2 = buildRecord("r-02", "Pago de deuda");
@@ -146,6 +148,7 @@ void dataInitialization(bankStruct &bank) {
   record_10 = buildRecord("r-10", "Pago de deuda");
   record_11 = buildRecord("r-11", "Prestamo");
   record_12 = buildRecord("r-12", "Pago de deuda");
+  record_13 = buildRecord("r-13", "Pago de deuda");
 
   push(client_1.records, record_1);
   push(client_1.records, record_2);
@@ -159,13 +162,15 @@ void dataInitialization(bankStruct &bank) {
   push(client_5.records, record_10);
   push(client_6.records, record_11);
   push(client_6.records, record_12);
+  push(client_7.records, record_13);
 
   enqueue(cashier_1.clients, client_1);
   enqueue(cashier_1.clients, client_2);
-  enqueue(cashier_2.clients, client_3);
   enqueue(cashier_2.clients, client_4);
   enqueue(cashier_3.clients, client_5);
-  enqueue(cashier_3.clients, client_5);
+  enqueue(cashier_3.clients, client_6);
+  enqueue(cashier_2.clients, client_3);
+  enqueue(cashier_1.clients, client_7);
 
   addToCollection(bank.cashiers, cashier_1);
   addToCollection(bank.cashiers, cashier_2);
