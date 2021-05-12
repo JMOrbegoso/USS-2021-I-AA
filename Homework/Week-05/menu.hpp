@@ -113,11 +113,12 @@ void registerNewRecord(bankStruct bank) {
 
   cashierNodePointer = bank.cashiers.head;
 
-  while (cashierNodePointer != NULL) {
+  while (cashierNodePointer != NULL && !clientFound) {
     clientNodePointer = cashierNodePointer->cashier.clients.head;
-    while (clientNodePointer != NULL) {
+    while (clientNodePointer != NULL && !clientFound) {
       if (clientNodePointer->client.dni == dniToFind) {
         clientFound = true;
+        break;
       }
       clientNodePointer = clientNodePointer->next;
     }
@@ -127,8 +128,7 @@ void registerNewRecord(bankStruct bank) {
   if (!clientFound) {
     cout << endl
          << endl
-         << "No se encontro ningun cliente con ese apellido haciendo cola."
-         << endl
+         << "No se encontro ningun cliente haciendo cola con ese dni." << endl
          << endl;
     return;
   }
