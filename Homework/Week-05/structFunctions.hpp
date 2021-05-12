@@ -295,13 +295,13 @@ void showCashiersListHeader(int y) {
   cout << "#";
   gotoxy(5, y);
   cout << "Nombres";
-  gotoxy(20, y);
+  gotoxy(25, y);
   cout << "Apellidos";
-  gotoxy(40, y);
+  gotoxy(45, y);
   cout << "Genero";
-  gotoxy(55, y);
+  gotoxy(60, y);
   cout << "DNI";
-  gotoxy(65, y);
+  gotoxy(75, y);
   cout << "# de clientes en cola";
 }
 
@@ -310,13 +310,13 @@ void showCashier(cashierStruct cashier, int i, int y) {
   cout << i;
   gotoxy(5, y);
   cout << cashier.firstName;
-  gotoxy(20, y);
+  gotoxy(25, y);
   cout << cashier.lastName;
-  gotoxy(40, y);
+  gotoxy(45, y);
   cout << getGenre(cashier.genre);
-  gotoxy(55, y);
+  gotoxy(60, y);
   cout << cashier.dni;
-  gotoxy(65, y);
+  gotoxy(75, y);
   cout << cashier.clients.length;
 }
 
@@ -325,15 +325,15 @@ void showClientsListHeader(int y) {
   cout << "#";
   gotoxy(5, y);
   cout << "Nombres";
-  gotoxy(20, y);
+  gotoxy(25, y);
   cout << "Apellidos";
-  gotoxy(40, y);
+  gotoxy(45, y);
   cout << "Genero";
-  gotoxy(55, y);
+  gotoxy(60, y);
   cout << "DNI";
-  gotoxy(65, y);
-  cout << "# de expedientes";
-  gotoxy(80, y);
+  gotoxy(70, y);
+  cout << "# Expedientes";
+  gotoxy(90, y);
   cout << "En el cajero";
 }
 
@@ -342,15 +342,15 @@ void showClient(cashierStruct cashier, clientStruct client, int i, int y) {
   cout << i;
   gotoxy(5, y);
   cout << client.firstName;
-  gotoxy(20, y);
+  gotoxy(25, y);
   cout << client.lastName;
-  gotoxy(40, y);
+  gotoxy(45, y);
   cout << getGenre(client.genre);
-  gotoxy(55, y);
+  gotoxy(60, y);
   cout << client.dni;
-  gotoxy(65, y);
+  gotoxy(75, y);
   cout << client.records.length;
-  gotoxy(80, y);
+  gotoxy(90, y);
   cout << cashier.firstName + " " + cashier.lastName;
 }
 
