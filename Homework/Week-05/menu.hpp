@@ -22,21 +22,22 @@ int requestMenuOption(bankStruct bank) {
        << "Esta aplicación tiene las siguientes opciones:" << endl
        << endl;
 
-  cout << "[1] Registrar cajero" << endl;
-  cout << "[2] Registrar cliente" << endl;
-  cout << "[3] Registrar expediente" << endl;
-
-  cout << "[4] Listar cajeros del banco" << endl;
-  cout << "[5] Listar clientes haciendo cola" << endl;
-  cout << "[6] Listar expedientes de los clientes haciendo cola" << endl;
-
-  cout << "[7] Buscar cajero por apellido" << endl;
+  cout << "[1] Registrar nuevo cajero/a" << endl;
+  cout << "[2] Registrar nuevo cliente" << endl;
+  cout << "[3] Registrar nuevo expediente" << endl;
+  cout << endl;
+  cout << "[4] Listar todos los cajeros del banco" << endl;
+  cout << "[5] Listar todos los clientes haciendo cola" << endl;
+  cout << "[6] Listar todos los expedientes de los clientes haciendo cola"
+       << endl;
+  cout << endl;
+  cout << "[7] Buscar cajero/a por apellido" << endl;
   cout << "[8] Buscar cliente por apellido" << endl;
-  cout << "[9] Buscar expediente por nombre de expediente" << endl;
-
-  cout << "[10] Listar clientes por cajero" << endl;
-  cout << "[11] Listar expedientes por persona" << endl;
-
+  cout << "[9] Buscar expediente por nombre/tipo de expediente" << endl;
+  cout << endl;
+  cout << "[10] Listar clientes por cajero/a" << endl;
+  cout << "[11] Listar expedientes por cliente" << endl;
+  cout << endl;
   cout << "[0] Cerrar" << endl;
 
   cout << endl << "Por favor ingrese una de las opciones:" << endl;
