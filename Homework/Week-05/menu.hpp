@@ -5,7 +5,7 @@ using namespace std;
 void showAppTitle(bankStruct bank) {
   cout << endl
        << "-----------------------------------------------------------" << endl;
-  cout << "\t\t Sistema Virtual del Banco " << bank.name << endl;
+  cout << "\t Sistema Virtual del Banco " << bank.name << endl;
   cout << "-----------------------------------------------------------" << endl;
   cout << "Dirección: " << bank.address << endl;
   cout << "RUC: " << bank.ruc << endl;

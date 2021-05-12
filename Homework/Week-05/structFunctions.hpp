@@ -120,7 +120,7 @@ void dataInitialization(bankStruct &bank) {
   recordStruct record_1, record_2, record_3, record_4, record_5, record_6,
       record_7, record_8, record_9, record_10, record_11, record_12, record_13;
 
-  bank.name = "El Banco";
+  bank.name = "Finanzas de Ingenieros SAC";
   bank.address = "Av. Los Algoritmos #444";
   bank.ruc = "12345678910";
 
