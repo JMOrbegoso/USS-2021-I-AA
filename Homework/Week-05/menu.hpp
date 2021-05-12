@@ -59,7 +59,7 @@ void registerNewCashier(bankStruct &bank) {
   clearScreen();
   showAppTitle(bank);
 
-  gotoxy(40, 10);
+  gotoxy(20, 10);
   cout << "Registrar nuevo cajero:" << endl;
 
   firstName = requestText("Ingrese los nombres del nuevo cajero", 2);
@@ -83,7 +83,7 @@ void registerNewClient(bankStruct &bank) {
   clearScreen();
   showAppTitle(bank);
 
-  gotoxy(40, 10);
+  gotoxy(20, 10);
   cout << "Registrar nuevo cliente:" << endl;
 
   firstName = requestText("Ingrese los nombres del nuevo cliente", 2);
@@ -135,7 +135,7 @@ void registerNewRecord(bankStruct bank) {
   clearScreen();
   showAppTitle(bank);
 
-  gotoxy(40, 10);
+  gotoxy(20, 10);
   cout << "Registrar nuevo expediente en el cliente "
        << clientNodePointer->client.lastName << " "
        << clientNodePointer->client.firstName << ":" << endl;
@@ -158,7 +158,7 @@ void showAllCashiers(bankStruct bank) {
   clearScreen();
   showAppTitle(bank);
 
-  gotoxy(40, 10);
+  gotoxy(20, 10);
   cout << "Todos los cajeros del banco " << bank.name << endl;
 
   cashierNodePointer = bank.cashiers.head;
@@ -180,7 +180,7 @@ void showAllClients(bankStruct bank) {
   clearScreen();
   showAppTitle(bank);
 
-  gotoxy(40, 10);
+  gotoxy(20, 10);
   cout << "Todos los clientes formando cola en el banco " << bank.name << endl;
 
   cashierNodePointer = bank.cashiers.head;
@@ -210,7 +210,7 @@ void showAllRecords(bankStruct bank) {
   clearScreen();
   showAppTitle(bank);
 
-  gotoxy(40, 10);
+  gotoxy(20, 10);
   cout << "Todos los expedientes de los clientes haciendo cola en el banco "
        << bank.name << endl;
 
@@ -247,7 +247,7 @@ void findCashierByLastName(bankStruct bank) {
   clearScreen();
   showAppTitle(bank);
 
-  gotoxy(40, 10);
+  gotoxy(20, 10);
   cout << "Cajeros del banco con un apellido similar a " << lastNameToFind
        << ":" << endl;
 
@@ -283,7 +283,7 @@ void findClientByLastName(bankStruct bank) {
   clearScreen();
   showAppTitle(bank);
 
-  gotoxy(40, 10);
+  gotoxy(20, 10);
   cout << "Clientes haciendo cola con un apellido similar a " << lastNameToFind
        << ":" << endl;
 
@@ -327,7 +327,7 @@ void findRecordByName(bankStruct bank) {
   clearScreen();
   showAppTitle(bank);
 
-  gotoxy(40, 10);
+  gotoxy(20, 10);
   cout << "Expedientes con un nombre/tipo similar a " << nameToFind << ":"
        << endl;
 
@@ -372,7 +372,7 @@ void showClientsByCashier(bankStruct bank) {
   clearScreen();
   showAppTitle(bank);
 
-  gotoxy(40, 10);
+  gotoxy(20, 10);
   cout << "Clientes haciendo cola con el cajero "
        << cashierNodePointer->cashier.lastName << " "
        << cashierNodePointer->cashier.firstName << ":" << endl;
@@ -405,7 +405,7 @@ void showRecordsByClient(bankStruct bank) {
   clearScreen();
   showAppTitle(bank);
 
-  gotoxy(40, 10);
+  gotoxy(20, 10);
   cout << "Expedientes de " << clientNodePointer->client.lastName << " "
        << clientNodePointer->client.firstName << ":" << endl;
 
