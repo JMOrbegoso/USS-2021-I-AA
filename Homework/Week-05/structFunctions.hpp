@@ -230,7 +230,8 @@ cashierNode *requestCashierWithSelector(cashiersList &cashiers,
   cashierNode *cashierNodePointer;
 
   cout << endl
-       << message << ". Escoja entre los " << cashiers.length
+       << message << "." << endl
+       << "Escoja entre los " << cashiers.length
        << " cajeros siguientes:" << endl
        << endl;
 
@@ -245,6 +246,7 @@ cashierNode *requestCashierWithSelector(cashiersList &cashiers,
   }
 
   cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
 
   while (!(1 <= selectedOption && selectedOption <= cashiers.length)) {
     cout << "Por favor, introduzca un valor entre 1 y " << cashiers.length
@@ -263,7 +265,8 @@ clientNode *requestClientWithSelector(clientsQueue &clients, string message) {
   clientNodePointer = clients.head;
 
   cout << endl
-       << message << ". Escoja entre los " << clients.length
+       << message << "." << endl
+       << "Escoja entre los " << clients.length
        << " clientes siguientes:" << endl
        << endl;
 
@@ -275,6 +278,7 @@ clientNode *requestClientWithSelector(clientsQueue &clients, string message) {
   }
 
   cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
 
   while (!(1 <= selectedOption && selectedOption <= clients.length)) {
     cout << "Por favor, introduzca un valor entre 1 y " << clients.length << "."

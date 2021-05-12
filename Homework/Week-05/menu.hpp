@@ -368,7 +368,7 @@ void showClientsByCashier(bankStruct bank) {
   clientNode *clientNodePointer;
 
   cashierNodePointer = requestCashierWithSelector(
-      bank.cashiers, "Ingrese el cajero de la cola de clientes que desea ver:");
+      bank.cashiers, "Ingrese el cajero de la cola de clientes que desea ver");
 
   clearScreen();
   showAppTitle(bank);
@@ -398,7 +398,7 @@ void showRecordsByClient(bankStruct bank) {
   recordNode *recordNodePointer;
 
   cashierNodePointer = requestCashierWithSelector(
-      bank.cashiers, "Ingrese el cajero de la persona que desea revisar:");
+      bank.cashiers, "Ingrese el cajero de la persona que desea revisar");
   clientNodePointer = requestClientWithSelector(
       cashierNodePointer->cashier.clients,
       "Ingrese el cliente de los expedientes que desea listar:");
