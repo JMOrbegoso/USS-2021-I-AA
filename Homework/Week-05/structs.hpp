@@ -64,6 +64,7 @@ struct cashiersList {
 
 struct bankStruct {
   string name;
+  string motto;
   string address;
   string ruc;
   cashiersList cashiers;
