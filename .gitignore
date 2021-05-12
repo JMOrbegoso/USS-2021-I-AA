@@ -1,9 +1,10 @@
 # Ignore all files except files
-# With extensions .gitignore, .cpp, .h and .ccls
+# With extensions .gitignore, .cpp, .hpp, .h and .ccls
 *
 !*/
 !.gitignore
 !*.cpp
+!*.hpp
 !*.h
 !*.ccls
 
