@@ -382,8 +382,7 @@ void showClientsByCashier(bankStruct bank) {
 
   showClientsListHeader(12);
 
-  int i = 1;
-  while (clientNodePointer != NULL) {
+  for (int i = 1; clientNodePointer != NULL; i++) {
     showClient(cashierNodePointer->cashier, clientNodePointer->client, i,
                i + 13);
     clientNodePointer = clientNodePointer->next;
@@ -398,10 +397,11 @@ void showRecordsByClient(bankStruct bank) {
   recordNode *recordNodePointer;
 
   cashierNodePointer = requestCashierWithSelector(
-      bank.cashiers, "Ingrese el cajero de la persona que desea revisar");
+      bank.cashiers,
+      "Escoja el cajero donde se encuentra el cliente que desea revisar");
   clientNodePointer = requestClientWithSelector(
       cashierNodePointer->cashier.clients,
-      "Ingrese el cliente de los expedientes que desea listar:");
+      "Ingrese el cliente del que quiere revisar sus expedientes:");
 
   clearScreen();
   showAppTitle(bank);
@@ -414,12 +414,10 @@ void showRecordsByClient(bankStruct bank) {
 
   showRecordsListHeader(12);
 
-  int i = 1;
-  while (recordNodePointer != NULL) {
+  for (int i = 1; recordNodePointer != NULL; i++) {
     showRecord(cashierNodePointer->cashier, clientNodePointer->client,
                recordNodePointer->record, i, i + 13);
     recordNodePointer = recordNodePointer->next;
-    i++;
   }
 
   cout << endl << endl;
