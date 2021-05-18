@@ -153,6 +153,7 @@ nodo_Escuelas *Buscar(lista_Escuela LE, string seleccionado){
          }
          aux= aux->sgt;
      }
+	 return NULL;
  }
 void R_lista_Postulantes_Escuela(lista_Escuela LE){
     system("cls");
@@ -279,7 +280,7 @@ void OP_Registrar_Escuelas(lista_Escuela &LE){
     Agregar_Escuelas(LE,nuevo);
 }
 
-int OP_Reportes(lista_Escuela LE)
+void OP_Reportes(lista_Escuela LE)
 {
     int op;
     do{
