@@ -81,7 +81,7 @@ void gotoxy(int x, int y) {
   dwPos.Y = y;
   SetConsoleCursorPosition(hcon, dwPos);
 #else
-
+  printf("%c[%d;%df", 0x1B, y, x);
 #endif
 }
 
