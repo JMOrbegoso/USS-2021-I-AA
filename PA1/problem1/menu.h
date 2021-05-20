@@ -20,18 +20,20 @@ int requestMenuOption(concessionaireStruct concessionaire) {
   clearScreen();
   showAppTitle(concessionaire);
 
-  cout << endl
-       << "Esta aplicación tiene las siguientes opciones:" << endl
-       << endl;
+  cout << endl << "Esta aplicación tiene las siguientes opciones:";
+  cout << endl << endl;
 
   cout << "[1] Registrar nueva marca de automóviles" << endl;
   cout << "[2] Registrar nuevo modelo de automóviles" << endl;
   cout << "[3] Registrar nuevo automóvil" << endl;
+  cout << endl;
   cout << "[4] Listar todas las marcas de automóviles" << endl;
   cout << "[5] Listar todos los modelos de automóviles" << endl;
   cout << "[6] Listar todos los automóviles" << endl;
   cout << "[7] Listar automóviles por modelo" << endl;
+  cout << endl;
   cout << "[8] Buscar un automóvil por licencia" << endl;
+  cout << endl;
   cout << "[0] Cerrar" << endl;
 
   cout << endl << "Por favor ingrese una de las opciones:" << endl;
