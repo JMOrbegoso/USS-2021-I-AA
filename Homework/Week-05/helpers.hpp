@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#if defined(WIN32) || defined(_WIN32) ||                                       \
+#if defined(WIN32) || defined(_WIN32) || \
     defined(__WIN32) && !defined(__CYGWIN__)
 
 #include <windows.h>
@@ -29,7 +29,7 @@ char *toCharArray(string text) {
 }
 
 void clearScreen() {
-#if defined(WIN32) || defined(_WIN32) ||                                       \
+#if defined(WIN32) || defined(_WIN32) || \
     defined(__WIN32) && !defined(__CYGWIN__)
   system("cls");
 #else
@@ -38,7 +38,7 @@ void clearScreen() {
 }
 
 void pauseProcess() {
-#if defined(WIN32) || defined(_WIN32) ||                                       \
+#if defined(WIN32) || defined(_WIN32) || \
     defined(__WIN32) && !defined(__CYGWIN__)
   system("pause");
 #else
@@ -56,7 +56,7 @@ void pauseProcess() {
 }
 
 void addDelay(int sec) {
-#if defined(WIN32) || defined(_WIN32) ||                                       \
+#if defined(WIN32) || defined(_WIN32) || \
     defined(__WIN32) && !defined(__CYGWIN__)
   Sleep(sec * 1000);
 #else
@@ -65,7 +65,7 @@ void addDelay(int sec) {
 }
 
 void gotoxy(int x, int y) {
-#if defined(WIN32) || defined(_WIN32) ||                                       \
+#if defined(WIN32) || defined(_WIN32) || \
     defined(__WIN32) && !defined(__CYGWIN__)
   HANDLE hcon;
   hcon = GetStdHandle(STD_OUTPUT_HANDLE);

@@ -431,60 +431,60 @@ void mainMenu(bankStruct &bank) {
 
     if (selectedOption != 0) {
       switch (selectedOption) {
-      case 1:
-        registerNewCashier(bank);
-        addDelay(2);
-        break;
+        case 1:
+          registerNewCashier(bank);
+          addDelay(2);
+          break;
 
-      case 2:
-        registerNewClient(bank);
-        addDelay(2);
-        break;
+        case 2:
+          registerNewClient(bank);
+          addDelay(2);
+          break;
 
-      case 3:
-        registerNewRecord(bank);
-        addDelay(2);
-        break;
+        case 3:
+          registerNewRecord(bank);
+          addDelay(2);
+          break;
 
-      case 4:
-        showAllCashiers(bank);
-        pauseProcess();
-        break;
+        case 4:
+          showAllCashiers(bank);
+          pauseProcess();
+          break;
 
-      case 5:
-        showAllClients(bank);
-        pauseProcess();
-        break;
+        case 5:
+          showAllClients(bank);
+          pauseProcess();
+          break;
 
-      case 6:
-        showAllRecords(bank);
-        pauseProcess();
-        break;
+        case 6:
+          showAllRecords(bank);
+          pauseProcess();
+          break;
 
-      case 7:
-        findCashierByLastName(bank);
-        pauseProcess();
-        break;
+        case 7:
+          findCashierByLastName(bank);
+          pauseProcess();
+          break;
 
-      case 8:
-        findClientByLastName(bank);
-        pauseProcess();
-        break;
+        case 8:
+          findClientByLastName(bank);
+          pauseProcess();
+          break;
 
-      case 9:
-        findRecordByName(bank);
-        pauseProcess();
-        break;
+        case 9:
+          findRecordByName(bank);
+          pauseProcess();
+          break;
 
-      case 10:
-        showClientsByCashier(bank);
-        pauseProcess();
-        break;
+        case 10:
+          showClientsByCashier(bank);
+          pauseProcess();
+          break;
 
-      case 11:
-        showRecordsByClient(bank);
-        pauseProcess();
-        break;
+        case 11:
+          showRecordsByClient(bank);
+          pauseProcess();
+          break;
       }
     }
   } while (!(selectedOption == 0));
