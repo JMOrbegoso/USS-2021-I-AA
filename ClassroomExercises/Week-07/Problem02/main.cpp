@@ -38,7 +38,7 @@ int requestIntegerNumber(string requestMessage, string errorMessage, int min,
 }
 
 int getFactorial(int num) {
-  if (num <= 1) // caso base
+  if (num <= 1)  // caso base
     return 1;
 
   return num * getFactorial(num - 1);
@@ -59,8 +59,10 @@ int main(int argc, char *argv[]) {
       "Ingrese el numero del que quiere calcular el factorial",
       "corrija el numero", 0, 10);
 
-  cout << "El factorial es " << getFactorial(num) << endl;
-  cout << "El factorial es " << getFactorialWithLoop(num) << endl;
+  cout << "Usando un algoritmo iterativo: El factorial es " << getFactorial(num)
+       << endl;
+  cout << "Usando un bucle 'for': El factorial es " << getFactorialWithLoop(num)
+       << endl;
 
   return 0;
 }
