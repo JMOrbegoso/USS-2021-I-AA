@@ -51,3 +51,69 @@ bookStruct buildBook(string code, string title, unsigned short publicationDate,
 
   return book;
 }
+
+// Añadir a lista
+void addToList(roomsList &rooms, roomStruct newRoom) {
+  roomNode *roomNodePointer = new roomNode();
+
+  roomNode *lastNode = rooms.head;
+
+  roomNodePointer->room = newRoom;
+  roomNodePointer->next = NULL;
+
+  if (rooms.head == NULL) {
+    rooms.head = roomNodePointer;
+  } else {
+    while (lastNode->next != NULL) {
+      lastNode = lastNode->next;
+    }
+
+    lastNode->next = roomNodePointer;
+  }
+
+  rooms.length++;
+}
+
+// Encolar
+void enqueue(studentsQueue &students, studentStruct newStudent) {
+  studentNode *studentNodePointer = new studentNode;
+
+  studentNodePointer->student = newStudent;
+  studentNodePointer->next = NULL;
+
+  if (students.head == NULL) {
+    students.head = studentNodePointer;
+  } else {
+    students.tail->next = studentNodePointer;
+  }
+
+  students.tail = studentNodePointer;
+  students.length++;
+}
+
+// Desencolar
+studentStruct dequeue(studentsQueue &students) {
+  studentNode *studentNodePointer;
+  studentStruct deletedStudent;
+
+  studentNodePointer = students.head;
+  deletedStudent = studentNodePointer->student;
+
+  students.head = students.head->next;
+  students.length--;
+
+  delete studentNodePointer;
+
+  return deletedStudent;
+}
+
+// Apilar
+void push(booksStack &books, bookStruct newBook) {
+  bookNode *bookNodePointer = new bookNode();
+
+  bookNodePointer->book = newBook;
+  bookNodePointer->next = books.top;
+
+  books.top = bookNodePointer;
+  books.length++;
+}
