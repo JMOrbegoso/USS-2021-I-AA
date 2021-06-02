@@ -49,6 +49,120 @@ int requestMenuOption(libraryStruct library) {
   return selectedOption;
 }
 
+void showAllRooms(libraryStruct library) {
+  roomNode *roomNodePointer;
+
+  clearScreen();
+  showAppTitle(library);
+
+  gotoxy(20, 10);
+  cout << "Todas las salas de la libreria de la universidad "
+       << library.universityName << endl;
+
+  roomNodePointer = library.rooms.head;
+
+  showRoomsListHeader(12);
+
+  for (int i = 1; roomNodePointer != NULL; i++) {
+    showRoom(roomNodePointer->room, i, i + 13);
+    roomNodePointer = roomNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showAllStudents(libraryStruct library) {
+  roomNode *roomNodePointer;
+  studentNode *studentNodePointer;
+
+  clearScreen();
+  showAppTitle(library);
+
+  gotoxy(20, 10);
+  cout << "Todos los estudiantes formando cola en las salas de la biblioteca "
+          "de la universidad "
+       << library.universityName << endl;
+
+  roomNodePointer = library.rooms.head;
+
+  showStudentsListHeader(12);
+
+  int i = 1;
+  while (roomNodePointer != NULL) {
+    studentNodePointer = roomNodePointer->room.students.head;
+    while (studentNodePointer != NULL) {
+      showStudent(studentNodePointer->student, i, i + 13);
+      studentNodePointer = studentNodePointer->next;
+      i++;
+    }
+    roomNodePointer = roomNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showStudentsByRoom(libraryStruct library) {
+  roomNode *roomNodePointer;
+  studentNode *studentNodePointer;
+
+  roomNodePointer = requestRoomWithSelector(
+      library.rooms,
+      "Ingrese la sala de la que desea ver los estudiantes en cola");
+
+  clearScreen();
+  showAppTitle(library);
+
+  gotoxy(20, 10);
+  cout << "Estudiantes haciendo cola en la sala de tematica "
+       << roomNodePointer->room.thematic << ":" << endl;
+
+  studentNodePointer = roomNodePointer->room.students.head;
+
+  showStudentsListHeader(12);
+
+  for (int i = 1; studentNodePointer != NULL; i++) {
+    showStudent(studentNodePointer->student, i, i + 13);
+    studentNodePointer = studentNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showAllBooksToBorrow(libraryStruct library) {
+  roomNode *roomNodePointer;
+  studentNode *studentNodePointer;
+  bookNode *bookNodePointer;
+
+  clearScreen();
+  showAppTitle(library);
+
+  gotoxy(20, 10);
+  cout << "Todos los libros de los estudiantes haciendo cola en las salas de "
+          "la universidad "
+       << library.universityName << endl;
+
+  roomNodePointer = library.rooms.head;
+
+  showBooksListHeader(12);
+
+  int i = 1;
+  while (roomNodePointer != NULL) {
+    studentNodePointer = roomNodePointer->room.students.head;
+    while (studentNodePointer != NULL) {
+      bookNodePointer = studentNodePointer->student.books.top;
+      while (bookNodePointer != NULL) {
+        showBook(bookNodePointer->book, i, i + 13);
+        bookNodePointer = bookNodePointer->next;
+        i++;
+      }
+      studentNodePointer = studentNodePointer->next;
+    }
+    roomNodePointer = roomNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
 void mainMenu(libraryStruct &library) {
   int selectedOption;
 
@@ -58,7 +172,19 @@ void mainMenu(libraryStruct &library) {
     if (selectedOption != 0) {
       switch (selectedOption) {
         case 1:
-          // showAllRooms(library);
+          showAllRooms(library);
+          pauseProcess();
+          break;
+        case 2:
+          showAllStudents(library);
+          pauseProcess();
+          break;
+        case 3:
+          showStudentsByRoom(library);
+          pauseProcess();
+          break;
+        case 4:
+          showAllBooksToBorrow(library);
           pauseProcess();
           break;
       }
