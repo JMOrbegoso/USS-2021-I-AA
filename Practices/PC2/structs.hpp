@@ -7,7 +7,8 @@ struct bookStruct {
   string code;
   string title;
   unsigned short publicationDate;
-  string authorFullName;
+  string authorLastName;
+  string authorFirstName;
   string type;
 };
 
@@ -55,7 +56,7 @@ struct roomNode {
 };
 
 struct roomsList {
-  roomNode *top;
+  roomNode *head;
   int length;
 };
 
