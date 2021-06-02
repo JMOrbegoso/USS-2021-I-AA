@@ -28,7 +28,7 @@ struct studentStruct {
   string lastName;
   string firstName;
   string email;
-  unsigned short birthDate;
+  string birthDate;
   string career;
   booksStack books;
 };

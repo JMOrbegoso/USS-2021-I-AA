@@ -20,8 +20,7 @@ roomStruct buildRoom(string thematic) {
 }
 
 studentStruct buildStudent(string code, string lastName, string firstName,
-                           string email, unsigned short birthDate,
-                           string career) {
+                           string email, string birthDate, string career) {
   studentStruct student;
 
   student.code = code;
