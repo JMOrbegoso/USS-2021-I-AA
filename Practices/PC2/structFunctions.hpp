@@ -199,3 +199,113 @@ void dataInitialization(libraryStruct &library) {
   addToList(library.rooms, room_2);
   addToList(library.rooms, room_3);
 }
+
+roomNode *iterateRoomsList(roomsList rooms, int index) {
+  roomNode *roomNodePointer;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > rooms.length) {
+    return NULL;
+  }
+
+  roomNodePointer = rooms.head;
+
+  for (int i = 1; roomNodePointer != NULL; i++) {
+    if (i == index) {
+      return roomNodePointer;
+    }
+    roomNodePointer = roomNodePointer->next;
+  }
+
+  return NULL;
+}
+
+studentNode *iterateStudentsQueue(studentsQueue students, int index) {
+  studentNode *studentNodePointer;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > students.length) {
+    return NULL;
+  }
+
+  studentNodePointer = students.head;
+
+  for (int i = 1; studentNodePointer != NULL; i++) {
+    if (i == index) {
+      return studentNodePointer;
+    }
+    studentNodePointer = studentNodePointer->next;
+  }
+
+  return NULL;
+}
+
+roomNode *requestRoomWithSelector(roomsList &rooms, string message) {
+  int selectedOption;
+  roomNode *roomNodePointer;
+
+  cout << endl
+       << message << "." << endl
+       << "Escoja entre las " << rooms.length << " salas siguientes:" << endl
+       << endl;
+
+  roomNodePointer = rooms.head;
+
+  for (int i = 1; roomNodePointer != NULL; i++) {
+    cout << "[" << i << "] - " << roomNodePointer->room.thematic << " - "
+         << roomNodePointer->room.students.length
+         << " estudiantes en cola para esta sala" << endl;
+    roomNodePointer = roomNodePointer->next;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
+
+  while (!(1 <= selectedOption && selectedOption <= rooms.length)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << rooms.length << "."
+         << endl;
+    fflush(stdin);
+    cin >> selectedOption;
+  }
+
+  return iterateRoomsList(rooms, selectedOption);
+}
+
+studentNode *requestStudentWithSelector(studentsQueue &students,
+                                        string message) {
+  int selectedOption;
+  studentNode *studentNodePointer;
+
+  studentNodePointer = students.head;
+
+  cout << endl
+       << message << "." << endl
+       << "Escoja entre los " << students.length
+       << " estudiantes siguientes:" << endl
+       << endl;
+
+  for (int i = 1; studentNodePointer != NULL; i++) {
+    cout << "[" << i << "] - " << studentNodePointer->student.firstName << " "
+         << studentNodePointer->student.lastName << " - Con "
+         << studentNodePointer->student.books.length << " libros." << endl;
+    studentNodePointer = studentNodePointer->next;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
+
+  while (!(1 <= selectedOption && selectedOption <= students.length)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << students.length
+         << "." << endl;
+    fflush(stdin);
+    cin >> selectedOption;
+  }
+
+  return iterateStudentsQueue(students, selectedOption);
+}
