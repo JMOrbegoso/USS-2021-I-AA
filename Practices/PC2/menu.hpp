@@ -163,6 +163,37 @@ void showAllBooksToBorrow(libraryStruct library) {
   cout << endl << endl;
 }
 
+void showBooksToBorrowByStudent(libraryStruct library) {
+  roomNode *roomNodePointer;
+  studentNode *studentNodePointer;
+  bookNode *bookNodePointer;
+
+  roomNodePointer = requestRoomWithSelector(
+      library.rooms,
+      "Escoja la sala donde se encuentra el estudiante que desea revisar");
+  studentNodePointer = requestStudentWithSelector(
+      roomNodePointer->room.students,
+      "Escoja el estudiante del que quiere revisar sus libros");
+
+  clearScreen();
+  showAppTitle(library);
+
+  gotoxy(20, 10);
+  cout << "Libros de " << studentNodePointer->student.lastName << " "
+       << studentNodePointer->student.firstName << ":" << endl;
+
+  bookNodePointer = studentNodePointer->student.books.top;
+
+  showBooksListHeader(12);
+
+  for (int i = 1; bookNodePointer != NULL; i++) {
+    showBook(bookNodePointer->book, i, i + 13);
+    bookNodePointer = bookNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
 void mainMenu(libraryStruct &library) {
   int selectedOption;
 
@@ -185,6 +216,10 @@ void mainMenu(libraryStruct &library) {
           break;
         case 4:
           showAllBooksToBorrow(library);
+          pauseProcess();
+          break;
+        case 5:
+          showBooksToBorrowByStudent(library);
           pauseProcess();
           break;
       }
