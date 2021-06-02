@@ -141,11 +141,11 @@ void dataInitialization(libraryStruct &library) {
                    "1999-08-07", "Ing. Civil");
   student_4 =
       buildStudent("2020A-98", "Garcia", "Marcos", "marcosgarcia@gmail.com",
-                   "2001-01-02", "Ing. Civil");
+                   "2001-01-09", "Ing. Civil");
 
   student_5 =
       buildStudent("2010A-24", "Gonzales", "Maria", "mariagonzales@gmail.com",
-                   "2000", "Medicina Humana");
+                   "2000-03-01", "Medicina Humana");
   student_6 =
       buildStudent("2017A-30", "Lopez", "Guillermo", "guillermolopez@gmail.com",
                    "2000-11-10", "Medicina Humana");
@@ -327,41 +327,42 @@ void showRoom(roomStruct room, int i, int y) {
   gotoxy(25, y);
   cout << room.students.length;
 }
-void showStudentsQueueHeader(int y) {
+
+void showStudentsListHeader(int y) {
   gotoxy(0, y);
   cout << "#";
   gotoxy(5, y);
   cout << "Apellidos";
-  gotoxy(25, y);
+  gotoxy(20, y);
   cout << "Nombres";
-  gotoxy(45, y);
+  gotoxy(30, y);
   cout << "Email";
   gotoxy(60, y);
   cout << "Fecha Nacimiento";
-  gotoxy(70, y);
+  gotoxy(75, y);
   cout << "Carrera";
-  gotoxy(90, y);
+  gotoxy(95, y);
   cout << "# Libros";
 }
 
-void showClient(studentStruct student, int i, int y) {
+void showStudent(studentStruct student, int i, int y) {
   gotoxy(0, y);
   cout << i;
   gotoxy(5, y);
   cout << student.lastName;
-  gotoxy(25, y);
+  gotoxy(20, y);
   cout << student.firstName;
-  gotoxy(45, y);
+  gotoxy(30, y);
   cout << student.email;
   gotoxy(60, y);
   cout << student.birthDate;
-  gotoxy(70, y);
+  gotoxy(75, y);
   cout << student.career;
-  gotoxy(90, y);
+  gotoxy(95, y);
   cout << student.books.length;
 }
 
-void showBooksStackHeader(int y) {
+void showBooksListHeader(int y) {
   gotoxy(0, y);
   cout << "#";
   gotoxy(5, y);
