@@ -309,3 +309,80 @@ studentNode *requestStudentWithSelector(studentsQueue &students,
 
   return iterateStudentsQueue(students, selectedOption);
 }
+
+void showRoomsListHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Tematica";
+  gotoxy(25, y);
+  cout << "# de estudiantes en cola";
+}
+
+void showRoom(roomStruct room, int i, int y) {
+  gotoxy(0, y);
+  cout << i;
+  gotoxy(5, y);
+  cout << room.thematic;
+  gotoxy(25, y);
+  cout << room.students.length;
+}
+void showStudentsQueueHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Apellidos";
+  gotoxy(25, y);
+  cout << "Nombres";
+  gotoxy(45, y);
+  cout << "Email";
+  gotoxy(60, y);
+  cout << "Fecha Nacimiento";
+  gotoxy(70, y);
+  cout << "Carrera";
+  gotoxy(90, y);
+  cout << "# Libros";
+}
+
+void showClient(studentStruct student, int i, int y) {
+  gotoxy(0, y);
+  cout << i;
+  gotoxy(5, y);
+  cout << student.lastName;
+  gotoxy(25, y);
+  cout << student.firstName;
+  gotoxy(45, y);
+  cout << student.email;
+  gotoxy(60, y);
+  cout << student.birthDate;
+  gotoxy(70, y);
+  cout << student.career;
+  gotoxy(90, y);
+  cout << student.books.length;
+}
+
+void showBooksStackHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Codigo";
+  gotoxy(15, y);
+  cout << "Title";
+  gotoxy(40, y);
+  cout << "Publication";
+  gotoxy(65, y);
+  cout << "Autor";
+}
+
+void showBook(bookStruct book, int i, int y) {
+  gotoxy(0, y);
+  cout << i;
+  gotoxy(5, y);
+  cout << book.code;
+  gotoxy(15, y);
+  cout << book.title;
+  gotoxy(40, y);
+  cout << book.publicationDate;
+  gotoxy(65, y);
+  cout << book.authorLastName + " " + book.authorFirstName;
+}
