@@ -277,6 +277,39 @@ void AddBookToStudentBookStack(libraryStruct &library) {
           "estudiante.";
 }
 
+void BorrowBooksToStudent(libraryStruct &library) {
+  roomNode *roomNodePointer;
+  studentStruct studentToBorrow;
+
+  cout << "Va a prestar los libros a un estudiante" << endl << endl;
+
+  roomNodePointer =
+      requestRoomWithSelector(library.rooms,
+                              "Ingrese la sala donde se encuentra el "
+                              "estudiante al que se le prestarán los libro");
+
+  while (!(roomNodePointer->room.students.head != NULL)) {
+    cout << endl
+         << "La sala elegida no tiene estudiantes, por favor elija una "
+            "sala con estudiantes."
+         << endl;
+
+    addDelay(1);
+
+    roomNodePointer =
+        requestRoomWithSelector(library.rooms,
+                                "Ingrese la sala donde se encuentra el "
+                                "estudiante al que se le prestarán los libro");
+  }
+
+  studentToBorrow = dequeue(roomNodePointer->room.students);
+
+  cout << "Se le prestaron correctamente los libros al estudiante "
+       << studentToBorrow.firstName << " " << studentToBorrow.lastName << "."
+       << endl
+       << endl;
+}
+
 void mainMenu(libraryStruct &library) {
   int selectedOption;
 
@@ -311,6 +344,10 @@ void mainMenu(libraryStruct &library) {
           break;
         case 7:
           AddBookToStudentBookStack(library);
+          addDelay(2);
+          break;
+        case 8:
+          BorrowBooksToStudent(library);
           addDelay(2);
           break;
       }
