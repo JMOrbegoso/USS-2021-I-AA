@@ -151,29 +151,29 @@ void dataInitialization(libraryStruct &library) {
                    "2000-11-10", "Medicina Humana");
 
   book_01 =
-      buildBook("aa-11", "Algoritmos", 1978, "Jim", "Shawn", "Instructivo");
+      buildBook("aa-11", "Algoritmos", 1988, "Jim", "Shawn", "Instructivo");
   book_02 =
-      buildBook("aa-12", "Backend en Go", 1978, "Joe", "Roland", "Informativo");
-  book_03 = buildBook("aa-13", "Bases de datos", 1978, "Elena", "Hadwin",
+      buildBook("aa-12", "Backend en Go", 2020, "Joe", "Roland", "Informativo");
+  book_03 = buildBook("aa-13", "Bases de datos", 1980, "Elena", "Hadwin",
                       "Instructivo");
   book_04 =
-      buildBook("aa-14", "Xamarin", 1978, "Gustavo", "Goodwin", "Informativo");
+      buildBook("aa-14", "Xamarin", 2010, "Gustavo", "Goodwin", "Informativo");
   book_05 =
-      buildBook("bb-11", "Zapatas", 1978, "Mark", "Pierce", "Instructivo");
+      buildBook("bb-11", "Zapatas", 1960, "Mark", "Pierce", "Instructivo");
   book_06 =
-      buildBook("bb-12", "Puentes", 1978, "Robert", "Erickson", "Informativo");
+      buildBook("bb-12", "Puentes", 1955, "Robert", "Erickson", "Informativo");
   book_07 =
       buildBook("bb-13", "Vigas", 1978, "Fernanda", "Fabijan", "Instructivo");
-  book_08 = buildBook("bb-14", "Naves industriales", 1978, "Christobal",
+  book_08 = buildBook("bb-14", "Naves industriales", 1954, "Christobal",
                       "Martin", "Informativo");
   book_09 =
-      buildBook("cc-11", "Pulmones", 1978, "Joe", "Roland", "Instructivo");
+      buildBook("cc-11", "Pulmones", 1998, "Joe", "Roland", "Instructivo");
   book_10 =
-      buildBook("cc-12", "Corazon", 1978, "Yoshi", "Matsumoto", "Informativo");
+      buildBook("cc-12", "Corazon", 1981, "Yoshi", "Matsumoto", "Informativo");
   book_11 =
-      buildBook("cc-13", "Estomago", 1978, "Terence", "Hollie", "Instructivo");
+      buildBook("cc-13", "Estomago", 1984, "Terence", "Hollie", "Instructivo");
   book_12 =
-      buildBook("cc-14", "Cerebro", 1978, "Mirta", "Charles", "Informativo");
+      buildBook("cc-14", "Cerebro", 1986, "Mirta", "Charles", "Informativo");
 
   push(student_1.books, book_01);
   push(student_1.books, book_02);
