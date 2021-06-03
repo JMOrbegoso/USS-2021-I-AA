@@ -194,6 +194,89 @@ void showBooksToBorrowByStudent(libraryStruct library) {
   cout << endl << endl;
 }
 
+void registerNewStudent(libraryStruct &library) {
+  string firstName, lastName, code, birthDate, email, career;
+
+  roomNode *roomNodePointer;
+  studentStruct newStudent;
+
+  clearScreen();
+  showAppTitle(library);
+
+  gotoxy(20, 10);
+  cout << "Registrar nuevo estudiante:" << endl;
+
+  code = requestText("Ingrese el codigo del nuevo estudiante", 2);
+  firstName = requestText("Ingrese los nombres del nuevo estudiante", 2);
+  lastName = requestText("Ingrese los apellidos del nuevo estudiante", 2);
+  email = requestText("Ingrese el email del nuevo estudiante", 2);
+  birthDate =
+      requestText("Ingrese la fecha de nacimiento del nuevo estudiante", 2);
+  career = requestText(
+      "Ingrese la carrera profesional de nacimiento del nuevo estudiante", 2);
+
+  newStudent =
+      buildStudent(code, lastName, firstName, email, birthDate, career);
+
+  roomNodePointer = requestRoomWithSelector(
+      library.rooms, "Ingrese la sala en la que se encuentra el estudiante");
+
+  enqueue(roomNodePointer->room.students, newStudent);
+
+  cout << "El estudiante fue añadido de forma exitosa" << endl;
+}
+
+void AddBookToStudentBookStack(libraryStruct &library) {
+  roomNode *roomNodePointer;
+  studentNode *studentNodePointer;
+  bookStruct newBook;
+  string code, title, authorLastName, authorFirstName, type;
+  unsigned short publicationDate;
+
+  cout << "Va a añadir un libro a la pila de libros de un estudiante" << endl
+       << endl;
+
+  code = requestText("Ingrese el código del libro a añadir", 1);
+  title = requestText("Ingrese el titulo del libro a añadir", 2);
+  authorFirstName =
+      requestText("Ingrese el nombre del autor del libro a añadir", 2);
+  authorLastName =
+      requestText("Ingrese el apellido del autor del libro a añadir", 2);
+  type = requestText("Ingrese el tipo del libro a añadir", 2);
+  publicationDate =
+      requestIntegerNumber("Ingrese el año de publicación del libro",
+                           "Por favor ingrese un año valido", 1000, 2021);
+
+  roomNodePointer = requestRoomWithSelector(
+      library.rooms,
+      "Ingrese la sala donde se encuentra el estudiante que prestará el libro");
+
+  while (!(roomNodePointer->room.students.head != NULL)) {
+    cout << endl
+         << "La sala elegida no tiene estudiantes, por favor elija una "
+            "sala con estudiantes."
+         << endl;
+
+    addDelay(1);
+
+    roomNodePointer =
+        requestRoomWithSelector(library.rooms,
+                                "Ingrese la sala donde se encuentra el "
+                                "estudiante que prestará el libro");
+  }
+
+  studentNodePointer =
+      requestStudentWithSelector(roomNodePointer->room.students,
+                                 "Ingrese el estudiante que prestará el libro");
+
+  newBook = buildBook(code, title, publicationDate, authorFirstName,
+                      authorLastName, type);
+  push(studentNodePointer->student.books, newBook);
+
+  cout << "El libro ha sido registrado correctamente en la pila de libros del "
+          "estudiante.";
+}
+
 void mainMenu(libraryStruct &library) {
   int selectedOption;
 
@@ -221,6 +304,14 @@ void mainMenu(libraryStruct &library) {
         case 5:
           showBooksToBorrowByStudent(library);
           pauseProcess();
+          break;
+        case 6:
+          registerNewStudent(library);
+          addDelay(2);
+          break;
+        case 7:
+          AddBookToStudentBookStack(library);
+          addDelay(2);
           break;
       }
     }
