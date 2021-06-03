@@ -126,7 +126,7 @@ void dataInitialization(libraryStruct &library) {
 
   library.universityName = "Universidad Señor de Sipán";
 
-  room_1 = buildRoom("Algoritmos");
+  room_1 = buildRoom("Programacion");
   room_2 = buildRoom("Ing. Civil");
   room_3 = buildRoom("Medicina");
 
