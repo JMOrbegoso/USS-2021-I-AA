@@ -348,7 +348,7 @@ void mainMenu(libraryStruct &library) {
           break;
         case 8:
           BorrowBooksToStudent(library);
-          addDelay(2);
+          addDelay(3);
           break;
       }
     }
