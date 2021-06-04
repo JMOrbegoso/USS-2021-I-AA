@@ -9,6 +9,37 @@ void showAppTitle() {
   cout << "-----------------------------------------------------------" << endl;
 }
 
+void registerPerson(peopleThree &people) {
+  string firstName, lastName;
+  unsigned short age;
+
+  personStruct newPerson;
+
+  clearScreen();
+  showAppTitle();
+
+  gotoxy(20, 10);
+  cout << "Registrar nuevo estudiante:" << endl;
+
+  firstName = requestText("Ingrese los nombres del nuevo estudiante", 2);
+  lastName = requestText("Ingrese los apellidos del nuevo estudiante", 2);
+  age =
+      requestIntegerNumber("Ingrese la edad del la persona",
+                           "Por favor ingrese una edad entre 0 y 120", 0, 120);
+
+  newPerson = buildPerson(lastName, firstName, age);
+
+  insertPerson(people, newPerson);
+
+  cout << "La persona fue añadida de forma exitosa." << endl;
+}
+
+void showPeopleInPreOrder(peopleThree people, void (*func)(personStruct)) {
+  func(people->person);
+  if (people->left) showPeopleInPreOrder(people->left, func);
+  if (people->right) showPeopleInPreOrder(people, func);
+}
+
 int requestMenuOption(peopleThree people) {
   int selectedOption;
 
@@ -49,8 +80,12 @@ void mainMenu(peopleThree &people) {
     if (selectedOption != 0) {
       switch (selectedOption) {
         case 1:
-          // showAllRooms(library);
-          // pauseProcess();
+          registerPerson(people);
+          addDelay(2);
+          break;
+        case 2:
+          showPeopleInPreOrder(people, showPerson);
+          pauseProcess();
           break;
       }
     }

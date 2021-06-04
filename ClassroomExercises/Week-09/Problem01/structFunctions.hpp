@@ -3,24 +3,32 @@
 
 using namespace std;
 
-void showPeopleListHeader(int y) {
-  gotoxy(0, y);
-  cout << "#";
-  gotoxy(5, y);
-  cout << "Apellidos";
-  gotoxy(25, y);
-  cout << "Nombres";
-  gotoxy(45, y);
-  cout << "Edad";
+personStruct buildPerson(string lastName, string firstName,
+                         unsigned short age) {
+  personStruct person;
+
+  person.lastName = lastName;
+  person.firstName = firstName;
+  person.age = age;
+
+  return person;
 }
 
-void showPerson(personStruct person, int i, int y) {
-  gotoxy(0, y);
-  cout << i;
-  gotoxy(5, y);
-  cout << person.lastName;
-  gotoxy(25, y);
-  cout << person.firstName;
-  gotoxy(45, y);
-  cout << person.age;
+void insertPerson(peopleThree &people, personStruct person) {
+  if (people == NULL) {
+    people->person = person;
+    people->left = NULL;
+    people->right = NULL;
+  } else if (person.age < people->person.age) {
+    insertPerson(people->left, person);
+  } else if (person.age > people->person.age) {
+    insertPerson(people->right, person);
+  } else {
+  }
+}
+
+void showPerson(personStruct person) {
+  cout << "Apellidos: " << person.lastName << endl;
+  cout << "Nombres: " << person.firstName << endl;
+  cout << "Edad: " << person.age << endl;
 }
