@@ -5,7 +5,7 @@ using namespace std;
 void showAppTitle() {
   cout << endl
        << "-----------------------------------------------------------" << endl;
-  cout << "\t Problema - Semana 08 - Arboles " << endl << endl << endl;
+  cout << "\t Semana 08 - Problema 01 - Arboles " << endl << endl << endl;
   cout << "-----------------------------------------------------------" << endl;
 }
 
@@ -34,10 +34,22 @@ void registerPerson(peopleThree &people) {
   cout << "La persona fue añadida de forma exitosa." << endl;
 }
 
-void showPeopleInPreOrder(peopleThree people, void (*func)(personStruct)) {
+void showPeopleByPreOrder(peopleThree people, void (*func)(personStruct)) {
   func(people->person);
-  if (people->left) showPeopleInPreOrder(people->left, func);
-  if (people->right) showPeopleInPreOrder(people, func);
+  if (people->left) showPeopleByPreOrder(people->left, func);
+  if (people->right) showPeopleByPreOrder(people->right, func);
+}
+
+void showPeopleByInOrder(peopleThree people, void (*func)(personStruct)) {
+  func(people->person);
+  if (people->left) showPeopleByInOrder(people->left, func);
+  if (people->right) showPeopleByInOrder(people->right, func);
+}
+
+void showPeopleByPostOrder(peopleThree people, void (*func)(personStruct)) {
+  func(people->person);
+  if (people->left) showPeopleByPostOrder(people->left, func);
+  if (people->right) showPeopleByPostOrder(people->right, func);
 }
 
 int requestMenuOption(peopleThree people) {
@@ -71,6 +83,42 @@ int requestMenuOption(peopleThree people) {
   return selectedOption;
 }
 
+void findPerson(peopleThree people, string lastNameToFind) {
+  if (people != NULL) {
+    if (containsText(people->person.lastName, lastNameToFind)) {
+      showPerson(people->person);
+      return;
+    }
+  }
+}
+
+void findPeople(peopleThree people) {
+  string lastNameToFind;
+  lastNameToFind = requestText("Ingrese el apellido a buscar", 1);
+
+  findPerson(people, lastNameToFind);
+}
+
+int getHeight(peopleThree people) {
+  int rightHeight = 0, leftHeight = 0;
+  if (people == NULL) {
+    return -1;
+  } else {
+    leftHeight = getHeight(people->left);
+    rightHeight = getHeight(people->right);
+    if (leftHeight > rightHeight)
+      return leftHeight + 1;
+    else
+      return rightHeight + 1;
+  }
+}
+
+void calculateHeight(peopleThree people) {
+  int height;
+  height = getHeight(people);
+  cout << "La altura del árbol de personas es de " << height;
+}
+
 void mainMenu(peopleThree &people) {
   int selectedOption;
 
@@ -84,9 +132,25 @@ void mainMenu(peopleThree &people) {
           addDelay(2);
           break;
         case 2:
-          showPeopleInPreOrder(people, showPerson);
+          showPeopleByPreOrder(people, showPerson);
           pauseProcess();
           break;
+        case 3:
+          showPeopleByInOrder(people, showPerson);
+          pauseProcess();
+          break;
+        case 4:
+          showPeopleByPostOrder(people, showPerson);
+          pauseProcess();
+          break;
+        case 5:
+          findPeople(people);
+          pauseProcess();
+          break;
+        case 6:
+          break;
+        case 7:
+          calculateHeight(people);
       }
     }
   } while (!(selectedOption == 0));
