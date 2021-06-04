@@ -14,11 +14,17 @@ personStruct buildPerson(string lastName, string firstName,
   return person;
 }
 
+personNode *createPersonNode(personStruct person) {
+  personNode *newPersonNode = new (struct personNode);
+  newPersonNode->person = person;
+  newPersonNode->left = NULL;
+  newPersonNode->right = NULL;
+  return newPersonNode;
+}
+
 void insertPerson(peopleThree &people, personStruct person) {
   if (people == NULL) {
-    people->person = person;
-    people->left = NULL;
-    people->right = NULL;
+    people = createPersonNode(person);
   } else if (person.age < people->person.age) {
     insertPerson(people->left, person);
   } else if (person.age > people->person.age) {
