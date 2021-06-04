@@ -34,7 +34,9 @@ void insertPerson(peopleThree &people, personStruct person) {
 }
 
 void showPerson(personStruct person) {
+  cout << endl;
   cout << "Apellidos: " << person.lastName << endl;
   cout << "Nombres: " << person.firstName << endl;
   cout << "Edad: " << person.age << endl;
+  cout << endl;
 }
