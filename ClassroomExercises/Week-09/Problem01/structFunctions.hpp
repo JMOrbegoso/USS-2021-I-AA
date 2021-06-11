@@ -3,6 +3,20 @@
 
 using namespace std;
 
+int getHeight(peopleThree people) {
+  int rightHeight = 0, leftHeight = 0;
+  if (people == NULL) {
+    return -1;
+  } else {
+    leftHeight = getHeight(people->left);
+    rightHeight = getHeight(people->right);
+    if (leftHeight > rightHeight)
+      return leftHeight + 1;
+    else
+      return rightHeight + 1;
+  }
+}
+
 personStruct buildPerson(string lastName, string firstName,
                          unsigned short age) {
   personStruct person;
