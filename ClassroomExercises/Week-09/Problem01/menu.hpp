@@ -5,7 +5,7 @@ using namespace std;
 void showAppTitle() {
   cout << endl
        << "-----------------------------------------------------------" << endl;
-  cout << "\t Semana 08 - Problema 01 - Arboles " << endl << endl << endl;
+  cout << "\t Semana 09 - Problema 01 - Arboles " << endl << endl << endl;
   cout << "-----------------------------------------------------------" << endl;
 }
 
@@ -137,6 +137,7 @@ void mainMenu(peopleThree &people) {
           break;
         case 7:
           calculateHeight(people);
+          pauseProcess();
       }
     }
   } while (!(selectedOption == 0));
