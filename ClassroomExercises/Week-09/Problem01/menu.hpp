@@ -52,6 +52,28 @@ void showPeopleByPostOrder(peopleThree people, void (*func)(personStruct)) {
   if (people->right) showPeopleByPostOrder(people->right, func);
 }
 
+void findPerson(peopleThree people, string lastNameToFind) {
+  if (people != NULL) {
+    if (containsText(people->person.lastName, lastNameToFind)) {
+      showPerson(people->person);
+      return;
+    }
+  }
+}
+
+void findPeople(peopleThree people) {
+  string lastNameToFind;
+  lastNameToFind = requestText("Ingrese el apellido a buscar", 1);
+
+  findPerson(people, lastNameToFind);
+}
+
+void calculateHeight(peopleThree people) {
+  int height;
+  height = getHeight(people);
+  cout << "La altura del árbol de personas es de " << height;
+}
+
 int requestMenuOption(peopleThree people) {
   int selectedOption;
 
@@ -81,28 +103,6 @@ int requestMenuOption(peopleThree people) {
     cin >> selectedOption;
   }
   return selectedOption;
-}
-
-void findPerson(peopleThree people, string lastNameToFind) {
-  if (people != NULL) {
-    if (containsText(people->person.lastName, lastNameToFind)) {
-      showPerson(people->person);
-      return;
-    }
-  }
-}
-
-void findPeople(peopleThree people) {
-  string lastNameToFind;
-  lastNameToFind = requestText("Ingrese el apellido a buscar", 1);
-
-  findPerson(people, lastNameToFind);
-}
-
-void calculateHeight(peopleThree people) {
-  int height;
-  height = getHeight(people);
-  cout << "La altura del árbol de personas es de " << height;
 }
 
 void mainMenu(peopleThree &people) {
