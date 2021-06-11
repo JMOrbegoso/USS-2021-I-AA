@@ -47,6 +47,35 @@ void insertPerson(peopleThree &people, personStruct person) {
   }
 }
 
+peopleThree joinThree(peopleThree leftPeopleThree,
+                      peopleThree rightPeopleThree) {
+  if (leftPeopleThree == NULL) return rightPeopleThree;
+
+  if (rightPeopleThree == NULL) return leftPeopleThree;
+
+  peopleThree joinedThrees =
+      joinThree(leftPeopleThree->right, rightPeopleThree->left);
+
+  leftPeopleThree->right = joinedThrees;
+  rightPeopleThree->left = leftPeopleThree;
+
+  return rightPeopleThree;
+}
+
+void deletePerson(peopleThree people, string lastNameToFind) {
+  if (people == NULL) return;
+
+  if (people->person.lastName > lastNameToFind)
+    deletePerson(people->left, lastNameToFind);
+  else if (people->person.lastName < lastNameToFind)
+    deletePerson(people->right, lastNameToFind);
+  else {
+    peopleThree aux = people;
+    people = joinThree(people->left, people->right);
+    delete aux;
+  }
+}
+
 void showPerson(personStruct person) {
   cout << endl;
   cout << "Apellidos: " << person.lastName << endl;

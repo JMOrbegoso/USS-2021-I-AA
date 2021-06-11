@@ -74,6 +74,19 @@ void calculateHeight(peopleThree people) {
   cout << "La altura del árbol de personas es de " << height;
 }
 
+void deletePeopleByLastName(peopleThree people) {
+  clearScreen();
+
+  if (people != NULL) {
+    string lastNameToFind;
+    lastNameToFind =
+        requestText("Ingrese el apellido de la persona a borrar:", 2);
+    deletePerson(people, lastNameToFind);
+  } else {
+    cout << "No hay personas registradas.";
+  }
+}
+
 int requestMenuOption(peopleThree people) {
   int selectedOption;
 
@@ -134,10 +147,13 @@ void mainMenu(peopleThree &people) {
           pauseProcess();
           break;
         case 6:
+          deletePeopleByLastName(people);
+          pauseProcess();
           break;
         case 7:
           calculateHeight(people);
           pauseProcess();
+          break;
       }
     }
   } while (!(selectedOption == 0));
