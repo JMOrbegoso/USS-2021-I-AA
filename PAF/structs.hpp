@@ -4,8 +4,9 @@ using namespace std;
 
 // Producto
 struct productoStruct {
-  string marca;
   string nombre;
+  string marca;
+  string tipo;
   float precio;
 };
 
@@ -16,38 +17,6 @@ struct productoNodo {
 
 struct productosLista {
   productoNodo *cabecera;
-  int largo;
-};
-
-// Subcategoria
-struct subcategoriaStruct {
-  string marca;
-  productosLista productos;
-};
-
-struct subcategoriaNodo {
-  subcategoriaStruct subcategoria;
-  subcategoriaNodo *siguiente;
-};
-
-struct subcategoriasLista {
-  subcategoriaNodo *cabecera;
-  int largo;
-};
-
-// Categoria
-struct categoriaStruct {
-  string nombre;
-  subcategoriasLista subcategorias;
-};
-
-struct categoriaNodo {
-  categoriaStruct categoria;
-  categoriaNodo *siguiente;
-};
-
-struct categoriasLista {
-  categoriaNodo *cabecera;
   int largo;
 };
 
@@ -67,12 +36,6 @@ struct productosEnAlmacenLista {
   int largo;
 };
 
-// Almacen
-struct almacenStruct {
-  productosEnAlmacenLista productosEnAlmacen;
-  string direccion;
-};
-
 // Productos en carrito de compras
 struct productoEnCarritoDeCompraStruct {
   productoEnAlmacenNodo *productoEnAlmacen;
@@ -84,14 +47,9 @@ struct productoEnCarritoDeCompraNodo {
   productoEnCarritoDeCompraNodo *siguiente;
 };
 
-struct productosEnCarritosDeComprasLista {
+struct productosEnCarritosDeComprasPila {
   productoEnCarritoDeCompraNodo *cabecera;
   int largo;
-};
-
-// Carrito de compra
-struct carritoDeCompraStruct {
-  productosEnCarritosDeComprasLista productosEnCarritosDeCompras;
 };
 
 // Clientes
@@ -101,7 +59,7 @@ struct clienteStruct {
   string apellidoMaterno;
   bool genero;
   string dni;
-  carritoDeCompraStruct carritoDeCompra;
+  productosEnCarritosDeComprasPila productosEnCarritosDeCompras;
 };
 
 struct clienteNodo {
@@ -130,33 +88,30 @@ struct clientesRecogiendoComprasCola {
   int largo;
 };
 
-// Sucursal
-struct sucursalStruct {
+// Almacen
+struct almacenStruct {
   string nombre;
-  almacenStruct almacen;
+  string direccion;
+  productosEnAlmacenLista productosEnAlmacen;
   clientesRecogiendoComprasCola clientesRecogiendoCompras;
 };
 
-struct sucursalNodo {
-  sucursalStruct sucursal;
-  sucursalNodo *siguiente;
+struct almacenNodo {
+  almacenStruct almacen;
+  almacenNodo *siguiente;
 };
 
-struct sucursalesLista {
-  sucursalNodo *cabecera;
-  int largo;
+struct almacenesGrafo {
+  almacenNodo *chiclayo;
+  almacenNodo *trujillo;
+  almacenNodo *lima;
 };
 
 // Productos comprados
-struct productoCompradoStruct {
-  string marca;
-  string nombre;
-  float precio;
-  int cantidad;
-};
+struct productoCompradoStruct : productoStruct {};
 
 struct productoCompradoNodo {
-  productoCompradoStruct producto;
+  productoCompradoStruct productoComprado;
   productoCompradoNodo *siguiente;
 };
 
@@ -168,6 +123,9 @@ struct productosCompradosLista {
 // Compras
 struct compraStruct {
   productosCompradosLista productosComprados;
+  clienteNodo *cliente;
+  string fecha;
+  string estado;
 };
 
 struct compraNodo {
@@ -184,8 +142,8 @@ struct comprasLista {
 struct deltronStruct {
   string razonSocial;
   string ruc;
+  productosLista productos;
+  almacenesGrafo almacenes;
   clientesLista clientes;
-  sucursalesLista sucursales;
-  categoriasLista categorias;
   comprasLista compras;
 };
