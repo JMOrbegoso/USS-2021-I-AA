@@ -92,7 +92,14 @@ bool containsText(string textBase, string textToFind) {
   return false;
 }
 
-string getGenre(bool isMale) { return isMale ? "Masculino" : "Femenino"; }
+string getGenre(char genre) {
+  if (genre == 'm')
+    return "Masculino";
+  else if (genre == 'f')
+    return "Femenino";
+  else
+    return "Genero no valido";
+}
 
 string requestText(string message, long unsigned int minLength) {
   string text;
@@ -122,8 +129,7 @@ string requestText(string message, long unsigned int minLength,
   return text;
 }
 
-// Return 'true' if is male or 'false' if is female
-bool requestGenre(string message) {
+char requestGenre(string message) {
   char genre;
 
   cout << message
@@ -137,7 +143,7 @@ bool requestGenre(string message) {
     cin >> genre;
   }
 
-  return genre == 'm';
+  return genre;
 }
 
 int requestIntegerNumber(string requestMessage, string errorMessage, int min) {
@@ -201,6 +207,27 @@ float requestFloatNumber(string requestMessage, string errorMessage, float min,
   }
 
   return amount;
+}
+
+float requestMoney(string message, float min) {
+  string requestMessage, errorMessage;
+
+  requestMessage = message + " (Mínimo S/" + toString(min) + ")";
+  errorMessage =
+      "Por favor, ingrese una cantidad mínima de S/" + toString(min) + ".";
+
+  return requestFloatNumber(requestMessage, errorMessage, min);
+}
+
+float requestMoney(string message, float min, float max) {
+  string requestMessage, errorMessage;
+
+  requestMessage = message + " (Mínimo S/" + toString(min) + " y máximo de S/" +
+                   toString(max) + ")";
+  errorMessage = "Por favor, ingrese una cantidad mínima de S/" +
+                 toString(min) + " y máxima de S/" + toString(max) + ".";
+
+  return requestFloatNumber(requestMessage, errorMessage, min);
 }
 
 string requestDate(string message) {
