@@ -258,3 +258,17 @@ clienteRecogiendoCompraStruct desencolarClienteRecogiendoCompra(
 
   return clienteRecogiendoCompraBorrado;
 }
+
+void apilar(productosEnCarritosDeComprasPila &productosEnCarritosDeCompras,
+            productoEnCarritoDeCompraStruct nuevoProductoEnCarritoDeCompra) {
+  productoEnCarritoDeCompraNodo *productoEnCarritoDeCompraNodoPuntero =
+      new productoEnCarritoDeCompraNodo();
+
+  productoEnCarritoDeCompraNodoPuntero->productoEnCarritoDeCompra =
+      nuevoProductoEnCarritoDeCompra;
+  productoEnCarritoDeCompraNodoPuntero->siguiente =
+      productosEnCarritosDeCompras.cabecera;
+
+  productosEnCarritosDeCompras.cabecera = productoEnCarritoDeCompraNodoPuntero;
+  productosEnCarritosDeCompras.largo++;
+}
