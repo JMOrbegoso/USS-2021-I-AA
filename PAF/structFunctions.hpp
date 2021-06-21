@@ -3,46 +3,6 @@
 
 using namespace std;
 
-void inicializacionDeColecciones(deltronStruct &deltron) {
-  deltron.clientes.cabecera = NULL;
-  deltron.clientes.largo = 0;
-
-  deltron.compras.cabecera = NULL;
-  deltron.compras.largo = 0;
-
-  deltron.productos.cabecera = NULL;
-  deltron.productos.largo = 0;
-
-  deltron.razonSocial = "Deltron SAC";
-  deltron.ruc = "12345678910";
-
-  deltron.almacenes.chiclayo->almacen.nombre = "Almacen Chiclayo";
-  deltron.almacenes.chiclayo->almacen.direccion = "Av. Chiclayo 747";
-  deltron.almacenes.chiclayo->almacen.productosEnAlmacen.cabecera = NULL;
-  deltron.almacenes.chiclayo->almacen.productosEnAlmacen.largo = 0;
-  deltron.almacenes.chiclayo->almacen.clientesRecogiendoCompras.inicio = NULL;
-  deltron.almacenes.chiclayo->almacen.clientesRecogiendoCompras.fin = NULL;
-  deltron.almacenes.chiclayo->almacen.clientesRecogiendoCompras.largo = 0;
-
-  deltron.almacenes.trujillo->almacen.nombre = "Almacen Trujillo";
-  deltron.almacenes.trujillo->almacen.direccion = "Av. Trujillo 747";
-  deltron.almacenes.trujillo->almacen.productosEnAlmacen.cabecera = NULL;
-  deltron.almacenes.trujillo->almacen.productosEnAlmacen.largo = 0;
-  deltron.almacenes.trujillo->almacen.clientesRecogiendoCompras.inicio = NULL;
-  deltron.almacenes.trujillo->almacen.clientesRecogiendoCompras.fin = NULL;
-  deltron.almacenes.trujillo->almacen.clientesRecogiendoCompras.largo = 0;
-
-  deltron.almacenes.lima->almacen.nombre = "Almacen Lima";
-  deltron.almacenes.lima->almacen.direccion = "Av. Lima 747";
-  deltron.almacenes.lima->almacen.productosEnAlmacen.cabecera = NULL;
-  deltron.almacenes.lima->almacen.productosEnAlmacen.largo = 0;
-  deltron.almacenes.lima->almacen.clientesRecogiendoCompras.inicio = NULL;
-  deltron.almacenes.lima->almacen.clientesRecogiendoCompras.fin = NULL;
-  deltron.almacenes.lima->almacen.clientesRecogiendoCompras.largo = 0;
-}
-
-void inicializacionDeData(deltronStruct &deltron) {}
-
 // Fabricas
 
 productoStruct construirProducto(string nombre, string marca, string tipo,
@@ -58,7 +18,7 @@ productoStruct construirProducto(string nombre, string marca, string tipo,
 }
 
 clienteStruct construirCliente(string nombre, string apellidoPaterno,
-                               string apellidoMaterno, bool genero,
+                               string apellidoMaterno, char genero,
                                string dni) {
   clienteStruct cliente;
 
@@ -323,6 +283,48 @@ void desapilar(productosEnCarritoDeCompraPila &productosEnCarritoDeCompra) {
 
   delete productoEnCarritoDeCompraNodoPuntero;
 }
+
+// Inicializadores
+
+void inicializacionDeColecciones(deltronStruct &deltron) {
+  deltron.clientes.cabecera = NULL;
+  deltron.clientes.largo = 0;
+
+  deltron.compras.cabecera = NULL;
+  deltron.compras.largo = 0;
+
+  deltron.productos.cabecera = NULL;
+  deltron.productos.largo = 0;
+
+  deltron.razonSocial = "Deltron SAC";
+  deltron.ruc = "12345678910";
+
+  deltron.almacenes.chiclayo->almacen.nombre = "Almacen Chiclayo";
+  deltron.almacenes.chiclayo->almacen.direccion = "Av. Chiclayo 747";
+  deltron.almacenes.chiclayo->almacen.productosEnAlmacen.cabecera = NULL;
+  deltron.almacenes.chiclayo->almacen.productosEnAlmacen.largo = 0;
+  deltron.almacenes.chiclayo->almacen.clientesRecogiendoCompras.inicio = NULL;
+  deltron.almacenes.chiclayo->almacen.clientesRecogiendoCompras.fin = NULL;
+  deltron.almacenes.chiclayo->almacen.clientesRecogiendoCompras.largo = 0;
+
+  deltron.almacenes.trujillo->almacen.nombre = "Almacen Trujillo";
+  deltron.almacenes.trujillo->almacen.direccion = "Av. Trujillo 747";
+  deltron.almacenes.trujillo->almacen.productosEnAlmacen.cabecera = NULL;
+  deltron.almacenes.trujillo->almacen.productosEnAlmacen.largo = 0;
+  deltron.almacenes.trujillo->almacen.clientesRecogiendoCompras.inicio = NULL;
+  deltron.almacenes.trujillo->almacen.clientesRecogiendoCompras.fin = NULL;
+  deltron.almacenes.trujillo->almacen.clientesRecogiendoCompras.largo = 0;
+
+  deltron.almacenes.lima->almacen.nombre = "Almacen Lima";
+  deltron.almacenes.lima->almacen.direccion = "Av. Lima 747";
+  deltron.almacenes.lima->almacen.productosEnAlmacen.cabecera = NULL;
+  deltron.almacenes.lima->almacen.productosEnAlmacen.largo = 0;
+  deltron.almacenes.lima->almacen.clientesRecogiendoCompras.inicio = NULL;
+  deltron.almacenes.lima->almacen.clientesRecogiendoCompras.fin = NULL;
+  deltron.almacenes.lima->almacen.clientesRecogiendoCompras.largo = 0;
+}
+
+void inicializacionDeData(deltronStruct &deltron) {}
 
 // Impresores
 
