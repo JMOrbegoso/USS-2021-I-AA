@@ -220,3 +220,41 @@ void insertar(comprasLista &compras, compraStruct nuevaCompra) {
 
   compras.largo++;
 }
+
+void encolar(clientesRecogiendoComprasCola &clientesRecogiendoCompras,
+             clienteRecogiendoCompraStruct nuevoClienteRecogiendoCompra) {
+  clienteRecogiendoCompraNodo *clienteRecogiendoCompraNodoPuntero =
+      new clienteRecogiendoCompraNodo;
+
+  clienteRecogiendoCompraNodoPuntero->clienteRecogiendoCompra =
+      nuevoClienteRecogiendoCompra;
+  clienteRecogiendoCompraNodoPuntero->siguiente = NULL;
+
+  if (clientesRecogiendoCompras.inicio == NULL) {
+    clientesRecogiendoCompras.inicio = clienteRecogiendoCompraNodoPuntero;
+  } else {
+    clientesRecogiendoCompras.fin->siguiente =
+        clienteRecogiendoCompraNodoPuntero;
+  }
+
+  clientesRecogiendoCompras.fin = clienteRecogiendoCompraNodoPuntero;
+  clientesRecogiendoCompras.largo++;
+}
+
+clienteRecogiendoCompraStruct desencolarClienteRecogiendoCompra(
+    clientesRecogiendoComprasCola &clientesRecogiendoCompras) {
+  clienteRecogiendoCompraNodo *clienteRecogiendoCompraNodoPuntero;
+  clienteRecogiendoCompraStruct clienteRecogiendoCompraBorrado;
+
+  clienteRecogiendoCompraNodoPuntero = clientesRecogiendoCompras.inicio;
+  clienteRecogiendoCompraBorrado =
+      clienteRecogiendoCompraNodoPuntero->clienteRecogiendoCompra;
+
+  clientesRecogiendoCompras.inicio =
+      clientesRecogiendoCompras.inicio->siguiente;
+  clientesRecogiendoCompras.largo--;
+
+  delete clienteRecogiendoCompraNodoPuntero;
+
+  return clienteRecogiendoCompraBorrado;
+}
