@@ -57,7 +57,7 @@ struct clienteStruct {
   string nombre;
   string apellidoPaterno;
   string apellidoMaterno;
-  bool genero;
+  char genero;
   string dni;
   productosEnCarritoDeCompraPila productosEnCarritoDeCompra;
 };
@@ -109,7 +109,9 @@ struct almacenesGrafo {
 };
 
 // Productos comprados
-struct productoCompradoStruct : productoStruct {};
+struct productoCompradoStruct : productoStruct {
+  int cantidad;
+};
 
 struct productoCompradoNodo {
   productoCompradoStruct productoComprado;
