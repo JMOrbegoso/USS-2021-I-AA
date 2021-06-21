@@ -75,6 +75,7 @@ struct clientesLista {
 // Cola de clientes
 struct clienteRecogiendoCompraStruct {
   clienteNodo *cliente;
+  string fechaDeLLegada;
 };
 
 struct clienteRecogiendoCompraNodo {
