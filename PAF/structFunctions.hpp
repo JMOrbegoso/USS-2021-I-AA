@@ -109,3 +109,114 @@ productoCompradoStruct construirproductoComprado(string nombre, string marca,
 
   return productoComprado;
 }
+
+// Funciones para añadiar a colecciones
+
+void insertar(clientesLista &clientes, clienteStruct nuevoCliente) {
+  clienteNodo *clienteNodoPuntero = new clienteNodo();
+
+  clienteNodo *ultimoNodo = clientes.cabecera;
+
+  clienteNodoPuntero->cliente = nuevoCliente;
+  clienteNodoPuntero->siguiente = NULL;
+
+  if (clientes.cabecera == NULL) {
+    clientes.cabecera = clienteNodoPuntero;
+  } else {
+    while (ultimoNodo->siguiente != NULL) {
+      ultimoNodo = ultimoNodo->siguiente;
+    }
+
+    ultimoNodo->siguiente = clienteNodoPuntero;
+  }
+
+  clientes.largo++;
+}
+
+void insertar(productosLista &productos, productoStruct nuevoProducto) {
+  productoNodo *productoNodoPuntero = new productoNodo();
+
+  productoNodo *ultimoNodo = productos.cabecera;
+
+  productoNodoPuntero->producto = nuevoProducto;
+  productoNodoPuntero->siguiente = NULL;
+
+  if (productos.cabecera == NULL) {
+    productos.cabecera = productoNodoPuntero;
+  } else {
+    while (ultimoNodo->siguiente != NULL) {
+      ultimoNodo = ultimoNodo->siguiente;
+    }
+
+    ultimoNodo->siguiente = productoNodoPuntero;
+  }
+
+  productos.largo++;
+}
+
+void insertar(productosCompradosLista &productosComprados,
+              productoCompradoStruct nuevoProductoComprado) {
+  productoCompradoNodo *productoCompradoNodoPuntero =
+      new productoCompradoNodo();
+
+  productoCompradoNodo *ultimoNodo = productosComprados.cabecera;
+
+  productoCompradoNodoPuntero->productoComprado = nuevoProductoComprado;
+  productoCompradoNodoPuntero->siguiente = NULL;
+
+  if (productosComprados.cabecera == NULL) {
+    productosComprados.cabecera = productoCompradoNodoPuntero;
+  } else {
+    while (ultimoNodo->siguiente != NULL) {
+      ultimoNodo = ultimoNodo->siguiente;
+    }
+
+    ultimoNodo->siguiente = productoCompradoNodoPuntero;
+  }
+
+  productosComprados.largo++;
+}
+
+void insertar(productosEnAlmacenLista &productosEnAlmacen,
+              productoEnAlmacenStruct nuevoProductoEnAlmacen) {
+  productoEnAlmacenNodo *productoEnAlmacenNodoPuntero =
+      new productoEnAlmacenNodo();
+
+  productoEnAlmacenNodo *ultimoNodo = productosEnAlmacen.cabecera;
+
+  productoEnAlmacenNodoPuntero->productoEnAlmacen = nuevoProductoEnAlmacen;
+  productoEnAlmacenNodoPuntero->siguiente = NULL;
+
+  if (productosEnAlmacen.cabecera == NULL) {
+    productosEnAlmacen.cabecera = productoEnAlmacenNodoPuntero;
+  } else {
+    while (ultimoNodo->siguiente != NULL) {
+      ultimoNodo = ultimoNodo->siguiente;
+    }
+
+    ultimoNodo->siguiente = productoEnAlmacenNodoPuntero;
+  }
+
+  productosEnAlmacen.largo++;
+}
+
+void insertar(comprasLista &compras, compraStruct nuevaCompra) {
+  compraNodo *compraNodoPuntero = new compraNodo();
+
+  compraNodo *ultimoNodo = compras.cabecera;
+
+  compraNodoPuntero->compra = nuevaCompra;
+  compraNodoPuntero->siguiente = NULL;
+
+  if (compras.cabecera == NULL) {
+    compras.cabecera = compraNodoPuntero;
+  } else {
+    while (ultimoNodo->siguiente != NULL) {
+      ultimoNodo = ultimoNodo->siguiente;
+    }
+
+    ultimoNodo->siguiente = compraNodoPuntero;
+  }
+
+  compras.largo++;
+}
