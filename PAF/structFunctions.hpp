@@ -272,3 +272,18 @@ void apilar(productosEnCarritoDeCompraPila &productosEnCarritoDeCompra,
   productosEnCarritoDeCompra.cabecera = productoEnCarritoDeCompraNodoPuntero;
   productosEnCarritoDeCompra.largo++;
 }
+
+void desapilar(productosEnCarritoDeCompraPila &productosEnCarritoDeCompra) {
+  productoEnCarritoDeCompraNodo *productoEnCarritoDeCompraNodoPuntero;
+  productoEnCarritoDeCompraStruct productoEnCarritoDeCompraBorrado;
+
+  productoEnCarritoDeCompraNodoPuntero = productosEnCarritoDeCompra.cabecera;
+  productoEnCarritoDeCompraBorrado =
+      productoEnCarritoDeCompraNodoPuntero->productoEnCarritoDeCompra;
+
+  productosEnCarritoDeCompra.cabecera =
+      productosEnCarritoDeCompra.cabecera->siguiente;
+  productosEnCarritoDeCompra.largo--;
+
+  delete productoEnCarritoDeCompraNodoPuntero;
+}
