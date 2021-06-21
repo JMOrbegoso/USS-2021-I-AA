@@ -32,8 +32,8 @@ clienteStruct construirCliente(string nombre, string apellidoPaterno,
   cliente.genero = genero;
   cliente.dni = dni;
 
-  cliente.productosEnCarritosDeCompras.cabecera = NULL;
-  cliente.productosEnCarritosDeCompras.largo = 0;
+  cliente.productosEnCarritoDeCompra.cabecera = NULL;
+  cliente.productosEnCarritoDeCompra.largo = 0;
 
   return cliente;
 }
@@ -259,7 +259,7 @@ clienteRecogiendoCompraStruct desencolarClienteRecogiendoCompra(
   return clienteRecogiendoCompraBorrado;
 }
 
-void apilar(productosEnCarritosDeComprasPila &productosEnCarritosDeCompras,
+void apilar(productosEnCarritoDeCompraPila &productosEnCarritoDeCompra,
             productoEnCarritoDeCompraStruct nuevoProductoEnCarritoDeCompra) {
   productoEnCarritoDeCompraNodo *productoEnCarritoDeCompraNodoPuntero =
       new productoEnCarritoDeCompraNodo();
@@ -267,8 +267,8 @@ void apilar(productosEnCarritosDeComprasPila &productosEnCarritosDeCompras,
   productoEnCarritoDeCompraNodoPuntero->productoEnCarritoDeCompra =
       nuevoProductoEnCarritoDeCompra;
   productoEnCarritoDeCompraNodoPuntero->siguiente =
-      productosEnCarritosDeCompras.cabecera;
+      productosEnCarritoDeCompra.cabecera;
 
-  productosEnCarritosDeCompras.cabecera = productoEnCarritoDeCompraNodoPuntero;
-  productosEnCarritosDeCompras.largo++;
+  productosEnCarritoDeCompra.cabecera = productoEnCarritoDeCompraNodoPuntero;
+  productosEnCarritoDeCompra.largo++;
 }

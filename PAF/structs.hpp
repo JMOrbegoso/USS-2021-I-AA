@@ -47,7 +47,7 @@ struct productoEnCarritoDeCompraNodo {
   productoEnCarritoDeCompraNodo *siguiente;
 };
 
-struct productosEnCarritosDeComprasPila {
+struct productosEnCarritoDeCompraPila {
   productoEnCarritoDeCompraNodo *cabecera;
   int largo;
 };
@@ -59,7 +59,7 @@ struct clienteStruct {
   string apellidoMaterno;
   bool genero;
   string dni;
-  productosEnCarritosDeComprasPila productosEnCarritosDeCompras;
+  productosEnCarritoDeCompraPila productosEnCarritoDeCompra;
 };
 
 struct clienteNodo {
