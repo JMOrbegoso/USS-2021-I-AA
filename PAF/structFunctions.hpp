@@ -86,13 +86,16 @@ clienteRecogiendoCompraStruct construirClienteRecogiendoCompra(
   return clienteRecogiendoCompra;
 }
 
-compraStruct construirCompra(string fecha, string estado) {
+compraStruct construirCompra(clienteNodo *clientePuntero, string fecha,
+                             string estado) {
   compraStruct compra;
+
+  if (clientePuntero == NULL) throw exception();
+
+  compra.cliente = clientePuntero;
 
   compra.fecha = fecha;
   compra.estado = estado;
-
-  compra.cliente = NULL;
 
   compra.productosComprados.cabecera = NULL;
   compra.productosComprados.largo = 0;
@@ -526,7 +529,9 @@ void imprimirCabeceraCompra(int y) {
   gotoxy(25, y);
   cout << "Fecha";
   gotoxy(40, y);
-  cout << "Cliente";
+  cout << "Cliente nombre completo";
+  gotoxy(75, y);
+  cout << "Cliente DNI";
 }
 
 void imprimirCompra(compraStruct compra, int n, int y) {
@@ -538,8 +543,10 @@ void imprimirCompra(compraStruct compra, int n, int y) {
   cout << compra.fecha;
   gotoxy(40, y);
   cout << compra.cliente->cliente.apellidoPaterno << " "
-       << compra.cliente->cliente.apellidoPaterno
+       << compra.cliente->cliente.apellidoPaterno << " "
        << compra.cliente->cliente.nombre;
+  gotoxy(75, y);
+  cout << compra.cliente->cliente.dni;
 }
 
 void imprimirCabeceraProductoComprado(int y) {
