@@ -349,7 +349,84 @@ void inicializacionDeColecciones(deltronStruct &deltron) {
   deltron.almacenes.lima = NULL;
 }
 
-void inicializacionDeData(deltronStruct &deltron) {}
+void inicializacionDeData(deltronStruct &deltron) {
+  productoStruct producto_01, producto_02, producto_03;
+  clienteStruct cliente_01, cliente_02;
+  almacenStruct almacen_01, almacen_02, almacen_03;
+  almacenNodo *almacenNodoPuntero_1 = new almacenNodo();
+  almacenNodo *almacenNodoPuntero_2 = new almacenNodo();
+  almacenNodo *almacenNodoPuntero_3 = new almacenNodo();
+  productoEnAlmacenStruct productoEnAlmacen_01, productoEnAlmacen_02,
+      productoEnAlmacen_03;
+  productoEnCarritoDeCompraStruct productoEnCarritoDeCompra_01;
+  clienteRecogiendoCompraStruct clienteRecogiendoCompra_01;
+  compraStruct compra_01;
+
+  deltron.razonSocial = "Deltron SAC";
+  deltron.ruc = "12345678910";
+
+  // Init productos
+  producto_01 = construirProducto("i7 10700K", "Intel", "CPU", 1900);
+  producto_02 = construirProducto("Ryzen 7 3700", "AMD", "CPU", 1700);
+  producto_03 = construirProducto("GeForce 1030", "Nvidia", "GPU", 400);
+
+  insertar(deltron.productos, producto_01);
+  insertar(deltron.productos, producto_02);
+  insertar(deltron.productos, producto_03);
+
+  // Init clientes
+  cliente_01 = construirCliente("Tulio", "Rioja", "Ramos", 'm', "11111111");
+  cliente_02 =
+      construirCliente("Valery", "Marquez", "Gonzales", 'f', "22222222");
+
+  insertar(deltron.clientes, cliente_01);
+  insertar(deltron.clientes, cliente_02);
+
+  // Init almacenes
+  almacen_01 = construirAlmacen("Almacen Chiclayo", "Av. Chiclayo 747");
+  almacen_02 = construirAlmacen("Almacen Trujillo", "Av. Trujillo 747");
+  almacen_03 = construirAlmacen("Almacen Lima", "Av. Lima 747");
+
+  productoEnAlmacen_01 = construirProductoEnAlmacen(
+      buscarProductoPorNombre(deltron.productos, "i7 10700K"), 10);
+  productoEnAlmacen_02 = construirProductoEnAlmacen(
+      buscarProductoPorNombre(deltron.productos, "Ryzen 7 3700"), 15);
+  productoEnAlmacen_03 = construirProductoEnAlmacen(
+      buscarProductoPorNombre(deltron.productos, "GeForce 1030"), 20);
+
+  insertar(almacen_01.productosEnAlmacen, productoEnAlmacen_01);
+  insertar(almacen_01.productosEnAlmacen, productoEnAlmacen_02);
+  insertar(almacen_01.productosEnAlmacen, productoEnAlmacen_03);
+
+  almacenNodoPuntero_1->almacen = almacen_01;
+  almacenNodoPuntero_2->almacen = almacen_02;
+  almacenNodoPuntero_3->almacen = almacen_03;
+
+  deltron.almacenes.chiclayo = almacenNodoPuntero_1;
+  deltron.almacenes.trujillo = almacenNodoPuntero_2;
+  deltron.almacenes.lima = almacenNodoPuntero_3;
+
+  // Inicializar carritos de compra
+  productoEnCarritoDeCompra_01 = construirProductoEnCarritoDeCompra(
+      buscarProductoEnAlmacenPorNombre(
+          deltron.almacenes.chiclayo->almacen.productosEnAlmacen, "i7 10700K"),
+      2);
+  apilar(buscarClientePorDni(deltron.clientes, "11111111")
+             ->cliente.productosEnCarritoDeCompra,
+         productoEnCarritoDeCompra_01);
+
+  // Inicializar clientes recogiendo compras
+  clienteRecogiendoCompra_01 = construirClienteRecogiendoCompra(
+      buscarClientePorDni(deltron.clientes, "11111111"), "2021-06-22 10:30:00");
+  encolar(deltron.almacenes.chiclayo->almacen.clientesRecogiendoCompras,
+          clienteRecogiendoCompra_01);
+
+  // Inicializar Compras realizadas
+  compra_01 = construirCompra(buscarClientePorDni(deltron.clientes, "11111111"),
+                              "2021-06-20 10:00:00", "Recogida");
+
+  insertar(deltron.compras, compra_01);
+}
 
 // Impresores
 
