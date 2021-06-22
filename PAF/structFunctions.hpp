@@ -290,6 +290,45 @@ void desapilar(productosEnCarritoDeCompraPila &productosEnCarritoDeCompra) {
   delete productoEnCarritoDeCompraNodoPuntero;
 }
 
+// iteradores
+
+clienteNodo *buscarClientePorDni(clientesLista clientes, string dni) {
+  clienteNodo *punteroIterador = clientes.cabecera;
+
+  while (punteroIterador != NULL) {
+    if (punteroIterador->cliente.dni == dni)
+      return punteroIterador;
+    else
+      punteroIterador = punteroIterador->siguiente;
+  }
+  return NULL;
+}
+
+productoNodo *buscarProductoPorNombre(productosLista productos, string nombre) {
+  productoNodo *punteroIterador = productos.cabecera;
+
+  while (punteroIterador != NULL) {
+    if (punteroIterador->producto.nombre == nombre)
+      return punteroIterador;
+    else
+      punteroIterador = punteroIterador->siguiente;
+  }
+  return NULL;
+}
+
+productoEnAlmacenNodo *buscarProductoEnAlmacenPorNombre(
+    productosEnAlmacenLista productos, string nombre) {
+  productoEnAlmacenNodo *punteroIterador = productos.cabecera;
+
+  while (punteroIterador != NULL) {
+    if (punteroIterador->productoEnAlmacen.producto->producto.nombre == nombre)
+      return punteroIterador;
+    else
+      punteroIterador = punteroIterador->siguiente;
+  }
+  return NULL;
+}
+
 // Inicializadores
 
 void inicializacionDeColecciones(deltronStruct &deltron) {
