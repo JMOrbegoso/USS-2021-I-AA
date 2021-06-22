@@ -50,6 +50,42 @@ almacenStruct construirAlmacen(string nombre, string direccion) {
   return almacen;
 }
 
+productoEnAlmacenStruct construirProductoEnAlmacen(
+    productoNodo *productoPuntero, unsigned long cantidad) {
+  productoEnAlmacenStruct productoEnAlmacen;
+
+  if (productoPuntero == NULL) throw exception();
+
+  productoEnAlmacen.producto = productoPuntero;
+  productoEnAlmacen.cantidad = cantidad;
+
+  return productoEnAlmacen;
+}
+
+productoEnCarritoDeCompraStruct construirProductoEnCarritoDeCompra(
+    productoEnAlmacenNodo *productoEnAlmacenPuntero, unsigned long cantidad) {
+  productoEnCarritoDeCompraStruct productoEnCarritoDeCompra;
+
+  if (productoEnAlmacenPuntero == NULL) throw exception();
+
+  productoEnCarritoDeCompra.productoEnAlmacen = productoEnAlmacenPuntero;
+  productoEnCarritoDeCompra.cantidad = cantidad;
+
+  return productoEnCarritoDeCompra;
+}
+
+clienteRecogiendoCompraStruct construirClienteRecogiendoCompra(
+    clienteNodo *clientePuntero, string fechaDeLLegada) {
+  clienteRecogiendoCompraStruct clienteRecogiendoCompra;
+
+  if (clientePuntero == NULL) throw exception();
+
+  clienteRecogiendoCompra.cliente = clientePuntero;
+  clienteRecogiendoCompra.fechaDeLLegada = fechaDeLLegada;
+
+  return clienteRecogiendoCompra;
+}
+
 compraStruct construirCompra(string fecha, string estado) {
   compraStruct compra;
 
@@ -62,36 +98,6 @@ compraStruct construirCompra(string fecha, string estado) {
   compra.productosComprados.largo = 0;
 
   return compra;
-}
-
-productoEnAlmacenStruct construirProductoEnAlmacen() {
-  productoEnAlmacenStruct productoEnAlmacen;
-
-  productoEnAlmacen.producto = NULL;
-
-  productoEnAlmacen.cantidad = 0;
-
-  return productoEnAlmacen;
-}
-
-productoEnCarritoDeCompraStruct construirProductoEnCarritoDeCompra() {
-  productoEnCarritoDeCompraStruct productoEnCarritoDeCompra;
-
-  productoEnCarritoDeCompra.productoEnAlmacen = NULL;
-
-  productoEnCarritoDeCompra.cantidad = 0;
-
-  return productoEnCarritoDeCompra;
-}
-
-clienteRecogiendoCompraStruct construirClienteRecogiendoCompra() {
-  clienteRecogiendoCompraStruct clienteRecogiendoCompra;
-
-  clienteRecogiendoCompra.cliente = NULL;
-
-  clienteRecogiendoCompra.fechaDeLLegada = "";
-
-  return clienteRecogiendoCompra;
 }
 
 productoCompradoStruct construirproductoComprado(string nombre, string marca,
