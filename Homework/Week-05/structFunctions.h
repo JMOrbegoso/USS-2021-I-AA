@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "helpers.hpp"
-#include "structs.hpp"
+#include "helpers.h"
+#include "structs.h"
 
 using namespace std;
 
