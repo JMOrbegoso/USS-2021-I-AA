@@ -51,22 +51,14 @@ warehouseStruct buildWarehouse(string address) {
   return warehouse;
 }
 
-soldProductStruct buildSoldProduct(string code, string description, string name,
-                                   string presentation, string status,
-                                   float price, float discount,
-                                   unsigned short stock,
-                                   unsigned short quantity) {
+soldProductStruct buildSoldProduct(string code, string name, float price,
+                                   float discount, unsigned short quantity) {
   soldProductStruct soldProduct;
 
   soldProduct.code = code;
-  soldProduct.description = description;
   soldProduct.discount = discount;
   soldProduct.name = name;
-  soldProduct.presentation = presentation;
   soldProduct.price = price;
-  soldProduct.status = status;
-  soldProduct.stock = stock;
-
   soldProduct.quantity = quantity;
 
   return soldProduct;

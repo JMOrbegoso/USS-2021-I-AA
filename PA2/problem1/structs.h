@@ -58,7 +58,11 @@ struct warehousesList {
 };
 
 // Sold products
-struct soldProductStruct : productStruct {
+struct soldProductStruct {
+  string code;
+  string name;
+  float price;
+  float discount;
   unsigned short quantity;
 };
 
