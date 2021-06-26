@@ -162,9 +162,151 @@ void insert(salesList &sales, saleStruct newSale) {
 void push(productsStack &products, productStruct newProduct) {
   productNode *productNodePointer = new productNode();
 
-  productNodePointer->book = newProduct;
+  productNodePointer->product = newProduct;
   productNodePointer->next = products.top;
 
   products.top = productNodePointer;
   products.length++;
+}
+
+unsigned short getTotalPrice(soldProductsList soldProducts) {
+  soldProductNode *aux = soldProducts.head;
+  unsigned short totalPrice = 0;
+
+  while (aux != NULL) {
+    totalPrice += aux->soldProduct.price * aux->soldProduct.quantity -
+                  aux->soldProduct.discount;
+  }
+
+  return totalPrice;
+}
+
+void showProductsStackHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Código";
+  gotoxy(10, y);
+  cout << "Nombre";
+  gotoxy(25, y);
+  cout << "Descripción";
+  gotoxy(50, y);
+  cout << "Precio";
+  gotoxy(56, y);
+  cout << "Descuento";
+  gotoxy(62, y);
+  cout << "Stock";
+  gotoxy(68, y);
+  cout << "Presentación";
+  gotoxy(74, y);
+  cout << "Status";
+}
+
+void showProduct(productStruct product, int n, int y) {
+  gotoxy(0, y);
+  cout << n;
+  gotoxy(5, y);
+  cout << product.code;
+  gotoxy(10, y);
+  cout << product.name;
+  gotoxy(25, y);
+  cout << product.description;
+  gotoxy(50, y);
+  cout << product.price;
+  gotoxy(56, y);
+  cout << product.discount;
+  gotoxy(62, y);
+  cout << product.stock;
+  gotoxy(68, y);
+  cout << product.presentation;
+  gotoxy(74, y);
+  cout << product.status;
+}
+
+void showCategoriesListHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Codigo";
+  gotoxy(20, y);
+  cout << "Nombre";
+  gotoxy(40, y);
+  cout << "Cantidad de productos";
+}
+
+void showCategory(categoryStruct category, int n, int y) {
+  gotoxy(0, y);
+  cout << n;
+  gotoxy(5, y);
+  cout << category.code;
+  gotoxy(20, y);
+  cout << category.name;
+  gotoxy(40, y);
+  cout << category.products.length;
+}
+
+void showWarehousesListHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Dirección";
+}
+
+void showWarehouse(warehouseStruct warehouse, int n, int y) {
+  gotoxy(0, y);
+  cout << n;
+  gotoxy(5, y);
+  cout << warehouse.address;
+}
+
+void showSoldProductsListHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Código";
+  gotoxy(10, y);
+  cout << "Nombre";
+  gotoxy(25, y);
+  cout << "Precio Unitario";
+  gotoxy(56, y);
+  cout << "Descuento";
+  gotoxy(80, y);
+  cout << "Cantidad";
+  gotoxy(80, y);
+  cout << "Parcial";
+}
+
+void showSoldProduct(soldProductStruct soldProduct, int n, int y) {
+  gotoxy(0, y);
+  cout << n;
+  gotoxy(5, y);
+  cout << soldProduct.code;
+  gotoxy(10, y);
+  cout << soldProduct.name;
+  gotoxy(25, y);
+  cout << soldProduct.price;
+  gotoxy(56, y);
+  cout << soldProduct.discount;
+  gotoxy(80, y);
+  cout << soldProduct.quantity;
+  gotoxy(80, y);
+  cout << soldProduct.price * soldProduct.quantity - soldProduct.discount;
+}
+
+void showSalesListHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Fecha de Compra";
+  gotoxy(30, y);
+  cout << "Monto total";
+}
+
+void showSale(saleStruct sale, int n, int y) {
+  gotoxy(0, y);
+  cout << n;
+  gotoxy(5, y);
+  cout << sale.saleDate;
+  gotoxy(30, y);
+  cout << getTotalPrice(sale.soldProducts);
 }
