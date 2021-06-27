@@ -221,6 +221,61 @@ void dataInitialization(companyStruct &company) {
   insert(company.warehouses, warehouse_2);
 }
 
+warehouseNode *iterateWarehousesList(warehousesList warehouses, int index) {
+  warehouseNode *warehouseNodePointer;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > warehouses.length) {
+    return NULL;
+  }
+
+  warehouseNodePointer = warehouses.head;
+
+  for (int i = 1; warehouseNodePointer != NULL; i++) {
+    if (i == index) {
+      return warehouseNodePointer;
+    }
+    warehouseNodePointer = warehouseNodePointer->next;
+  }
+
+  return NULL;
+}
+
+warehouseNode *requestWarehouseWithSelector(warehousesList &warehouses,
+                                            string message) {
+  int selectedOption;
+  warehouseNode *warehouseNodePointer;
+
+  warehouseNodePointer = warehouses.head;
+
+  cout << endl
+       << message << "." << endl
+       << "Escoja entre los " << warehouses.length
+       << " almacenes siguientes:" << endl
+       << endl;
+
+  for (int i = 1; warehouseNodePointer != NULL; i++) {
+    cout << "[" << i << "] - " << warehouseNodePointer->warehouse.address
+         << endl;
+    warehouseNodePointer = warehouseNodePointer->next;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
+
+  while (!(1 <= selectedOption && selectedOption <= warehouses.length)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << warehouses.length
+         << "." << endl;
+    fflush(stdin);
+    cin >> selectedOption;
+  }
+
+  return iterateWarehousesList(warehouses, selectedOption);
+}
+
 unsigned short getTotalPrice(soldProductsList soldProducts) {
   soldProductNode *aux = soldProducts.head;
   unsigned short totalPrice = 0;
