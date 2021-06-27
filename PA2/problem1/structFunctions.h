@@ -3,14 +3,6 @@
 
 using namespace std;
 
-void collectionsInitialization(companyStruct &company) {
-  company.warehouses.head = NULL;
-  company.warehouses.length = 0;
-
-  company.sales.head = NULL;
-  company.sales.length = 0;
-}
-
 productStruct buildProduct(string code, string description, string name,
                            string presentation, string status, float price,
                            float discount, unsigned short stock) {
@@ -169,6 +161,66 @@ void push(productsStack &products, productStruct newProduct) {
   products.length++;
 }
 
+void collectionsInitialization(companyStruct &company) {
+  company.warehouses.head = NULL;
+  company.warehouses.length = 0;
+
+  company.sales.head = NULL;
+  company.sales.length = 0;
+}
+
+void dataInitialization(companyStruct &company) {
+  warehouseStruct warehouse_1, warehouse_2;
+  categoryStruct category_aseo_1, category_aseo_2, category_tv, category_aio;
+  productStruct product_aseo_1, product_aseo_2, product_aseo_3, product_aseo_4,
+      product_tv_1, product_tv_2, product_aio_1, product_aio_2;
+
+  company.businessName = "Almacenes SAC";
+  company.ruc = "12345678910";
+
+  warehouse_1 = buildWarehouse("Av. Bolognesi");
+  warehouse_2 = buildWarehouse("Av. Javier Prado");
+
+  category_aseo_1 = buildCategory("aseo-pers", "Aseo personal");
+  category_aseo_2 = buildCategory("elec-tv", "Televisores");
+  category_tv = buildCategory("aseo-pers", "Aseo personal");
+  category_aio = buildCategory("pc-aio", "PC All-In-One");
+
+  product_aseo_1 = buildProduct("pr-1", "Pasta dental", "Colgate Herbal",
+                                "caja", "disponible", 5, 0.20, 120);
+  product_aseo_2 = buildProduct("pr-1", "Pasta dental", "Colgate Herbal",
+                                "caja", "disponible", 4.20, 0.20, 120);
+  product_aseo_3 = buildProduct("pr-2", "Jabon liquido", "Jabón de marca",
+                                "caja", "disponible", 5.80, 0.30, 90);
+  product_aseo_4 = buildProduct("pr-4", "Shampoo", "Shampoo Head and Shoulders",
+                                "botella", "disponible", 9.70, 0.60, 40);
+  product_tv_1 = buildProduct("pr-5", "Tv Oled 49\"", "Tv Lg", "caja",
+                              "disponible", 3100, 120, 10);
+  product_tv_2 = buildProduct("pr-6", "Tv Oled 65\"", "Tv Samsung", "caja",
+                              "disponible", 5900, 220, 10);
+  product_aio_1 = buildProduct("pr-7", "Con Windows 10", "HP Pavilion", "caja",
+                               "disponible", 4200, 0.20, 120);
+  product_aio_2 = buildProduct("pr-8", "Con MacOsX", "iMac 27\"", "caja",
+                               "disponible", 5, 6900, 10);
+
+  push(category_aseo_1.products, product_aseo_1);
+  push(category_aseo_2.products, product_aseo_2);
+  push(category_aseo_1.products, product_aseo_3);
+  push(category_aseo_2.products, product_aseo_4);
+  push(category_tv.products, product_tv_1);
+  push(category_tv.products, product_tv_2);
+  push(category_aio.products, product_aio_1);
+  push(category_aio.products, product_aio_2);
+
+  insert(warehouse_1.categories, category_aseo_1);
+  insert(warehouse_2.categories, category_aseo_2);
+  insert(warehouse_1.categories, category_tv);
+  insert(warehouse_2.categories, category_aio);
+
+  insert(company.warehouses, warehouse_1);
+  insert(company.warehouses, warehouse_2);
+}
+
 unsigned short getTotalPrice(soldProductsList soldProducts) {
   soldProductNode *aux = soldProducts.head;
   unsigned short totalPrice = 0;
@@ -250,6 +302,8 @@ void showWarehousesListHeader(int y) {
   cout << "#";
   gotoxy(5, y);
   cout << "Dirección";
+  gotoxy(25, y);
+  cout << "Categorias de productos en venta";
 }
 
 void showWarehouse(warehouseStruct warehouse, int n, int y) {
@@ -257,6 +311,8 @@ void showWarehouse(warehouseStruct warehouse, int n, int y) {
   cout << n;
   gotoxy(5, y);
   cout << warehouse.address;
+  gotoxy(25, y);
+  cout << warehouse.categories.length << " categorias";
 }
 
 void showSoldProductsListHeader(int y) {
