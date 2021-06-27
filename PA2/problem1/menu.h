@@ -6,10 +6,94 @@ void showAppTitle(companyStruct company) {
   cout << endl
        << "-----------------------------------------------------------" << endl;
   cout << "\t Sistema Virtual de la empresa " << company.businessName << endl;
-  cout << "RUC: " << company.ruc;
-  cout << "Ventas realizadas en total" << company.sales.length << endl;
+  cout << "RUC: " << company.ruc << endl;
   cout << "Almacenes: " << company.warehouses.length << endl;
+  cout << "Ventas realizadas en total: " << company.sales.length << endl;
   cout << "-----------------------------------------------------------" << endl;
+}
+
+void showAllWarehouses(companyStruct company) {
+  warehouseNode *warehouseNodePointer;
+
+  clearScreen();
+  showAppTitle(company);
+
+  gotoxy(20, 10);
+  cout << "Todos los almacenes de la empresa " << company.businessName << endl;
+
+  warehouseNodePointer = company.warehouses.head;
+
+  showWarehousesListHeader(12);
+
+  for (int i = 1; warehouseNodePointer != NULL; i++) {
+    showWarehouse(warehouseNodePointer->warehouse, i, i + 13);
+    warehouseNodePointer = warehouseNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showCategoriesByWarehouse(companyStruct company) {
+  warehouseNode *warehouseNodePointer;
+  categoryNode *categoryNodePointer;
+
+  warehouseNodePointer = requestWarehouseWithSelector(
+      company.warehouses,
+      "Ingrese el almacén del que quiere revisar las categorias de productos");
+
+  clearScreen();
+  showAppTitle(company);
+
+  gotoxy(20, 10);
+  cout << "Categorias de productos del almacén ubicado en "
+       << warehouseNodePointer->warehouse.address << ":" << endl;
+
+  categoryNodePointer = warehouseNodePointer->warehouse.categories.head;
+
+  showCategoriesListHeader(12);
+
+  for (int i = 1; categoryNodePointer != NULL; i++) {
+    showCategory(categoryNodePointer->category, i, i + 13);
+    categoryNodePointer = categoryNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showProductsByWarehouse(companyStruct company) {
+  warehouseNode *warehouseNodePointer;
+  categoryNode *categoryNodePointer;
+  productNode *productNodePointer;
+
+  warehouseNodePointer = requestWarehouseWithSelector(
+      company.warehouses,
+      "Ingrese el almacén del que quiere revisar las categorias de productos");
+
+  clearScreen();
+  showAppTitle(company);
+
+  gotoxy(20, 10);
+  cout << "Categorias de productos del almacén ubicado en "
+       << warehouseNodePointer->warehouse.address << ":" << endl;
+
+  categoryNodePointer = warehouseNodePointer->warehouse.categories.head;
+
+  showProductsStackHeader(12);
+
+  int i = 1;
+  while (categoryNodePointer != NULL) {
+    productNodePointer = categoryNodePointer->category.products.top;
+
+    while (productNodePointer != NULL) {
+      showProduct(productNodePointer->product, i, i + 13);
+      productNodePointer = productNodePointer->next;
+      i++;
+    }
+
+    categoryNodePointer = categoryNodePointer->next;
+  }
+
+  cout << endl << endl;
 }
 
 int requestMenuOption(companyStruct company) {
@@ -23,7 +107,7 @@ int requestMenuOption(companyStruct company) {
   cout << "[1] Registrar un almacén" << endl;
   cout << "[2] Registrar un producto" << endl;
   cout << endl;
-  cout << "[3] Abastecer un producto";
+  cout << "[3] Abastecer un producto" << endl;
   cout << "[4] Proveer un producto" << endl;
   cout << endl;
   cout << "[5] Listar almacenes" << endl;
@@ -55,8 +139,16 @@ void mainMenu(companyStruct &company) {
 
     if (selectedOption != 0) {
       switch (selectedOption) {
-        case 1:
-          // showAllRooms(company);
+        case 5:
+          showAllWarehouses(company);
+          pauseProcess();
+          break;
+        case 6:
+          showCategoriesByWarehouse(company);
+          pauseProcess();
+          break;
+        case 7:
+          showProductsByWarehouse(company);
           pauseProcess();
           break;
       }
