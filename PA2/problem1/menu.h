@@ -31,6 +31,77 @@ void registerNewWarehouse(companyStruct &company) {
   cout << "El nuevo almacén fue añadido de forma exitosa" << endl;
 }
 
+void registerNewCategory(companyStruct &company) {
+  string name, code;
+  warehouseNode *warehouseNodePointer;
+  categoryStruct newCategory;
+
+  clearScreen();
+  showAppTitle(company);
+
+  gotoxy(20, 10);
+  cout << "Registrar nueva categoria de productos:" << endl;
+
+  code = requestText("Ingrese el codigo de la nueva categoria de productos", 2);
+  name = requestText("Ingrese el nombre de la nueva categoria de productos", 2);
+
+  newCategory = buildCategory(code, name);
+
+  warehouseNodePointer = requestWarehouseWithSelector(
+      company.warehouses,
+      "Ingrese el almacén de la nueva categoria de productos");
+
+  insert(warehouseNodePointer->warehouse.categories, newCategory);
+
+  cout << "La categoria de productos fue añadida correctamente al almacén"
+       << endl;
+}
+
+void registerNewProduct(companyStruct &company) {
+  warehouseNode *warehouseNodePointer;
+  categoryNode *categoryNodePointer;
+  productStruct newProduct;
+  string code, description, name, presentation, status;
+  float price, discount;
+  unsigned short stock;
+
+  cout << "Va a añadir un nuevo producto a un almacén" << endl << endl;
+
+  code = requestText("Ingrese el código del nuevo producto", 1);
+  description = requestText("Ingrese la descripción del nuevo producto", 1);
+  name = requestText("Ingrese el nombre del nuevo producto", 1);
+  presentation = requestText("Ingrese la presentacion del nuevo producto", 1);
+  status = requestText("Ingrese el status del nuevo producto", 1);
+  price = requestMoney("Ingrese el precio del nuevo producto", 0.10);
+  discount = requestMoney("Ingrese el descuento del nuevo producto", 0.10);
+  stock = requestIntegerNumber("Ingrese el stock del producto",
+                               "Por favor ingrese un valor superior a 1", 1);
+
+  warehouseNodePointer = requestWarehouseWithSelector(
+      company.warehouses, "Ingrese el almacén del nuevo producto");
+
+  while (!(warehouseNodePointer->warehouse.categories.head != NULL)) {
+    cout << endl
+         << "El almacén seleccionado no tiene categorias de productos, por "
+            "favor seleccione un almacén con categorias de productos."
+         << endl;
+
+    warehouseNodePointer = requestWarehouseWithSelector(
+        company.warehouses, "Ingrese el almacén del nuevo producto");
+  }
+
+  categoryNodePointer = requestCategoryWithSelector(
+      warehouseNodePointer->warehouse.categories,
+      "Ingrese la categoria de productos del nuevo producto");
+
+  newProduct = buildProduct(code, description, name, presentation, status,
+                            price, discount, stock);
+
+  push(categoryNodePointer->category.products, newProduct);
+
+  cout << "El producto ha sido registrado correctamente.";
+}
+
 void showAllWarehouses(companyStruct company) {
   warehouseNode *warehouseNodePointer;
 
@@ -162,6 +233,53 @@ void findProductInWarehouses(companyStruct company) {
   cout << endl << endl;
 }
 
+void showSales(companyStruct company) {
+  saleNode *saleNodePointer;
+
+  clearScreen();
+  showAppTitle(company);
+
+  gotoxy(20, 10);
+  cout << "Todos las ventas de la empresa " << company.businessName << endl;
+
+  saleNodePointer = company.sales.head;
+
+  showSalesListHeader(12);
+
+  for (int i = 1; saleNodePointer != NULL; i++) {
+    showSale(saleNodePointer->sale, i, i + 13);
+    saleNodePointer = saleNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showProductsSoldBySale(companyStruct company) {
+  saleNode *saleNodePointer;
+  soldProductNode *soldProductPointer;
+
+  saleNodePointer = requestSaleWithSelector(
+      company.sales, "Escoja la venta que desea revisar");
+
+  clearScreen();
+  showAppTitle(company);
+
+  gotoxy(20, 10);
+  cout << "Todos los productos vendidos en la venta "
+       << saleNodePointer->sale.saleDate << endl;
+
+  showSoldProductsListHeader(12);
+
+  soldProductPointer = saleNodePointer->sale.soldProducts.head;
+
+  for (int i = 1; soldProductPointer != NULL; i++) {
+    showSoldProduct(soldProductPointer->soldProduct, i, i + 13);
+    soldProductPointer = soldProductPointer->next;
+  }
+
+  cout << endl << endl;
+}
+
 int requestMenuOption(companyStruct company) {
   int selectedOption;
 
@@ -171,18 +289,19 @@ int requestMenuOption(companyStruct company) {
   cout << endl << "Este sistema tiene las siguientes opciones:" << endl << endl;
 
   cout << "[1] Registrar un almacén" << endl;
-  cout << "[2] Registrar un producto" << endl;
+  cout << "[2] Registrar categoria de productos" << endl;
+  cout << "[3] Registrar un producto" << endl;
   cout << endl;
-  cout << "[3] Abastecer un producto" << endl;
-  cout << "[4] Proveer un producto" << endl;
+  cout << "[4] Abastecer un producto" << endl;
+  cout << "[5] Proveer un producto" << endl;
   cout << endl;
-  cout << "[5] Listar almacenes" << endl;
-  cout << "[6] Listar categorias de productos en un almacén" << endl;
-  cout << "[7] Listar productos un almacén" << endl;
-  cout << "[8] Listar ventas realizadas" << endl;
-  cout << "[9] Listar productos vendidos en una ventas especifica" << endl;
+  cout << "[6] Listar almacenes" << endl;
+  cout << "[7] Listar categorias de productos en un almacén" << endl;
+  cout << "[8] Listar productos un almacén" << endl;
+  cout << "[9] Listar ventas realizadas" << endl;
+  cout << "[10] Listar productos vendidos en una ventas especifica" << endl;
   cout << endl;
-  cout << "[10] Buscar un producto en todos los almacenes" << endl;
+  cout << "[11] Buscar un producto en todos los almacenes" << endl;
   cout << endl;
   cout << "[0] Cerrar" << endl;
 
@@ -209,19 +328,35 @@ void mainMenu(companyStruct &company) {
           registerNewWarehouse(company);
           addDelay(2);
           break;
-        case 5:
+        case 2:
+          registerNewCategory(company);
+          addDelay(2);
+          break;
+        case 3:
+          registerNewProduct(company);
+          addDelay(2);
+          break;
+        case 6:
           showAllWarehouses(company);
           pauseProcess();
           break;
-        case 6:
+        case 7:
           showCategoriesByWarehouse(company);
           pauseProcess();
           break;
-        case 7:
+        case 8:
           showProductsByWarehouse(company);
           pauseProcess();
           break;
+        case 9:
+          showSales(company);
+          pauseProcess();
+          break;
         case 10:
+          showProductsSoldBySale(company);
+          pauseProcess();
+          break;
+        case 11:
           findProductInWarehouses(company);
           pauseProcess();
           break;
