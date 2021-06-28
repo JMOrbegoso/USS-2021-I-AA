@@ -341,6 +341,60 @@ categoryNode *requestCategoryWithSelector(categoriesList &categories,
   return iterateCategoriesList(categories, selectedOption);
 }
 
+productNode *iterateProductsStack(productsStack products, int index) {
+  productNode *productNodePointer;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > products.length) {
+    return NULL;
+  }
+
+  productNodePointer = products.top;
+
+  for (int i = 1; productNodePointer != NULL; i++) {
+    if (i == index) {
+      return productNodePointer;
+    }
+    productNodePointer = productNodePointer->next;
+  }
+
+  return NULL;
+}
+
+productNode *requestProductWithSelector(productsStack &products,
+                                        string message) {
+  int selectedOption;
+  productNode *productNodePointer;
+
+  productNodePointer = products.top;
+
+  cout << endl
+       << message << "." << endl
+       << "Escoja entre los " << products.length
+       << " productos siguientes:" << endl
+       << endl;
+
+  for (int i = 1; productNodePointer != NULL; i++) {
+    cout << "[" << i << "] - " << productNodePointer->product.name << endl;
+    productNodePointer = productNodePointer->next;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
+
+  while (!(1 <= selectedOption && selectedOption <= products.length)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << products.length
+         << "." << endl;
+    fflush(stdin);
+    cin >> selectedOption;
+  }
+
+  return iterateProductsStack(products, selectedOption);
+}
+
 saleNode *iterateSalesList(salesList sales, int index) {
   saleNode *saleNodePointer;
 
