@@ -102,6 +102,55 @@ void registerNewProduct(companyStruct &company) {
   cout << "El producto ha sido registrado correctamente.";
 }
 
+void increaseProductStock(companyStruct company) {
+  warehouseNode *warehouseNodePointer;
+  categoryNode *categoryNodePointer;
+  productNode *productNodePointer;
+  unsigned short stock;
+
+  cout << "Va a editar el stock de un producto en almacén" << endl << endl;
+
+  warehouseNodePointer = requestWarehouseWithSelector(
+      company.warehouses, "Ingrese el almacén del producto");
+
+  while (!(warehouseNodePointer->warehouse.categories.head != NULL)) {
+    cout << endl;
+    cout << "El almacén seleccionado no tiene categorias de productos, por "
+            "favor seleccione un almacén con categorias de productos.";
+    cout << endl;
+
+    warehouseNodePointer = requestWarehouseWithSelector(
+        company.warehouses, "Ingrese el almacén del producto");
+  }
+
+  categoryNodePointer =
+      requestCategoryWithSelector(warehouseNodePointer->warehouse.categories,
+                                  "Seleccione la categoria del producto");
+
+  while (!(categoryNodePointer->category.products.top != NULL)) {
+    cout << endl;
+    cout << "La categoria seleccionada no tiene productos, por favor "
+            "seleccione una categoria con productos.";
+    cout << endl;
+
+    categoryNodePointer =
+        requestCategoryWithSelector(warehouseNodePointer->warehouse.categories,
+                                    "Seleccione la categoria del producto");
+  }
+
+  productNodePointer = requestProductWithSelector(
+      categoryNodePointer->category.products,
+      "Escoja el producto al que le gustaria cambiar el stock");
+
+  stock = requestIntegerNumber(
+      "Ingrese el nuevo stock del producto (mayor de 0)",
+      "Por favor ingrese un valor entre 0 y 10000", 0, 10000);
+
+  productNodePointer->product.stock = stock;
+
+  cout << "El stock del producto ha cambiado correctamente.";
+}
+
 void showAllWarehouses(companyStruct company) {
   warehouseNode *warehouseNodePointer;
 
@@ -334,6 +383,10 @@ void mainMenu(companyStruct &company) {
           break;
         case 3:
           registerNewProduct(company);
+          addDelay(2);
+          break;
+        case 4:
+          increaseProductStock(company);
           addDelay(2);
           break;
         case 6:
