@@ -421,3 +421,38 @@ void showSale(saleStruct sale, int n, int y) {
   gotoxy(30, y);
   cout << getTotalPrice(sale.soldProducts);
 }
+
+void showProductInWarehouseStackHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Código";
+  gotoxy(15, y);
+  cout << "Nombre";
+  gotoxy(40, y);
+  cout << "Precio";
+  gotoxy(50, y);
+  cout << "Descuento";
+  gotoxy(60, y);
+  cout << "Stock";
+  gotoxy(70, y);
+  cout << "Almacén";
+}
+
+void showProductInWarehouse(productStruct product, string warehouseAddress,
+                            int n, int y) {
+  gotoxy(0, y);
+  cout << n;
+  gotoxy(5, y);
+  cout << product.code;
+  gotoxy(15, y);
+  cout << product.name;
+  gotoxy(40, y);
+  cout << product.price;
+  gotoxy(50, y);
+  cout << product.discount;
+  gotoxy(60, y);
+  cout << product.stock;
+  gotoxy(70, y);
+  cout << warehouseAddress;
+}
