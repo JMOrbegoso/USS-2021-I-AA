@@ -12,6 +12,25 @@ void showAppTitle(companyStruct company) {
   cout << "-----------------------------------------------------------" << endl;
 }
 
+void registerNewWarehouse(companyStruct &company) {
+  string address;
+  warehouseStruct newWarehouse;
+
+  clearScreen();
+  showAppTitle(company);
+
+  gotoxy(20, 10);
+  cout << "Registrar nuevo almacén:" << endl;
+
+  address = requestText("Ingrese la dirección del nuevo almacén", 2);
+
+  newWarehouse = buildWarehouse(address);
+
+  insert(company.warehouses, newWarehouse);
+
+  cout << "El nuevo almacén fue añadido de forma exitosa" << endl;
+}
+
 void showAllWarehouses(companyStruct company) {
   warehouseNode *warehouseNodePointer;
 
@@ -96,6 +115,53 @@ void showProductsByWarehouse(companyStruct company) {
   cout << endl << endl;
 }
 
+void findProductInWarehouses(companyStruct company) {
+  string productToFind;
+  warehouseNode *warehouseNodePointer;
+  categoryNode *categoryNodePointer;
+  productNode *productNodePointer;
+
+  productToFind = requestText(
+      "Ingrese el nombre del producto que desea buscar en todos los almacenes",
+      1);
+
+  clearScreen();
+  showAppTitle(company);
+
+  gotoxy(20, 8);
+  cout << "Productos con nombre similar a " << productToFind
+       << " en todos los almacenes:" << endl;
+
+  showProductInWarehouseStackHeader(10);
+
+  warehouseNodePointer = company.warehouses.head;
+
+  int i = 1;
+  while (warehouseNodePointer != NULL) {
+    categoryNodePointer = warehouseNodePointer->warehouse.categories.head;
+    while (categoryNodePointer != NULL) {
+      productNodePointer = categoryNodePointer->category.products.top;
+
+      while (productNodePointer != NULL) {
+        if (containsText(productNodePointer->product.name, productToFind)) {
+          showProductInWarehouse(productNodePointer->product,
+                                 warehouseNodePointer->warehouse.address, i,
+                                 i + 11);
+          i++;
+        }
+
+        productNodePointer = productNodePointer->next;
+      }
+
+      categoryNodePointer = categoryNodePointer->next;
+    }
+
+    warehouseNodePointer = warehouseNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
 int requestMenuOption(companyStruct company) {
   int selectedOption;
 
@@ -114,9 +180,9 @@ int requestMenuOption(companyStruct company) {
   cout << "[6] Listar categorias de productos en un almacén" << endl;
   cout << "[7] Listar productos un almacén" << endl;
   cout << "[8] Listar ventas realizadas" << endl;
-  cout << "[9] Listar productos ventidos en una ventas especifica" << endl;
+  cout << "[9] Listar productos vendidos en una ventas especifica" << endl;
   cout << endl;
-  cout << "[10] Buscar producto en todos los almacenes" << endl;
+  cout << "[10] Buscar un producto en todos los almacenes" << endl;
   cout << endl;
   cout << "[0] Cerrar" << endl;
 
@@ -139,6 +205,10 @@ void mainMenu(companyStruct &company) {
 
     if (selectedOption != 0) {
       switch (selectedOption) {
+        case 1:
+          registerNewWarehouse(company);
+          addDelay(2);
+          break;
         case 5:
           showAllWarehouses(company);
           pauseProcess();
@@ -149,6 +219,10 @@ void mainMenu(companyStruct &company) {
           break;
         case 7:
           showProductsByWarehouse(company);
+          pauseProcess();
+          break;
+        case 10:
+          findProductInWarehouses(company);
           pauseProcess();
           break;
       }
