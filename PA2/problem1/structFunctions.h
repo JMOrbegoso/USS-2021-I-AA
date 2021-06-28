@@ -56,7 +56,7 @@ soldProductStruct buildSoldProduct(string code, string name, float price,
   return soldProduct;
 }
 
-saleStruct buildSaleStruct(string saleDate) {
+saleStruct buildSale(string saleDate) {
   saleStruct sale;
 
   sale.saleDate = saleDate;
@@ -174,6 +174,8 @@ void dataInitialization(companyStruct &company) {
   categoryStruct category_aseo_1, category_aseo_2, category_tv, category_aio;
   productStruct product_aseo_1, product_aseo_2, product_aseo_3, product_aseo_4,
       product_tv_1, product_tv_2, product_aio_1, product_aio_2;
+  saleStruct sale_1;
+  soldProductStruct soldProduct_1, soldProduct_2;
 
   company.businessName = "Almacenes SAC";
   company.ruc = "12345678910";
@@ -182,8 +184,8 @@ void dataInitialization(companyStruct &company) {
   warehouse_2 = buildWarehouse("Av. Javier Prado");
 
   category_aseo_1 = buildCategory("aseo-pers", "Aseo personal");
-  category_aseo_2 = buildCategory("elec-tv", "Televisores");
-  category_tv = buildCategory("aseo-pers", "Aseo personal");
+  category_aseo_2 = buildCategory("elec-tv", "Aseo personal");
+  category_tv = buildCategory("aseo-pers", "Televisores");
   category_aio = buildCategory("pc-aio", "PC All-In-One");
 
   product_aseo_1 = buildProduct("pr-1", "Pasta dental", "Colgate Herbal",
@@ -203,6 +205,13 @@ void dataInitialization(companyStruct &company) {
   product_aio_2 = buildProduct("pr-8", "Con MacOsX", "iMac 27\"", "caja",
                                "disponible", 5, 6900, 10);
 
+  sale_1 = buildSale("2019-12-11 11:45:00");
+  soldProduct_1 = buildSoldProduct("game", "Xbox One", 1200, 10, 1);
+  soldProduct_2 = buildSoldProduct("appl", "MacBook Air", 3200, 100, 1);
+
+  insert(sale_1.soldProducts, soldProduct_1);
+  insert(sale_1.soldProducts, soldProduct_2);
+
   push(category_aseo_1.products, product_aseo_1);
   push(category_aseo_2.products, product_aseo_2);
   push(category_aseo_1.products, product_aseo_3);
@@ -213,12 +222,14 @@ void dataInitialization(companyStruct &company) {
   push(category_aio.products, product_aio_2);
 
   insert(warehouse_1.categories, category_aseo_1);
-  insert(warehouse_2.categories, category_aseo_2);
   insert(warehouse_1.categories, category_tv);
+  insert(warehouse_2.categories, category_aseo_2);
   insert(warehouse_2.categories, category_aio);
 
   insert(company.warehouses, warehouse_1);
   insert(company.warehouses, warehouse_2);
+
+  insert(company.sales, sale_1);
 }
 
 warehouseNode *iterateWarehousesList(warehousesList warehouses, int index) {
@@ -276,6 +287,112 @@ warehouseNode *requestWarehouseWithSelector(warehousesList &warehouses,
   return iterateWarehousesList(warehouses, selectedOption);
 }
 
+categoryNode *iterateCategoriesList(categoriesList categories, int index) {
+  categoryNode *categoryNodePointer;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > categories.length) {
+    return NULL;
+  }
+
+  categoryNodePointer = categories.head;
+
+  for (int i = 1; categoryNodePointer != NULL; i++) {
+    if (i == index) {
+      return categoryNodePointer;
+    }
+    categoryNodePointer = categoryNodePointer->next;
+  }
+
+  return NULL;
+}
+
+categoryNode *requestCategoryWithSelector(categoriesList &categories,
+                                          string message) {
+  int selectedOption;
+  categoryNode *categoryNodePointer;
+
+  categoryNodePointer = categories.head;
+
+  cout << endl
+       << message << "." << endl
+       << "Escoja entre las " << categories.length
+       << " categorias siguientes:" << endl
+       << endl;
+
+  for (int i = 1; categoryNodePointer != NULL; i++) {
+    cout << "[" << i << "] - " << categoryNodePointer->category.name << endl;
+    categoryNodePointer = categoryNodePointer->next;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
+
+  while (!(1 <= selectedOption && selectedOption <= categories.length)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << categories.length
+         << "." << endl;
+    fflush(stdin);
+    cin >> selectedOption;
+  }
+
+  return iterateCategoriesList(categories, selectedOption);
+}
+
+saleNode *iterateSalesList(salesList sales, int index) {
+  saleNode *saleNodePointer;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > sales.length) {
+    return NULL;
+  }
+
+  saleNodePointer = sales.head;
+
+  for (int i = 1; saleNodePointer != NULL; i++) {
+    if (i == index) {
+      return saleNodePointer;
+    }
+    saleNodePointer = saleNodePointer->next;
+  }
+
+  return NULL;
+}
+
+saleNode *requestSaleWithSelector(salesList &sales, string message) {
+  int selectedOption;
+  saleNode *saleNodePointer;
+
+  saleNodePointer = sales.head;
+
+  cout << endl
+       << message << "." << endl
+       << "Escoja entre las " << sales.length << " ventas siguientes:" << endl
+       << endl;
+
+  for (int i = 1; saleNodePointer != NULL; i++) {
+    cout << "[" << i << "] - " << saleNodePointer->sale.saleDate << endl;
+    saleNodePointer = saleNodePointer->next;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
+
+  while (!(1 <= selectedOption && selectedOption <= sales.length)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << sales.length << "."
+         << endl;
+    fflush(stdin);
+    cin >> selectedOption;
+  }
+
+  return iterateSalesList(sales, selectedOption);
+}
+
 unsigned short getTotalPrice(soldProductsList soldProducts) {
   soldProductNode *aux = soldProducts.head;
   unsigned short totalPrice = 0;
@@ -283,6 +400,7 @@ unsigned short getTotalPrice(soldProductsList soldProducts) {
   while (aux != NULL) {
     totalPrice += aux->soldProduct.price * aux->soldProduct.quantity -
                   aux->soldProduct.discount;
+    aux = aux->next;
   }
 
   return totalPrice;
@@ -375,15 +493,15 @@ void showSoldProductsListHeader(int y) {
   cout << "#";
   gotoxy(5, y);
   cout << "Código";
-  gotoxy(10, y);
+  gotoxy(15, y);
   cout << "Nombre";
-  gotoxy(25, y);
+  gotoxy(40, y);
   cout << "Precio Unitario";
-  gotoxy(56, y);
+  gotoxy(50, y);
   cout << "Descuento";
-  gotoxy(80, y);
+  gotoxy(60, y);
   cout << "Cantidad";
-  gotoxy(80, y);
+  gotoxy(70, y);
   cout << "Parcial";
 }
 
@@ -392,15 +510,15 @@ void showSoldProduct(soldProductStruct soldProduct, int n, int y) {
   cout << n;
   gotoxy(5, y);
   cout << soldProduct.code;
-  gotoxy(10, y);
+  gotoxy(15, y);
   cout << soldProduct.name;
-  gotoxy(25, y);
+  gotoxy(40, y);
   cout << soldProduct.price;
-  gotoxy(56, y);
+  gotoxy(50, y);
   cout << soldProduct.discount;
-  gotoxy(80, y);
+  gotoxy(60, y);
   cout << soldProduct.quantity;
-  gotoxy(80, y);
+  gotoxy(70, y);
   cout << soldProduct.price * soldProduct.quantity - soldProduct.discount;
 }
 
