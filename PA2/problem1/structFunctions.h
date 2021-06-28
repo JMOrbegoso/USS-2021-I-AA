@@ -378,7 +378,8 @@ productNode *requestProductWithSelector(productsStack &products,
        << endl;
 
   for (int i = 1; productNodePointer != NULL; i++) {
-    cout << "[" << i << "] - " << productNodePointer->product.name << endl;
+    cout << "[" << i << "] - " << productNodePointer->product.name
+         << " - Stock: " << productNodePointer->product.stock << endl;
     productNodePointer = productNodePointer->next;
   }
 
@@ -458,6 +459,52 @@ unsigned short getTotalPrice(soldProductsList soldProducts) {
   }
 
   return totalPrice;
+}
+
+soldProductStruct generateSoldProductsOfSale(warehouseStruct warehouse) {
+  categoryNode *categoryNodePointer;
+  productNode *productNodePointer;
+  unsigned short soldQuantity;
+
+  // Request category
+
+  categoryNodePointer = requestCategoryWithSelector(
+      warehouse.categories, "Seleccione la categoria del producto vendido");
+
+  while (!(categoryNodePointer->category.products.top != NULL)) {
+    cout << endl;
+    cout << "La categoria seleccionada no tiene productos, por favor "
+            "seleccione una categoria con productos.";
+    cout << endl;
+
+    categoryNodePointer = requestCategoryWithSelector(
+        warehouse.categories, "Seleccione la categoria del producto");
+  }
+
+  // Request product
+
+  do {
+    productNodePointer = requestProductWithSelector(
+        categoryNodePointer->category.products,
+        "Escoja el producto vendido (Producto con stock)");
+  } while (productNodePointer == NULL ||
+           productNodePointer->product.stock == 0);
+
+  soldQuantity = requestIntegerNumber(
+      "Ingrese la cantidad de productos vendidos en esta compra",
+      "Por favor ingrese un valor entre 0 y " +
+          productNodePointer->product.stock,
+      0, productNodePointer->product.stock);
+
+  // Update the stock of the product
+  productNodePointer->product.stock =
+      productNodePointer->product.stock - soldQuantity;
+
+  // Generate the sold product
+  return buildSoldProduct(productNodePointer->product.code,
+                          productNodePointer->product.name,
+                          productNodePointer->product.price,
+                          productNodePointer->product.discount, soldQuantity);
 }
 
 void showProductsStackHeader(int y) {

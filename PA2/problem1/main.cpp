@@ -16,7 +16,7 @@
 // - Registrar un almacén
 // - Registrar un producto
 // - Abastecer (incrementar el stock de un producto)
-// - Proveer (incrementar el producto)
+// - Vender un producto
 // - Listar productos por almacén elegido
 // - Buscar un producto en los almacenes y ver stock
 

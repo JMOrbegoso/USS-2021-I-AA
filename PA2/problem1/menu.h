@@ -151,6 +151,50 @@ void increaseProductStock(companyStruct company) {
   cout << "El stock del producto ha cambiado correctamente.";
 }
 
+void registerSale(companyStruct &company) {
+  string saleDate;
+  warehouseNode *warehouseNodePointer;
+  categoryNode *categoryNodePointer;
+  saleStruct newSale;
+  soldProductStruct newSoldProduct;
+  unsigned short continueAddingProducts = 1;
+
+  cout << "Va a registrar una venta" << endl << endl;
+
+  saleDate = requestText("Ingrese la fecha y hora actual", 6);
+
+  warehouseNodePointer = requestWarehouseWithSelector(
+      company.warehouses, "Ingrese el almacén de la venta");
+
+  while (!(warehouseNodePointer->warehouse.categories.head != NULL)) {
+    cout << endl;
+    cout << "El almacén seleccionado no tiene categorias de productos, por "
+            "favor seleccione un almacén con categorias de productos.";
+    cout << endl;
+
+    warehouseNodePointer = requestWarehouseWithSelector(
+        company.warehouses, "Ingrese el almacén del producto");
+  }
+
+  // Generate the sale
+  newSale = buildSale(saleDate);
+
+  do {
+    newSoldProduct =
+        generateSoldProductsOfSale(warehouseNodePointer->warehouse);
+    insert(newSale.soldProducts, newSoldProduct);
+
+    cout << "El producto fue añadido de forma exitosa" << endl;
+    cout << "Ingrese '0' si desea dejar de añadir productos vendidos" << endl;
+    cin >> continueAddingProducts;
+  } while (continueAddingProducts != 0);
+
+  insert(company.sales, newSale);
+
+  cout << "La venta fue añadida de forma exitosa";
+  cout << endl << endl;
+}
+
 void showAllWarehouses(companyStruct company) {
   warehouseNode *warehouseNodePointer;
 
@@ -342,7 +386,7 @@ int requestMenuOption(companyStruct company) {
   cout << "[3] Registrar un producto" << endl;
   cout << endl;
   cout << "[4] Abastecer un producto" << endl;
-  cout << "[5] Proveer un producto" << endl;
+  cout << "[5] Registrar venta" << endl;
   cout << endl;
   cout << "[6] Listar almacenes" << endl;
   cout << "[7] Listar categorias de productos en un almacén" << endl;
@@ -387,6 +431,10 @@ void mainMenu(companyStruct &company) {
           break;
         case 4:
           increaseProductStock(company);
+          addDelay(2);
+          break;
+        case 5:
+          registerSale(company);
           addDelay(2);
           break;
         case 6:
