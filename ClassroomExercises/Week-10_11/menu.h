@@ -1,96 +1,15 @@
-#include "structFunctions.h"
+#include "menuOptions.h"
 
 using namespace std;
 
 void showAppTitle() {
-  cout << endl
-       << "-----------------------------------------------------------" << endl;
-  cout << "\t Nombre: Problema de clase - 10 " << endl << endl << endl;
-  cout << "-----------------------------------------------------------" << endl;
-}
-
-void registerNewNode(nodo *&cabezaG) {
-  cityStruct city;
-  string name;
-  unsigned long inhabitantsQuantity;
-  nodo *aux;
-  nodo *newNode = new struct nodo;
-
-  name = requestText("Ingrese el nombre de la ciudad", 1);
-  inhabitantsQuantity =
-      requestIntegerNumber("Ingrese la cantidad de habitantes de la ciudad",
-                           "Por favor ingrese una cantidad mayor a 0", 0);
-
-  city = buildCity(name, inhabitantsQuantity);
-
-  if (cabezaG == NULL) {
-    cabezaG = newNode;
-    cout << "Ciudad registrada exitosamente.";
-  } else {
-    aux = cabezaG;
-    while (aux != NULL) {
-      aux = aux->next;
-    }
-    aux->next = newNode;
-    cout << "Ciudad registrada exitosamente.";
-  }
-}
-
-void registerNewEdge(nodo *cabezaG) {
-  string cityName_1, cityName_2;
-  edge *newEdge = new struct edge;
-  nodo *aux_1, *aux_2;
-
-  if (cabezaG == NULL) {
-    cout << "El grafo está vacío";
-    return;
-  }
-
-  newEdge->next = NULL;
-
-  cityName_1 = requestText("Ingrese la ciudad de origen", 1);
-  cityName_2 = requestText("Ingrese la ciudad de destino", 1);
-
-  aux_1 = aux_2 = cabezaG;
-
-  while (aux_2 != NULL) {
-    if (aux_2->city.name == cityName_2) {
-      break;
-    }
-    aux_2 = aux_2->next;
-  }
-
-  if (aux_2 != NULL) {
-    while (aux_1 != NULL) {
-      if (aux_1->city.name == cityName_1) {
-        buildEdge(aux_1, aux_2, newEdge);
-      }
-      aux_1 = aux_1->next;
-    }
-  }
-}
-
-void showCities(nodo *cabezaG) {
-  clearScreen();
-  nodo *aux;
-  edge *temp;
-  aux = cabezaG;
-
-  cout << "Ciudad origen";
-  cout << "Ciudad destino";
-
-  while (aux != NULL) {
-    cout << aux->city.name;
-    if (aux->adyacente != NULL) {
-      temp = aux->adyacente;
-      while (temp != NULL) {
-        cout << temp->destiny->city.name;
-        temp = temp->next;
-      }
-    }
-    aux = aux->next;
-  }
-  pauseProcess();
+  cout << endl;
+  cout << "-----------------------------------------------------------";
+  cout << endl << endl;
+  cout << "\t Nombre: Problema de clase - 10 & 11 ";
+  cout << endl << endl;
+  cout << "-----------------------------------------------------------";
+  cout << endl;
 }
 
 int requestMenuOption() {
@@ -103,15 +22,20 @@ int requestMenuOption() {
        << "Esta aplicación tiene las siguientes opciones:" << endl
        << endl;
 
-  cout << "[1] Registrar Ciudad (nodo)" << endl;
+  cout << "[1] Registrar ciudad" << endl;
   cout << "[2] Registrar arista" << endl;
-  cout << "[3] Mostrar el grafo" << endl;
+  cout << "[3] Registrar vivienda" << endl;
+  cout << "[4] Registrar persona" << endl;
+  cout << endl;
+  cout << "[5] Mostrar todas las ciudades" << endl;
+  cout << "[6] Mostrar todas las viviendas" << endl;
+  cout << "[7] Mostrar todas las personas" << endl;
   cout << endl;
   cout << "[0] Cerrar" << endl;
 
   cout << endl << "Por favor ingrese una de las opciones:" << endl;
   cin >> selectedOption;
-  while (!(0 <= selectedOption && selectedOption <= 3)) {
+  while (!(0 <= selectedOption && selectedOption <= 7)) {
     cout << "La opcion seleccionada fue inválida, por favor seleccione una "
             "opcion válida:"
          << endl;
@@ -120,7 +44,7 @@ int requestMenuOption() {
   return selectedOption;
 }
 
-void mainMenu(grafoStruct &grafo) {
+void mainMenu(citiesGraph &cities) {
   int selectedOption;
 
   do {
@@ -129,13 +53,38 @@ void mainMenu(grafoStruct &grafo) {
     if (selectedOption != 0) {
       switch (selectedOption) {
         case 1:
-          registerNewNode(grafo.nogoG);
+          registerCity(cities);
           addDelay(1.5);
           break;
 
         case 2:
-          registerNewEdge(grafo.nogoG);
+          registerCityEdge(cities);
           addDelay(1.5);
+          break;
+
+        case 3:
+          registerHouse(cities);
+          addDelay(1.5);
+          break;
+
+        case 4:
+          registerPerson(cities);
+          addDelay(1.5);
+          break;
+
+        case 5:
+          showCities(cities);
+          pauseProcess();
+          break;
+
+        case 6:
+          showHouses(cities);
+          pauseProcess();
+          break;
+
+        case 7:
+          showPeople(cities);
+          pauseProcess();
           break;
       }
     }
