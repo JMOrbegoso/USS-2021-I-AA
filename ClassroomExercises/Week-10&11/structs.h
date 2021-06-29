@@ -19,7 +19,7 @@ struct personNode {
 struct peopleList {
   personNode *head;
   int length;
-}
+};
 
 // House
 struct houseStruct {
@@ -57,7 +57,7 @@ struct cityEdge {
   struct cityEdge *next;
 };
 
-struct cityGraph {
+struct citiesGraph {
   cityNode *node;
   cityEdge *edge;
 };
