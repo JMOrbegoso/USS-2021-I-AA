@@ -3,12 +3,12 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-  grafoStruct grafo;
+  citiesGraph cities;
 
-  collectionsInitialization(grafo);
-  dataInitialization(grafo);
+  collectionsInitialization(cities);
+  dataInitialization(cities);
 
-  mainMenu(grafo);
+  mainMenu(cities);
 
   return 0;
 }
