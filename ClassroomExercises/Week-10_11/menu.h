@@ -2,16 +2,6 @@
 
 using namespace std;
 
-void showAppTitle() {
-  cout << endl;
-  cout << "-----------------------------------------------------------";
-  cout << endl << endl;
-  cout << "\t Nombre: Problema de clase - 10 & 11 ";
-  cout << endl << endl;
-  cout << "-----------------------------------------------------------";
-  cout << endl;
-}
-
 int requestMenuOption() {
   int selectedOption;
 
@@ -28,14 +18,15 @@ int requestMenuOption() {
   cout << "[4] Registrar persona" << endl;
   cout << endl;
   cout << "[5] Mostrar todas las ciudades" << endl;
-  cout << "[6] Mostrar todas las viviendas" << endl;
-  cout << "[7] Mostrar todas las personas" << endl;
+  cout << "[6] Mostrar todas las ciudades con sus destinos" << endl;
+  cout << "[7] Mostrar todas las viviendas" << endl;
+  cout << "[8] Mostrar todas las personas" << endl;
   cout << endl;
   cout << "[0] Cerrar" << endl;
 
   cout << endl << "Por favor ingrese una de las opciones:" << endl;
   cin >> selectedOption;
-  while (!(0 <= selectedOption && selectedOption <= 7)) {
+  while (!(0 <= selectedOption && selectedOption <= 8)) {
     cout << "La opcion seleccionada fue inválida, por favor seleccione una "
             "opcion válida:"
          << endl;
@@ -58,7 +49,7 @@ void mainMenu(citiesGraph &cities) {
           break;
 
         case 2:
-          registerCityEdge(cities);
+          addCitiesLink(cities);
           addDelay(1.5);
           break;
 
@@ -78,11 +69,16 @@ void mainMenu(citiesGraph &cities) {
           break;
 
         case 6:
-          showHouses(cities);
+          showCitiesWithDestinations(cities);
           pauseProcess();
           break;
 
         case 7:
+          showHouses(cities);
+          pauseProcess();
+          break;
+
+        case 8:
           showPeople(cities);
           pauseProcess();
           break;

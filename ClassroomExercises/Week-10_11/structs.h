@@ -60,4 +60,5 @@ struct cityEdge {
 struct citiesGraph {
   cityNode *node;
   cityEdge *edge;
+  int length;
 };
