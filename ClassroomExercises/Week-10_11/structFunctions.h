@@ -164,3 +164,58 @@ cityNode *requestCity(citiesGraph cities, string message) {
 
   return iterateCitiesGraph(cities, selectedOption);
 }
+
+void showCitiesListHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Nombre";
+  gotoxy(40, y);
+  cout << "# Viviendas";
+}
+
+void showCity(cityStruct city, int i, int y) {
+  gotoxy(0, y);
+  cout << i;
+  gotoxy(5, y);
+  cout << city.name;
+  gotoxy(40, y);
+  cout << " Con " << city.houses.length << " Viviendas";
+}
+
+void showCitiesWithDestinationsListHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Nombre";
+  gotoxy(40, y);
+  cout << "Destinos";
+}
+
+void showCityWithDestinations(cityNode *node, int i, int y) {
+  cityEdge *edge;
+  int x = 0;
+
+  gotoxy(0, y);
+  cout << i;
+  gotoxy(5, y);
+  cout << node->city.name;
+
+  edge = node->adjacent;
+
+  if (edge == NULL) {
+    gotoxy(40, y);
+    cout << "No hay destinos disponibles";
+    return;
+  }
+
+  while (edge != NULL) {
+    gotoxy(40 + x, y);
+    cout << edge->destiny->city.name;
+
+    if (edge->next != NULL) cout << ", ";
+
+    x += (edge->destiny->city.name.length() + 2);
+    edge = edge->next;
+  }
+}

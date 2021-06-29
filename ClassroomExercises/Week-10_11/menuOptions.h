@@ -92,9 +92,10 @@ void showCities(citiesGraph cities) {
 
   cityNodePointer = cities.node;
 
-  for (int i = 1; cityNodePointer != NULL; i++) {
-    cout << "[" << i << "] - " << cityNodePointer->city.name << " - Con "
-         << cityNodePointer->city.houses.length << " viviendas." << endl;
+  showCitiesListHeader(10);
+
+  for (int i = 0; cityNodePointer != NULL; i++) {
+    showCity(cityNodePointer->city, i, i + 12);
     cityNodePointer = cityNodePointer->next;
   }
 
@@ -104,8 +105,6 @@ void showCities(citiesGraph cities) {
 void showCitiesWithDestinations(citiesGraph cities) {
   cityNode *auxCityNode;
   cityEdge *tempCityEdge;
-  int x = 0;
-  int y = 0;
 
   clearScreen();
   showAppTitle();
@@ -113,29 +112,13 @@ void showCitiesWithDestinations(citiesGraph cities) {
   gotoxy(20, 8);
   cout << "Lista de todas las ciudades con sus destinos:" << endl;
 
-  gotoxy(10, 10);
-  cout << "Ciudad Origen";
-  gotoxy(40, 10);
-  cout << "Ciudad Destino";
+  showCitiesWithDestinationsListHeader(10);
 
   auxCityNode = cities.node;
 
-  while (auxCityNode != NULL) {
-    gotoxy(10, 12 + y);
-    cout << auxCityNode->city.name;
-
-    tempCityEdge = auxCityNode->adjacent;
-
-    x = 0;
-    while (tempCityEdge != NULL) {
-      gotoxy(40 + x, 12 + y);
-      cout << tempCityEdge->destiny->city.name;
-      x += (tempCityEdge->destiny->city.name.length() + 2);
-      tempCityEdge = tempCityEdge->next;
-    }
-
+  for (int i = 0; auxCityNode != NULL; i++) {
+    showCityWithDestinations(auxCityNode, i, 12 + i);
     auxCityNode = auxCityNode->next;
-    y++;
   }
 
   cout << endl << endl;
