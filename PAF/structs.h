@@ -100,12 +100,18 @@ struct almacenStruct {
 struct almacenNodo {
   almacenStruct almacen;
   almacenNodo *siguiente;
+  almacenVertice *adyacente;
+};
+
+struct almacenVertice {
+  almacenNodo *destino;
+  almacenVertice *siguiente;
 };
 
 struct almacenesGrafo {
-  almacenNodo *chiclayo;
-  almacenNodo *trujillo;
-  almacenNodo *lima;
+  almacenNodo *nodo;
+  almacenVertice *vertice;
+  int largo;
 };
 
 // Productos comprados
