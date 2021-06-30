@@ -2,6 +2,8 @@
 
 using namespace std;
 
+struct almacenVertice;
+
 // Producto
 struct productoBaseStruct {
   string nombre;

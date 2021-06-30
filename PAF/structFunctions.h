@@ -125,19 +125,19 @@ almacenStruct construirAlmacen(string departamentoDelPeru, string direccion) {
 }
 
 void construirAlmacenVertice(almacenNodo *aux1, almacenNodo *aux2,
-                             almacenVertice *newCityEdge) {
+                             almacenVertice *nuevoVertice) {
   almacenVertice *temp;
 
   if (aux1->adyacente == NULL) {
-    aux1->adyacente = newCityEdge;
-    newCityEdge->destino = aux2;
+    aux1->adyacente = nuevoVertice;
+    nuevoVertice->destino = aux2;
   } else {
     temp = aux1->adyacente;
     while (temp->siguiente != NULL) {
       temp = temp->siguiente;
     }
-    newCityEdge->destino = aux2;
-    temp->siguiente = newCityEdge;
+    nuevoVertice->destino = aux2;
+    temp->siguiente = nuevoVertice;
   }
 }
 
@@ -361,34 +361,32 @@ void inicializacionDeData(deltronStruct &deltron) {
   almacenStruct almacenLima, almacenTrujillo, almacenChiclayo;
   empleadoStruct empleado01, empleado02;
   clienteStruct cliente01, cliente02;
-
   productoEnAlmacenStruct productoEnAlmacen01, productoEnAlmacen02,
       productoEnAlmacen03;
   productoEnCarritoDeCompraStruct productoEnCarritoDeCompra01;
-  personaRecogiendoCompraStruct personaRecogiendoCompra01;
   compraStruct compra01;
+  productoCompradoStruct productoComprado01, productoComprado02;
+  personaRecogiendoCompraStruct personaRecogiendoCompra01;
 
   deltron.razonSocial = "Deltron SAC";
   deltron.ruc = "12345678910";
 
-  // Init empleados
+  // Construir almacenes
+  almacenLima = construirAlmacen("Almacen Lima", "Av. Lima 747");
+  almacenTrujillo = construirAlmacen("Almacen Trujillo", "Av. Trujillo 747");
+  almacenChiclayo = construirAlmacen("Almacen Chiclayo", "Av. Chiclayo 747");
+
+  // Construir empleados
   empleado01 =
       construirEmpleado("Jorge", "Gonzales Rojas", true, "11111111", 2000);
   empleado02 =
       construirEmpleado("Miguel", "Ramos Lopez", true, "22222222", 2000);
 
-  insertar(deltron.empleados, empleado01);
-  insertar(deltron.empleados, empleado02);
-
-  // Init clientes
+  // Construir clientes
   cliente01 = construirCliente("Tulio", "Ramos Lopez", true, "12121212");
   cliente02 = construirCliente("Valery", "Marquez Gonzales", false, "13131313");
 
-  insertar(deltron.clientes, cliente01);
-  insertar(deltron.clientes, cliente02);
-
-  // Productos en Almacen
-
+  // Construir productos en almacen
   productoEnAlmacen01 =
       construirProductoEnAlmacen("i7 10700K", "Intel", "CPU", 1900, 10);
   productoEnAlmacen02 =
@@ -396,27 +394,33 @@ void inicializacionDeData(deltronStruct &deltron) {
   productoEnAlmacen03 =
       construirProductoEnAlmacen("GeForce 1030", "Nvidia", "GPU", 400, 20);
 
+  // Construir carritos de compra
+
+  // Construir clientes recogiendo compras
+
+  // Construir compras realizadas
+  compra01 = construirCompra("Tulio", "Ramos", "Lopez", "12121212",
+                             "2021-06-20 10:00:00", "Recogida");
+
+  // Insertar empleados
+  insertar(deltron.empleados, empleado01);
+  insertar(deltron.empleados, empleado02);
+
+  // Insertar clientes
+  insertar(deltron.clientes, cliente01);
+  insertar(deltron.clientes, cliente02);
+
+  // Insertar productos en almacen
   insertar(almacenLima.productosEnAlmacen, productoEnAlmacen01);
   insertar(almacenLima.productosEnAlmacen, productoEnAlmacen02);
   insertar(almacenLima.productosEnAlmacen, productoEnAlmacen03);
 
-  // Init almacenes
-  almacenLima = construirAlmacen("Almacen Lima", "Av. Lima 747");
-  almacenTrujillo = construirAlmacen("Almacen Trujillo", "Av. Trujillo 747");
-  almacenChiclayo = construirAlmacen("Almacen Chiclayo", "Av. Chiclayo 747");
-
+  // Insertar almacenes
   insertar(deltron.almacenes, almacenLima);
   insertar(deltron.almacenes, almacenTrujillo);
   insertar(deltron.almacenes, almacenChiclayo);
 
-  // Inicializar carritos de compra
-
-  // Inicializar clientes recogiendo compras
-
-  // Inicializar Compras realizadas
-  compra01 = construirCompra("Tulio", "Ramos", "Lopez", "12121212",
-                             "2021-06-20 10:00:00", "Recogida");
-
+  // Insertar compras
   insertar(deltron.compras, compra01);
 }
 
