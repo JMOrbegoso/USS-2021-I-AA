@@ -365,18 +365,18 @@ productoEnAlmacenNodo *buscarProductoEnAlmacenPorNombre(
 // Inicializadores
 
 void inicializacionDeColecciones(deltronStruct &deltron) {
+  deltron.empleados.cabecera = NULL;
+  deltron.empleados.largo = 0;
+
   deltron.clientes.cabecera = NULL;
   deltron.clientes.largo = 0;
 
   deltron.compras.cabecera = NULL;
   deltron.compras.largo = 0;
 
-  deltron.productos.cabecera = NULL;
-  deltron.productos.largo = 0;
-
-  deltron.almacenes.chiclayo = NULL;
-  deltron.almacenes.trujillo = NULL;
-  deltron.almacenes.lima = NULL;
+  deltron.almacenes.nodo = NULL;
+  deltron.almacenes.vertice = NULL;
+  deltron.almacenes.largo = 0;
 }
 
 void inicializacionDeData(deltronStruct &deltron) {
@@ -460,32 +460,6 @@ void inicializacionDeData(deltronStruct &deltron) {
 
 // Impresores
 
-void imprimirCabeceraProductos(int y) {
-  gotoxy(0, y);
-  cout << "#";
-  gotoxy(5, y);
-  cout << "Tipo";
-  gotoxy(25, y);
-  cout << "Marca";
-  gotoxy(45, y);
-  cout << "Nombre";
-  gotoxy(70, y);
-  cout << "Precio";
-}
-
-void imprimirProducto(productoStruct producto, int n, int y) {
-  gotoxy(0, y);
-  cout << n;
-  gotoxy(5, y);
-  cout << producto.tipo;
-  gotoxy(25, y);
-  cout << producto.marca;
-  gotoxy(45, y);
-  cout << producto.nombre;
-  gotoxy(70, y);
-  cout << producto.precio;
-}
-
 void imprimirCabeceraClientes(int y) {
   gotoxy(0, y);
   cout << "#";
@@ -516,7 +490,7 @@ void imprimirCabeceraAlmacenes(int y) {
   gotoxy(0, y);
   cout << "#";
   gotoxy(5, y);
-  cout << "Nombre";
+  cout << "Departamento";
   gotoxy(25, y);
   cout << "Dirección";
 }
@@ -525,7 +499,7 @@ void imprimirAlmacen(almacenStruct almacen, int n, int y) {
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
-  cout << almacen.nombre;
+  cout << almacen.departamentoDelPeru;
   gotoxy(25, y);
   cout << almacen.direccion;
 }
@@ -542,7 +516,7 @@ void imprimirCabeceraProductoEnAlmacen(int y) {
   gotoxy(70, y);
   cout << "Precio";
   gotoxy(80, y);
-  cout << "Cantidad";
+  cout << "Stock";
 }
 
 void imprimirProductoEnAlmacen(productoEnAlmacenStruct productoEnAlmacen, int n,
@@ -550,15 +524,15 @@ void imprimirProductoEnAlmacen(productoEnAlmacenStruct productoEnAlmacen, int n,
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
-  cout << productoEnAlmacen.producto->producto.tipo;
+  cout << productoEnAlmacen.tipo;
   gotoxy(25, y);
-  cout << productoEnAlmacen.producto->producto.marca;
+  cout << productoEnAlmacen.marca;
   gotoxy(45, y);
-  cout << productoEnAlmacen.producto->producto.nombre;
+  cout << productoEnAlmacen.nombre;
   gotoxy(70, y);
-  cout << productoEnAlmacen.producto->producto.precio;
+  cout << productoEnAlmacen.precio;
   gotoxy(80, y);
-  cout << productoEnAlmacen.cantidad;
+  cout << productoEnAlmacen.stock;
 }
 
 void imprimirCabeceraProductosEnCarritoDeCompra(int y) {
@@ -581,22 +555,18 @@ void imprimirProductoEnCarritoDeCompra(
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
-  cout << productoEnCarritoDeCompra.productoEnAlmacen->productoEnAlmacen
-              .producto->producto.tipo;
+  cout << productoEnCarritoDeCompra.tipo;
   gotoxy(25, y);
-  cout << productoEnCarritoDeCompra.productoEnAlmacen->productoEnAlmacen
-              .producto->producto.marca;
+  cout << productoEnCarritoDeCompra.marca;
   gotoxy(45, y);
-  cout << productoEnCarritoDeCompra.productoEnAlmacen->productoEnAlmacen
-              .producto->producto.nombre;
+  cout << productoEnCarritoDeCompra.nombre;
   gotoxy(70, y);
-  cout << productoEnCarritoDeCompra.productoEnAlmacen->productoEnAlmacen
-              .producto->producto.precio;
+  cout << productoEnCarritoDeCompra.precio;
   gotoxy(80, y);
   cout << productoEnCarritoDeCompra.cantidad;
 }
 
-void imprimirCabeceraClientesRecogiendoCompra(int y) {
+void imprimirCabeceraPersonasRecogiendoCompras(int y) {
   gotoxy(0, y);
   cout << "#";
   gotoxy(5, y);
@@ -606,26 +576,22 @@ void imprimirCabeceraClientesRecogiendoCompra(int y) {
   gotoxy(55, y);
   cout << "DNI";
   gotoxy(65, y);
-  cout << "Genero";
-  gotoxy(85, y);
   cout << "Fecha de LLegada";
 }
 
-void imprimirClienteRecogiendoCompra(
-    clienteRecogiendoCompraStruct clienteRecogiendoCompra, int n, int y) {
+void imprimirPersonaRecogiendoCompra(
+    personaRecogiendoCompraStruct personaRecogiendoCompra, int n, int y) {
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
-  cout << clienteRecogiendoCompra.cliente->cliente.nombre;
+  cout << personaRecogiendoCompra.nombre;
   gotoxy(30, y);
-  cout << clienteRecogiendoCompra.cliente->cliente.apellidoPaterno << " "
-       << clienteRecogiendoCompra.cliente->cliente.apellidoMaterno;
+  cout << personaRecogiendoCompra.apellidoPaterno << " "
+       << personaRecogiendoCompra.apellidoMaterno;
   gotoxy(55, y);
-  cout << clienteRecogiendoCompra.cliente->cliente.dni;
+  cout << personaRecogiendoCompra.dni;
   gotoxy(65, y);
-  cout << getGenre(clienteRecogiendoCompra.cliente->cliente.genero);
-  gotoxy(85, y);
-  cout << clienteRecogiendoCompra.fechaDeLLegada;
+  cout << personaRecogiendoCompra.fechaDeLLegada;
 }
 
 void imprimirCabeceraCompra(int y) {
@@ -637,7 +603,7 @@ void imprimirCabeceraCompra(int y) {
   cout << "Fecha";
   gotoxy(40, y);
   cout << "Cliente nombre completo";
-  gotoxy(75, y);
+  gotoxy(80, y);
   cout << "Cliente DNI";
 }
 
@@ -645,15 +611,14 @@ void imprimirCompra(compraStruct compra, int n, int y) {
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
-  cout << compra.estado;
+  cout << compra.estadoDeCompra;
   gotoxy(25, y);
-  cout << compra.fecha;
+  cout << compra.fechaDeCompra;
   gotoxy(40, y);
-  cout << compra.cliente->cliente.apellidoPaterno << " "
-       << compra.cliente->cliente.apellidoPaterno << " "
-       << compra.cliente->cliente.nombre;
-  gotoxy(75, y);
-  cout << compra.cliente->cliente.dni;
+  cout << compra.apellidoPaternoCliente << " " << compra.apellidoMaternoCliente
+       << " " << compra.nombreCliente;
+  gotoxy(80, y);
+  cout << compra.dniCliente;
 }
 
 void imprimirCabeceraProductoComprado(int y) {
