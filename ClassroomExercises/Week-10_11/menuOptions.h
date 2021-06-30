@@ -69,18 +69,87 @@ void addCitiesLink(citiesGraph &cities) {
 }
 
 void registerHouse(citiesGraph &cities) {
-  cout << endl;
-  cout << "Not implemented";
-  cout << endl;
+  houseStruct newHouse;
+  string address, owner;
+  unsigned short floorsQuantity;
+  cityNode *cityNodePointer;
+
+  clearScreen();
+  showAppTitle();
+
+  gotoxy(20, 8);
+  cout << "Registrar nueva casa:" << endl;
+
+  address = requestText("Ingrese la dirección de la nueva vivienda", 5);
+  owner = requestText(
+      "Ingrese el nombre completo del dueño de la nueva vivienda", 5);
+  floorsQuantity =
+      requestIntegerNumber("Ingrese el numero de pisos de la nueva vivienda",
+                           "Por favor ingrese un numero mayor o igual a 1", 1);
+
+  newHouse = buildHouse(address, owner, floorsQuantity);
+
+  cityNodePointer = requestCity(
+      cities, "Escoja la ciudad en la que se encuentra la vivienda");
+
+  if (cityNodePointer == NULL) {
+    cout << "No seleccionó una ciudad valida para la nueva vivienda.";
+    cout << endl << endl;
+    return;
+  }
+
+  insert(cityNodePointer->city.houses, newHouse);
+
+  cout << "La vivienda fue registrada de forma exitosa.";
+  cout << endl << endl;
 }
 
 void registerPerson(citiesGraph &cities) {
-  cout << endl;
-  cout << "Not implemented";
-  cout << endl;
+  personStruct newPerson;
+  string dni, firstName, lastName;
+  float salary;
+  cityNode *cityNodePointer;
+  houseNode *houseNodePointer;
+
+  clearScreen();
+  showAppTitle();
+
+  gotoxy(20, 8);
+  cout << "Registrar nuevo habitante:" << endl;
+
+  dni = requestText("Ingrese el DNI del nuevo habitante", 8, 8);
+  firstName = requestText("Ingrese el nombre del nuevo habitante", 3);
+  lastName = requestText("Ingrese el apellido del nuevo habitante", 3);
+  salary = requestMoney("Ingrese el salario del nuevo habitante", 1);
+
+  newPerson = buildPerson(dni, firstName, lastName, salary);
+
+  cityNodePointer = requestCity(
+      cities, "Escoja la ciudad en la que se encuentra la vivienda");
+
+  if (cityNodePointer == NULL) {
+    cout << "No seleccionó una ciudad valida para la nueva vivienda.";
+    cout << endl << endl;
+    return;
+  }
+
+  houseNodePointer = requestHouseWithSelector(
+      cityNodePointer->city.houses,
+      "Escoja la casa en la que vive el nuevo habitante");
+
+  if (houseNodePointer == NULL) {
+    cout << "No seleccionó una vivienda valida para el nuevo habitante.";
+    cout << endl << endl;
+    return;
+  }
+
+  insert(houseNodePointer->house.people, newPerson);
+
+  cout << "El habitante fue registrado de forma exitosa.";
+  cout << endl << endl;
 }
 
-void showCities(citiesGraph cities) {
+void showAllCities(citiesGraph cities) {
   int i;
   cityNode *cityNodePointer;
 
@@ -124,14 +193,175 @@ void showCitiesWithDestinations(citiesGraph cities) {
   cout << endl << endl;
 }
 
-void showHouses(citiesGraph cities) {
-  cout << endl;
-  cout << "Not implemented";
-  cout << endl;
+void showAllHouses(citiesGraph cities) {
+  cityNode *cityNodePointer;
+  houseNode *houseNodePointer;
+
+  clearScreen();
+  showAppTitle();
+
+  gotoxy(20, 10);
+  cout << "Todas las viviendas de todas las ciudades registradas:" << endl;
+
+  cityNodePointer = cities.node;
+
+  showHousesListHeader(12);
+
+  int i = 1;
+  while (cityNodePointer != NULL) {
+    houseNodePointer = cityNodePointer->city.houses.head;
+    while (houseNodePointer != NULL) {
+      showHouse(houseNodePointer->house, i, i + 13);
+      houseNodePointer = houseNodePointer->next;
+      i++;
+    }
+    cityNodePointer = cityNodePointer->next;
+  }
+
+  cout << endl << endl;
 }
 
-void showPeople(citiesGraph cities) {
-  cout << endl;
-  cout << "Not implemented";
-  cout << endl;
+void showHousesByCity(citiesGraph cities) {
+  cityNode *cityNodePointer;
+  houseNode *houseNodePointer;
+
+  cityNodePointer =
+      requestCity(cities, "Ingrese la ciudad que desea revisar sus viviendas");
+
+  clearScreen();
+  showAppTitle();
+
+  gotoxy(20, 10);
+  cout << "Estudiantes haciendo cola en la sala de tematica "
+       << cityNodePointer->city.name << ":" << endl;
+
+  houseNodePointer = cityNodePointer->city.houses.head;
+
+  showHousesListHeader(12);
+
+  for (int i = 1; houseNodePointer != NULL; i++) {
+    showHouse(houseNodePointer->house, i, i + 13);
+    houseNodePointer = houseNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showAllPeople(citiesGraph cities) {
+  cityNode *cityNodePointer;
+  houseNode *houseNodePointer;
+  personNode *personNodePointer;
+
+  clearScreen();
+  showAppTitle();
+
+  gotoxy(20, 10);
+  cout << "Todos los habitantes de todas las viviendas de todas las ciudades"
+       << endl;
+
+  cityNodePointer = cities.node;
+
+  showPeopleListHeader(12);
+
+  int i = 1;
+  while (cityNodePointer != NULL) {
+    houseNodePointer = cityNodePointer->city.houses.head;
+    while (houseNodePointer != NULL) {
+      personNodePointer = houseNodePointer->house.people.head;
+      while (personNodePointer != NULL) {
+        showPerson(personNodePointer->person, i, i + 13);
+        personNodePointer = personNodePointer->next;
+        i++;
+      }
+      houseNodePointer = houseNodePointer->next;
+    }
+    cityNodePointer = cityNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showPeopleByCity(citiesGraph cities) {
+  cityNode *cityNodePointer;
+  houseNode *houseNodePointer;
+  personNode *personNodePointer;
+
+  cityNodePointer = requestCity(
+      cities, "Seleccione la ciudad de la que desea ver sus habitantes");
+
+  if (cityNodePointer == NULL) {
+    cout << "No seleccionó una ciudad valida.";
+    cout << endl << endl;
+    return;
+  }
+
+  clearScreen();
+  showAppTitle();
+
+  gotoxy(20, 10);
+  cout << "Todos los habitantes de todas las viviendas de la ciudad de "
+       << cityNodePointer->city.name << endl;
+
+  showPeopleListHeader(12);
+
+  int i = 1;
+  houseNodePointer = cityNodePointer->city.houses.head;
+  while (houseNodePointer != NULL) {
+    personNodePointer = houseNodePointer->house.people.head;
+    while (personNodePointer != NULL) {
+      showPerson(personNodePointer->person, i, i + 13);
+      personNodePointer = personNodePointer->next;
+      i++;
+    }
+    houseNodePointer = houseNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
+
+void showPeopleByHouse(citiesGraph cities) {
+  cityNode *cityNodePointer;
+  houseNode *houseNodePointer;
+  personNode *personNodePointer;
+
+  cityNodePointer =
+      requestCity(cities,
+                  "Seleccione la ciudad en la que se encuentra la vivienda de "
+                  "la que desea ver sus habitantes");
+
+  if (cityNodePointer == NULL) {
+    cout << "No seleccionó una ciudad valida.";
+    cout << endl << endl;
+    return;
+  }
+
+  houseNodePointer = requestHouseWithSelector(
+      cityNodePointer->city.houses,
+      "Seleccione la vivienda de la que desea ver sus habitantes");
+
+  if (houseNodePointer == NULL) {
+    cout << "No seleccionó una vivienda valida.";
+    cout << endl << endl;
+    return;
+  }
+
+  clearScreen();
+  showAppTitle();
+
+  gotoxy(20, 10);
+  cout << "Todos los habitantes la vivienda propiedad de "
+       << houseNodePointer->house.owner << " ubicada en "
+       << houseNodePointer->house.address << endl;
+
+  showPeopleListHeader(12);
+
+  int i = 1;
+  personNodePointer = houseNodePointer->house.people.head;
+  while (personNodePointer != NULL) {
+    showPerson(personNodePointer->person, i, i + 13);
+    personNodePointer = personNodePointer->next;
+    i++;
+  }
+
+  cout << endl << endl;
 }
