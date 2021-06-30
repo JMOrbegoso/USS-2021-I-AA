@@ -147,6 +147,27 @@ void construirAlmacenVertice(almacenNodo *aux1, almacenNodo *aux2,
 
 // Funciones para añadiar a colecciones
 
+void insertar(empleadosLista &empleados, empleadoStruct nuevoEmpleado) {
+  empleadoNodo *empleadoNodoPuntero = new empleadoNodo();
+
+  empleadoNodo *ultimoNodo = empleados.cabecera;
+
+  empleadoNodoPuntero->empleado = nuevoEmpleado;
+  empleadoNodoPuntero->siguiente = NULL;
+
+  if (empleados.cabecera == NULL) {
+    empleados.cabecera = empleadoNodoPuntero;
+  } else {
+    while (ultimoNodo->siguiente != NULL) {
+      ultimoNodo = ultimoNodo->siguiente;
+    }
+
+    ultimoNodo->siguiente = empleadoNodoPuntero;
+  }
+
+  empleados.largo++;
+}
+
 void insertar(clientesLista &clientes, clienteStruct nuevoCliente) {
   clienteNodo *clienteNodoPuntero = new clienteNodo();
 
@@ -166,50 +187,6 @@ void insertar(clientesLista &clientes, clienteStruct nuevoCliente) {
   }
 
   clientes.largo++;
-}
-
-void insertar(productosLista &productos, productoStruct nuevoProducto) {
-  productoNodo *productoNodoPuntero = new productoNodo();
-
-  productoNodo *ultimoNodo = productos.cabecera;
-
-  productoNodoPuntero->producto = nuevoProducto;
-  productoNodoPuntero->siguiente = NULL;
-
-  if (productos.cabecera == NULL) {
-    productos.cabecera = productoNodoPuntero;
-  } else {
-    while (ultimoNodo->siguiente != NULL) {
-      ultimoNodo = ultimoNodo->siguiente;
-    }
-
-    ultimoNodo->siguiente = productoNodoPuntero;
-  }
-
-  productos.largo++;
-}
-
-void insertar(productosCompradosLista &productosComprados,
-              productoCompradoStruct nuevoProductoComprado) {
-  productoCompradoNodo *productoCompradoNodoPuntero =
-      new productoCompradoNodo();
-
-  productoCompradoNodo *ultimoNodo = productosComprados.cabecera;
-
-  productoCompradoNodoPuntero->productoComprado = nuevoProductoComprado;
-  productoCompradoNodoPuntero->siguiente = NULL;
-
-  if (productosComprados.cabecera == NULL) {
-    productosComprados.cabecera = productoCompradoNodoPuntero;
-  } else {
-    while (ultimoNodo->siguiente != NULL) {
-      ultimoNodo = ultimoNodo->siguiente;
-    }
-
-    ultimoNodo->siguiente = productoCompradoNodoPuntero;
-  }
-
-  productosComprados.largo++;
 }
 
 void insertar(productosEnAlmacenLista &productosEnAlmacen,
@@ -235,6 +212,29 @@ void insertar(productosEnAlmacenLista &productosEnAlmacen,
   productosEnAlmacen.largo++;
 }
 
+void insertar(productosCompradosLista &productosComprados,
+              productoCompradoStruct nuevoProductoComprado) {
+  productoCompradoNodo *productoCompradoNodoPuntero =
+      new productoCompradoNodo();
+
+  productoCompradoNodo *ultimoNodo = productosComprados.cabecera;
+
+  productoCompradoNodoPuntero->productoComprado = nuevoProductoComprado;
+  productoCompradoNodoPuntero->siguiente = NULL;
+
+  if (productosComprados.cabecera == NULL) {
+    productosComprados.cabecera = productoCompradoNodoPuntero;
+  } else {
+    while (ultimoNodo->siguiente != NULL) {
+      ultimoNodo = ultimoNodo->siguiente;
+    }
+
+    ultimoNodo->siguiente = productoCompradoNodoPuntero;
+  }
+
+  productosComprados.largo++;
+}
+
 void insertar(comprasLista &compras, compraStruct nuevaCompra) {
   compraNodo *compraNodoPuntero = new compraNodo();
 
@@ -256,42 +256,42 @@ void insertar(comprasLista &compras, compraStruct nuevaCompra) {
   compras.largo++;
 }
 
-void encolar(clientesRecogiendoComprasCola &clientesRecogiendoCompras,
-             clienteRecogiendoCompraStruct nuevoClienteRecogiendoCompra) {
-  clienteRecogiendoCompraNodo *clienteRecogiendoCompraNodoPuntero =
-      new clienteRecogiendoCompraNodo;
+void encolar(personasRecogiendoComprasCola &personasRecogiendoCompras,
+             personaRecogiendoCompraStruct nuevoPersonaRecogiendoCompra) {
+  personaRecogiendoCompraNodo *clienteRecogiendoCompraNodoPuntero =
+      new personaRecogiendoCompraNodo;
 
-  clienteRecogiendoCompraNodoPuntero->clienteRecogiendoCompra =
-      nuevoClienteRecogiendoCompra;
+  clienteRecogiendoCompraNodoPuntero->personaRecogiendoCompra =
+      nuevoPersonaRecogiendoCompra;
   clienteRecogiendoCompraNodoPuntero->siguiente = NULL;
 
-  if (clientesRecogiendoCompras.inicio == NULL) {
-    clientesRecogiendoCompras.inicio = clienteRecogiendoCompraNodoPuntero;
+  if (personasRecogiendoCompras.inicio == NULL) {
+    personasRecogiendoCompras.inicio = clienteRecogiendoCompraNodoPuntero;
   } else {
-    clientesRecogiendoCompras.fin->siguiente =
+    personasRecogiendoCompras.fin->siguiente =
         clienteRecogiendoCompraNodoPuntero;
   }
 
-  clientesRecogiendoCompras.fin = clienteRecogiendoCompraNodoPuntero;
-  clientesRecogiendoCompras.largo++;
+  personasRecogiendoCompras.fin = clienteRecogiendoCompraNodoPuntero;
+  personasRecogiendoCompras.largo++;
 }
 
-clienteRecogiendoCompraStruct desencolarClienteRecogiendoCompra(
-    clientesRecogiendoComprasCola &clientesRecogiendoCompras) {
-  clienteRecogiendoCompraNodo *clienteRecogiendoCompraNodoPuntero;
-  clienteRecogiendoCompraStruct clienteRecogiendoCompraBorrado;
+personaRecogiendoCompraStruct desencolarClienteRecogiendoCompra(
+    personasRecogiendoComprasCola &clientesRecogiendoCompras) {
+  personaRecogiendoCompraNodo *personaRecogiendoCompraNodoPuntero;
+  personaRecogiendoCompraStruct personaRecogiendoCompraBorrado;
 
-  clienteRecogiendoCompraNodoPuntero = clientesRecogiendoCompras.inicio;
-  clienteRecogiendoCompraBorrado =
-      clienteRecogiendoCompraNodoPuntero->clienteRecogiendoCompra;
+  personaRecogiendoCompraNodoPuntero = clientesRecogiendoCompras.inicio;
+  personaRecogiendoCompraBorrado =
+      personaRecogiendoCompraNodoPuntero->personaRecogiendoCompra;
 
   clientesRecogiendoCompras.inicio =
       clientesRecogiendoCompras.inicio->siguiente;
   clientesRecogiendoCompras.largo--;
 
-  delete clienteRecogiendoCompraNodoPuntero;
+  delete personaRecogiendoCompraNodoPuntero;
 
-  return clienteRecogiendoCompraBorrado;
+  return personaRecogiendoCompraBorrado;
 }
 
 void apilar(productosEnCarritoDeCompraPila &productosEnCarritoDeCompra,
