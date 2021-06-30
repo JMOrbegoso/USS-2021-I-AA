@@ -20,13 +20,16 @@ int requestMenuOption() {
   cout << "[5] Mostrar todas las ciudades" << endl;
   cout << "[6] Mostrar todas las ciudades con sus destinos" << endl;
   cout << "[7] Mostrar todas las viviendas" << endl;
-  cout << "[8] Mostrar todas las personas" << endl;
+  cout << "[8] Mostrar las viviendas por ciudad" << endl;
+  cout << "[9] Mostrar todas las personas" << endl;
+  cout << "[10] Mostrar las personas por ciudad" << endl;
+  cout << "[11] Mostrar las personas por vivienda" << endl;
   cout << endl;
   cout << "[0] Cerrar" << endl;
 
   cout << endl << "Por favor ingrese una de las opciones:" << endl;
   cin >> selectedOption;
-  while (!(0 <= selectedOption && selectedOption <= 8)) {
+  while (!(0 <= selectedOption && selectedOption <= 11)) {
     cout << "La opcion seleccionada fue inválida, por favor seleccione una "
             "opcion válida:"
          << endl;
@@ -64,7 +67,7 @@ void mainMenu(citiesGraph &cities) {
           break;
 
         case 5:
-          showCities(cities);
+          showAllCities(cities);
           pauseProcess();
           break;
 
@@ -74,12 +77,27 @@ void mainMenu(citiesGraph &cities) {
           break;
 
         case 7:
-          showHouses(cities);
+          showAllHouses(cities);
           pauseProcess();
           break;
 
         case 8:
-          showPeople(cities);
+          showHousesByCity(cities);
+          pauseProcess();
+          break;
+
+        case 9:
+          showAllPeople(cities);
+          pauseProcess();
+          break;
+
+        case 10:
+          showPeopleByCity(cities);
+          pauseProcess();
+          break;
+
+        case 11:
+          showPeopleByHouse(cities);
           pauseProcess();
           break;
       }
