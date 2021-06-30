@@ -5,20 +5,23 @@ using namespace std;
 
 // Fabricas
 
-productoStruct construirProducto(string nombre, string marca, string tipo,
-                                 float precio) {
-  productoStruct producto;
+empleadoStruct construirEmpleado(string nombre, string apellidoPaterno,
+                                 string apellidoMaterno, bool genero,
+                                 string dni, float salario) {
+  empleadoStruct empleado;
 
-  producto.nombre = nombre;
-  producto.marca = marca;
-  producto.tipo = tipo;
-  producto.precio = precio;
+  empleado.nombre = nombre;
+  empleado.apellidoPaterno = apellidoPaterno;
+  empleado.apellidoMaterno = apellidoMaterno;
+  empleado.genero = genero;
+  empleado.dni = dni;
+  empleado.salario = salario;
 
-  return producto;
+  return empleado;
 }
 
 clienteStruct construirCliente(string nombre, string apellidoPaterno,
-                               string apellidoMaterno, char genero,
+                               string apellidoMaterno, bool genero,
                                string dni) {
   clienteStruct cliente;
 
@@ -34,68 +37,74 @@ clienteStruct construirCliente(string nombre, string apellidoPaterno,
   return cliente;
 }
 
-almacenStruct construirAlmacen(string nombre, string direccion) {
-  almacenStruct almacen;
-
-  almacen.nombre = nombre;
-  almacen.direccion = direccion;
-
-  almacen.productosEnAlmacen.cabecera = NULL;
-  almacen.productosEnAlmacen.largo = 0;
-
-  almacen.clientesRecogiendoCompras.inicio = NULL;
-  almacen.clientesRecogiendoCompras.fin = NULL;
-  almacen.clientesRecogiendoCompras.largo = 0;
-
-  return almacen;
-}
-
-productoEnAlmacenStruct construirProductoEnAlmacen(
-    productoNodo *productoPuntero, unsigned long cantidad) {
+productoEnAlmacenStruct construirProductoEnAlmacen(string nombre, string marca,
+                                                   string tipo, float precio,
+                                                   unsigned long stock) {
   productoEnAlmacenStruct productoEnAlmacen;
 
-  if (productoPuntero == NULL) throw exception();
-
-  productoEnAlmacen.producto = productoPuntero;
-  productoEnAlmacen.cantidad = cantidad;
+  productoEnAlmacen.nombre = nombre;
+  productoEnAlmacen.marca = marca;
+  productoEnAlmacen.tipo = tipo;
+  productoEnAlmacen.precio = precio;
+  productoEnAlmacen.stock = stock;
 
   return productoEnAlmacen;
 }
 
 productoEnCarritoDeCompraStruct construirProductoEnCarritoDeCompra(
-    productoEnAlmacenNodo *productoEnAlmacenPuntero, unsigned long cantidad) {
+    string nombre, string marca, string tipo, float precio,
+    unsigned long cantidad) {
   productoEnCarritoDeCompraStruct productoEnCarritoDeCompra;
 
-  if (productoEnAlmacenPuntero == NULL) throw exception();
-
-  productoEnCarritoDeCompra.productoEnAlmacen = productoEnAlmacenPuntero;
+  productoEnCarritoDeCompra.nombre = nombre;
+  productoEnCarritoDeCompra.marca = marca;
+  productoEnCarritoDeCompra.tipo = tipo;
+  productoEnCarritoDeCompra.precio = precio;
   productoEnCarritoDeCompra.cantidad = cantidad;
 
   return productoEnCarritoDeCompra;
 }
 
-clienteRecogiendoCompraStruct construirClienteRecogiendoCompra(
-    clienteNodo *clientePuntero, string fechaDeLLegada) {
-  clienteRecogiendoCompraStruct clienteRecogiendoCompra;
+productoCompradoStruct construirproductoComprado(string nombre, string marca,
+                                                 string tipo, float precio,
+                                                 unsigned long cantidad) {
+  productoCompradoStruct productoComprado;
 
-  if (clientePuntero == NULL) throw exception();
+  productoComprado.nombre = nombre;
+  productoComprado.marca = marca;
+  productoComprado.tipo = tipo;
+  productoComprado.precio = precio;
+  productoComprado.cantidad = cantidad;
 
-  clienteRecogiendoCompra.cliente = clientePuntero;
-  clienteRecogiendoCompra.fechaDeLLegada = fechaDeLLegada;
-
-  return clienteRecogiendoCompra;
+  return productoComprado;
 }
 
-compraStruct construirCompra(clienteNodo *clientePuntero, string fecha,
-                             string estado) {
+personaRecogiendoCompraStruct construirPersonaRecogiendoCompra(
+    string nombre, string apellidoMaterno, string apellidoPaterno, string dni,
+    string fechaDeLLegada) {
+  personaRecogiendoCompraStruct personaRecogiendoCompra;
+
+  personaRecogiendoCompra.nombre = nombre;
+  personaRecogiendoCompra.apellidoMaterno = apellidoMaterno;
+  personaRecogiendoCompra.apellidoPaterno = apellidoPaterno;
+  personaRecogiendoCompra.dni = dni;
+  personaRecogiendoCompra.fechaDeLLegada = fechaDeLLegada;
+
+  return personaRecogiendoCompra;
+}
+
+compraStruct construirCompra(string nombreCliente,
+                             string apellidoPaternoCliente,
+                             string apellidoMaternoCliente, string dniCliente,
+                             string fechaDeCompra, string estadoDeCompra) {
   compraStruct compra;
 
-  if (clientePuntero == NULL) throw exception();
-
-  compra.cliente = clientePuntero;
-
-  compra.fecha = fecha;
-  compra.estado = estado;
+  compra.nombreCliente = nombreCliente;
+  compra.apellidoPaternoCliente = apellidoPaternoCliente;
+  compra.apellidoMaternoCliente = apellidoMaternoCliente;
+  compra.dniCliente = dniCliente;
+  compra.fechaDeCompra = fechaDeCompra;
+  compra.estadoDeCompra = estadoDeCompra;
 
   compra.productosComprados.cabecera = NULL;
   compra.productosComprados.largo = 0;
@@ -103,16 +112,37 @@ compraStruct construirCompra(clienteNodo *clientePuntero, string fecha,
   return compra;
 }
 
-productoCompradoStruct construirproductoComprado(string nombre, string marca,
-                                                 string tipo, float precio) {
-  productoCompradoStruct productoComprado;
+almacenStruct construirAlmacen(string departamentoDelPeru, string direccion) {
+  almacenStruct almacen;
 
-  productoComprado.nombre = nombre;
-  productoComprado.marca = marca;
-  productoComprado.tipo = tipo;
-  productoComprado.precio = precio;
+  almacen.departamentoDelPeru = departamentoDelPeru;
+  almacen.direccion = direccion;
 
-  return productoComprado;
+  almacen.productosEnAlmacen.cabecera = NULL;
+  almacen.productosEnAlmacen.largo = 0;
+
+  almacen.personasRecogiendoCompras.inicio = NULL;
+  almacen.personasRecogiendoCompras.fin = NULL;
+  almacen.personasRecogiendoCompras.largo = 0;
+
+  return almacen;
+}
+
+void construirAlmacenVertice(almacenNodo *aux1, almacenNodo *aux2,
+                             almacenVertice *newCityEdge) {
+  almacenVertice *temp;
+
+  if (aux1->adyacente == NULL) {
+    aux1->adyacente = newCityEdge;
+    newCityEdge->destino = aux2;
+  } else {
+    temp = aux1->adyacente;
+    while (temp->siguiente != NULL) {
+      temp = temp->siguiente;
+    }
+    newCityEdge->destino = aux2;
+    temp->siguiente = newCityEdge;
+  }
 }
 
 // Funciones para añadiar a colecciones
