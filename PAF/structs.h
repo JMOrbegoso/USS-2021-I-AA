@@ -52,13 +52,33 @@ struct productosEnCarritoDeCompraPila {
   int largo;
 };
 
-// Clientes
-struct clienteStruct {
+// Personas
+struct personaStruct {
   string nombre;
   string apellidoPaterno;
   string apellidoMaterno;
   char genero;
   string dni;
+  string claveDeAcceso;
+};
+
+// Empleados
+struct empleadoStruct : personaStruct {
+  float salario;
+};
+
+struct empleadoNodo {
+  empleadoStruct empleado;
+  empleadoNodo *siguiente;
+};
+
+struct empleadosLista {
+  empleadoNodo *cabecera;
+  int largo;
+};
+
+// Clientes
+struct clienteStruct : personaStruct {
   productosEnCarritoDeCompraPila productosEnCarritoDeCompra;
 };
 
@@ -153,6 +173,7 @@ struct deltronStruct {
   string ruc;
   productosLista productos;
   almacenesGrafo almacenes;
-  clientesLista clientes;
+  empleadosLista empleados;
+  clientesLista clientes;  
   comprasLista compras;
 };
