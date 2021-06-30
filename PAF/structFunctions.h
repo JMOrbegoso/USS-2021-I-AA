@@ -147,6 +147,27 @@ void construirAlmacenVertice(almacenNodo *aux1, almacenNodo *aux2,
 
 // Funciones para añadiar a colecciones
 
+void insertar(almacenesGrafo &almacenes, almacenStruct nuevoAlmacen) {
+  almacenNodo *almacenNodoPuntero = new almacenNodo();
+
+  almacenNodo *ultimoNodo = almacenes.nodo;
+
+  almacenNodoPuntero->almacen = nuevoAlmacen;
+  almacenNodoPuntero->siguiente = NULL;
+
+  if (almacenes.nodo == NULL) {
+    almacenes.nodo = almacenNodoPuntero;
+  } else {
+    while (ultimoNodo->siguiente != NULL) {
+      ultimoNodo = ultimoNodo->siguiente;
+    }
+
+    ultimoNodo->siguiente = almacenNodoPuntero;
+  }
+
+  almacenes.largo++;
+}
+
 void insertar(empleadosLista &empleados, empleadoStruct nuevoEmpleado) {
   empleadoNodo *empleadoNodoPuntero = new empleadoNodo();
 
@@ -323,45 +344,6 @@ void desapilar(productosEnCarritoDeCompraPila &productosEnCarritoDeCompra) {
   delete productoEnCarritoDeCompraNodoPuntero;
 }
 
-// iteradores
-
-clienteNodo *buscarClientePorDni(clientesLista clientes, string dni) {
-  clienteNodo *punteroIterador = clientes.cabecera;
-
-  while (punteroIterador != NULL) {
-    if (punteroIterador->cliente.dni == dni)
-      return punteroIterador;
-    else
-      punteroIterador = punteroIterador->siguiente;
-  }
-  return NULL;
-}
-
-productoNodo *buscarProductoPorNombre(productosLista productos, string nombre) {
-  productoNodo *punteroIterador = productos.cabecera;
-
-  while (punteroIterador != NULL) {
-    if (punteroIterador->producto.nombre == nombre)
-      return punteroIterador;
-    else
-      punteroIterador = punteroIterador->siguiente;
-  }
-  return NULL;
-}
-
-productoEnAlmacenNodo *buscarProductoEnAlmacenPorNombre(
-    productosEnAlmacenLista productos, string nombre) {
-  productoEnAlmacenNodo *punteroIterador = productos.cabecera;
-
-  while (punteroIterador != NULL) {
-    if (punteroIterador->productoEnAlmacen.producto->producto.nombre == nombre)
-      return punteroIterador;
-    else
-      punteroIterador = punteroIterador->siguiente;
-  }
-  return NULL;
-}
-
 // Inicializadores
 
 void inicializacionDeColecciones(deltronStruct &deltron) {
@@ -380,85 +362,118 @@ void inicializacionDeColecciones(deltronStruct &deltron) {
 }
 
 void inicializacionDeData(deltronStruct &deltron) {
-  productoStruct producto_01, producto_02, producto_03;
-  clienteStruct cliente_01, cliente_02;
-  almacenStruct almacen_01, almacen_02, almacen_03;
-  almacenNodo *almacenNodoPuntero_1 = new almacenNodo();
-  almacenNodo *almacenNodoPuntero_2 = new almacenNodo();
-  almacenNodo *almacenNodoPuntero_3 = new almacenNodo();
-  productoEnAlmacenStruct productoEnAlmacen_01, productoEnAlmacen_02,
-      productoEnAlmacen_03;
-  productoEnCarritoDeCompraStruct productoEnCarritoDeCompra_01;
-  clienteRecogiendoCompraStruct clienteRecogiendoCompra_01;
-  compraStruct compra_01;
+  almacenStruct almacenLima, almacenTrujillo, almacenChiclayo;
+  empleadoStruct empleado01, empleado02;
+  clienteStruct cliente01, cliente02;
+
+  productoEnAlmacenStruct productoEnAlmacen01, productoEnAlmacen02,
+      productoEnAlmacen03;
+  productoEnCarritoDeCompraStruct productoEnCarritoDeCompra01;
+  personaRecogiendoCompraStruct personaRecogiendoCompra01;
+  compraStruct compra01;
 
   deltron.razonSocial = "Deltron SAC";
   deltron.ruc = "12345678910";
 
-  // Init productos
-  producto_01 = construirProducto("i7 10700K", "Intel", "CPU", 1900);
-  producto_02 = construirProducto("Ryzen 7 3700", "AMD", "CPU", 1700);
-  producto_03 = construirProducto("GeForce 1030", "Nvidia", "GPU", 400);
+  // Init empleados
+  empleado01 =
+      construirEmpleado("Jorge", "Gonzales", "Rojas", true, "11111111", 2000);
+  empleado02 =
+      construirEmpleado("Miguel", "Ramos", "Lopez", true, "22222222", 2000);
 
-  insertar(deltron.productos, producto_01);
-  insertar(deltron.productos, producto_02);
-  insertar(deltron.productos, producto_03);
+  insertar(deltron.empleados, empleado01);
+  insertar(deltron.empleados, empleado02);
 
   // Init clientes
-  cliente_01 = construirCliente("Tulio", "Rioja", "Ramos", 'm', "11111111");
-  cliente_02 =
-      construirCliente("Valery", "Marquez", "Gonzales", 'f', "22222222");
+  cliente01 = construirCliente("Tulio", "Ramos", "Lopez", true, "12121212");
+  cliente02 =
+      construirCliente("Valery", "Marquez", "Gonzales", false, "13131313");
 
-  insertar(deltron.clientes, cliente_01);
-  insertar(deltron.clientes, cliente_02);
+  insertar(deltron.clientes, cliente01);
+  insertar(deltron.clientes, cliente02);
+
+  // Productos en Almacen
+
+  productoEnAlmacen01 =
+      construirProductoEnAlmacen("i7 10700K", "Intel", "CPU", 1900, 10);
+  productoEnAlmacen02 =
+      construirProductoEnAlmacen("Ryzen 7 3700", "AMD", "CPU", 1700, 15);
+  productoEnAlmacen03 =
+      construirProductoEnAlmacen("GeForce 1030", "Nvidia", "GPU", 400, 20);
+
+  insertar(almacenLima.productosEnAlmacen, productoEnAlmacen01);
+  insertar(almacenLima.productosEnAlmacen, productoEnAlmacen02);
+  insertar(almacenLima.productosEnAlmacen, productoEnAlmacen03);
 
   // Init almacenes
-  almacen_01 = construirAlmacen("Almacen Chiclayo", "Av. Chiclayo 747");
-  almacen_02 = construirAlmacen("Almacen Trujillo", "Av. Trujillo 747");
-  almacen_03 = construirAlmacen("Almacen Lima", "Av. Lima 747");
+  almacenLima = construirAlmacen("Almacen Lima", "Av. Lima 747");
+  almacenTrujillo = construirAlmacen("Almacen Trujillo", "Av. Trujillo 747");
+  almacenChiclayo = construirAlmacen("Almacen Chiclayo", "Av. Chiclayo 747");
 
-  productoEnAlmacen_01 = construirProductoEnAlmacen(
-      buscarProductoPorNombre(deltron.productos, "i7 10700K"), 10);
-  productoEnAlmacen_02 = construirProductoEnAlmacen(
-      buscarProductoPorNombre(deltron.productos, "Ryzen 7 3700"), 15);
-  productoEnAlmacen_03 = construirProductoEnAlmacen(
-      buscarProductoPorNombre(deltron.productos, "GeForce 1030"), 20);
-
-  insertar(almacen_01.productosEnAlmacen, productoEnAlmacen_01);
-  insertar(almacen_01.productosEnAlmacen, productoEnAlmacen_02);
-  insertar(almacen_01.productosEnAlmacen, productoEnAlmacen_03);
-
-  almacenNodoPuntero_1->almacen = almacen_01;
-  almacenNodoPuntero_2->almacen = almacen_02;
-  almacenNodoPuntero_3->almacen = almacen_03;
-
-  deltron.almacenes.chiclayo = almacenNodoPuntero_1;
-  deltron.almacenes.trujillo = almacenNodoPuntero_2;
-  deltron.almacenes.lima = almacenNodoPuntero_3;
+  insertar(deltron.almacenes, almacenLima);
+  insertar(deltron.almacenes, almacenTrujillo);
+  insertar(deltron.almacenes, almacenChiclayo);
 
   // Inicializar carritos de compra
-  productoEnCarritoDeCompra_01 = construirProductoEnCarritoDeCompra(
-      buscarProductoEnAlmacenPorNombre(
-          deltron.almacenes.chiclayo->almacen.productosEnAlmacen, "i7 10700K"),
-      2);
-  apilar(buscarClientePorDni(deltron.clientes, "11111111")
-             ->cliente.productosEnCarritoDeCompra,
-         productoEnCarritoDeCompra_01);
 
   // Inicializar clientes recogiendo compras
-  clienteRecogiendoCompra_01 = construirClienteRecogiendoCompra(
-      buscarClientePorDni(deltron.clientes, "11111111"), "2021-06-22 10:30:00");
-  encolar(deltron.almacenes.chiclayo->almacen.clientesRecogiendoCompras,
-          clienteRecogiendoCompra_01);
 
   // Inicializar Compras realizadas
-  compra_01 = construirCompra(buscarClientePorDni(deltron.clientes, "11111111"),
-                              "2021-06-20 10:00:00", "Recogida");
+  compra01 = construirCompra("Tulio", "Ramos", "Lopez", "12121212",
+                             "2021-06-20 10:00:00", "Recogida");
 
-  insertar(deltron.compras, compra_01);
+  insertar(deltron.compras, compra01);
 }
 
 // Impresores
+
+void imprimirCabeceraAlmacenes(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Departamento";
+  gotoxy(25, y);
+  cout << "Dirección";
+}
+
+void imprimirAlmacen(almacenStruct almacen, int n, int y) {
+  gotoxy(0, y);
+  cout << n;
+  gotoxy(5, y);
+  cout << almacen.departamentoDelPeru;
+  gotoxy(25, y);
+  cout << almacen.direccion;
+}
+
+void imprimirCabeceraEmpleados(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Apellidos";
+  gotoxy(25, y);
+  cout << "Nombres";
+  gotoxy(50, y);
+  cout << "DNI";
+  gotoxy(70, y);
+  cout << "Genero";
+  gotoxy(80, y);
+  cout << "Salario";
+}
+
+void imprimirEmpleado(empleadoStruct empleado, int n, int y) {
+  gotoxy(0, y);
+  cout << n;
+  gotoxy(5, y);
+  cout << empleado.apellidoPaterno << " " << empleado.apellidoMaterno;
+  gotoxy(25, y);
+  cout << empleado.nombre;
+  gotoxy(50, y);
+  cout << empleado.dni;
+  gotoxy(70, y);
+  cout << getGenre(empleado.genero);
+  gotoxy(80, y);
+  cout << empleado.salario;
+}
 
 void imprimirCabeceraClientes(int y) {
   gotoxy(0, y);
@@ -484,24 +499,6 @@ void imprimirCliente(clienteStruct cliente, int n, int y) {
   cout << cliente.dni;
   gotoxy(70, y);
   cout << getGenre(cliente.genero);
-}
-
-void imprimirCabeceraAlmacenes(int y) {
-  gotoxy(0, y);
-  cout << "#";
-  gotoxy(5, y);
-  cout << "Departamento";
-  gotoxy(25, y);
-  cout << "Dirección";
-}
-
-void imprimirAlmacen(almacenStruct almacen, int n, int y) {
-  gotoxy(0, y);
-  cout << n;
-  gotoxy(5, y);
-  cout << almacen.departamentoDelPeru;
-  gotoxy(25, y);
-  cout << almacen.direccion;
 }
 
 void imprimirCabeceraProductoEnAlmacen(int y) {
