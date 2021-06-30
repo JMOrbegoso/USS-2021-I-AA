@@ -5,14 +5,12 @@ using namespace std;
 
 // Fabricas
 
-empleadoStruct construirEmpleado(string nombre, string apellidoPaterno,
-                                 string apellidoMaterno, bool genero,
+empleadoStruct construirEmpleado(string nombres, string apellidos, bool genero,
                                  string dni, float salario) {
   empleadoStruct empleado;
 
-  empleado.nombre = nombre;
-  empleado.apellidoPaterno = apellidoPaterno;
-  empleado.apellidoMaterno = apellidoMaterno;
+  empleado.nombres = nombres;
+  empleado.apellidos = apellidos;
   empleado.genero = genero;
   empleado.dni = dni;
   empleado.salario = salario;
@@ -20,14 +18,12 @@ empleadoStruct construirEmpleado(string nombre, string apellidoPaterno,
   return empleado;
 }
 
-clienteStruct construirCliente(string nombre, string apellidoPaterno,
-                               string apellidoMaterno, bool genero,
+clienteStruct construirCliente(string nombres, string apellidos, bool genero,
                                string dni) {
   clienteStruct cliente;
 
-  cliente.nombre = nombre;
-  cliente.apellidoPaterno = apellidoPaterno;
-  cliente.apellidoMaterno = apellidoMaterno;
+  cliente.nombres = nombres;
+  cliente.apellidos = apellidos;
   cliente.genero = genero;
   cliente.dni = dni;
 
@@ -377,17 +373,16 @@ void inicializacionDeData(deltronStruct &deltron) {
 
   // Init empleados
   empleado01 =
-      construirEmpleado("Jorge", "Gonzales", "Rojas", true, "11111111", 2000);
+      construirEmpleado("Jorge", "Gonzales Rojas", true, "11111111", 2000);
   empleado02 =
-      construirEmpleado("Miguel", "Ramos", "Lopez", true, "22222222", 2000);
+      construirEmpleado("Miguel", "Ramos Lopez", true, "22222222", 2000);
 
   insertar(deltron.empleados, empleado01);
   insertar(deltron.empleados, empleado02);
 
   // Init clientes
-  cliente01 = construirCliente("Tulio", "Ramos", "Lopez", true, "12121212");
-  cliente02 =
-      construirCliente("Valery", "Marquez", "Gonzales", false, "13131313");
+  cliente01 = construirCliente("Tulio", "Ramos Lopez", true, "12121212");
+  cliente02 = construirCliente("Valery", "Marquez Gonzales", false, "13131313");
 
   insertar(deltron.clientes, cliente01);
   insertar(deltron.clientes, cliente02);
@@ -464,9 +459,9 @@ void imprimirEmpleado(empleadoStruct empleado, int n, int y) {
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
-  cout << empleado.apellidoPaterno << " " << empleado.apellidoMaterno;
+  cout << empleado.apellidos;
   gotoxy(25, y);
-  cout << empleado.nombre;
+  cout << empleado.nombres;
   gotoxy(50, y);
   cout << empleado.dni;
   gotoxy(70, y);
@@ -492,9 +487,9 @@ void imprimirCliente(clienteStruct cliente, int n, int y) {
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
-  cout << cliente.apellidoPaterno << " " << cliente.apellidoMaterno;
+  cout << cliente.apellidos;
   gotoxy(25, y);
-  cout << cliente.nombre;
+  cout << cliente.nombres;
   gotoxy(50, y);
   cout << cliente.dni;
   gotoxy(70, y);

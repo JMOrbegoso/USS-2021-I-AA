@@ -12,9 +12,8 @@ struct productoBaseStruct {
 
 // Usuario
 struct usuarioBaseStruct {
-  string nombre;
-  string apellidoPaterno;
-  string apellidoMaterno;
+  string nombres;
+  string apellidos;
   bool genero;  // True para hombre, False para mujer
   string dni;
   string claveDeAcceso;
