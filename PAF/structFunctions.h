@@ -626,8 +626,7 @@ void imprimirCompra(compraStruct compra, int n, int y) {
   gotoxy(25, y);
   cout << compra.fechaDeCompra;
   gotoxy(40, y);
-  cout << compra.apellidoPaternoCliente << " " << compra.apellidoMaternoCliente
-       << " " << compra.nombreCliente;
+  cout << compra.apellidosCliente << " " << compra.nombresCliente;
   gotoxy(80, y);
   cout << compra.dniCliente;
 }

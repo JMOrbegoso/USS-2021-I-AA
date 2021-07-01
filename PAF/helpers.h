@@ -92,14 +92,7 @@ bool containsText(string textBase, string textToFind) {
   return false;
 }
 
-string getGenre(char genre) {
-  if (genre == 'm')
-    return "Masculino";
-  else if (genre == 'f')
-    return "Femenino";
-  else
-    return "Genero no valido";
-}
+string getGenre(bool genre) { return genre ? "Masculino" : "Femenino"; }
 
 string requestText(string message, long unsigned int minLength) {
   string text;
@@ -129,7 +122,7 @@ string requestText(string message, long unsigned int minLength,
   return text;
 }
 
-char requestGenre(string message) {
+bool requestGenre(string message) {
   char genre;
 
   cout << message
@@ -143,7 +136,7 @@ char requestGenre(string message) {
     cin >> genre;
   }
 
-  return genre;
+  return genre == 'm';
 }
 
 int requestIntegerNumber(string requestMessage, string errorMessage, int min) {
