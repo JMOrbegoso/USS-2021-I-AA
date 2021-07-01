@@ -83,9 +83,8 @@ struct clientesLista {
 
 // Cola para recoger compra
 struct personaRecogiendoCompraStruct {
-  string nombre;
-  string apellidoPaterno;
-  string apellidoMaterno;
+  string nombres;
+  string apellidos;
   string dni;
   string fechaDeLLegada;
 };
@@ -143,9 +142,8 @@ struct productosCompradosLista {
 
 // Compras
 struct compraStruct {
-  string nombreCliente;
-  string apellidoPaternoCliente;
-  string apellidoMaternoCliente;
+  string nombresCliente;
+  string apellidosCliente;
   string dniCliente;
   string fechaDeCompra;
   string estadoDeCompra;

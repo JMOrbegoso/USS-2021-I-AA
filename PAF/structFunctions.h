@@ -61,7 +61,7 @@ productoEnCarritoDeCompraStruct construirProductoEnCarritoDeCompra(
   return productoEnCarritoDeCompra;
 }
 
-productoCompradoStruct construirproductoComprado(string nombre, string marca,
+productoCompradoStruct construirProductoComprado(string nombre, string marca,
                                                  string tipo, float precio,
                                                  unsigned long cantidad) {
   productoCompradoStruct productoComprado;
@@ -76,28 +76,24 @@ productoCompradoStruct construirproductoComprado(string nombre, string marca,
 }
 
 personaRecogiendoCompraStruct construirPersonaRecogiendoCompra(
-    string nombre, string apellidoMaterno, string apellidoPaterno, string dni,
-    string fechaDeLLegada) {
+    string nombres, string apellidos, string dni, string fechaDeLLegada) {
   personaRecogiendoCompraStruct personaRecogiendoCompra;
 
-  personaRecogiendoCompra.nombre = nombre;
-  personaRecogiendoCompra.apellidoMaterno = apellidoMaterno;
-  personaRecogiendoCompra.apellidoPaterno = apellidoPaterno;
+  personaRecogiendoCompra.nombres = nombres;
+  personaRecogiendoCompra.apellidos = apellidos;
   personaRecogiendoCompra.dni = dni;
   personaRecogiendoCompra.fechaDeLLegada = fechaDeLLegada;
 
   return personaRecogiendoCompra;
 }
 
-compraStruct construirCompra(string nombreCliente,
-                             string apellidoPaternoCliente,
-                             string apellidoMaternoCliente, string dniCliente,
-                             string fechaDeCompra, string estadoDeCompra) {
+compraStruct construirCompra(string nombresCliente, string apellidosCliente,
+                             string dniCliente, string fechaDeCompra,
+                             string estadoDeCompra) {
   compraStruct compra;
 
-  compra.nombreCliente = nombreCliente;
-  compra.apellidoPaternoCliente = apellidoPaternoCliente;
-  compra.apellidoMaternoCliente = apellidoMaternoCliente;
+  compra.nombresCliente = nombresCliente;
+  compra.apellidosCliente = apellidosCliente;
   compra.dniCliente = dniCliente;
   compra.fechaDeCompra = fechaDeCompra;
   compra.estadoDeCompra = estadoDeCompra;
@@ -371,11 +367,6 @@ void inicializacionDeData(deltronStruct &deltron) {
   deltron.razonSocial = "Deltron SAC";
   deltron.ruc = "12345678910";
 
-  // Construir almacenes
-  almacenLima = construirAlmacen("Almacen Lima", "Av. Lima 747");
-  almacenTrujillo = construirAlmacen("Almacen Trujillo", "Av. Trujillo 747");
-  almacenChiclayo = construirAlmacen("Almacen Chiclayo", "Av. Chiclayo 747");
-
   // Construir empleados
   empleado01 =
       construirEmpleado("Jorge", "Gonzales Rojas", true, "11111111", 2000);
@@ -394,34 +385,59 @@ void inicializacionDeData(deltronStruct &deltron) {
   productoEnAlmacen03 =
       construirProductoEnAlmacen("GeForce 1030", "Nvidia", "GPU", 400, 20);
 
-  // Construir carritos de compra
+  // Construir producto en carrito de compra
+  productoEnCarritoDeCompra01 =
+      construirProductoEnCarritoDeCompra("i7 10700K", "Intel", "CPU", 1900, 1);
 
-  // Construir clientes recogiendo compras
+  // Construir personas recogiendo compra
+  personaRecogiendoCompra01 = construirPersonaRecogiendoCompra(
+      "Jorge", "Martinez", "15151515", "2021-06-30 10:00:00");
+
+  // Construir productos comprados
+  productoComprado01 =
+      construirProductoComprado("GeForce 1030", "Nvidia", "GPU", 400, 1);
+  productoComprado02 =
+      construirProductoComprado("WD Black SD400", "WD", "Disco Duro", 380, 1);
 
   // Construir compras realizadas
-  compra01 = construirCompra("Tulio", "Ramos", "Lopez", "12121212",
+  compra01 = construirCompra("Tulio", "Ramos Lopez", "12121212",
                              "2021-06-20 10:00:00", "Recogida");
+
+  // Construir almacenes
+  almacenLima = construirAlmacen("Almacen Lima", "Av. Lima 747");
+  almacenTrujillo = construirAlmacen("Almacen Trujillo", "Av. Trujillo 747");
+  almacenChiclayo = construirAlmacen("Almacen Chiclayo", "Av. Chiclayo 747");
 
   // Insertar empleados
   insertar(deltron.empleados, empleado01);
   insertar(deltron.empleados, empleado02);
-
-  // Insertar clientes
-  insertar(deltron.clientes, cliente01);
-  insertar(deltron.clientes, cliente02);
 
   // Insertar productos en almacen
   insertar(almacenLima.productosEnAlmacen, productoEnAlmacen01);
   insertar(almacenLima.productosEnAlmacen, productoEnAlmacen02);
   insertar(almacenLima.productosEnAlmacen, productoEnAlmacen03);
 
+  // Insertar producto en carrito de compra
+  apilar(cliente01.productosEnCarritoDeCompra, productoEnCarritoDeCompra01);
+
+  // Insertar personas recogiendo compra
+  encolar(almacenLima.personasRecogiendoCompras, personaRecogiendoCompra01);
+
+  // Insertar clientes
+  insertar(deltron.clientes, cliente01);
+  insertar(deltron.clientes, cliente02);
+
+  // Insertar productos comprados
+  insertar(compra01.productosComprados, productoComprado01);
+  insertar(compra01.productosComprados, productoComprado02);
+
+  // Insertar compras realizadas
+  insertar(deltron.compras, compra01);
+
   // Insertar almacenes
   insertar(deltron.almacenes, almacenLima);
   insertar(deltron.almacenes, almacenTrujillo);
   insertar(deltron.almacenes, almacenChiclayo);
-
-  // Insertar compras
-  insertar(deltron.compras, compra01);
 }
 
 // Impresores
@@ -580,10 +596,9 @@ void imprimirPersonaRecogiendoCompra(
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
-  cout << personaRecogiendoCompra.nombre;
+  cout << personaRecogiendoCompra.nombres;
   gotoxy(30, y);
-  cout << personaRecogiendoCompra.apellidoPaterno << " "
-       << personaRecogiendoCompra.apellidoMaterno;
+  cout << personaRecogiendoCompra.apellidos;
   gotoxy(55, y);
   cout << personaRecogiendoCompra.dni;
   gotoxy(65, y);
