@@ -464,14 +464,12 @@ void imprimirCabeceraEmpleados(int y) {
   gotoxy(0, y);
   cout << "#";
   gotoxy(5, y);
-  cout << "Apellidos";
-  gotoxy(25, y);
-  cout << "Nombres";
-  gotoxy(50, y);
+  cout << "Nombre completo";
+  gotoxy(45, y);
   cout << "DNI";
-  gotoxy(70, y);
+  gotoxy(55, y);
   cout << "Genero";
-  gotoxy(80, y);
+  gotoxy(65, y);
   cout << "Salario";
 }
 
@@ -479,14 +477,12 @@ void imprimirEmpleado(empleadoStruct empleado, int n, int y) {
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
-  cout << empleado.apellidos;
-  gotoxy(25, y);
-  cout << empleado.nombres;
-  gotoxy(50, y);
+  cout << empleado.apellidos << " " << empleado.nombres;
+  gotoxy(45, y);
   cout << empleado.dni;
-  gotoxy(70, y);
+  gotoxy(55, y);
   cout << getGenre(empleado.genero);
-  gotoxy(80, y);
+  gotoxy(65, y);
   cout << empleado.salario;
 }
 
@@ -494,12 +490,10 @@ void imprimirCabeceraClientes(int y) {
   gotoxy(0, y);
   cout << "#";
   gotoxy(5, y);
-  cout << "Apellidos";
-  gotoxy(25, y);
-  cout << "Nombres";
-  gotoxy(50, y);
+  cout << "Nombre completo";
+  gotoxy(45, y);
   cout << "DNI";
-  gotoxy(70, y);
+  gotoxy(55, y);
   cout << "Genero";
 }
 
@@ -507,12 +501,10 @@ void imprimirCliente(clienteStruct cliente, int n, int y) {
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
-  cout << cliente.apellidos;
-  gotoxy(25, y);
-  cout << cliente.nombres;
-  gotoxy(50, y);
+  cout << cliente.apellidos << " " << cliente.nombres;
+  gotoxy(45, y);
   cout << cliente.dni;
-  gotoxy(70, y);
+  gotoxy(55, y);
   cout << getGenre(cliente.genero);
 }
 
@@ -582,12 +574,10 @@ void imprimirCabeceraPersonasRecogiendoCompras(int y) {
   gotoxy(0, y);
   cout << "#";
   gotoxy(5, y);
-  cout << "Nombres";
-  gotoxy(30, y);
-  cout << "Apellidos";
-  gotoxy(55, y);
+  cout << "Nombre completo";
+  gotoxy(45, y);
   cout << "DNI";
-  gotoxy(65, y);
+  gotoxy(55, y);
   cout << "Fecha de LLegada";
 }
 
@@ -596,12 +586,11 @@ void imprimirPersonaRecogiendoCompra(
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
-  cout << personaRecogiendoCompra.nombres;
-  gotoxy(30, y);
-  cout << personaRecogiendoCompra.apellidos;
-  gotoxy(55, y);
+  cout << personaRecogiendoCompra.nombres << " "
+       << personaRecogiendoCompra.apellidos;
+  gotoxy(45, y);
   cout << personaRecogiendoCompra.dni;
-  gotoxy(65, y);
+  gotoxy(55, y);
   cout << personaRecogiendoCompra.fechaDeLLegada;
 }
 
@@ -609,26 +598,26 @@ void imprimirCabeceraCompra(int y) {
   gotoxy(0, y);
   cout << "#";
   gotoxy(5, y);
-  cout << "Estado";
-  gotoxy(25, y);
+  cout << "Cliente";
+  gotoxy(45, y);
+  cout << "DNI";
+  gotoxy(55, y);
   cout << "Fecha";
-  gotoxy(40, y);
-  cout << "Cliente nombre completo";
   gotoxy(80, y);
-  cout << "Cliente DNI";
+  cout << "Estado";
 }
 
 void imprimirCompra(compraStruct compra, int n, int y) {
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
-  cout << compra.estadoDeCompra;
-  gotoxy(25, y);
-  cout << compra.fechaDeCompra;
-  gotoxy(40, y);
   cout << compra.apellidosCliente << " " << compra.nombresCliente;
-  gotoxy(80, y);
+  gotoxy(45, y);
   cout << compra.dniCliente;
+  gotoxy(55, y);
+  cout << compra.fechaDeCompra;
+  gotoxy(80, y);
+  cout << compra.estadoDeCompra;
 }
 
 void imprimirCabeceraProductoComprado(int y) {
