@@ -440,6 +440,30 @@ void inicializacionDeData(deltronStruct &deltron) {
   insertar(deltron.almacenes, almacenChiclayo);
 }
 
+// Buscadores/Iteradores
+
+empleadoNodo *buscarEmpleadoPorDni(deltronStruct deltron, string dni) {
+  empleadoNodo *aux = deltron.empleados.cabecera;
+
+  while (aux != NULL) {
+    if (aux->empleado.dni == dni) return aux;
+    aux = aux->siguiente;
+  }
+
+  return NULL;
+}
+
+clienteNodo *buscarClientePorDni(deltronStruct deltron, string dni) {
+  clienteNodo *aux = deltron.clientes.cabecera;
+
+  while (aux != NULL) {
+    if (aux->cliente.dni == dni) return aux;
+    aux = aux->siguiente;
+  }
+
+  return NULL;
+}
+
 // Impresores
 
 void imprimirCabeceraAlmacenes(int y) {
