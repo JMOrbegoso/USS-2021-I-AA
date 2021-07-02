@@ -409,9 +409,9 @@ void inicializacionDeData(deltronStruct &deltron) {
                              "2021-06-20 10:00:00", "Recogida");
 
   // Construir almacenes
-  almacenLima = construirAlmacen("Almacen Lima", "Av. Lima 747");
-  almacenTrujillo = construirAlmacen("Almacen Trujillo", "Av. Trujillo 747");
-  almacenChiclayo = construirAlmacen("Almacen Chiclayo", "Av. Chiclayo 747");
+  almacenLima = construirAlmacen("Lima", "Av. Lima 747");
+  almacenTrujillo = construirAlmacen("Trujillo", "Av. Trujillo 747");
+  almacenChiclayo = construirAlmacen("Chiclayo", "Av. Chiclayo 747");
 
   // Insertar empleados
   insertar(deltron.empleados, empleado01);
@@ -446,6 +446,61 @@ void inicializacionDeData(deltronStruct &deltron) {
 }
 
 // Buscadores/Iteradores
+
+almacenNodo *iterarGrafoAlmacenes(almacenesGrafo almacenes, int index) {
+  almacenNodo *cityNodePointer;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > almacenes.largo) {
+    return NULL;
+  }
+
+  cityNodePointer = almacenes.nodo;
+
+  for (int i = 1; cityNodePointer != NULL; i++) {
+    if (i == index) {
+      return cityNodePointer;
+    }
+    cityNodePointer = cityNodePointer->siguiente;
+  }
+
+  return NULL;
+}
+
+almacenNodo *pedirAlmacen(almacenesGrafo almacenes, string mensaje) {
+  int selectedOption;
+  almacenNodo *almacenNodoPuntero;
+
+  cout << endl
+       << mensaje << "." << endl
+       << "Escoja entre los " << almacenes.largo
+       << " almacenes siguientes:" << endl
+       << endl;
+
+  almacenNodoPuntero = almacenes.nodo;
+
+  for (int i = 1; almacenNodoPuntero != NULL; i++) {
+    cout << "[" << i << "] - "
+         << almacenNodoPuntero->almacen.departamentoDelPeru << " - "
+         << almacenNodoPuntero->almacen.direccion << endl;
+    almacenNodoPuntero = almacenNodoPuntero->siguiente;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
+
+  while (!(1 <= selectedOption && selectedOption <= almacenes.largo)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << almacenes.largo
+         << "." << endl;
+    fflush(stdin);
+    cin >> selectedOption;
+  }
+
+  return iterarGrafoAlmacenes(almacenes, selectedOption);
+}
 
 empleadoNodo *buscarEmpleadoPorDni(deltronStruct deltron, string dni) {
   empleadoNodo *aux = deltron.empleados.cabecera;
@@ -484,6 +539,7 @@ void imprimirCabeceraAlmacenes(int y) {
 
 void imprimirAlmacen(almacenNodo *nodo, int n, int y) {
   almacenVertice *vertice;
+  string almacenDestino;
   int x = 0;
 
   gotoxy(0, y);
@@ -502,11 +558,13 @@ void imprimirAlmacen(almacenNodo *nodo, int n, int y) {
 
   while (vertice != NULL) {
     gotoxy(50 + x, y);
-    cout << vertice->destino->almacen.departamentoDelPeru;
+    almacenDestino = vertice->destino->almacen.direccion + " [" +
+                     vertice->destino->almacen.departamentoDelPeru + "]";
+    cout << almacenDestino;
 
     if (vertice->siguiente != NULL) cout << ", ";
 
-    x += (vertice->destino->almacen.departamentoDelPeru.length() + 2);
+    x += (almacenDestino.length() + 2);
     vertice = vertice->siguiente;
   }
 }

@@ -166,7 +166,46 @@ void revisarAlmacenes(deltronStruct deltron) {
 
 void registrarNuevoAlmacen(deltronStruct &deltron) {}
 
-void registrarRelacionEntreAlmacenes(deltronStruct &deltron) {}
+void registrarRelacionEntreAlmacenes(deltronStruct &deltron) {
+  almacenNodo *almacenOrigenNodoPuntero, *almacenDestinoNodoPuntero;
+  almacenVertice *newCityEdge = new struct almacenVertice;
+
+  system("cls");
+  showAppTitle(deltron);
+
+  gotoxy(20, 8);
+  cout << "Registrar nuevo enlace entre almacenes:" << endl;
+
+  if (deltron.almacenes.nodo == NULL ||
+      deltron.almacenes.nodo->siguiente == NULL) {
+    cout << "Primero debe de añadir almenos 2 almacenes.";
+    cout << endl << endl;
+    return;
+  }
+
+  newCityEdge->siguiente = NULL;
+
+  almacenOrigenNodoPuntero =
+      pedirAlmacen(deltron.almacenes, "Escoja el almacén de origen");
+
+  if (almacenOrigenNodoPuntero == NULL) {
+    cout << "Introdujo un almacén no valido";
+    cout << endl << endl;
+    return;
+  }
+
+  almacenDestinoNodoPuntero =
+      pedirAlmacen(deltron.almacenes, "Escoja el almacén de destino");
+
+  if (almacenDestinoNodoPuntero == NULL) {
+    cout << "Introdujo un almacén no valida";
+    cout << endl << endl;
+    return;
+  }
+
+  construirAlmacenVertice(almacenOrigenNodoPuntero, almacenDestinoNodoPuntero,
+                          newCityEdge);
+}
 
 void revisarCatalogoDeAlmacen(deltronStruct deltron) {}
 
