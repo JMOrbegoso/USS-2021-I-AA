@@ -66,19 +66,19 @@ int pedirOpcionDelMenuEmpleado(deltronStruct deltron, string nombreEmpleado) {
   cout << "\t\t\tBienvenido " << nombreEmpleado;
   cout << endl;
 
-  cout << endl << "¿Que desea hacer?" << endl << endl;
-
-  cout << "[1] Mostrar todas las ordenes" << endl;
-  cout << "[2] Revisar Almacenes" << endl;
-  cout << "[3] Registrar nuevo producto" << endl;
-  cout << "[4] Editar datos de producto existente" << endl;
-  cout << "[5] Cambiar stock de producto en almacén" << endl;
-  cout << "[6] Retirar producto" << endl;
+  cout << endl << "¿Que desea hacer?" << endl;
+  cout << endl;
+  cout << "[1] Mostrar todas las ventas" << endl;
+  cout << "[2] Registrar nuevo producto en almacén" << endl;
+  cout << "[3] Editar producto en almacén" << endl;
+  cout << "[4] Registrar persona formando cola para recoger producto" << endl;
+  cout << "[5] Entregar compra a persona formando cola (despachar)" << endl;
+  cout << endl;
   cout << "[0] Cerrar Sesión" << endl;
 
   cout << endl << "Introduzca la opción deseada:" << endl;
   cin >> opcionSeleccionada;
-  while (!(0 <= opcionSeleccionada && opcionSeleccionada <= 6)) {
+  while (!(0 <= opcionSeleccionada && opcionSeleccionada <= 5)) {
     cout << "Introdujo una opción inválida, por favor seleccione una opción "
             "válida:"
          << endl;
@@ -100,18 +100,20 @@ int pedirOpcionDelMenuCliente(deltronStruct deltron,
   cout << "\t\t\tBienvenid@ " << razonSocialCliente;
   cout << endl;
 
-  cout << endl << "¿Que desea hacer?" << endl << endl;
-
-  cout << "[1] Revisar catalogo de productos" << endl;
-  cout << "[2] Buscar producto por nombre" << endl;
-  cout << "[3] Buscar producto por marca" << endl;
-  cout << "[4] Crear orden de compra" << endl;
-  cout << "[5] Ver historial de ordenes realizadas" << endl;
+  cout << endl << "¿Que desea hacer?" << endl;
+  cout << endl;
+  cout << "[1] Revisar catalogo de productos de un almacen" << endl;
+  cout << "[2] Buscar producto en todos los almacenes" << endl;
+  cout << "[3] Añadir producto al carrito de compras" << endl;
+  cout << "[4] Editar cantidad de un producto en el carrito de compras" << endl;
+  cout << "[5] Quitar producto del carrito de compras" << endl;
+  cout << "[6] Realizar compra" << endl;
+  cout << endl;
   cout << "[0] Cerrar Sesión" << endl;
 
   cout << endl << "Introduzca la opción deseada:" << endl;
   cin >> opcionSeleccionada;
-  while (!(0 <= opcionSeleccionada && opcionSeleccionada <= 5)) {
+  while (!(0 <= opcionSeleccionada && opcionSeleccionada <= 6)) {
     cout << "Introdujo una opción inválida, por favor seleccione una opción "
             "válida:"
          << endl;
@@ -135,7 +137,24 @@ void menuEmpleado(deltronStruct& deltron, empleadoNodo* empleadoNodoPuntero) {
     if (opcionSeleccionada != 0) {
       switch (opcionSeleccionada) {
         case 1:
+          revisarVentas(deltron);
           pauseProcess();
+          break;
+        case 2:
+          registrarProductoEnAlmacen(deltron);
+          addDelay(1.5);
+          break;
+        case 3:
+          editarProductoEnAlmacen(deltron);
+          addDelay(1.5);
+          break;
+        case 4:
+          registrarPersonaEnCola(deltron);
+          addDelay(1.5);
+          break;
+        case 5:
+          despacharVenta(deltron);
+          addDelay(1.5);
           break;
 
         default:
@@ -162,7 +181,28 @@ void menuCliente(deltronStruct& deltron, clienteNodo* clienteNodoPuntero) {
     if (opcionSeleccionada != 0) {
       switch (opcionSeleccionada) {
         case 1:
+          revisarCatalogoDeAlmacen(deltron);
           pauseProcess();
+          break;
+        case 2:
+          buscarProductoEnAlmacenes(deltron);
+          pauseProcess();
+          break;
+        case 3:
+          agregarProductoAlCarrito(deltron);
+          addDelay(1.5);
+          break;
+        case 4:
+          editarCantidadDeProductoEnCarrito(deltron);
+          addDelay(1.5);
+          break;
+        case 5:
+          quitarProductoDeCarrito(deltron);
+          addDelay(1.5);
+          break;
+        case 6:
+          realizarCompra(deltron);
+          addDelay(1.5);
           break;
 
         default:
