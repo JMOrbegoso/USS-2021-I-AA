@@ -8,6 +8,7 @@ int main(int argc, char *argv[]) {
   inicializacionDeColecciones(deltron);
   inicializacionDeData(deltron);
 
+  mostrarPresentacionEInstrucciones();
   menuPrincipal(deltron);
 
   return 0;
