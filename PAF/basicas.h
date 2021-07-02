@@ -1,13 +1,7 @@
-#include <iostream>
-#include <string>
-#if defined(WIN32) || defined(_WIN32) || \
-    defined(__WIN32) && !defined(__CYGWIN__)
-
 #include <windows.h>
 
-#else
-
-#endif
+#include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -29,17 +23,12 @@ char *toCharArray(string text) {
 }
 
 void gotoxy(int x, int y) {
-#if defined(WIN32) || defined(_WIN32) || \
-    defined(__WIN32) && !defined(__CYGWIN__)
   HANDLE hcon;
   hcon = GetStdHandle(STD_OUTPUT_HANDLE);
   COORD dwPos;
   dwPos.X = x;
   dwPos.Y = y;
   SetConsoleCursorPosition(hcon, dwPos);
-#else
-  printf("%c[%d;%df", 0x1B, y, x);
-#endif
 }
 
 string concatenateStrings(string acumulator, string toAdd, string separator) {
