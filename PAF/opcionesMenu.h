@@ -142,6 +142,12 @@ void registrarPersonaEnCola(deltronStruct &deltron) {}
 
 void despacharVenta(deltronStruct &deltron) {}
 
+void revisarAlmacenes(deltronStruct deltron) {}
+
+void registrarNuevoAlmacen(deltronStruct &deltron) {}
+
+void registrarRelacionEntreAlmacenes(deltronStruct &deltron) {}
+
 void revisarCatalogoDeAlmacen(deltronStruct deltron) {}
 
 void buscarProductoEnAlmacenes(deltronStruct deltron) {}

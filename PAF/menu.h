@@ -4,7 +4,7 @@ using namespace std;
 
 void mostrarPresentacion() {
   cout << "\t\t\t\t"
-       << "Bienvenido al PAF del curso de  Análisis de algoritmos [2021-I]"
+       << "Bienvenido al PAF del curso de Análisis de algoritmos [2021-I]"
        << endl
        << endl;
   cout << "\t"
@@ -121,12 +121,15 @@ int pedirOpcionDelMenuEmpleado(deltronStruct deltron, string nombreEmpleado) {
   cout << "[3] Editar producto en almacén" << endl;
   cout << "[4] Registrar persona formando cola para recoger producto" << endl;
   cout << "[5] Entregar compra a persona formando cola (despachar)" << endl;
+  cout << "[6] Listar almacénes" << endl;
+  cout << "[7] Registrar nuevo almacén" << endl;
+  cout << "[8] Registrar relación entre almacenes" << endl;
   cout << endl;
   cout << "[0] Cerrar Sesión" << endl;
 
   cout << endl << "Introduzca la opción deseada:" << endl;
   cin >> opcionSeleccionada;
-  while (!(0 <= opcionSeleccionada && opcionSeleccionada <= 5)) {
+  while (!(0 <= opcionSeleccionada && opcionSeleccionada <= 8)) {
     cout << "Introdujo una opción inválida, por favor seleccione una opción "
             "válida:"
          << endl;
@@ -202,6 +205,18 @@ void menuEmpleado(deltronStruct& deltron, empleadoNodo* empleadoNodoPuntero) {
           break;
         case 5:
           despacharVenta(deltron);
+          Sleep(1500);
+          break;
+        case 6:
+          revisarAlmacenes(deltron);
+          system("pause");
+          break;
+        case 7:
+          registrarNuevoAlmacen(deltron);
+          Sleep(1500);
+          break;
+        case 8:
+          registrarRelacionEntreAlmacenes(deltron);
           Sleep(1500);
           break;
 
