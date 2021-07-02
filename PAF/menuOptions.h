@@ -27,6 +27,7 @@ empleadoNodo *loginEmpleado(deltronStruct deltron) {
   string dni;
   string clave;
   bool empleadoEncontrado = false;
+  string saludo;
 
   clearScreen();
   showAppTitle(deltron);
@@ -46,14 +47,15 @@ empleadoNodo *loginEmpleado(deltronStruct deltron) {
       if (empleadoNodoPuntero->empleado.claveDeAcceso == clave) {
         clearScreen();
 
-        gotoxy(10, 15);
-        cout << empleadoNodoPuntero->empleado.genero ? "Bienvenido "
-                                                     : "Bienvenida ";
+        gotoxy(5, 10);
+        saludo = empleadoNodoPuntero->empleado.genero ? "Bienvenido "
+                                                      : "Bienvenida ";
+        cout << saludo;
         cout << empleadoNodoPuntero->empleado.nombres << " "
              << empleadoNodoPuntero->empleado.apellidos;
         cout << endl;
 
-        gotoxy(0, 30);
+        gotoxy(10, 20);
         cout << "Ingresando...";
         addDelay(2);
         return empleadoNodoPuntero;
@@ -80,6 +82,7 @@ clienteNodo *loginCliente(deltronStruct deltron) {
   string dni;
   string clave;
   bool clienteEncontrado = false;
+  string saludo;
 
   clearScreen();
   showAppTitle(deltron);
@@ -99,14 +102,15 @@ clienteNodo *loginCliente(deltronStruct deltron) {
       if (clienteNodoPuntero->cliente.claveDeAcceso == clave) {
         clearScreen();
 
-        gotoxy(10, 15);
-        cout << clienteNodoPuntero->cliente.genero ? "Bienvenido "
-                                                   : "Bienvenida ";
+        gotoxy(5, 10);
+        saludo =
+            clienteNodoPuntero->cliente.genero ? "Bienvenido " : "Bienvenida ";
+        cout << saludo;
         cout << clienteNodoPuntero->cliente.nombres << " "
              << clienteNodoPuntero->cliente.apellidos;
         cout << endl;
 
-        gotoxy(0, 30);
+        gotoxy(10, 20);
         cout << "Ingresando...";
         addDelay(2);
         return clienteNodoPuntero;
