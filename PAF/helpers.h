@@ -283,3 +283,21 @@ string requestDate(string message) {
 
   return toString(year) + "/" + months[selectedMonth] + "/" + toString(day);
 }
+
+void esperarMostrandoTexto(string mensaje, bool esperaLarga = false) {
+  HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+  SetConsoleTextAttribute(hConsole, 2);
+
+  cout << mensaje;
+
+  for (int i = 0; i < 6; i++) {
+    if (esperaLarga)
+      Sleep(450);
+    else
+      Sleep(150);
+
+    cout << ".";
+  }
+
+  SetConsoleTextAttribute(hConsole, 15);
+}
