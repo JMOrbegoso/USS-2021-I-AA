@@ -5,27 +5,30 @@ using namespace std;
 
 // Fabricas
 
-empleadoStruct construirEmpleado(string nombres, string apellidos, bool genero,
-                                 string dni, float salario) {
+empleadoStruct construirEmpleado(string dni, string claveDeAcceso,
+                                 string nombres, string apellidos, bool genero,
+                                 float salario) {
   empleadoStruct empleado;
 
+  empleado.dni = dni;
+  empleado.claveDeAcceso = claveDeAcceso;
   empleado.nombres = nombres;
   empleado.apellidos = apellidos;
   empleado.genero = genero;
-  empleado.dni = dni;
   empleado.salario = salario;
 
   return empleado;
 }
 
-clienteStruct construirCliente(string nombres, string apellidos, bool genero,
-                               string dni) {
+clienteStruct construirCliente(string dni, string claveDeAcceso, string nombres,
+                               string apellidos, bool genero) {
   clienteStruct cliente;
 
+  cliente.dni = dni;
+  cliente.claveDeAcceso = claveDeAcceso;
   cliente.nombres = nombres;
   cliente.apellidos = apellidos;
   cliente.genero = genero;
-  cliente.dni = dni;
 
   cliente.productosEnCarritoDeCompra.cabecera = NULL;
   cliente.productosEnCarritoDeCompra.largo = 0;
@@ -368,14 +371,16 @@ void inicializacionDeData(deltronStruct &deltron) {
   deltron.ruc = "12345678910";
 
   // Construir empleados
-  empleado01 =
-      construirEmpleado("Jorge", "Gonzales Rojas", true, "11111111", 2000);
-  empleado02 =
-      construirEmpleado("Miguel", "Ramos Lopez", true, "22222222", 2000);
+  empleado01 = construirEmpleado("11111111", "clave123", "Jorge",
+                                 "Gonzales Rojas", true, 2000);
+  empleado02 = construirEmpleado("22222222", "clave123", "Miguel",
+                                 "Ramos Lopez", true, 2000);
 
   // Construir clientes
-  cliente01 = construirCliente("Tulio", "Ramos Lopez", true, "12121212");
-  cliente02 = construirCliente("Valery", "Marquez Gonzales", false, "13131313");
+  cliente01 =
+      construirCliente("12121212", "clave123", "Tulio", "Ramos Lopez", true);
+  cliente02 = construirCliente("13131313", "clave123", "Valery",
+                               "Marquez Gonzales", false);
 
   // Construir productos en almacen
   productoEnAlmacen01 =
