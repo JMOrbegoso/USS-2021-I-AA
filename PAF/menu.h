@@ -2,6 +2,54 @@
 
 using namespace std;
 
+void mostrarPresentacion() {
+  cout << "\t\t\t\t"
+       << "Bienvenido al PAF del curso de  Análisis de algoritmos [2021-I]"
+       << endl
+       << endl;
+  cout << "\t"
+       << "Desarrollado por el Grupo #08:" << endl
+       << endl;
+  cout << "->\tOrbegoso Rosas Juan Manuel" << endl;
+  cout << "->\tGutiérrez Chávez Sebastián Andree" << endl;
+  cout << "->\tSantamaria Flores Luzmila" << endl;
+  cout << "->\tVílchez Ruiz Juan Ismael" << endl;
+  cout << "->\tSánchez Sánchez Joselyn" << endl;
+}
+
+void mostrarInstrucciones() {
+  cout << "\t"
+       << "Instrucciones:" << endl
+       << endl;
+  cout << "->\tPara iniciar sesión como empleado puede registrarse o usar la "
+          "cuentas ya registrada:"
+       << endl;
+  cout << "\tDNI: '11111111'." << endl;
+  cout << endl;
+  cout << "->\tPara iniciar sesión como cliente puede registrarse o usar una "
+          "de las cuentas ya registradas:"
+       << endl;
+  cout << "\tDNI: '12121212', '13131313', '14141414'." << endl;
+  cout << endl;
+  cout << "->\tLa clave de estas cuentas de usuario ya creadas es '123456'."
+       << endl;
+}
+
+void mostrarPresentacionEInstrucciones() {
+  HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+  SetConsoleTextAttribute(hConsole, 3);
+
+  mostrarPresentacion();
+  cout << endl << endl;
+  mostrarInstrucciones();
+
+  SetConsoleTextAttribute(hConsole, 15);
+  pauseProcess();
+  esperarMostrandoTexto("Abriendo sistema virtual de la empresa Deltron SAC",
+                        true);
+  clearScreen();
+}
+
 int pedirOpcionDelMenuRol(deltronStruct deltron) {
   int opcionSeleccionada;
 
