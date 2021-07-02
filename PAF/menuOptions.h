@@ -23,14 +23,108 @@ void registrarCliente(deltronStruct &deltron) {
 }
 
 empleadoNodo *loginEmpleado(deltronStruct deltron) {
-  cout << endl << "ESTÁ HACIENDO LOGIN" << endl;
-  addDelay(1.5);
+  empleadoNodo *empleadoNodoPuntero;
+  string dni;
+  string clave;
+  bool empleadoEncontrado = false;
+
+  clearScreen();
+  showAppTitle(deltron);
+
+  gotoxy(20, 10);
+  cout << "Inicio de sesión de empleado" << endl << endl;
+
+  dni = requestText("Por favor ingrese su DNI", 8, 8);
+  clave = requestText("Por favor ingrese su contraseña", 6, 8);
+
+  empleadoNodoPuntero = deltron.empleados.cabecera;
+
+  while (empleadoNodoPuntero != NULL) {
+    if (empleadoNodoPuntero->empleado.dni == dni) {
+      empleadoEncontrado = true;
+
+      if (empleadoNodoPuntero->empleado.claveDeAcceso == clave) {
+        clearScreen();
+
+        gotoxy(10, 15);
+        cout << empleadoNodoPuntero->empleado.genero ? "Bienvenido "
+                                                     : "Bienvenida ";
+        cout << empleadoNodoPuntero->empleado.nombres << " "
+             << empleadoNodoPuntero->empleado.apellidos;
+        cout << endl;
+
+        gotoxy(0, 30);
+        cout << "Ingresando...";
+        addDelay(2);
+        return empleadoNodoPuntero;
+      } else {
+        cout << "Contraseña incorrecta, por favor corrijala" << endl;
+        addDelay(2);
+        return NULL;
+      }
+    }
+
+    empleadoNodoPuntero = empleadoNodoPuntero->siguiente;
+  }
+
+  if (!empleadoEncontrado) {
+    cout << "No fue encontrado su DNI. Usuario no existe" << endl;
+    addDelay(2);
+  }
+
   return NULL;
 }
 
 clienteNodo *loginCliente(deltronStruct deltron) {
-  cout << endl << "ESTÁ HACIENDO LOGIN" << endl;
-  addDelay(1.5);
+  clienteNodo *clienteNodoPuntero;
+  string dni;
+  string clave;
+  bool clienteEncontrado = false;
+
+  clearScreen();
+  showAppTitle(deltron);
+
+  gotoxy(20, 10);
+  cout << "Inicio de sesión de cliente" << endl << endl;
+
+  dni = requestText("Por favor ingrese su DNI", 8, 8);
+  clave = requestText("Por favor ingrese su contraseña", 6, 8);
+
+  clienteNodoPuntero = deltron.clientes.cabecera;
+
+  while (clienteNodoPuntero != NULL) {
+    if (clienteNodoPuntero->cliente.dni == dni) {
+      clienteEncontrado = true;
+
+      if (clienteNodoPuntero->cliente.claveDeAcceso == clave) {
+        clearScreen();
+
+        gotoxy(10, 15);
+        cout << clienteNodoPuntero->cliente.genero ? "Bienvenido "
+                                                   : "Bienvenida ";
+        cout << clienteNodoPuntero->cliente.nombres << " "
+             << clienteNodoPuntero->cliente.apellidos;
+        cout << endl;
+
+        gotoxy(0, 30);
+        cout << "Ingresando...";
+        addDelay(2);
+        return clienteNodoPuntero;
+      } else {
+        cout << "Contraseña incorrecta, por favor corrijala" << endl;
+        addDelay(2);
+        return NULL;
+      }
+    }
+
+    clienteNodoPuntero = clienteNodoPuntero->siguiente;
+  }
+
+  if (!clienteEncontrado) {
+    cout << "No fue encontrado su DNI. Usuario no existe" << endl;
+    addDelay(2);
+  }
+
   return NULL;
 }
 
