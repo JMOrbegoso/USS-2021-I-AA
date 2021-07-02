@@ -14,12 +14,12 @@ void showAppTitle(deltronStruct deltron) {
 
 void registrarEmpleado(deltronStruct &deltron) {
   cout << endl << "SE ESTÁ REGISTRANDO" << endl;
-  addDelay(1.5);
+  Sleep(1500);
 }
 
 void registrarCliente(deltronStruct &deltron) {
   cout << endl << "SE ESTÁ REGISTRANDO" << endl;
-  addDelay(1.5);
+  Sleep(1500);
 }
 
 empleadoNodo *loginEmpleado(deltronStruct deltron) {
@@ -57,11 +57,11 @@ empleadoNodo *loginEmpleado(deltronStruct deltron) {
 
         gotoxy(10, 20);
         cout << "Ingresando...";
-        addDelay(2);
+        Sleep(2000);
         return empleadoNodoPuntero;
       } else {
         cout << "Contraseña incorrecta, por favor corrijala" << endl;
-        addDelay(2);
+        Sleep(2000);
         return NULL;
       }
     }
@@ -71,7 +71,7 @@ empleadoNodo *loginEmpleado(deltronStruct deltron) {
 
   if (!empleadoEncontrado) {
     cout << "No fue encontrado su DNI. Usuario no existe" << endl;
-    addDelay(2);
+    Sleep(2000);
   }
 
   return NULL;
@@ -112,11 +112,11 @@ clienteNodo *loginCliente(deltronStruct deltron) {
 
         gotoxy(10, 20);
         cout << "Ingresando...";
-        addDelay(2);
+        Sleep(2000);
         return clienteNodoPuntero;
       } else {
         cout << "Contraseña incorrecta, por favor corrijala" << endl;
-        addDelay(2);
+        Sleep(2000);
         return NULL;
       }
     }
@@ -126,7 +126,7 @@ clienteNodo *loginCliente(deltronStruct deltron) {
 
   if (!clienteEncontrado) {
     cout << "No fue encontrado su DNI. Usuario no existe" << endl;
-    addDelay(2);
+    Sleep(2000);
   }
 
   return NULL;

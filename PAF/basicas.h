@@ -28,15 +28,6 @@ char *toCharArray(string text) {
   return charArray;
 }
 
-void addDelay(int sec) {
-#if defined(WIN32) || defined(_WIN32) || \
-    defined(__WIN32) && !defined(__CYGWIN__)
-  Sleep(sec * 1000);
-#else
-  system(toCharArray("sleep " + toString(sec)));
-#endif
-}
-
 void gotoxy(int x, int y) {
 #if defined(WIN32) || defined(_WIN32) || \
     defined(__WIN32) && !defined(__CYGWIN__)

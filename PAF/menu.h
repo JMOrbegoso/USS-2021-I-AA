@@ -190,19 +190,19 @@ void menuEmpleado(deltronStruct& deltron, empleadoNodo* empleadoNodoPuntero) {
           break;
         case 2:
           registrarProductoEnAlmacen(deltron);
-          addDelay(1.5);
+          Sleep(1500);
           break;
         case 3:
           editarProductoEnAlmacen(deltron);
-          addDelay(1.5);
+          Sleep(1500);
           break;
         case 4:
           registrarPersonaEnCola(deltron);
-          addDelay(1.5);
+          Sleep(1500);
           break;
         case 5:
           despacharVenta(deltron);
-          addDelay(1.5);
+          Sleep(1500);
           break;
 
         default:
@@ -238,19 +238,19 @@ void menuCliente(deltronStruct& deltron, clienteNodo* clienteNodoPuntero) {
           break;
         case 3:
           agregarProductoAlCarrito(deltron);
-          addDelay(1.5);
+          Sleep(1500);
           break;
         case 4:
           editarCantidadDeProductoEnCarrito(deltron);
-          addDelay(1.5);
+          Sleep(1500);
           break;
         case 5:
           quitarProductoDeCarrito(deltron);
-          addDelay(1.5);
+          Sleep(1500);
           break;
         case 6:
           realizarCompra(deltron);
-          addDelay(1.5);
+          Sleep(1500);
           break;
 
         default:
