@@ -37,24 +37,6 @@ void clearScreen() {
 #endif
 }
 
-void pauseProcess() {
-#if defined(WIN32) || defined(_WIN32) || \
-    defined(__WIN32) && !defined(__CYGWIN__)
-  system("pause");
-#else
-  string text;
-
-  cout << endl
-       << "Ingrese cualquier valor y presione ENTER para continuar" << endl;
-
-  do {
-    fflush(stdin);
-    getline(cin, text);
-  } while (text.length() == 0);
-
-#endif
-}
-
 void addDelay(int sec) {
 #if defined(WIN32) || defined(_WIN32) || \
     defined(__WIN32) && !defined(__CYGWIN__)

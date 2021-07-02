@@ -44,7 +44,7 @@ void mostrarPresentacionEInstrucciones() {
   mostrarInstrucciones();
 
   SetConsoleTextAttribute(hConsole, 15);
-  pauseProcess();
+  system("pause");
   esperarMostrandoTexto("Abriendo sistema virtual de la empresa Deltron SAC",
                         true);
   clearScreen();
@@ -186,7 +186,7 @@ void menuEmpleado(deltronStruct& deltron, empleadoNodo* empleadoNodoPuntero) {
       switch (opcionSeleccionada) {
         case 1:
           revisarVentas(deltron);
-          pauseProcess();
+          system("pause");
           break;
         case 2:
           registrarProductoEnAlmacen(deltron);
@@ -230,11 +230,11 @@ void menuCliente(deltronStruct& deltron, clienteNodo* clienteNodoPuntero) {
       switch (opcionSeleccionada) {
         case 1:
           revisarCatalogoDeAlmacen(deltron);
-          pauseProcess();
+          system("pause");
           break;
         case 2:
           buscarProductoEnAlmacenes(deltron);
-          pauseProcess();
+          system("pause");
           break;
         case 3:
           agregarProductoAlCarrito(deltron);
