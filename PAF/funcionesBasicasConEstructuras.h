@@ -478,15 +478,37 @@ void imprimirCabeceraAlmacenes(int y) {
   cout << "Departamento";
   gotoxy(25, y);
   cout << "Dirección";
+  gotoxy(50, y);
+  cout << "Almacenes proximos";
 }
 
-void imprimirAlmacen(almacenStruct almacen, int n, int y) {
+void imprimirAlmacen(almacenNodo *nodo, int n, int y) {
+  almacenVertice *vertice;
+  int x = 0;
+
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
-  cout << almacen.departamentoDelPeru;
+  cout << nodo->almacen.departamentoDelPeru;
   gotoxy(25, y);
-  cout << almacen.direccion;
+  cout << nodo->almacen.direccion;
+  vertice = nodo->adyacente;
+
+  if (vertice == NULL) {
+    gotoxy(50, y);
+    cout << "No hay destinos disponibles";
+    return;
+  }
+
+  while (vertice != NULL) {
+    gotoxy(50 + x, y);
+    cout << vertice->destino->almacen.departamentoDelPeru;
+
+    if (vertice->siguiente != NULL) cout << ", ";
+
+    x += (vertice->destino->almacen.departamentoDelPeru.length() + 2);
+    vertice = vertice->siguiente;
+  }
 }
 
 void imprimirCabeceraEmpleados(int y) {

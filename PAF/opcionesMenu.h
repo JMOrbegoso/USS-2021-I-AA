@@ -142,7 +142,27 @@ void registrarPersonaEnCola(deltronStruct &deltron) {}
 
 void despacharVenta(deltronStruct &deltron) {}
 
-void revisarAlmacenes(deltronStruct deltron) {}
+void revisarAlmacenes(deltronStruct deltron) {
+  almacenNodo *auxCityNode;
+  almacenVertice *tempCityEdge;
+
+  system("cls");
+  showAppTitle(deltron);
+
+  gotoxy(20, 8);
+  cout << "Lista de todas las ciudades con sus destinos:" << endl;
+
+  imprimirCabeceraAlmacenes(10);
+
+  auxCityNode = deltron.almacenes.nodo;
+
+  for (int i = 0; auxCityNode != NULL; i++) {
+    imprimirAlmacen(auxCityNode, i, 12 + i);
+    auxCityNode = auxCityNode->siguiente;
+  }
+
+  cout << endl << endl;
+}
 
 void registrarNuevoAlmacen(deltronStruct &deltron) {}
 
