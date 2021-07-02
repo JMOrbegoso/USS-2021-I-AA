@@ -371,15 +371,15 @@ void inicializacionDeData(deltronStruct &deltron) {
   deltron.ruc = "12345678910";
 
   // Construir empleados
-  empleado01 = construirEmpleado("11111111", "clave123", "Jorge",
+  empleado01 = construirEmpleado("11111111", "123456", "Jorge",
                                  "Gonzales Rojas", true, 2000);
-  empleado02 = construirEmpleado("22222222", "clave123", "Miguel",
-                                 "Ramos Lopez", true, 2000);
+  empleado02 = construirEmpleado("22222222", "123456", "Miguel", "Ramos Lopez",
+                                 true, 2000);
 
   // Construir clientes
   cliente01 =
-      construirCliente("12121212", "clave123", "Tulio", "Ramos Lopez", true);
-  cliente02 = construirCliente("13131313", "clave123", "Valery",
+      construirCliente("12121212", "123456", "Tulio", "Ramos Lopez", true);
+  cliente02 = construirCliente("13131313", "123456", "Valery",
                                "Marquez Gonzales", false);
 
   // Construir productos en almacen
