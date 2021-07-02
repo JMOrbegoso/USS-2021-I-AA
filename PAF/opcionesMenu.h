@@ -1,4 +1,4 @@
-#include "structFunctions.h"
+#include "funcionesBasicasConEstructuras.h"
 
 void showAppTitle(deltronStruct deltron) {
   cout << endl;

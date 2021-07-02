@@ -1,5 +1,5 @@
-#include "helpers.h"
-#include "structs.h"
+#include "basicas.h"
+#include "estructuras.h"
 
 using namespace std;
 
