@@ -5,15 +5,15 @@
 
 using namespace std;
 
-string toLowerCase(string text) {
+string aMinuscula(string text) {
   /*for_each(text.begin(), text.end(), [](char& c) {
       c = ::tolower(c);
   });*/
   return text;
 }
 
-string toString(int number) { return to_string(number); }
-string toString(float number) { return to_string(number); }
+string convertirAString(int number) { return to_string(number); }
+string convertirAString(float number) { return to_string(number); }
 
 char *toCharArray(string text) {
   char *charArray;
@@ -31,26 +31,26 @@ void gotoxy(int x, int y) {
   SetConsoleCursorPosition(hcon, dwPos);
 }
 
-string concatenateStrings(string acumulator, string toAdd, string separator) {
+string concatenarStrings(string acumulator, string toAdd, string separator) {
   if (acumulator.length() > 0)
     return acumulator + separator + toAdd;
   else
     return toAdd;
 }
 
-bool containsText(string textBase, string textToFind) {
-  if (toLowerCase(textBase).find(toLowerCase(textToFind), 0) != string::npos) {
+bool contieneTexto(string textBase, string textToFind) {
+  if (aMinuscula(textBase).find(aMinuscula(textToFind), 0) != string::npos) {
     return true;
   }
   return false;
 }
 
-string getGenre(bool genre) { return genre ? "Masculino" : "Femenino"; }
+string conseguirGenero(bool genre) { return genre ? "Masculino" : "Femenino"; }
 
-string requestText(string message, long unsigned int minLength) {
+string leerTexto(string mensaje, long unsigned int minLength) {
   string text;
 
-  cout << message << " (Mínimo " << minLength << " caracteres)" << endl;
+  cout << mensaje << " (Mínimo " << minLength << " caracteres)" << endl;
 
   do {
     fflush(stdin);
@@ -60,11 +60,11 @@ string requestText(string message, long unsigned int minLength) {
   return text;
 }
 
-string requestText(string message, long unsigned int minLength,
-                   long unsigned int maxLength) {
+string leerTexto(string mensaje, long unsigned int minLength,
+                 long unsigned int maxLength) {
   string text;
 
-  cout << message << " (Mínimo " << minLength << " y máximo " << maxLength
+  cout << mensaje << " (Mínimo " << minLength << " y máximo " << maxLength
        << " caracteres)" << endl;
 
   do {
@@ -75,10 +75,10 @@ string requestText(string message, long unsigned int minLength,
   return text;
 }
 
-bool requestGenre(string message) {
+bool leerGenero(string mensaje) {
   char genre;
 
-  cout << message
+  cout << mensaje
        << ". Ingrese 'm' para genero masculino o 'f' para genero femenino."
        << endl;
   cin >> genre;
@@ -92,7 +92,7 @@ bool requestGenre(string message) {
   return genre == 'm';
 }
 
-int requestIntegerNumber(string requestMessage, string errorMessage, int min) {
+int leerNumeroEntero(string requestMessage, string errorMessage, int min) {
   int integer;
 
   cout << requestMessage << endl;
@@ -107,8 +107,8 @@ int requestIntegerNumber(string requestMessage, string errorMessage, int min) {
   return integer;
 }
 
-int requestIntegerNumber(string requestMessage, string errorMessage, int min,
-                         int max) {
+int leerNumeroEntero(string requestMessage, string errorMessage, int min,
+                     int max) {
   int integer;
 
   cout << requestMessage << endl;
@@ -123,8 +123,7 @@ int requestIntegerNumber(string requestMessage, string errorMessage, int min,
   return integer;
 }
 
-float requestFloatNumber(string requestMessage, string errorMessage,
-                         float min) {
+float leerNumeroDecimal(string requestMessage, string errorMessage, float min) {
   float amount;
 
   cout << requestMessage << endl;
@@ -139,8 +138,8 @@ float requestFloatNumber(string requestMessage, string errorMessage,
   return amount;
 }
 
-float requestFloatNumber(string requestMessage, string errorMessage, float min,
-                         float max) {
+float leerNumeroDecimal(string requestMessage, string errorMessage, float min,
+                        float max) {
   float amount;
 
   cout << requestMessage << endl;
@@ -155,32 +154,33 @@ float requestFloatNumber(string requestMessage, string errorMessage, float min,
   return amount;
 }
 
-float requestMoney(string message, float min) {
+float leerDinero(string mensaje, float min) {
   string requestMessage, errorMessage;
 
-  requestMessage = message + " (Mínimo S/" + toString(min) + ")";
-  errorMessage =
-      "Por favor, ingrese una cantidad mínima de S/" + toString(min) + ".";
-
-  return requestFloatNumber(requestMessage, errorMessage, min);
-}
-
-float requestMoney(string message, float min, float max) {
-  string requestMessage, errorMessage;
-
-  requestMessage = message + " (Mínimo S/" + toString(min) + " y máximo de S/" +
-                   toString(max) + ")";
+  requestMessage = mensaje + " (Mínimo S/" + convertirAString(min) + ")";
   errorMessage = "Por favor, ingrese una cantidad mínima de S/" +
-                 toString(min) + " y máxima de S/" + toString(max) + ".";
+                 convertirAString(min) + ".";
 
-  return requestFloatNumber(requestMessage, errorMessage, min);
+  return leerNumeroDecimal(requestMessage, errorMessage, min);
 }
 
-string requestDate(string message) {
+float leerDinero(string mensaje, float min, float max) {
+  string requestMessage, errorMessage;
+
+  requestMessage = mensaje + " (Mínimo S/" + convertirAString(min) +
+                   " y máximo de S/" + convertirAString(max) + ")";
+  errorMessage = "Por favor, ingrese una cantidad mínima de S/" +
+                 convertirAString(min) + " y máxima de S/" +
+                 convertirAString(max) + ".";
+
+  return leerNumeroDecimal(requestMessage, errorMessage, min);
+}
+
+string leerFecha(string mensaje) {
   string date;
 
   // Year
-  int year = requestIntegerNumber(
+  int year = leerNumeroEntero(
       "Año:", "Por favor ingrese un valor entre 1900 y 2050", 1900, 2050);
 
   // Month
@@ -230,11 +230,13 @@ string requestDate(string message) {
   }
 
   // Day
-  int day = requestIntegerNumber(
+  int day = leerNumeroEntero(
       "Día del mes:",
-      "Por favor ingrese un valor entre 1 y " + toString(maxDays), 1, maxDays);
+      "Por favor ingrese un valor entre 1 y " + convertirAString(maxDays), 1,
+      maxDays);
 
-  return toString(year) + "/" + months[selectedMonth] + "/" + toString(day);
+  return convertirAString(year) + "/" + months[selectedMonth] + "/" +
+         convertirAString(day);
 }
 
 void esperarMostrandoTexto(string mensaje, bool esperaLarga = false) {

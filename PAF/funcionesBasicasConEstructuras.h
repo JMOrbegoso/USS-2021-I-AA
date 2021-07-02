@@ -510,7 +510,7 @@ void imprimirEmpleado(empleadoStruct empleado, int n, int y) {
   gotoxy(45, y);
   cout << empleado.dni;
   gotoxy(55, y);
-  cout << getGenre(empleado.genero);
+  cout << conseguirGenero(empleado.genero);
   gotoxy(65, y);
   cout << empleado.salario;
 }
@@ -534,7 +534,7 @@ void imprimirCliente(clienteStruct cliente, int n, int y) {
   gotoxy(45, y);
   cout << cliente.dni;
   gotoxy(55, y);
-  cout << getGenre(cliente.genero);
+  cout << conseguirGenero(cliente.genero);
 }
 
 void imprimirCabeceraProductoEnAlmacen(int y) {

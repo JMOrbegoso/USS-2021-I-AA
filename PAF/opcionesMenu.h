@@ -35,8 +35,8 @@ empleadoNodo *loginEmpleado(deltronStruct deltron) {
   gotoxy(20, 10);
   cout << "Inicio de sesión de empleado" << endl << endl;
 
-  dni = requestText("Por favor ingrese su DNI", 8, 8);
-  clave = requestText("Por favor ingrese su contraseña", 6, 8);
+  dni = leerTexto("Por favor ingrese su DNI", 8, 8);
+  clave = leerTexto("Por favor ingrese su contraseña", 6, 8);
 
   empleadoNodoPuntero = deltron.empleados.cabecera;
 
@@ -90,8 +90,8 @@ clienteNodo *loginCliente(deltronStruct deltron) {
   gotoxy(20, 10);
   cout << "Inicio de sesión de cliente" << endl << endl;
 
-  dni = requestText("Por favor ingrese su DNI", 8, 8);
-  clave = requestText("Por favor ingrese su contraseña", 6, 8);
+  dni = leerTexto("Por favor ingrese su DNI", 8, 8);
+  clave = leerTexto("Por favor ingrese su contraseña", 6, 8);
 
   clienteNodoPuntero = deltron.clientes.cabecera;
 
