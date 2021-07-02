@@ -47,13 +47,13 @@ void mostrarPresentacionEInstrucciones() {
   system("pause");
   esperarMostrandoTexto("Abriendo sistema virtual de la empresa Deltron SAC",
                         true);
-  clearScreen();
+  system("cls");
 }
 
 int pedirOpcionDelMenuRol(deltronStruct deltron) {
   int opcionSeleccionada;
 
-  clearScreen();
+  system("cls");
   showAppTitle(deltron);
 
   cout << endl << "¿Cúal es su rol?" << endl << endl;
@@ -77,7 +77,7 @@ int pedirOpcionDelMenuRol(deltronStruct deltron) {
 int pedirOpcionDelMenuLogin(deltronStruct deltron, string rol) {
   int opcionSeleccionada;
 
-  clearScreen();
+  system("cls");
   showAppTitle(deltron);
 
   cout << endl;
@@ -106,7 +106,7 @@ int pedirOpcionDelMenuLogin(deltronStruct deltron, string rol) {
 int pedirOpcionDelMenuEmpleado(deltronStruct deltron, string nombreEmpleado) {
   int opcionSeleccionada;
 
-  clearScreen();
+  system("cls");
   showAppTitle(deltron);
 
   cout << endl;
@@ -140,7 +140,7 @@ int pedirOpcionDelMenuCliente(deltronStruct deltron,
                               string razonSocialCliente) {
   int opcionSeleccionada;
 
-  clearScreen();
+  system("cls");
   showAppTitle(deltron);
 
   cout << endl;

@@ -29,7 +29,7 @@ empleadoNodo *loginEmpleado(deltronStruct deltron) {
   bool empleadoEncontrado = false;
   string saludo;
 
-  clearScreen();
+  system("cls");
   showAppTitle(deltron);
 
   gotoxy(20, 10);
@@ -45,7 +45,7 @@ empleadoNodo *loginEmpleado(deltronStruct deltron) {
       empleadoEncontrado = true;
 
       if (empleadoNodoPuntero->empleado.claveDeAcceso == clave) {
-        clearScreen();
+        system("cls");
 
         gotoxy(5, 10);
         saludo = empleadoNodoPuntero->empleado.genero ? "Bienvenido "
@@ -84,7 +84,7 @@ clienteNodo *loginCliente(deltronStruct deltron) {
   bool clienteEncontrado = false;
   string saludo;
 
-  clearScreen();
+  system("cls");
   showAppTitle(deltron);
 
   gotoxy(20, 10);
@@ -100,7 +100,7 @@ clienteNodo *loginCliente(deltronStruct deltron) {
       clienteEncontrado = true;
 
       if (clienteNodoPuntero->cliente.claveDeAcceso == clave) {
-        clearScreen();
+        system("cls");
 
         gotoxy(5, 10);
         saludo =
