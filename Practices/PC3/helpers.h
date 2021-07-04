@@ -290,3 +290,18 @@ string requestDate(string message) {
 
   return toString(year) + "/" + months[selectedMonth] + "/" + toString(day);
 }
+
+bool requestBool(string message) {
+  char boolValue;
+
+  cout << message << ". Ingrese '0' para FALSO o '1' para VERDADERO." << endl;
+  cin >> boolValue;
+
+  while (!(boolValue == '0' || boolValue == '1')) {
+    cout << "Por favor, ingrese solo '0' o '1':" << endl;
+    fflush(stdin);
+    cin >> boolValue;
+  }
+
+  return boolValue == '1';
+}
