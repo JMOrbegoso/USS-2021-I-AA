@@ -186,6 +186,59 @@ void dataInitialization(bankStruct &bank) {
 
 // Selectors/Pickers
 
+branchNode *iterateBranchesGraph(branchesGraph branches, int index) {
+  branchNode *branchNodePointer;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > branches.length) {
+    return NULL;
+  }
+
+  branchNodePointer = branches.node;
+
+  for (int i = 1; branchNodePointer != NULL; i++) {
+    if (i == index) {
+      return branchNodePointer;
+    }
+    branchNodePointer = branchNodePointer->next;
+  }
+
+  return NULL;
+}
+
+branchNode *requestBranch(branchesGraph branches, string message) {
+  int selectedOption;
+  branchNode *branchNodePointer;
+
+  cout << endl
+       << message << "." << endl
+       << "Escoja entre las " << branches.length
+       << " sucursales siguientes:" << endl
+       << endl;
+
+  branchNodePointer = branches.node;
+
+  for (int i = 1; branchNodePointer != NULL; i++) {
+    cout << "[" << i << "] - " << branchNodePointer->branch.address << endl;
+    branchNodePointer = branchNodePointer->next;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
+
+  while (!(1 <= selectedOption && selectedOption <= branches.length)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << branches.length
+         << "." << endl;
+    fflush(stdin);
+    cin >> selectedOption;
+  }
+
+  return iterateBranchesGraph(branches, selectedOption);
+}
+
 // Printers
 
 void showBranchesListHeader(int y) {
