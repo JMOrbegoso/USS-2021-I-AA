@@ -164,11 +164,11 @@ void dataInitialization(bankStruct &bank) {
   client4 = buildClient("12411284", "Micaela", "Espinoza", false);
   client5 = buildClient("12411284", "Eusebia", "Mendez", true);
 
-  insert(branch_Bolognesi.clients, client1);
-  insert(branch_Bolognesi.clients, client2);
-  insert(branch_JPrado.clients, client3);
-  insert(branch_JPrado.clients, client4);
-  insert(branch_FCabrera.clients, client5);
+  enqueue(branch_Bolognesi.clients, client1);
+  enqueue(branch_Bolognesi.clients, client2);
+  enqueue(branch_JPrado.clients, client3);
+  enqueue(branch_JPrado.clients, client4);
+  enqueue(branch_FCabrera.clients, client5);
 
   insert(branch_Bolognesi.workers, worker1);
   insert(branch_Bolognesi.workers, worker2);
@@ -179,4 +179,97 @@ void dataInitialization(bankStruct &bank) {
   insert(bank.branches, branch_Bolognesi);
   insert(bank.branches, branch_JPrado);
   insert(bank.branches, branch_FCabrera);
+}
+
+// Selectors/Pickers
+
+// Printers
+
+void showBranchesListHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Dirección";
+  gotoxy(40, y);
+  cout << "Destinos";
+}
+
+void showBranch(branchNode *node, int i, int y) {
+  branchEdge *edge;
+  int x = 0;
+
+  gotoxy(0, y);
+  cout << i;
+  gotoxy(5, y);
+  cout << node->branch.address;
+
+  edge = node->adjacent;
+
+  if (edge == NULL) {
+    gotoxy(40, y);
+    cout << "No hay sucursales relacionadas a esta";
+    return;
+  }
+
+  while (edge != NULL) {
+    gotoxy(40 + x, y);
+    cout << edge->destiny->branch.address;
+
+    if (edge->next != NULL) cout << ", ";
+
+    x += (edge->destiny->branch.address.length() + 2);
+    edge = edge->next;
+  }
+}
+
+void showWorkersListHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Nombres";
+  gotoxy(25, y);
+  cout << "Apellidos";
+  gotoxy(50, y);
+  cout << "DNI";
+  gotoxy(60, y);
+  cout << "Salario";
+}
+
+void showWorker(workerStruct worker, int i, int y) {
+  gotoxy(0, y);
+  cout << i;
+  gotoxy(5, y);
+  cout << worker.firstName;
+  gotoxy(25, y);
+  cout << worker.lastName;
+  gotoxy(50, y);
+  cout << worker.dni;
+  gotoxy(60, y);
+  cout << worker.salary;
+}
+
+void showClientsListHeader(int y) {
+  gotoxy(0, y);
+  cout << "#";
+  gotoxy(5, y);
+  cout << "Nombres";
+  gotoxy(25, y);
+  cout << "Apellidos";
+  gotoxy(50, y);
+  cout << "DNI";
+  gotoxy(60, y);
+  cout << "Tiene Cuenta de Ahorros";
+}
+
+void showClient(clientStruct client, int i, int y) {
+  gotoxy(0, y);
+  cout << i;
+  gotoxy(5, y);
+  cout << client.firstName;
+  gotoxy(25, y);
+  cout << client.lastName;
+  gotoxy(50, y);
+  cout << client.dni;
+  gotoxy(60, y);
+  cout << client.hasSavingsAccount ? "Si" : "No";
 }
