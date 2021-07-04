@@ -105,7 +105,43 @@ void registerNewWorker(bankStruct &bank) {
   cout << endl << endl;
 }
 
-void findClient(bankStruct bank) {}
+void findClient(bankStruct bank) {
+  branchNode *branchNodePointer;
+  clientNode *clientNodePointer;
+  string lastNameToFind;
+
+  lastNameToFind =
+      requestText("Ingrese el apellido del cliente que quiere buscar", 1);
+
+  clearScreen();
+  showAppTitle(bank);
+
+  gotoxy(20, 10);
+  cout << "Clientes registrados con un apellido similar a " << lastNameToFind
+       << ":" << endl;
+
+  showClientsListHeader(12);
+
+  branchNodePointer = bank.branches.node;
+
+  int i = 1;
+  while (branchNodePointer != NULL) {
+    clientNodePointer = branchNodePointer->branch.clients.head;
+
+    while (clientNodePointer != NULL) {
+      if (containsText(clientNodePointer->client.lastName, lastNameToFind)) {
+        showClient(clientNodePointer->client, i, i + 13);
+        i++;
+      }
+
+      clientNodePointer = clientNodePointer->next;
+    }
+
+    branchNodePointer = branchNodePointer->next;
+  }
+
+  cout << endl << endl;
+}
 
 void showBankBranches(bankStruct bank) {
   branchNode *auxBranchNode;
