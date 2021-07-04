@@ -2,6 +2,8 @@
 
 using namespace std;
 
+struct branchEdge;
+
 // Estructura base de Persona
 struct personStruct {
   string dni;
@@ -16,12 +18,12 @@ struct clientStruct : personStruct {
 
 struct clientNode {
   clientStruct client;
-  clientNode *prev;
   clientNode *next;
 };
 
 struct clientsQueue {
   clientNode *head;
+  clientNode *tail;
   int length;
 };
 
@@ -32,7 +34,6 @@ struct workerStruct : personStruct {
 
 struct workerNode {
   workerStruct worker;
-  workerNode *prev;
   workerNode *next;
 };
 
