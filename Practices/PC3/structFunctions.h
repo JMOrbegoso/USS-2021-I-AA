@@ -318,6 +318,8 @@ void showClientsListHeader(int y) {
 }
 
 void showClient(clientStruct client, int i, int y) {
+  string hasSavingsAccountText;
+
   gotoxy(0, y);
   cout << i;
   gotoxy(5, y);
@@ -327,5 +329,6 @@ void showClient(clientStruct client, int i, int y) {
   gotoxy(50, y);
   cout << client.dni;
   gotoxy(60, y);
-  cout << client.hasSavingsAccount ? "Si" : "No";
+  hasSavingsAccountText = client.hasSavingsAccount ? "Si" : "No";
+  cout << hasSavingsAccountText;
 }
