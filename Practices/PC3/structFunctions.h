@@ -148,6 +148,9 @@ void dataInitialization(bankStruct &bank) {
   clientStruct client1, client2, client3, client4, client5;
   branchStruct branch_Bolognesi, branch_JPrado, branch_FCabrera;
 
+  bank.businessName = "Brav S.A.C.";
+  bank.ruc = "12345678910";
+
   branch_Bolognesi = buildBranch("Av. Bolognesi 446");
   branch_JPrado = buildBranch("Av. Javier Prado 146");
   branch_FCabrera = buildBranch("Av. Francisco Cabrera 754");
