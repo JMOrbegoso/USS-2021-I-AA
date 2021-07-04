@@ -34,7 +34,45 @@ void registerNewBankBranch(bankStruct &bank) {
   cout << endl << endl;
 }
 
-void registerBankBranchesRelation(bankStruct &bank) {}
+void registerBankBranchesRelation(bankStruct &bank) {
+  branchNode *originBranchNodePointer, *destinationBranchNodePointer;
+  branchEdge *newBranchEdge = new struct branchEdge;
+
+  clearScreen();
+  showAppTitle(bank);
+
+  gotoxy(20, 8);
+  cout << "Registrar nuevo enlace entre dos sucursales:" << endl;
+
+  if (bank.branches.node == NULL || bank.branches.node->next == NULL) {
+    cout << "Primero debe de añadir al menos 2 sucursales al grafo.";
+    cout << endl << endl;
+    return;
+  }
+
+  newBranchEdge->next = NULL;
+
+  originBranchNodePointer =
+      requestBranch(bank.branches, "Escoja la sucursal de origen");
+
+  if (originBranchNodePointer == NULL) {
+    cout << "Introdujo una sucursal no valida";
+    cout << endl << endl;
+    return;
+  }
+
+  destinationBranchNodePointer =
+      requestBranch(bank.branches, "Escoja la sucursal de destino");
+
+  if (destinationBranchNodePointer == NULL) {
+    cout << "Introdujo una sucursal no valida";
+    cout << endl << endl;
+    return;
+  }
+
+  addBranchRelation(originBranchNodePointer, destinationBranchNodePointer,
+                    newBranchEdge);
+}
 
 void registerNewClient(bankStruct &bank) {
   clientStruct newClient;
