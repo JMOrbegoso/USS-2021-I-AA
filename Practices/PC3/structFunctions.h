@@ -155,17 +155,17 @@ void dataInitialization(bankStruct &bank) {
   branch_JPrado = buildBranch("Av. Javier Prado 146");
   branch_FCabrera = buildBranch("Av. Francisco Cabrera 754");
 
-  worker1 = buildWorker("12411284", "Isabela", "Apolinario", 1200);
-  worker2 = buildWorker("12411284", "Joel", "Rojas", 1200);
-  worker3 = buildWorker("12411284", "Felipe", "Gonzales", 1200);
-  worker4 = buildWorker("12411284", "Marcelo", "Marquez", 1200);
-  worker5 = buildWorker("12411284", "Josefina", "Fernandez", 1200);
+  worker1 = buildWorker("97561243", "Isabela", "Apolinario", 1200);
+  worker2 = buildWorker("82419984", "Joel", "Rojas", 1200);
+  worker3 = buildWorker("10606284", "Felipe", "Gonzales", 1200);
+  worker4 = buildWorker("97612743", "Marcelo", "Marquez", 1200);
+  worker5 = buildWorker("30411284", "Josefina", "Fernandez", 1200);
 
-  client1 = buildClient("12411284", "Nico", "Lopez", true);
-  client2 = buildClient("12411284", "Lucia", "Castañeda", false);
-  client3 = buildClient("12411284", "Jose", "Perez", true);
+  client1 = buildClient("10110284", "Nico", "Lopez", true);
+  client2 = buildClient("32411284", "Lucia", "Castañeda", false);
+  client3 = buildClient("11061283", "Jose", "Perez", true);
   client4 = buildClient("12411284", "Micaela", "Espinoza", false);
-  client5 = buildClient("12411284", "Eusebia", "Mendez", true);
+  client5 = buildClient("85561243", "Eusebia", "Mendez", true);
 
   enqueue(branch_Bolognesi.clients, client1);
   enqueue(branch_Bolognesi.clients, client2);
