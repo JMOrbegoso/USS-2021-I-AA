@@ -48,7 +48,7 @@ void mainMenu(studentsList &students) {
           break;
 
         case 3:
-          orderStudents(students);
+          orderStudentsWithBubbleSort(students);
           addDelay(1.5);
           break;
       }
