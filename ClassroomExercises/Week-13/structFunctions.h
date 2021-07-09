@@ -46,13 +46,24 @@ void collectionsInitialization(studentsList &students) {
 }
 
 void dataInitialization(studentsList &students) {
-  studentStruct student1, student2;
+  studentStruct student1, student2, student3, student4, student5, student6,
+      student7;
 
   student1 = buildStudent("10101010", "Julio", "Gonzales");
-  student2 = buildStudent("10101010", "Marcos", "Rojas");
+  student2 = buildStudent("20202020", "Marcos", "Rojas");
+  student3 = buildStudent("24202820", "Marta", "Zapata");
+  student4 = buildStudent("48202820", "Pedro", "Villegas");
+  student5 = buildStudent("30303030", "Jose", "Ramirez");
+  student6 = buildStudent("81202820", "Maria", "Perez");
+  student7 = buildStudent("72303030", "Carla", "Cardenas");
 
   insert(students, student1);
   insert(students, student2);
+  insert(students, student3);
+  insert(students, student4);
+  insert(students, student5);
+  insert(students, student6);
+  insert(students, student7);
 }
 
 // Printers
