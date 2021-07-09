@@ -36,11 +36,13 @@ clienteStruct construirCliente(string dni, string claveDeAcceso, string nombres,
   return cliente;
 }
 
-productoEnAlmacenStruct construirProductoEnAlmacen(string nombre, string marca,
-                                                   string tipo, float precio,
+productoEnAlmacenStruct construirProductoEnAlmacen(string codigo, string nombre,
+                                                   string marca, string tipo,
+                                                   float precio,
                                                    unsigned long stock) {
   productoEnAlmacenStruct productoEnAlmacen;
 
+  productoEnAlmacen.codigo = codigo;
   productoEnAlmacen.nombre = nombre;
   productoEnAlmacen.marca = marca;
   productoEnAlmacen.tipo = tipo;
@@ -51,10 +53,11 @@ productoEnAlmacenStruct construirProductoEnAlmacen(string nombre, string marca,
 }
 
 productoEnCarritoDeCompraStruct construirProductoEnCarritoDeCompra(
-    string nombre, string marca, string tipo, float precio,
+    string codigo, string nombre, string marca, string tipo, float precio,
     unsigned long cantidad) {
   productoEnCarritoDeCompraStruct productoEnCarritoDeCompra;
 
+  productoEnCarritoDeCompra.codigo = codigo;
   productoEnCarritoDeCompra.nombre = nombre;
   productoEnCarritoDeCompra.marca = marca;
   productoEnCarritoDeCompra.tipo = tipo;
@@ -64,11 +67,13 @@ productoEnCarritoDeCompraStruct construirProductoEnCarritoDeCompra(
   return productoEnCarritoDeCompra;
 }
 
-productoCompradoStruct construirProductoComprado(string nombre, string marca,
-                                                 string tipo, float precio,
+productoCompradoStruct construirProductoComprado(string codigo, string nombre,
+                                                 string marca, string tipo,
+                                                 float precio,
                                                  unsigned long cantidad) {
   productoCompradoStruct productoComprado;
 
+  productoComprado.codigo = codigo;
   productoComprado.nombre = nombre;
   productoComprado.marca = marca;
   productoComprado.tipo = tipo;
@@ -383,26 +388,26 @@ void inicializacionDeData(deltronStruct &deltron) {
                                "Marquez Gonzales", false);
 
   // Construir productos en almacen
-  productoEnAlmacen01 =
-      construirProductoEnAlmacen("i7 10700K", "Intel", "CPU", 1900, 10);
-  productoEnAlmacen02 =
-      construirProductoEnAlmacen("Ryzen 7 3700", "AMD", "CPU", 1700, 15);
-  productoEnAlmacen03 =
-      construirProductoEnAlmacen("GeForce 1030", "Nvidia", "GPU", 400, 20);
+  productoEnAlmacen01 = construirProductoEnAlmacen(
+      "intel-i7-10700K", "i7 10700K", "Intel", "CPU", 1900, 10);
+  productoEnAlmacen02 = construirProductoEnAlmacen(
+      "amd-ryzen7-3700", "Ryzen 7 3700", "AMD", "CPU", 1700, 15);
+  productoEnAlmacen03 = construirProductoEnAlmacen(
+      "nvidia-geforce-1030", "GeForce 1030", "Nvidia", "GPU", 400, 20);
 
   // Construir producto en carrito de compra
-  productoEnCarritoDeCompra01 =
-      construirProductoEnCarritoDeCompra("i7 10700K", "Intel", "CPU", 1900, 1);
+  productoEnCarritoDeCompra01 = construirProductoEnCarritoDeCompra(
+      "intel-i7-10700K", "i7 10700K", "Intel", "CPU", 1900, 1);
 
   // Construir personas recogiendo compra
   personaRecogiendoCompra01 = construirPersonaRecogiendoCompra(
       "Jorge", "Martinez", "15151515", "2021-06-30 10:00:00");
 
   // Construir productos comprados
-  productoComprado01 =
-      construirProductoComprado("GeForce 1030", "Nvidia", "GPU", 400, 1);
-  productoComprado02 =
-      construirProductoComprado("WD Black SD400", "WD", "Disco Duro", 380, 1);
+  productoComprado01 = construirProductoComprado(
+      "nvidia-geforce-1030", "GeForce 1030", "Nvidia", "GPU", 400, 1);
+  productoComprado02 = construirProductoComprado(
+      "wd-black-sd400", "Black SD400", "WD", "Disco Duro", 380, 1);
 
   // Construir compras realizadas
   compra01 = construirCompra("Tulio", "Ramos Lopez", "12121212",

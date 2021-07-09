@@ -6,6 +6,7 @@ struct almacenVertice;
 
 // Producto
 struct productoBaseStruct {
+  string codigo;
   string nombre;
   string marca;
   string tipo;
