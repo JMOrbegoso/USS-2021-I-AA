@@ -112,9 +112,11 @@ compraStruct construirCompra(string nombresCliente, string apellidosCliente,
   return compra;
 }
 
-almacenStruct construirAlmacen(string departamentoDelPeru, string direccion) {
+almacenStruct construirAlmacen(string codigoAlmacen, string departamentoDelPeru,
+                               string direccion) {
   almacenStruct almacen;
 
+  almacen.codigoAlmacen = codigoAlmacen;
   almacen.departamentoDelPeru = departamentoDelPeru;
   almacen.direccion = direccion;
 
@@ -414,9 +416,11 @@ void inicializacionDeData(deltronStruct &deltron) {
                              "2021-06-20 10:00:00", "Recogida");
 
   // Construir almacenes
-  almacenLima = construirAlmacen("Lima", "Av. Lima 747");
-  almacenTrujillo = construirAlmacen("Trujillo", "Av. Trujillo 747");
-  almacenChiclayo = construirAlmacen("Chiclayo", "Av. Chiclayo 747");
+  almacenLima = construirAlmacen("lima1", "Lima", "Av. Lima 747");
+  almacenTrujillo =
+      construirAlmacen("trujillo1", "Trujillo", "Av. Trujillo 747");
+  almacenChiclayo =
+      construirAlmacen("chiclayo1", "Chiclayo", "Av. Chiclayo 747");
 
   // Insertar empleados
   insertar(deltron.empleados, empleado01);

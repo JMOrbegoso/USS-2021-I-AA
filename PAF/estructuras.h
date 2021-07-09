@@ -48,6 +48,7 @@ struct productoEnCarritoDeCompraNodo {
 };
 
 struct productosEnCarritoDeCompraPila {
+  string codigoAlmacen;
   productoEnCarritoDeCompraNodo *cabecera;
   int largo;
 };
@@ -103,6 +104,7 @@ struct personasRecogiendoComprasCola {
 
 // Almacen
 struct almacenStruct {
+  string codigoAlmacen;
   string departamentoDelPeru;
   string direccion;
   productosEnAlmacenLista productosEnAlmacen;
