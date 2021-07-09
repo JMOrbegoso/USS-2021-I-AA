@@ -281,36 +281,36 @@ void insertar(comprasLista &compras, compraStruct nuevaCompra) {
 
 void encolar(personasRecogiendoComprasCola &personasRecogiendoCompras,
              personaRecogiendoCompraStruct nuevoPersonaRecogiendoCompra) {
-  personaRecogiendoCompraNodo *clienteRecogiendoCompraNodoPuntero =
+  personaRecogiendoCompraNodo *personaRecogiendoCompraNodoPuntero =
       new personaRecogiendoCompraNodo;
 
-  clienteRecogiendoCompraNodoPuntero->personaRecogiendoCompra =
+  personaRecogiendoCompraNodoPuntero->personaRecogiendoCompra =
       nuevoPersonaRecogiendoCompra;
-  clienteRecogiendoCompraNodoPuntero->siguiente = NULL;
+  personaRecogiendoCompraNodoPuntero->siguiente = NULL;
 
   if (personasRecogiendoCompras.inicio == NULL) {
-    personasRecogiendoCompras.inicio = clienteRecogiendoCompraNodoPuntero;
+    personasRecogiendoCompras.inicio = personaRecogiendoCompraNodoPuntero;
   } else {
     personasRecogiendoCompras.fin->siguiente =
-        clienteRecogiendoCompraNodoPuntero;
+        personaRecogiendoCompraNodoPuntero;
   }
 
-  personasRecogiendoCompras.fin = clienteRecogiendoCompraNodoPuntero;
+  personasRecogiendoCompras.fin = personaRecogiendoCompraNodoPuntero;
   personasRecogiendoCompras.largo++;
 }
 
-personaRecogiendoCompraStruct desencolarClienteRecogiendoCompra(
-    personasRecogiendoComprasCola &clientesRecogiendoCompras) {
+personaRecogiendoCompraStruct desencolarPersonaRecogiendoCompra(
+    personasRecogiendoComprasCola &personasRecogiendoCompras) {
   personaRecogiendoCompraNodo *personaRecogiendoCompraNodoPuntero;
   personaRecogiendoCompraStruct personaRecogiendoCompraBorrado;
 
-  personaRecogiendoCompraNodoPuntero = clientesRecogiendoCompras.inicio;
+  personaRecogiendoCompraNodoPuntero = personasRecogiendoCompras.inicio;
   personaRecogiendoCompraBorrado =
       personaRecogiendoCompraNodoPuntero->personaRecogiendoCompra;
 
-  clientesRecogiendoCompras.inicio =
-      clientesRecogiendoCompras.inicio->siguiente;
-  clientesRecogiendoCompras.largo--;
+  personasRecogiendoCompras.inicio =
+      personasRecogiendoCompras.inicio->siguiente;
+  personasRecogiendoCompras.largo--;
 
   delete personaRecogiendoCompraNodoPuntero;
 
