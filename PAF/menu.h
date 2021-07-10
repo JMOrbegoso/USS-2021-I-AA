@@ -45,8 +45,7 @@ void mostrarPresentacionEInstrucciones() {
 
   SetConsoleTextAttribute(hConsole, 15);
   system("pause");
-  esperarMostrandoTexto("Abriendo sistema virtual de la empresa Deltron SAC",
-                        true);
+  esperarMostrandoTexto("Abriendo sistema virtual de la empresa Deltron SAC");
   system("cls");
 }
 
