@@ -568,6 +568,60 @@ productoEnAlmacenNodo *pedirProductoEnAlmacen(
   return iterarProductoEnAlmacen(productosEnAlmacen, selectedOption);
 }
 
+ventaNodo *iterarVentas(ventasLista ventas, int index) {
+  ventaNodo *ventaNodoPuntero;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > ventas.largo) {
+    return NULL;
+  }
+
+  ventaNodoPuntero = ventas.cabecera;
+
+  for (int i = 1; ventaNodoPuntero != NULL; i++) {
+    if (i == index) {
+      return ventaNodoPuntero;
+    }
+    ventaNodoPuntero = ventaNodoPuntero->siguiente;
+  }
+
+  return NULL;
+}
+
+ventaNodo *pedirVenta(ventasLista ventas, string mensaje) {
+  int selectedOption;
+  ventaNodo *ventaNodoPuntero;
+
+  cout << endl
+       << mensaje << "." << endl
+       << "Escoja entre las " << ventas.largo << " ventas siguientes:" << endl
+       << endl;
+
+  ventaNodoPuntero = ventas.cabecera;
+
+  for (int i = 1; ventaNodoPuntero != NULL; i++) {
+    cout << "[" << i << "] - " << ventaNodoPuntero->venta.fechaDeVenta << " - "
+         << ventaNodoPuntero->venta.apellidosCliente << " - "
+         << ventaNodoPuntero->venta.nombresCliente << endl;
+    ventaNodoPuntero = ventaNodoPuntero->siguiente;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
+
+  while (!(1 <= selectedOption && selectedOption <= ventas.largo)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << ventas.largo << "."
+         << endl;
+    fflush(stdin);
+    cin >> selectedOption;
+  }
+
+  return iterarVentas(ventas, selectedOption);
+}
+
 empleadoNodo *buscarEmpleadoPorDni(deltronStruct deltron, string dni) {
   empleadoNodo *aux = deltron.empleados.cabecera;
 
