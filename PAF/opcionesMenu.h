@@ -132,17 +132,20 @@ clienteNodo *loginCliente(deltronStruct deltron) {
   return NULL;
 }
 
-void revisarVentas(deltronStruct deltron) {}
+void revisarVentas(deltronStruct deltron, empleadoNodo *empleadoLogeado) {}
 
-void registrarProductoEnAlmacen(deltronStruct &deltron) {}
+void registrarProductoEnAlmacen(deltronStruct &deltron,
+                                empleadoNodo *empleadoLogeado) {}
 
-void editarProductoEnAlmacen(deltronStruct &deltron) {}
+void editarProductoEnAlmacen(deltronStruct &deltron,
+                             empleadoNodo *empleadoLogeado) {}
 
-void registrarPersonaEnCola(deltronStruct &deltron) {}
+void registrarPersonaEnCola(deltronStruct &deltron,
+                            empleadoNodo *empleadoLogeado) {}
 
-void despacharVenta(deltronStruct &deltron) {}
+void despacharVenta(deltronStruct &deltron, empleadoNodo *empleadoLogeado) {}
 
-void revisarAlmacenes(deltronStruct deltron) {
+void revisarAlmacenes(deltronStruct deltron, empleadoNodo *empleadoLogeado) {
   almacenNodo *auxCityNode;
   almacenVertice *tempCityEdge;
 
@@ -164,9 +167,11 @@ void revisarAlmacenes(deltronStruct deltron) {
   cout << endl << endl;
 }
 
-void registrarNuevoAlmacen(deltronStruct &deltron) {}
+void registrarNuevoAlmacen(deltronStruct &deltron,
+                           empleadoNodo *empleadoLogeado) {}
 
-void registrarRelacionEntreAlmacenes(deltronStruct &deltron) {
+void registrarRelacionEntreAlmacenes(deltronStruct &deltron,
+                                     empleadoNodo *empleadoLogeado) {
   almacenNodo *almacenOrigenNodoPuntero, *almacenDestinoNodoPuntero;
   almacenVertice *newCityEdge = new struct almacenVertice;
 
@@ -207,14 +212,19 @@ void registrarRelacionEntreAlmacenes(deltronStruct &deltron) {
                           newCityEdge);
 }
 
-void revisarCatalogoDeAlmacen(deltronStruct deltron) {}
+void revisarCatalogoDeAlmacen(deltronStruct deltron,
+                              clienteNodo *clienteLogeado) {}
 
-void buscarProductoEnAlmacenes(deltronStruct deltron) {}
+void buscarProductoEnAlmacenes(deltronStruct deltron,
+                               clienteNodo *clienteLogeado) {}
 
-void agregarProductoAlCarrito(deltronStruct &deltron) {}
+void agregarProductoAlCarrito(deltronStruct &deltron,
+                              clienteNodo *clienteLogeado) {}
 
-void editarCantidadDeProductoEnCarrito(deltronStruct &deltron) {}
+void editarCantidadDeProductoEnCarrito(deltronStruct &deltron,
+                                       clienteNodo *clienteLogeado) {}
 
-void quitarProductoDeCarrito(deltronStruct &deltron) {}
+void quitarProductoDeCarrito(deltronStruct &deltron,
+                             clienteNodo *clienteLogeado) {}
 
-void realizarCompra(deltronStruct &deltron) {}
+void realizarCompra(deltronStruct &deltron, clienteNodo *clienteLogeado) {}

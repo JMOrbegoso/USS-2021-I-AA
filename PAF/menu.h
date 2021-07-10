@@ -174,12 +174,12 @@ int pedirOpcionDelMenuCliente(deltronStruct deltron,
   return opcionSeleccionada;
 }
 
-void menuEmpleado(deltronStruct& deltron, empleadoNodo* empleadoNodoPuntero) {
+void menuEmpleado(deltronStruct& deltron, empleadoNodo* empleadoLogeado) {
   int opcionSeleccionada;
   string empleadoNombreCompleto;
 
-  empleadoNombreCompleto = empleadoNodoPuntero->empleado.nombres + " " +
-                           empleadoNodoPuntero->empleado.apellidos;
+  empleadoNombreCompleto = empleadoLogeado->empleado.nombres + " " +
+                           empleadoLogeado->empleado.apellidos;
 
   do {
     opcionSeleccionada =
@@ -188,35 +188,35 @@ void menuEmpleado(deltronStruct& deltron, empleadoNodo* empleadoNodoPuntero) {
     if (opcionSeleccionada != 0) {
       switch (opcionSeleccionada) {
         case 1:
-          revisarVentas(deltron);
+          revisarVentas(deltron, empleadoLogeado);
           system("pause");
           break;
         case 2:
-          registrarProductoEnAlmacen(deltron);
+          registrarProductoEnAlmacen(deltron, empleadoLogeado);
           Sleep(1500);
           break;
         case 3:
-          editarProductoEnAlmacen(deltron);
+          editarProductoEnAlmacen(deltron, empleadoLogeado);
           Sleep(1500);
           break;
         case 4:
-          registrarPersonaEnCola(deltron);
+          registrarPersonaEnCola(deltron, empleadoLogeado);
           Sleep(1500);
           break;
         case 5:
-          despacharVenta(deltron);
+          despacharVenta(deltron, empleadoLogeado);
           Sleep(1500);
           break;
         case 6:
-          revisarAlmacenes(deltron);
+          revisarAlmacenes(deltron, empleadoLogeado);
           system("pause");
           break;
         case 7:
-          registrarNuevoAlmacen(deltron);
+          registrarNuevoAlmacen(deltron, empleadoLogeado);
           Sleep(1500);
           break;
         case 8:
-          registrarRelacionEntreAlmacenes(deltron);
+          registrarRelacionEntreAlmacenes(deltron, empleadoLogeado);
           Sleep(1500);
           break;
 
@@ -230,12 +230,12 @@ void menuEmpleado(deltronStruct& deltron, empleadoNodo* empleadoNodoPuntero) {
   cout << endl << "Cerrando Sesión" << endl;
 }
 
-void menuCliente(deltronStruct& deltron, clienteNodo* clienteNodoPuntero) {
+void menuCliente(deltronStruct& deltron, clienteNodo* clienteLogeado) {
   int opcionSeleccionada;
   string clienteNombreCompleto;
 
-  clienteNombreCompleto = clienteNodoPuntero->cliente.nombres + " " +
-                          clienteNodoPuntero->cliente.apellidos;
+  clienteNombreCompleto =
+      clienteLogeado->cliente.nombres + " " + clienteLogeado->cliente.apellidos;
 
   do {
     opcionSeleccionada =
@@ -244,27 +244,27 @@ void menuCliente(deltronStruct& deltron, clienteNodo* clienteNodoPuntero) {
     if (opcionSeleccionada != 0) {
       switch (opcionSeleccionada) {
         case 1:
-          revisarCatalogoDeAlmacen(deltron);
+          revisarCatalogoDeAlmacen(deltron, clienteLogeado);
           system("pause");
           break;
         case 2:
-          buscarProductoEnAlmacenes(deltron);
+          buscarProductoEnAlmacenes(deltron, clienteLogeado);
           system("pause");
           break;
         case 3:
-          agregarProductoAlCarrito(deltron);
+          agregarProductoAlCarrito(deltron, clienteLogeado);
           Sleep(1500);
           break;
         case 4:
-          editarCantidadDeProductoEnCarrito(deltron);
+          editarCantidadDeProductoEnCarrito(deltron, clienteLogeado);
           Sleep(1500);
           break;
         case 5:
-          quitarProductoDeCarrito(deltron);
+          quitarProductoDeCarrito(deltron, clienteLogeado);
           Sleep(1500);
           break;
         case 6:
-          realizarCompra(deltron);
+          realizarCompra(deltron, clienteLogeado);
           Sleep(1500);
           break;
 
