@@ -151,19 +151,15 @@ float leerNumeroDecimal(string requestMessage, string errorMessage, float min,
   return amount;
 }
 
-void esperarMostrandoTexto(string mensaje, bool esperaLarga = false) {
+void esperarMostrandoTexto(string mensaje) {
   HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
   SetConsoleTextAttribute(hConsole, 2);
 
   cout << mensaje;
 
-  for (int i = 0; i < 6; i++) {
-    if (esperaLarga)
-      Sleep(450);
-    else
-      Sleep(150);
-
+  for (int i = 0; i < 10; i++) {
     cout << ".";
+    Sleep(180);
   }
 
   SetConsoleTextAttribute(hConsole, 15);
