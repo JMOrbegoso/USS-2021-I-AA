@@ -128,13 +128,13 @@ struct almacenesGrafo {
   int largo;
 };
 
-// Productos comprados
+// Productos vendidos
 struct productoCompradoStruct : productoBaseStruct {
   int cantidad;
 };
 
 struct productoCompradoNodo {
-  productoCompradoStruct productoComprado;
+  productoCompradoStruct productoVendido;
   productoCompradoNodo *siguiente;
 };
 
@@ -143,18 +143,18 @@ struct productosCompradosLista {
   int largo;
 };
 
-// Compras
+// Ventas
 struct compraStruct {
   string nombresCliente;
   string apellidosCliente;
   string dniCliente;
-  string fechaDeCompra;
-  string estadoDeCompra;
-  productosCompradosLista productosComprados;
+  string fechaDeVenta;
+  string estadoDeVenta;
+  productosCompradosLista productosVendidos;
 };
 
 struct compraNodo {
-  compraStruct compra;
+  compraStruct venta;
   compraNodo *siguiente;
 };
 
@@ -171,5 +171,5 @@ struct deltronStruct {
   almacenesGrafo almacenes;
   empleadosLista empleados;
   clientesLista clientes;
-  comprasLista compras;
+  comprasLista ventas;
 };

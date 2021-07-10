@@ -67,20 +67,20 @@ productoEnCarritoDeCompraStruct construirProductoEnCarritoDeCompra(
   return productoEnCarritoDeCompra;
 }
 
-productoCompradoStruct construirProductoComprado(string codigo, string nombre,
-                                                 string marca, string tipo,
-                                                 float precio,
-                                                 unsigned long cantidad) {
-  productoCompradoStruct productoComprado;
+productoCompradoStruct construirProductoVendido(string codigo, string nombre,
+                                                string marca, string tipo,
+                                                float precio,
+                                                unsigned long cantidad) {
+  productoCompradoStruct productoVendido;
 
-  productoComprado.codigo = codigo;
-  productoComprado.nombre = nombre;
-  productoComprado.marca = marca;
-  productoComprado.tipo = tipo;
-  productoComprado.precio = precio;
-  productoComprado.cantidad = cantidad;
+  productoVendido.codigo = codigo;
+  productoVendido.nombre = nombre;
+  productoVendido.marca = marca;
+  productoVendido.tipo = tipo;
+  productoVendido.precio = precio;
+  productoVendido.cantidad = cantidad;
 
-  return productoComprado;
+  return productoVendido;
 }
 
 personaRecogiendoCompraStruct construirPersonaRecogiendoCompra(
@@ -95,21 +95,21 @@ personaRecogiendoCompraStruct construirPersonaRecogiendoCompra(
   return personaRecogiendoCompra;
 }
 
-compraStruct construirCompra(string nombresCliente, string apellidosCliente,
-                             string dniCliente, string fechaDeCompra,
-                             string estadoDeCompra) {
-  compraStruct compra;
+compraStruct construirVenta(string nombresCliente, string apellidosCliente,
+                            string dniCliente, string fechaDeVenta,
+                            string estadoDeVenta) {
+  compraStruct venta;
 
-  compra.nombresCliente = nombresCliente;
-  compra.apellidosCliente = apellidosCliente;
-  compra.dniCliente = dniCliente;
-  compra.fechaDeCompra = fechaDeCompra;
-  compra.estadoDeCompra = estadoDeCompra;
+  venta.nombresCliente = nombresCliente;
+  venta.apellidosCliente = apellidosCliente;
+  venta.dniCliente = dniCliente;
+  venta.fechaDeVenta = fechaDeVenta;
+  venta.estadoDeVenta = estadoDeVenta;
 
-  compra.productosComprados.cabecera = NULL;
-  compra.productosComprados.largo = 0;
+  venta.productosVendidos.cabecera = NULL;
+  venta.productosVendidos.largo = 0;
 
-  return compra;
+  return venta;
 }
 
 almacenStruct construirAlmacen(string codigoAlmacen, string departamentoDelPeru,
@@ -242,7 +242,7 @@ void insertar(productosCompradosLista &productosComprados,
 
   productoCompradoNodo *ultimoNodo = productosComprados.cabecera;
 
-  productoCompradoNodoPuntero->productoComprado = nuevoProductoComprado;
+  productoCompradoNodoPuntero->productoVendido = nuevoProductoComprado;
   productoCompradoNodoPuntero->siguiente = NULL;
 
   if (productosComprados.cabecera == NULL) {
@@ -263,7 +263,7 @@ void insertar(comprasLista &compras, compraStruct nuevaCompra) {
 
   compraNodo *ultimoNodo = compras.cabecera;
 
-  compraNodoPuntero->compra = nuevaCompra;
+  compraNodoPuntero->venta = nuevaCompra;
   compraNodoPuntero->siguiente = NULL;
 
   if (compras.cabecera == NULL) {
@@ -355,8 +355,8 @@ void inicializacionDeColecciones(deltronStruct &deltron) {
   deltron.clientes.cabecera = NULL;
   deltron.clientes.largo = 0;
 
-  deltron.compras.cabecera = NULL;
-  deltron.compras.largo = 0;
+  deltron.ventas.cabecera = NULL;
+  deltron.ventas.largo = 0;
 
   deltron.almacenes.nodo = NULL;
   deltron.almacenes.vertice = NULL;
@@ -370,8 +370,8 @@ void inicializacionDeData(deltronStruct &deltron) {
   productoEnAlmacenStruct productoEnAlmacen01, productoEnAlmacen02,
       productoEnAlmacen03;
   productoEnCarritoDeCompraStruct productoEnCarritoDeCompra01;
-  compraStruct compra01;
-  productoCompradoStruct productoComprado01, productoComprado02;
+  compraStruct venta01;
+  productoCompradoStruct productoVendido01, productoVendido02;
   personaRecogiendoCompraStruct personaRecogiendoCompra01;
 
   deltron.razonSocial = "Deltron SAC";
@@ -406,14 +406,14 @@ void inicializacionDeData(deltronStruct &deltron) {
       "Jorge", "Martinez", "15151515", "2021-06-30 10:00:00");
 
   // Construir productos comprados
-  productoComprado01 = construirProductoComprado(
+  productoVendido01 = construirProductoVendido(
       "nvidia-geforce-1030", "GeForce 1030", "Nvidia", "GPU", 400, 1);
-  productoComprado02 = construirProductoComprado(
-      "wd-black-sd400", "Black SD400", "WD", "Disco Duro", 380, 1);
+  productoVendido02 = construirProductoVendido("wd-black-sd400", "Black SD400",
+                                               "WD", "Disco Duro", 380, 1);
 
   // Construir compras realizadas
-  compra01 = construirCompra("Tulio", "Ramos Lopez", "12121212",
-                             "2021-06-20 10:00:00", "Recogida");
+  venta01 = construirVenta("Tulio", "Ramos Lopez", "12121212",
+                           "2021-06-20 10:00:00", "Recogida");
 
   // Construir almacenes
   almacenLima = construirAlmacen("lima1", "Lima", "Av. Lima 747");
@@ -442,11 +442,11 @@ void inicializacionDeData(deltronStruct &deltron) {
   insertar(deltron.clientes, cliente02);
 
   // Insertar productos comprados
-  insertar(compra01.productosComprados, productoComprado01);
-  insertar(compra01.productosComprados, productoComprado02);
+  insertar(venta01.productosVendidos, productoVendido01);
+  insertar(venta01.productosVendidos, productoVendido02);
 
   // Insertar compras realizadas
-  insertar(deltron.compras, compra01);
+  insertar(deltron.ventas, venta01);
 
   // Insertar almacenes
   insertar(deltron.almacenes, almacenLima);
@@ -733,9 +733,9 @@ void imprimirCompra(compraStruct compra, int n, int y) {
   gotoxy(45, y);
   cout << compra.dniCliente;
   gotoxy(55, y);
-  cout << compra.fechaDeCompra;
+  cout << compra.fechaDeVenta;
   gotoxy(80, y);
-  cout << compra.estadoDeCompra;
+  cout << compra.estadoDeVenta;
 }
 
 void imprimirCabeceraProductoComprado(int y) {
