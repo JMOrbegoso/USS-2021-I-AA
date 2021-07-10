@@ -67,11 +67,11 @@ productoEnCarritoDeCompraStruct construirProductoEnCarritoDeCompra(
   return productoEnCarritoDeCompra;
 }
 
-productoCompradoStruct construirProductoVendido(string codigo, string nombre,
-                                                string marca, string tipo,
-                                                float precio,
-                                                unsigned long cantidad) {
-  productoCompradoStruct productoVendido;
+productoVendidoStruct construirProductoVendido(string codigo, string nombre,
+                                               string marca, string tipo,
+                                               float precio,
+                                               unsigned long cantidad) {
+  productoVendidoStruct productoVendido;
 
   productoVendido.codigo = codigo;
   productoVendido.nombre = nombre;
@@ -95,10 +95,10 @@ personaRecogiendoCompraStruct construirPersonaRecogiendoCompra(
   return personaRecogiendoCompra;
 }
 
-compraStruct construirVenta(string nombresCliente, string apellidosCliente,
-                            string dniCliente, string fechaDeVenta,
-                            string estadoDeVenta) {
-  compraStruct venta;
+ventaStruct construirVenta(string nombresCliente, string apellidosCliente,
+                           string dniCliente, string fechaDeVenta,
+                           string estadoDeVenta) {
+  ventaStruct venta;
 
   venta.nombresCliente = nombresCliente;
   venta.apellidosCliente = apellidosCliente;
@@ -235,48 +235,47 @@ void insertar(productosEnAlmacenLista &productosEnAlmacen,
   productosEnAlmacen.largo++;
 }
 
-void insertar(productosCompradosLista &productosComprados,
-              productoCompradoStruct nuevoProductoComprado) {
-  productoCompradoNodo *productoCompradoNodoPuntero =
-      new productoCompradoNodo();
+void insertar(productosVendidosLista &productosVendidos,
+              productoVendidoStruct nuevoProductoVendido) {
+  productoVendidoNodo *productoVendidoNodoPuntero = new productoVendidoNodo();
 
-  productoCompradoNodo *ultimoNodo = productosComprados.cabecera;
+  productoVendidoNodo *ultimoNodo = productosVendidos.cabecera;
 
-  productoCompradoNodoPuntero->productoVendido = nuevoProductoComprado;
-  productoCompradoNodoPuntero->siguiente = NULL;
+  productoVendidoNodoPuntero->productoVendido = nuevoProductoVendido;
+  productoVendidoNodoPuntero->siguiente = NULL;
 
-  if (productosComprados.cabecera == NULL) {
-    productosComprados.cabecera = productoCompradoNodoPuntero;
+  if (productosVendidos.cabecera == NULL) {
+    productosVendidos.cabecera = productoVendidoNodoPuntero;
   } else {
     while (ultimoNodo->siguiente != NULL) {
       ultimoNodo = ultimoNodo->siguiente;
     }
 
-    ultimoNodo->siguiente = productoCompradoNodoPuntero;
+    ultimoNodo->siguiente = productoVendidoNodoPuntero;
   }
 
-  productosComprados.largo++;
+  productosVendidos.largo++;
 }
 
-void insertar(comprasLista &compras, compraStruct nuevaCompra) {
-  compraNodo *compraNodoPuntero = new compraNodo();
+void insertar(ventasLista &ventas, ventaStruct nuevaVenta) {
+  ventaNodo *ventaNodoPuntero = new ventaNodo();
 
-  compraNodo *ultimoNodo = compras.cabecera;
+  ventaNodo *ultimoNodo = ventas.cabecera;
 
-  compraNodoPuntero->venta = nuevaCompra;
-  compraNodoPuntero->siguiente = NULL;
+  ventaNodoPuntero->venta = nuevaVenta;
+  ventaNodoPuntero->siguiente = NULL;
 
-  if (compras.cabecera == NULL) {
-    compras.cabecera = compraNodoPuntero;
+  if (ventas.cabecera == NULL) {
+    ventas.cabecera = ventaNodoPuntero;
   } else {
     while (ultimoNodo->siguiente != NULL) {
       ultimoNodo = ultimoNodo->siguiente;
     }
 
-    ultimoNodo->siguiente = compraNodoPuntero;
+    ultimoNodo->siguiente = ventaNodoPuntero;
   }
 
-  compras.largo++;
+  ventas.largo++;
 }
 
 void encolar(personasRecogiendoComprasCola &personasRecogiendoCompras,
@@ -370,8 +369,8 @@ void inicializacionDeData(deltronStruct &deltron) {
   productoEnAlmacenStruct productoEnAlmacen01, productoEnAlmacen02,
       productoEnAlmacen03;
   productoEnCarritoDeCompraStruct productoEnCarritoDeCompra01;
-  compraStruct venta01;
-  productoCompradoStruct productoVendido01, productoVendido02;
+  ventaStruct venta01;
+  productoVendidoStruct productoVendido01, productoVendido02;
   personaRecogiendoCompraStruct personaRecogiendoCompra01;
 
   deltron.razonSocial = "Deltron SAC";
@@ -411,7 +410,7 @@ void inicializacionDeData(deltronStruct &deltron) {
   productoVendido02 = construirProductoVendido("wd-black-sd400", "Black SD400",
                                                "WD", "Disco Duro", 380, 1);
 
-  // Construir compras realizadas
+  // Construir ventas realizadas
   venta01 = construirVenta("Tulio", "Ramos Lopez", "12121212",
                            "2021-06-20 10:00:00", "Recogida");
 
@@ -445,7 +444,7 @@ void inicializacionDeData(deltronStruct &deltron) {
   insertar(venta01.productosVendidos, productoVendido01);
   insertar(venta01.productosVendidos, productoVendido02);
 
-  // Insertar compras realizadas
+  // Insertar ventas realizadas
   insertar(deltron.ventas, venta01);
 
   // Insertar almacenes
@@ -725,7 +724,7 @@ void imprimirCabeceraCompra(int y) {
   cout << "Estado";
 }
 
-void imprimirCompra(compraStruct compra, int n, int y) {
+void imprimirCompra(ventaStruct compra, int n, int y) {
   gotoxy(0, y);
   cout << n;
   gotoxy(5, y);
@@ -753,7 +752,7 @@ void imprimirCabeceraProductoComprado(int y) {
   cout << "Cantidad";
 }
 
-void imprimirProductoComprado(productoCompradoStruct productoComprado, int n,
+void imprimirProductoComprado(productoVendidoStruct productoComprado, int n,
                               int y) {
   gotoxy(0, y);
   cout << n;

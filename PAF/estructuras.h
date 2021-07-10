@@ -129,37 +129,37 @@ struct almacenesGrafo {
 };
 
 // Productos vendidos
-struct productoCompradoStruct : productoBaseStruct {
+struct productoVendidoStruct : productoBaseStruct {
   int cantidad;
 };
 
-struct productoCompradoNodo {
-  productoCompradoStruct productoVendido;
-  productoCompradoNodo *siguiente;
+struct productoVendidoNodo {
+  productoVendidoStruct productoVendido;
+  productoVendidoNodo *siguiente;
 };
 
-struct productosCompradosLista {
-  productoCompradoNodo *cabecera;
+struct productosVendidosLista {
+  productoVendidoNodo *cabecera;
   int largo;
 };
 
 // Ventas
-struct compraStruct {
+struct ventaStruct {
   string nombresCliente;
   string apellidosCliente;
   string dniCliente;
   string fechaDeVenta;
   string estadoDeVenta;
-  productosCompradosLista productosVendidos;
+  productosVendidosLista productosVendidos;
 };
 
-struct compraNodo {
-  compraStruct venta;
-  compraNodo *siguiente;
+struct ventaNodo {
+  ventaStruct venta;
+  ventaNodo *siguiente;
 };
 
-struct comprasLista {
-  compraNodo *cabecera;
+struct ventasLista {
+  ventaNodo *cabecera;
   int largo;
 };
 
@@ -171,5 +171,5 @@ struct deltronStruct {
   almacenesGrafo almacenes;
   empleadosLista empleados;
   clientesLista clientes;
-  comprasLista ventas;
+  ventasLista ventas;
 };
