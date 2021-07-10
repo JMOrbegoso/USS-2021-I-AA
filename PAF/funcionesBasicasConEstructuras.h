@@ -644,6 +644,11 @@ clienteNodo *buscarClientePorDni(deltronStruct deltron, string dni) {
   return NULL;
 }
 
+bool dniEstaRegistrado(deltronStruct deltron, string dni) {
+  return buscarEmpleadoPorDni(deltron, dni) != NULL ||
+         buscarClientePorDni(deltron, dni) != NULL;
+}
+
 // Impresores
 
 void imprimirCabeceraAlmacenes(int y) {
