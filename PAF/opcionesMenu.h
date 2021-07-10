@@ -59,8 +59,7 @@ empleadoNodo *loginEmpleado(deltronStruct deltron) {
         esperarMostrandoTexto("Ingresando...");
         return empleadoNodoPuntero;
       } else {
-        cout << "Contraseña incorrecta, por favor corrijala" << endl;
-        Sleep(2000);
+        esperarMostrandoTexto("Contraseña incorrecta, por favor corrijala");
         return NULL;
       }
     }
@@ -69,8 +68,7 @@ empleadoNodo *loginEmpleado(deltronStruct deltron) {
   }
 
   if (!empleadoEncontrado) {
-    cout << "No fue encontrado su DNI. Usuario no existe" << endl;
-    Sleep(2000);
+    esperarMostrandoTexto("No fue encontrado su DNI. Usuario no existe");
   }
 
   return NULL;
@@ -113,8 +111,7 @@ clienteNodo *loginCliente(deltronStruct deltron) {
         esperarMostrandoTexto("Ingresando...");
         return clienteNodoPuntero;
       } else {
-        cout << "Contraseña incorrecta, por favor corrijala" << endl;
-        Sleep(2000);
+        esperarMostrandoTexto("Contraseña incorrecta, por favor corrijala");
         return NULL;
       }
     }
@@ -123,8 +120,7 @@ clienteNodo *loginCliente(deltronStruct deltron) {
   }
 
   if (!clienteEncontrado) {
-    cout << "No fue encontrado su DNI. Usuario no existe" << endl;
-    Sleep(2000);
+    esperarMostrandoTexto("No fue encontrado su DNI. Usuario no existe");
   }
 
   return NULL;
