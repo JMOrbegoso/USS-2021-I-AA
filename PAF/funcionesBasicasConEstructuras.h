@@ -510,6 +510,64 @@ almacenNodo *pedirAlmacen(almacenesGrafo almacenes, string mensaje) {
   return iterarGrafoAlmacenes(almacenes, selectedOption);
 }
 
+productoEnAlmacenNodo *iterarProductoEnAlmacen(
+    productosEnAlmacenLista productosEnAlmacen, int index) {
+  productoEnAlmacenNodo *productoEnAlmacenNodoPuntero;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > productosEnAlmacen.largo) {
+    return NULL;
+  }
+
+  productoEnAlmacenNodoPuntero = productosEnAlmacen.cabecera;
+
+  for (int i = 1; productoEnAlmacenNodoPuntero != NULL; i++) {
+    if (i == index) {
+      return productoEnAlmacenNodoPuntero;
+    }
+    productoEnAlmacenNodoPuntero = productoEnAlmacenNodoPuntero->siguiente;
+  }
+
+  return NULL;
+}
+
+productoEnAlmacenNodo *pedirProductoEnAlmacen(
+    productosEnAlmacenLista productosEnAlmacen, string mensaje) {
+  int selectedOption;
+  productoEnAlmacenNodo *productoEnAlmacenNodoPuntero;
+
+  cout << endl
+       << mensaje << "." << endl
+       << "Escoja entre los " << productosEnAlmacen.largo
+       << " productos en almacenes siguientes:" << endl
+       << endl;
+
+  productoEnAlmacenNodoPuntero = productosEnAlmacen.cabecera;
+
+  for (int i = 1; productoEnAlmacenNodoPuntero != NULL; i++) {
+    cout << "[" << i << "] - "
+         << productoEnAlmacenNodoPuntero->productoEnAlmacen.marca << " - "
+         << productoEnAlmacenNodoPuntero->productoEnAlmacen.nombre << " - "
+         << productoEnAlmacenNodoPuntero->productoEnAlmacen.stock << endl;
+    productoEnAlmacenNodoPuntero = productoEnAlmacenNodoPuntero->siguiente;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
+
+  while (!(1 <= selectedOption && selectedOption <= productosEnAlmacen.largo)) {
+    cout << "Por favor, introduzca un valor entre 1 y "
+         << productosEnAlmacen.largo << "." << endl;
+    fflush(stdin);
+    cin >> selectedOption;
+  }
+
+  return iterarProductoEnAlmacen(productosEnAlmacen, selectedOption);
+}
+
 empleadoNodo *buscarEmpleadoPorDni(deltronStruct deltron, string dni) {
   empleadoNodo *aux = deltron.empleados.cabecera;
 
