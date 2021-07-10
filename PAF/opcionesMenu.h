@@ -56,8 +56,7 @@ empleadoNodo *loginEmpleado(deltronStruct deltron) {
         cout << endl;
 
         gotoxy(10, 20);
-        cout << "Ingresando...";
-        Sleep(2000);
+        esperarMostrandoTexto("Ingresando...");
         return empleadoNodoPuntero;
       } else {
         cout << "Contraseña incorrecta, por favor corrijala" << endl;
@@ -111,8 +110,7 @@ clienteNodo *loginCliente(deltronStruct deltron) {
         cout << endl;
 
         gotoxy(10, 20);
-        cout << "Ingresando...";
-        Sleep(2000);
+        esperarMostrandoTexto("Ingresando...");
         return clienteNodoPuntero;
       } else {
         cout << "Contraseña incorrecta, por favor corrijala" << endl;
