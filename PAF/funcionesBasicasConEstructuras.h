@@ -456,7 +456,7 @@ void inicializacionDeData(deltronStruct &deltron) {
 // Buscadores/Iteradores
 
 almacenNodo *iterarGrafoAlmacenes(almacenesGrafo almacenes, int index) {
-  almacenNodo *cityNodePointer;
+  almacenNodo *almacenNodoPuntero;
 
   if (0 >= index) {
     return NULL;
@@ -466,13 +466,13 @@ almacenNodo *iterarGrafoAlmacenes(almacenesGrafo almacenes, int index) {
     return NULL;
   }
 
-  cityNodePointer = almacenes.nodo;
+  almacenNodoPuntero = almacenes.nodo;
 
-  for (int i = 1; cityNodePointer != NULL; i++) {
+  for (int i = 1; almacenNodoPuntero != NULL; i++) {
     if (i == index) {
-      return cityNodePointer;
+      return almacenNodoPuntero;
     }
-    cityNodePointer = cityNodePointer->siguiente;
+    almacenNodoPuntero = almacenNodoPuntero->siguiente;
   }
 
   return NULL;
