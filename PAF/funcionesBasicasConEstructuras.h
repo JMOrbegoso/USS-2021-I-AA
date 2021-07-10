@@ -622,6 +622,90 @@ ventaNodo *pedirVenta(ventasLista ventas, string mensaje) {
   return iterarVentas(ventas, selectedOption);
 }
 
+productoEnCarritoDeCompraNodo *iterarProductosEnCarritoDeCompra(
+    productosEnCarritoDeCompraPila productosEnCarritoDeCompra, int index) {
+  productoEnCarritoDeCompraNodo *productoEnCarritoDeCompraNodoPuntero;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > productosEnCarritoDeCompra.largo) {
+    return NULL;
+  }
+
+  productoEnCarritoDeCompraNodoPuntero = productosEnCarritoDeCompra.cabecera;
+
+  for (int i = 1; productoEnCarritoDeCompraNodoPuntero != NULL; i++) {
+    if (i == index) {
+      return productoEnCarritoDeCompraNodoPuntero;
+    }
+    productoEnCarritoDeCompraNodoPuntero =
+        productoEnCarritoDeCompraNodoPuntero->siguiente;
+  }
+
+  return NULL;
+}
+
+productoEnCarritoDeCompraNodo *pedirProductoEnCarritoDeCompra(
+    productosEnCarritoDeCompraPila productosEnCarritoDeCompra, string mensaje) {
+  int selectedOption;
+  productoEnCarritoDeCompraNodo *productoEnCarritoDeCompraNodoPuntero;
+
+  cout << endl
+       << mensaje << "." << endl
+       << "Escoja entre los " << productosEnCarritoDeCompra.largo
+       << " productos en carrito de compra siguientes:" << endl
+       << endl;
+
+  productoEnCarritoDeCompraNodoPuntero = productosEnCarritoDeCompra.cabecera;
+
+  for (int i = 1; productoEnCarritoDeCompraNodoPuntero != NULL; i++) {
+    cout
+        << "[" << i << "]"
+        << " Marca: "
+        << productoEnCarritoDeCompraNodoPuntero->productoEnCarritoDeCompra.marca
+        << " - Nombre: "
+        << productoEnCarritoDeCompraNodoPuntero->productoEnCarritoDeCompra
+               .nombre
+        << " - Precio: "
+        << productoEnCarritoDeCompraNodoPuntero->productoEnCarritoDeCompra
+               .precio
+        << " - Cantidad: "
+        << productoEnCarritoDeCompraNodoPuntero->productoEnCarritoDeCompra
+               .cantidad
+        << endl;
+    productoEnCarritoDeCompraNodoPuntero =
+        productoEnCarritoDeCompraNodoPuntero->siguiente;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
+
+  while (!(1 <= selectedOption &&
+           selectedOption <= productosEnCarritoDeCompra.largo)) {
+    cout << "Por favor, introduzca un valor entre 1 y "
+         << productosEnCarritoDeCompra.largo << "." << endl;
+    fflush(stdin);
+    cin >> selectedOption;
+  }
+
+  return iterarProductosEnCarritoDeCompra(productosEnCarritoDeCompra,
+                                          selectedOption);
+}
+
+almacenNodo *buscarAlmacenPorCodigo(deltronStruct deltron,
+                                    string almacenCodigo) {
+  almacenNodo *aux = deltron.almacenes.nodo;
+
+  while (aux != NULL) {
+    if (aux->almacen.codigoAlmacen == almacenCodigo) return aux;
+    aux = aux->siguiente;
+  }
+
+  return NULL;
+}
+
 empleadoNodo *buscarEmpleadoPorDni(deltronStruct deltron, string dni) {
   empleadoNodo *aux = deltron.empleados.cabecera;
 
