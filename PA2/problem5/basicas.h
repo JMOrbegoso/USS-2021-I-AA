@@ -23,18 +23,22 @@ int menu() {
   gotoxy(32, 8);
   cout << "1.Registrar Sala " << endl;
   gotoxy(32, 9);
-  cout << "2.Registrar Estante " << endl;
+  cout << "2.RegistrarEstante " << endl;
   gotoxy(32, 10);
-  cout << "3.Mostrar Salas" << endl;
+  cout << "3.Registrar Libro" << endl;
   gotoxy(32, 11);
-  cout << "4.Mostrar Estantes " << endl;
+  cout << "4.Buscar Libro" << endl;
   gotoxy(32, 12);
-  cout << "5.Salir" << endl;
+  cout << "5.Listar los libros de un estante" << endl;
+  gotoxy(32, 13);
+  cout << "6.Listar las salas" << endl;
+  gotoxy(32, 14);
+  cout << "7. Salir" << endl;
   do {
-    gotoxy(32, 13);
+    gotoxy(32, 16);
     cout << "Ingrese opcion:";
     cin >> op;
-  } while (!(op >= 0 && op <= 5));
+  } while (!(op >= 0 && op <= 8));
   return op;
 }
 

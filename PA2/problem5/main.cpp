@@ -17,17 +17,17 @@ Elaborar un programa que use estructuras din�micas y permita:
 
 using namespace std;
 
-void inicializaSalas(listaSalas &lS) {
+void inicializaSalas(pilaSalas &lS) {
   lS.cab = NULL;
   lS.nSalas = 0;
 }
 
-void inicializaEstante(listaEstantes &lE) {
+void inicializaEstante(pilaEstantes &lE) {
   lE.cab = NULL;
   lE.nEstan = 0;
 }
 
-void inicializaLibros(listaLibros &lL) {
+void inicializaLibros(pilaLibros &lL) {
   lL.cab = NULL;
   lL.nLib = 0;
 }
@@ -45,12 +45,12 @@ void leerLibros(libros &lib) {
   gotoxy(20, 8);
   lib.autor = leerTexto("Ingrese Autor :");
   gotoxy(20, 9);
-  lib.nPaginas = leerEntero("Ingrese N� de Paginas :");
+  lib.nPaginas = leerEntero("Ingrese N? de Paginas :");
   gotoxy(20, 10);
   lib.editorial = leerTexto("Ingrese Editorial :");
 }
 
-void insertarLibros(listaLibros &lL, libros lib) {
+void insertarLibros(pilaLibros &lL, libros lib) {
   nodoL *aux = new (struct nodoL);
   nodoL *temp = new (struct nodoL);
   temp->info = lib;
@@ -69,17 +69,68 @@ void insertarLibros(listaLibros &lL, libros lib) {
   lL.nLib++;
 }
 
-void leerLibros(listaLibros &lL) {
-  libros lib;
-  char rpta;
-  do {
-    leerLibros(lib);
-    insertarLibros(lL, lib);
-    cout << "Desea ingresar otro Libro <s/n>:";
+nodoE *iterarEstantes(pilaEstantes estan, int index) {
+  nodoE *nodoEPuntero;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > estan.nEstan) {
+    return NULL;
+  }
+
+  nodoEPuntero = estan.cab;
+
+  for (int i = 1; nodoEPuntero != NULL; i++) {
+    if (i == index) {
+      return nodoEPuntero;
+    }
+    nodoEPuntero = nodoEPuntero->sgte;
+  }
+  return NULL;
+}
+
+nodoE *pedirEstante(pilaEstantes estan, string mensaje) {
+  int selectedOption;
+  nodoE *nodoEPuntero;
+
+  cout << endl
+       << mensaje << "." << endl
+       << "Escoja entre los " << estan.nEstan << " estantes siguientes:" << endl
+       << endl;
+
+  nodoEPuntero = estan.cab;
+
+  for (int i = 1; nodoEPuntero != NULL; i++) {
+    cout << "[" << i << "] - " << nodoEPuntero->stan.tematica << endl;
+    nodoEPuntero = nodoEPuntero->sgte;
+  }
+
+  cout << endl << "Introduzca la opci�n deseada:" << endl;
+  cin >> selectedOption;
+
+  while (!(1 <= selectedOption && selectedOption <= estan.nEstan)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << estan.nEstan << "."
+         << endl;
     fflush(stdin);
-    cin.get(rpta);
-  } while (!(rpta == 'n'));
-  return;
+    cin >> selectedOption;
+  }
+  return iterarEstantes(estan, selectedOption);
+}
+
+void registrarLibros(pilaEstantes &le) {
+  nodoE *auxE;
+  libros lib;
+  leerLibros(lib);
+
+  // Preguntar al usuario en que estante quiere guardarlo
+  auxE = pedirEstante(le, "Ingrese El estante del nuevo libro");
+  if (auxE == NULL) {
+    cout << "El estante seleccionado no es valido" << endl;
+    return;
+  }
+  insertarLibros(auxE->stan.lL, lib);
 }
 
 void leerEstante(estante &estan) {
@@ -89,16 +140,14 @@ void leerEstante(estante &estan) {
   gotoxy(25, 5);
   cout << "================";
   gotoxy(20, 6);
-  estan.numero = leerEntero("Ingrese N�:");
+  estan.numero = leerEntero("Ingrese N?:");
   gotoxy(20, 7);
   estan.capacidad = leerTexto("Ingrese Nombre :");
   gotoxy(20, 8);
   estan.tematica = leerTexto("Ingrese Posicion :");
-  inicializaLibros(estan.lL);
-  leerLibros(estan.lL);
 }
 
-void insertarEstante(listaEstantes &lE, estante estan) {
+void insertarEstante(pilaEstantes &lE, estante estan) {
   nodoE *aux = new (struct nodoE);
   nodoE *temp = new (struct nodoE);
   temp->stan = estan;
@@ -117,7 +166,7 @@ void insertarEstante(listaEstantes &lE, estante estan) {
   lE.nEstan++;
 }
 
-nodoS *iterarSalas(listaSalas salas, int index) {
+nodoS *iterarSalas(pilaSalas salas, int index) {
   nodoS *nodoSPuntero;
 
   if (0 >= index) {
@@ -140,7 +189,7 @@ nodoS *iterarSalas(listaSalas salas, int index) {
   return NULL;
 }
 
-nodoS *pedirSala(listaSalas salas, string mensaje) {
+nodoS *pedirSala(pilaSalas salas, string mensaje) {
   int selectedOption;
   nodoS *nodoSPuntero;
 
@@ -156,7 +205,7 @@ nodoS *pedirSala(listaSalas salas, string mensaje) {
     nodoSPuntero = nodoSPuntero->sgte;
   }
 
-  cout << endl << "Introduzca la opción deseada:" << endl;
+  cout << endl << "Introduzca la opci�n deseada:" << endl;
   cin >> selectedOption;
 
   while (!(1 <= selectedOption && selectedOption <= salas.nSalas)) {
@@ -169,20 +218,17 @@ nodoS *pedirSala(listaSalas salas, string mensaje) {
   return iterarSalas(salas, selectedOption);
 }
 
-void registrarEstante(listaSalas &ls) {
+void registrarEstante(pilaSalas &ls) {
   nodoS *aux;
-
   estante estan;
   leerEstante(estan);
 
   // Preguntar al usuario a que sala quiere guardarlo
   aux = pedirSala(ls, "Ingrese la sala del nuevo estante");
-
   if (aux == NULL) {
     cout << "La sala seleccionada no es valida" << endl;
     return;
   }
-
   insertarEstante(aux->sala.lE, estan);
 }
 
@@ -202,7 +248,7 @@ void leerSalas(salas &salas) {
   salas.capacidad = leerTexto("Capacidad :");
 }
 
-void insertarSalas(listaSalas &lS, salas salas) {
+void insertarSalas(pilaSalas &lS, salas salas) {
   nodoS *aux = new (struct nodoS);
   nodoS *temp = new (struct nodoS);
   temp->sala = salas;
@@ -221,17 +267,15 @@ void insertarSalas(listaSalas &lS, salas salas) {
   lS.nSalas++;
 }
 
-void registrarSalas(listaSalas &lS) {
+void registrarSalas(pilaSalas &lS) {
   salas salas;
   leerSalas(salas);
   insertarSalas(lS, salas);
 }
 
-void mostrarSalas(listaSalas lS) {
+void listarSalas(pilaSalas lS) {
   nodoS *aux;
-
   aux = lS.cab;
-
   for (int i = 0; aux != NULL; i++) {
     gotoxy(1, i + 10);
     cout << "Nombre de la sala: " << aux->sala.nombre;
@@ -239,11 +283,10 @@ void mostrarSalas(listaSalas lS) {
   }
 }
 
-void mostrarEstantes(listaSalas lS) {
+void listarEstantes(pilaSalas lS) {
   int i = 0;
   nodoS *auxSala;
   nodoE *auxEstante;
-
   auxSala = lS.cab;
 
   while (auxSala != NULL) {
@@ -252,15 +295,13 @@ void mostrarEstantes(listaSalas lS) {
     while (auxEstante != NULL) {
       gotoxy(1, i + 10);
       cout << "Nombre: " << auxEstante->stan.tematica;
-
       auxEstante = auxEstante->sgte;
     }
-
     auxSala = auxSala->sgte;
   }
 }
 
-void buscarLibro(listaSalas lS) {
+void buscarLibro(pilaSalas lS) {
   nodoS *auxSala;
   nodoE *auxEstante;
   nodoL *auxLibro;
@@ -293,9 +334,10 @@ void buscarLibro(listaSalas lS) {
 }
 
 int main() {
-  listaSalas lS;
+  pilaSalas lS;
+  pilaEstantes lE;
   inicializaSalas(lS);
-
+  inicializaEstante(lE);
   int opc;
   do {
     opc = menu();
@@ -307,14 +349,18 @@ int main() {
         registrarEstante(lS);
         break;
       case 3:
-        mostrarSalas(lS);
-        system("pause");
+        registrarLibros(lE);
         break;
       case 4:
-        mostrarEstantes(lS);
-        system("pause");
+        buscarLibro(lS);
+        break;
+      case 5:
+        listarEstantes(lS);
+        break;
+      case 6:
+        listarSalas(lS);
         break;
     }
-  } while (!(opc == 5));
+  } while (!(opc == 7));
   return 0;
 }
