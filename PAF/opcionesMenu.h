@@ -132,7 +132,31 @@ void registrarProductoEnAlmacen(deltronStruct &deltron,
                                 empleadoNodo *empleadoLogeado) {}
 
 void editarProductoEnAlmacen(deltronStruct &deltron,
-                             empleadoNodo *empleadoLogeado) {}
+                             empleadoNodo *empleadoLogeado) {
+  almacenNodo *almacenNodoPuntero;
+  productoEnAlmacenNodo *productoEnAlmacenNodoPuntero;
+
+  almacenNodoPuntero = pedirAlmacen(
+      deltron.almacenes, "Seleccione el almacen para editar el producto");
+
+  if (almacenNodoPuntero == NULL) {
+    cout << "Selecciono un almacen no valido";
+    return;
+  }
+
+  productoEnAlmacenNodoPuntero =
+      pedirProductoEnAlmacen(almacenNodoPuntero->almacen.productosEnAlmacen,
+                             "Seleccione el producto que desee editar");
+
+  if (productoEnAlmacenNodoPuntero == NULL) {
+    cout << "Selecciono un producto no valido";
+    return;
+  }
+
+  int stock = leerNumeroEntero("Ingrese stock para el producto",
+                               "Porfavor que el stock sea mayor a 0", 0);
+  productoEnAlmacenNodoPuntero->productoEnAlmacen.stock = stock;
+}
 
 void registrarPersonaEnCola(deltronStruct &deltron,
                             empleadoNodo *empleadoLogeado) {}
@@ -207,10 +231,53 @@ void registrarRelacionEntreAlmacenes(deltronStruct &deltron,
 }
 
 void revisarCatalogoDeAlmacen(deltronStruct deltron,
-                              clienteNodo *clienteLogeado) {}
+                              clienteNodo *clienteLogeado) {
+  almacenNodo *almacenNodoPuntero;
+  productoEnAlmacenNodo *productoEnAlmacenNodoPuntero;
+
+  // almacenNodoPuntero = deltron.almacenes.nodo;
+  almacenNodoPuntero = pedirAlmacen(deltron.almacenes, "Seleccione el almacen");
+
+  if (almacenNodoPuntero == NULL) {
+    cout << "Selecciono un almacen no valido";
+    return;
+  }
+
+  productoEnAlmacenNodoPuntero =
+      almacenNodoPuntero->almacen.productosEnAlmacen.cabecera;
+
+  int i = 0;
+  while (productoEnAlmacenNodoPuntero != NULL) {
+    imprimirProductoEnAlmacen(productoEnAlmacenNodoPuntero->productoEnAlmacen,
+                              i, i + 12);
+    i++;
+    productoEnAlmacenNodoPuntero = productoEnAlmacenNodoPuntero->siguiente;
+  }
+}
 
 void buscarProductoEnAlmacenes(deltronStruct deltron,
-                               clienteNodo *clienteLogeado) {}
+                               clienteNodo *clienteLogeado) {
+  almacenNodo *almacenNodoPuntero;
+  productoEnAlmacenNodo *productoEnAlmacenNodoPuntero;
+
+  string productoBuscar = leerTexto("Ingrese nombre a buscar: ", 3);
+  almacenNodoPuntero = deltron.almacenes.nodo;
+
+  while (almacenNodoPuntero != NULL) {
+    productoEnAlmacenNodoPuntero =
+        almacenNodoPuntero->almacen.productosEnAlmacen.cabecera;
+
+    while (productoEnAlmacenNodoPuntero != NULL) {
+      if (contieneTexto(productoEnAlmacenNodoPuntero->productoEnAlmacen.nombre,
+                        productoBuscar)) {
+        cout << "Se encontro su producto en el almacen de: "
+             << almacenNodoPuntero->almacen.departamentoDelPeru;
+        productoEnAlmacenNodoPuntero = productoEnAlmacenNodoPuntero->siguiente;
+      }
+    }
+    almacenNodoPuntero = almacenNodoPuntero->siguiente;
+  }
+}
 
 void agregarProductoAlCarrito(deltronStruct &deltron,
                               clienteNodo *clienteLogeado) {}
