@@ -9,6 +9,11 @@
 !*.ccls
 !*.json
 
+# Dev-C++
+!*.dev
+!*.layout
+!*.win
+
 #ccls compiler cache
 /.ccls-cache
 
