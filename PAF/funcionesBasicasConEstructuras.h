@@ -749,9 +749,9 @@ productoEnCarritoDeCompraNodo *pedirProductoEnCarritoDeCompra(
                                           selectedOption);
 }
 
-almacenNodo *buscarAlmacenPorCodigo(deltronStruct deltron,
+almacenNodo *buscarAlmacenPorCodigo(almacenesGrafo almacenes,
                                     string almacenCodigo) {
-  almacenNodo *aux = deltron.almacenes.nodo;
+  almacenNodo *aux = almacenes.nodo;
 
   while (aux != NULL) {
     if (aux->almacen.codigoAlmacen == almacenCodigo) return aux;
@@ -786,6 +786,18 @@ clienteNodo *buscarClientePorDni(deltronStruct deltron, string dni) {
 bool dniEstaRegistrado(deltronStruct deltron, string dni) {
   return buscarEmpleadoPorDni(deltron, dni) != NULL ||
          buscarClientePorDni(deltron, dni) != NULL;
+}
+
+productoEnAlmacenNodo *buscarProductoEnAlmacenPorCodigo(
+    productosEnAlmacenLista productosEnAlmacen, string productoCodigo) {
+  productoEnAlmacenNodo *aux = productosEnAlmacen.cabecera;
+
+  while (aux != NULL) {
+    if (aux->productoEnAlmacen.codigo == productoCodigo) return aux;
+    aux = aux->siguiente;
+  }
+
+  return NULL;
 }
 
 // Impresores
