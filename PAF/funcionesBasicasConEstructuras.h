@@ -568,6 +568,61 @@ productoEnAlmacenNodo *pedirProductoEnAlmacen(
   return iterarProductoEnAlmacen(productosEnAlmacen, selectedOption);
 }
 
+clienteNodo *iterarClientes(clientesLista clientes, int index) {
+  clienteNodo *clienteNodoPuntero;
+
+  if (0 >= index) {
+    return NULL;
+  }
+
+  if (index > clientes.largo) {
+    return NULL;
+  }
+
+  clienteNodoPuntero = clientes.cabecera;
+
+  for (int i = 1; clienteNodoPuntero != NULL; i++) {
+    if (i == index) {
+      return clienteNodoPuntero;
+    }
+    clienteNodoPuntero = clienteNodoPuntero->siguiente;
+  }
+
+  return NULL;
+}
+
+clienteNodo *pedirCliente(clientesLista clientes, string mensaje) {
+  int selectedOption;
+  clienteNodo *clienteNodoPuntero;
+
+  cout << endl
+       << mensaje << "." << endl
+       << "Escoja entre los " << clientes.largo
+       << " productos en almacenes siguientes:" << endl
+       << endl;
+
+  clienteNodoPuntero = clientes.cabecera;
+
+  for (int i = 1; clienteNodoPuntero != NULL; i++) {
+    cout << "[" << i << "] - " << clienteNodoPuntero->cliente.apellidos << " "
+         << clienteNodoPuntero->cliente.nombres << " - "
+         << clienteNodoPuntero->cliente.dni << endl;
+    clienteNodoPuntero = clienteNodoPuntero->siguiente;
+  }
+
+  cout << endl << "Introduzca la opción deseada:" << endl;
+  cin >> selectedOption;
+
+  while (!(1 <= selectedOption && selectedOption <= clientes.largo)) {
+    cout << "Por favor, introduzca un valor entre 1 y " << clientes.largo << "."
+         << endl;
+    fflush(stdin);
+    cin >> selectedOption;
+  }
+
+  return iterarClientes(clientes, selectedOption);
+}
+
 ventaNodo *iterarVentas(ventasLista ventas, int index) {
   ventaNodo *ventaNodoPuntero;
 
