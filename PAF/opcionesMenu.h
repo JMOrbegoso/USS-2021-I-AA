@@ -159,9 +159,59 @@ void editarProductoEnAlmacen(deltronStruct &deltron,
 }
 
 void registrarPersonaEnCola(deltronStruct &deltron,
-                            empleadoNodo *empleadoLogeado) {}
+                            empleadoNodo *empleadoLogeado) {
+  string apellidos, nombres, dni, fechaDeLLegada;
+  personaRecogiendoCompraStruct nuevaPersonaRecogiendoCompra;
+  almacenNodo *almacenNodoPuntero;
 
-void despacharVenta(deltronStruct &deltron, empleadoNodo *empleadoLogeado) {}
+  system("cls");
+  showAppTitle(deltron);
+
+  gotoxy(20, 8);
+  cout << "Registrará una persona formando cola para recoger una venta:"
+       << endl;
+
+  apellidos = leerTexto("Ingrese Apellidos :", 2);
+  nombres = leerTexto("Ingrese Nombres :", 2);
+  dni = leerTexto("Ingrese Edad :", 8, 8);
+  fechaDeLLegada = leerTexto("Ingrese Fecha de Llegada :", 2);
+
+  almacenNodoPuntero = pedirAlmacen(
+      deltron.almacenes, "Ingrese el almacen en donde está formando cola");
+
+  nuevaPersonaRecogiendoCompra =
+      construirPersonaRecogiendoCompra(nombres, apellidos, dni, fechaDeLLegada);
+
+  encolar(almacenNodoPuntero->almacen.personasRecogiendoCompras,
+          nuevaPersonaRecogiendoCompra);
+
+  cout << "La persona fue registrada correctamente";
+  cout << endl;
+}
+
+void despacharVenta(deltronStruct &deltron, empleadoNodo *empleadoLogeado) {
+  almacenNodo *almacenNodoPuntero;
+  personaRecogiendoCompraStruct personaRecogiendoCompraAtendida;
+  ventaNodo *ventaDespachada;
+
+  system("cls");
+  showAppTitle(deltron);
+
+  gotoxy(20, 8);
+  cout << "Va a despachar una venta a una persona formando cola para recoger "
+          "una venta:"
+       << endl;
+
+  almacenNodoPuntero = pedirAlmacen(
+      deltron.almacenes, "Ingrese el almacen donde quiere despachar:");
+
+  ventaDespachada = pedirVenta(deltron.ventas, "Ingrese la venta a despachar");
+
+  ventaDespachada->venta.estadoDeVenta = "Entregada";
+
+  desencolarPersonaRecogiendoCompra(
+      almacenNodoPuntero->almacen.personasRecogiendoCompras);
+}
 
 void revisarAlmacenes(deltronStruct deltron, empleadoNodo *empleadoLogeado) {
   almacenNodo *auxCityNode;
@@ -288,4 +338,67 @@ void editarCantidadDeProductoEnCarrito(deltronStruct &deltron,
 void quitarProductoDeCarrito(deltronStruct &deltron,
                              clienteNodo *clienteLogeado) {}
 
-void realizarCompra(deltronStruct &deltron, clienteNodo *clienteLogeado) {}
+void realizarCompra(deltronStruct &deltron, clienteNodo *clienteLogeado) {
+  string nombresCliente, apellidosCliente, dniCliente, fechaDeVenta,
+      estadoDeVenta;
+  ventaStruct venta;
+  clienteNodo *clienteNodoPuntero;
+  almacenNodo *almacenNodoPuntero;
+  productoEnCarritoDeCompraNodo *productoEnCarritoDeCompraNodoPuntero;
+  productoEnAlmacenNodo *productoEnAlmacenNodoPuntero;
+  productoVendidoStruct productoVendido;
+  int cantidadComprada;
+
+  fechaDeVenta = leerTexto("Ingrese la fecha y hora actuales", 2, 2);
+
+  clienteNodoPuntero = pedirCliente(
+      deltron.clientes, "Ingrese el cliente que a realizado la compra");
+
+  nombresCliente = clienteNodoPuntero->cliente.nombres;
+  apellidosCliente = clienteNodoPuntero->cliente.apellidos;
+  dniCliente = clienteNodoPuntero->cliente.apellidos;
+  estadoDeVenta = "Creada";
+
+  venta = construirVenta(nombresCliente, apellidosCliente, dniCliente,
+                         fechaDeVenta, estadoDeVenta);
+
+  almacenNodoPuntero = buscarAlmacenPorCodigo(
+      deltron.almacenes,
+      clienteNodoPuntero->cliente.productosEnCarritoDeCompra.codigoAlmacen);
+
+  productoEnCarritoDeCompraNodoPuntero =
+      clienteNodoPuntero->cliente.productosEnCarritoDeCompra.cabecera;
+  while (productoEnCarritoDeCompraNodoPuntero != NULL) {
+    productoEnAlmacenNodoPuntero = buscarProductoEnAlmacenPorCodigo(
+        almacenNodoPuntero->almacen.productosEnAlmacen,
+        productoEnCarritoDeCompraNodoPuntero->productoEnCarritoDeCompra.codigo);
+
+    if (productoEnAlmacenNodoPuntero->productoEnAlmacen.stock >=
+        productoEnCarritoDeCompraNodoPuntero->productoEnCarritoDeCompra
+            .cantidad) {
+      cantidadComprada = productoEnCarritoDeCompraNodoPuntero
+                             ->productoEnCarritoDeCompra.cantidad;
+    } else {
+      cantidadComprada = productoEnAlmacenNodoPuntero->productoEnAlmacen.stock;
+    }
+
+    productoVendido = construirProductoVendido(
+        productoEnAlmacenNodoPuntero->productoEnAlmacen.codigo,
+        productoEnAlmacenNodoPuntero->productoEnAlmacen.nombre,
+        productoEnAlmacenNodoPuntero->productoEnAlmacen.marca,
+        productoEnAlmacenNodoPuntero->productoEnAlmacen.tipo,
+        productoEnAlmacenNodoPuntero->productoEnAlmacen.precio,
+        cantidadComprada);
+
+    insertar(venta.productosVendidos, productoVendido);
+
+    productoEnAlmacenNodoPuntero->productoEnAlmacen.stock =
+        productoEnAlmacenNodoPuntero->productoEnAlmacen.stock -
+        cantidadComprada;
+
+    productoEnCarritoDeCompraNodoPuntero =
+        productoEnCarritoDeCompraNodoPuntero->siguiente;
+
+    desapilar(clienteNodoPuntero->cliente.productosEnCarritoDeCompra);
+  }
+}
