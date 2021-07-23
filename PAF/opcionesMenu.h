@@ -13,13 +13,63 @@ void showAppTitle(deltronStruct deltron) {
 }
 
 void registrarEmpleado(deltronStruct &deltron) {
-  cout << endl << "SE ESTÁ REGISTRANDO" << endl;
-  Sleep(1500);
+  empleadoStruct nuevoEmpleado;
+  string nombres, apellidos, dni, clave;
+  bool genero;
+  float salario;
+
+  gotoxy(20, 10);
+  cout << "Registro de empleado" << endl << endl;
+
+  nombres = leerTexto("Por favor ingrese sus nombres", 2);
+  apellidos = leerTexto("Por favor ingrese sus apellidos", 2);
+  dni = leerTexto("Por favor ingrese su DNI", 8, 8);
+  clave = leerTexto("Por favor ingrese su contraseña", 6, 8);
+  genero = leerGenero("Por favor ingrese su genero");
+  salario = leerNumeroDecimal("Por favor ingrese su salario",
+                              "Por favor ingrese un numero superior a 0", 1);
+
+  if (dniEstaRegistrado(deltron, dni)) {
+    cout << "El DNI usado ya está registrado, por favor use otro.";
+    cout << endl;
+    return;
+  }
+
+  nuevoEmpleado =
+      construirEmpleado(dni, clave, nombres, apellidos, genero, salario);
+
+  insertar(deltron.empleados, nuevoEmpleado);
+
+  cout << "El empleado fue registrado de forma correcta.";
+  cout << endl;
 }
 
 void registrarCliente(deltronStruct &deltron) {
-  cout << endl << "SE ESTÁ REGISTRANDO" << endl;
-  Sleep(1500);
+  clienteStruct nuevoCliente;
+  string nombres, apellidos, dni, clave;
+  bool genero;
+
+  gotoxy(20, 10);
+  cout << "Registro de cliente" << endl << endl;
+
+  nombres = leerTexto("Por favor ingrese sus nombres", 2);
+  apellidos = leerTexto("Por favor ingrese sus apellidos", 2);
+  dni = leerTexto("Por favor ingrese su DNI", 8, 8);
+  clave = leerTexto("Por favor ingrese su contraseña", 6, 8);
+  genero = leerGenero("Por favor ingrese su genero");
+
+  if (dniEstaRegistrado(deltron, dni)) {
+    cout << "El DNI usado ya está registrado, por favor use otro.";
+    cout << endl;
+    return;
+  }
+
+  nuevoCliente = construirCliente(dni, clave, nombres, apellidos, genero);
+
+  insertar(deltron.clientes, nuevoCliente);
+
+  cout << "El cliente fue registrado de forma correcta.";
+  cout << endl;
 }
 
 empleadoNodo *loginEmpleado(deltronStruct deltron) {
@@ -126,7 +176,22 @@ clienteNodo *loginCliente(deltronStruct deltron) {
   return NULL;
 }
 
-void revisarVentas(deltronStruct deltron, empleadoNodo *empleadoLogeado) {}
+void revisarVentas(deltronStruct deltron, empleadoNodo *empleadoLogeado) {
+  ventaNodo *ventaNodoPuntero;
+
+  gotoxy(20, 10);
+  cout << "Ventas realizadas" << endl << endl;
+
+  int i = 0;
+  ventaNodoPuntero = deltron.ventas.cabecera;
+  while (ventaNodoPuntero != NULL) {
+    imprimirCompra(ventaNodoPuntero->venta, i, i + 12);
+    i++;
+    ventaNodoPuntero = ventaNodoPuntero->siguiente;
+  }
+
+  cout << endl;
+}
 
 void registrarProductoEnAlmacen(deltronStruct &deltron,
                                 empleadoNodo *empleadoLogeado) {}
@@ -234,7 +299,28 @@ void revisarAlmacenes(deltronStruct deltron, empleadoNodo *empleadoLogeado) {
 }
 
 void registrarNuevoAlmacen(deltronStruct &deltron,
-                           empleadoNodo *empleadoLogeado) {}
+                           empleadoNodo *empleadoLogeado) {
+  string codigoAlmacen, departamentoDelPeru, direccion;
+  almacenStruct nuevoAlmacen;
+
+  system("cls");
+  showAppTitle(deltron);
+
+  gotoxy(20, 8);
+  cout << "Registrará un nuevo almacén:" << endl;
+
+  codigoAlmacen = leerTexto("Ingrese el codigo del almacen:", 2);
+  departamentoDelPeru = leerTexto("Ingrese el departamento del Perú:", 2);
+  direccion = leerTexto("Ingrese la dirección del almacén:", 2);
+
+  nuevoAlmacen =
+      construirAlmacen(codigoAlmacen, departamentoDelPeru, direccion);
+
+  insertar(deltron.almacenes, nuevoAlmacen);
+
+  cout << "El almacén fue registrada correctamente";
+  cout << endl;
+}
 
 void registrarRelacionEntreAlmacenes(deltronStruct &deltron,
                                      empleadoNodo *empleadoLogeado) {
