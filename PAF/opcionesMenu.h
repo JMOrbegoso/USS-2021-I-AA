@@ -18,6 +18,9 @@ void registrarEmpleado(deltronStruct &deltron) {
   bool genero;
   float salario;
 
+  system("cls");
+  showAppTitle(deltron);
+
   gotoxy(20, 10);
   cout << "Registro de empleado" << endl << endl;
 
@@ -48,6 +51,9 @@ void registrarCliente(deltronStruct &deltron) {
   clienteStruct nuevoCliente;
   string nombres, apellidos, dni, clave;
   bool genero;
+
+  system("cls");
+  showAppTitle(deltron);
 
   gotoxy(20, 10);
   cout << "Registro de cliente" << endl << endl;
@@ -179,6 +185,9 @@ clienteNodo *loginCliente(deltronStruct deltron) {
 void revisarVentas(deltronStruct deltron, empleadoNodo *empleadoLogeado) {
   ventaNodo *ventaNodoPuntero;
 
+  system("cls");
+  showAppTitle(deltron);
+
   gotoxy(20, 10);
   cout << "Ventas realizadas" << endl << endl;
 
@@ -200,6 +209,9 @@ void editarProductoEnAlmacen(deltronStruct &deltron,
                              empleadoNodo *empleadoLogeado) {
   almacenNodo *almacenNodoPuntero;
   productoEnAlmacenNodo *productoEnAlmacenNodoPuntero;
+
+  system("cls");
+  showAppTitle(deltron);
 
   almacenNodoPuntero = pedirAlmacen(
       deltron.almacenes, "Seleccione el almacen para editar el producto");
@@ -369,7 +381,9 @@ void revisarCatalogoDeAlmacen(deltronStruct deltron,
   almacenNodo *almacenNodoPuntero;
   productoEnAlmacenNodo *productoEnAlmacenNodoPuntero;
 
-  // almacenNodoPuntero = deltron.almacenes.nodo;
+  system("cls");
+  showAppTitle(deltron);
+
   almacenNodoPuntero = pedirAlmacen(deltron.almacenes, "Seleccione el almacen");
 
   if (almacenNodoPuntero == NULL) {
@@ -395,6 +409,10 @@ void buscarProductoEnAlmacenes(deltronStruct deltron,
   productoEnAlmacenNodo *productoEnAlmacenNodoPuntero;
 
   string productoBuscar = leerTexto("Ingrese nombre a buscar: ", 3);
+
+  system("cls");
+  showAppTitle(deltron);
+
   almacenNodoPuntero = deltron.almacenes.nodo;
 
   while (almacenNodoPuntero != NULL) {
@@ -432,6 +450,9 @@ void realizarCompra(deltronStruct &deltron, clienteNodo *clienteLogeado) {
   productoEnAlmacenNodo *productoEnAlmacenNodoPuntero;
   productoVendidoStruct productoVendido;
   int cantidadComprada;
+
+  system("cls");
+  showAppTitle(deltron);
 
   fechaDeVenta = leerTexto("Ingrese la fecha y hora actuales", 2, 2);
 
