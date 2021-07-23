@@ -298,7 +298,7 @@ void revisarAlmacenes(deltronStruct deltron, empleadoNodo *empleadoLogeado) {
   mostrarDatosEmpresa(deltron);
 
   gotoxy(20, 8);
-  cout << "Lista de todas las ciudades con sus destinos:" << endl;
+  cout << "Lista de todos los almacenes con sus relaciones:" << endl;
 
   imprimirCabeceraAlmacenes(10);
 
