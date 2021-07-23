@@ -53,7 +53,7 @@ int pedirOpcionDelMenuRol(deltronStruct deltron) {
   int opcionSeleccionada;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   cout << endl << "¿Cúal es su rol?" << endl << endl;
 
@@ -77,7 +77,7 @@ int pedirOpcionDelMenuLogin(deltronStruct deltron, string rol) {
   int opcionSeleccionada;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   cout << endl;
 
@@ -106,7 +106,7 @@ int pedirOpcionDelMenuEmpleado(deltronStruct deltron, string nombreEmpleado) {
   int opcionSeleccionada;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   cout << endl;
 
@@ -143,7 +143,7 @@ int pedirOpcionDelMenuCliente(deltronStruct deltron,
   int opcionSeleccionada;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   cout << endl;
 

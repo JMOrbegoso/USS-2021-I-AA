@@ -1,6 +1,6 @@
 #include "funcionesBasicasConEstructuras.h"
 
-void showAppTitle(deltronStruct deltron) {
+void mostrarDatosEmpresa(deltronStruct deltron) {
   cout << endl;
   cout << "-----------------------------------------------------------";
   cout << endl << endl;
@@ -19,7 +19,7 @@ void registrarEmpleado(deltronStruct &deltron) {
   float salario;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   gotoxy(20, 10);
   cout << "Registro de empleado" << endl << endl;
@@ -53,7 +53,7 @@ void registrarCliente(deltronStruct &deltron) {
   bool genero;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   gotoxy(20, 10);
   cout << "Registro de cliente" << endl << endl;
@@ -86,7 +86,7 @@ empleadoNodo *loginEmpleado(deltronStruct deltron) {
   string saludo;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   gotoxy(20, 10);
   cout << "Inicio de sesión de empleado" << endl << endl;
@@ -138,7 +138,7 @@ clienteNodo *loginCliente(deltronStruct deltron) {
   string saludo;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   gotoxy(20, 10);
   cout << "Inicio de sesión de cliente" << endl << endl;
@@ -186,7 +186,7 @@ void revisarVentas(deltronStruct deltron, empleadoNodo *empleadoLogeado) {
   ventaNodo *ventaNodoPuntero;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   gotoxy(20, 10);
   cout << "Ventas realizadas" << endl << endl;
@@ -213,7 +213,7 @@ void editarProductoEnAlmacen(deltronStruct &deltron,
   productoEnAlmacenNodo *productoEnAlmacenNodoPuntero;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   almacenNodoPuntero = pedirAlmacen(
       deltron.almacenes, "Seleccione el almacen para editar el producto");
@@ -244,7 +244,7 @@ void registrarPersonaEnCola(deltronStruct &deltron,
   almacenNodo *almacenNodoPuntero;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   gotoxy(20, 8);
   cout << "Registrará una persona formando cola para recoger una venta:"
@@ -274,7 +274,7 @@ void despacharVenta(deltronStruct &deltron, empleadoNodo *empleadoLogeado) {
   ventaNodo *ventaDespachada;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   gotoxy(20, 8);
   cout << "Va a despachar una venta a una persona formando cola:" << endl;
@@ -295,7 +295,7 @@ void revisarAlmacenes(deltronStruct deltron, empleadoNodo *empleadoLogeado) {
   almacenVertice *tempCityEdge;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   gotoxy(20, 8);
   cout << "Lista de todas las ciudades con sus destinos:" << endl;
@@ -318,7 +318,7 @@ void registrarNuevoAlmacen(deltronStruct &deltron,
   almacenStruct nuevoAlmacen;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   gotoxy(20, 8);
   cout << "Registrará un nuevo almacén:" << endl;
@@ -342,7 +342,7 @@ void registrarRelacionEntreAlmacenes(deltronStruct &deltron,
   almacenVertice *newCityEdge = new struct almacenVertice;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   gotoxy(20, 8);
   cout << "Registrar nuevo enlace entre almacenes:" << endl;
@@ -384,7 +384,7 @@ void revisarCatalogoDeAlmacen(deltronStruct deltron,
   productoEnAlmacenNodo *productoEnAlmacenNodoPuntero;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   almacenNodoPuntero = pedirAlmacen(deltron.almacenes, "Seleccione el almacen");
 
@@ -413,7 +413,7 @@ void buscarProductoEnAlmacenes(deltronStruct deltron,
   string productoBuscar = leerTexto("Ingrese nombre a buscar: ", 3);
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   almacenNodoPuntero = deltron.almacenes.nodo;
 
@@ -454,7 +454,7 @@ void realizarCompra(deltronStruct &deltron, clienteNodo *clienteLogeado) {
   int cantidadComprada;
 
   system("cls");
-  showAppTitle(deltron);
+  mostrarDatosEmpresa(deltron);
 
   fechaDeVenta = leerTexto("Ingrese la fecha y hora actuales", 2, 2);
 
