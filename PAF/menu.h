@@ -29,7 +29,7 @@ void mostrarInstrucciones() {
   cout << "->\tPara iniciar sesión como cliente puede registrarse o usar una "
           "de las cuentas ya registradas:"
        << endl;
-  cout << "\tDNI: '12121212', '13131313', '14141414'." << endl;
+  cout << "\tDNI: '12121212'." << endl;
   cout << endl;
   cout << "->\tLa clave de estas cuentas de usuario ya creadas es '123456'."
        << endl;
