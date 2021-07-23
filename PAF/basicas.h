@@ -44,30 +44,30 @@ bool contieneTexto(string textBase, string textToFind) {
 
 string conseguirGenero(bool genre) { return genre ? "Masculino" : "Femenino"; }
 
-string leerTexto(string mensaje, long unsigned int minLength) {
+string leerTexto(string mensaje, long unsigned int minCaracteres) {
   string text;
 
-  cout << mensaje << " (Mínimo " << minLength << " caracteres)" << endl;
+  cout << mensaje << " (Mínimo " << minCaracteres << " caracteres)" << endl;
 
   do {
     fflush(stdin);
     getline(cin, text);
-  } while (!(minLength <= text.length()));
+  } while (!(minCaracteres <= text.length()));
 
   return text;
 }
 
-string leerTexto(string mensaje, long unsigned int minLength,
-                 long unsigned int maxLength) {
+string leerTexto(string mensaje, long unsigned int minCaracteres,
+                 long unsigned int maxCaracteres) {
   string text;
 
-  cout << mensaje << " (Mínimo " << minLength << " y máximo " << maxLength
-       << " caracteres)" << endl;
+  cout << mensaje << " (Mínimo " << minCaracteres << " y máximo "
+       << maxCaracteres << " caracteres)" << endl;
 
   do {
     fflush(stdin);
     getline(cin, text);
-  } while (!(minLength <= text.length() && text.length() <= maxLength));
+  } while (!(minCaracteres <= text.length() && text.length() <= maxCaracteres));
 
   return text;
 }
@@ -89,14 +89,15 @@ bool leerGenero(string mensaje) {
   return genre == 'm';
 }
 
-int leerNumeroEntero(string requestMessage, string errorMessage, int min) {
+int leerNumeroEntero(string mensajeDePeticion, string mensajeDeValidacion,
+                     int min) {
   int integer;
 
-  cout << requestMessage << endl;
+  cout << mensajeDePeticion << endl;
   cin >> integer;
 
   while (!(min <= integer)) {
-    cout << errorMessage << endl;
+    cout << mensajeDeValidacion << endl;
     fflush(stdin);
     cin >> integer;
   }
@@ -104,15 +105,15 @@ int leerNumeroEntero(string requestMessage, string errorMessage, int min) {
   return integer;
 }
 
-int leerNumeroEntero(string requestMessage, string errorMessage, int min,
-                     int max) {
+int leerNumeroEntero(string mensajeDePeticion, string mensajeDeValidacion,
+                     int min, int max) {
   int integer;
 
-  cout << requestMessage << endl;
+  cout << mensajeDePeticion << endl;
   cin >> integer;
 
   while (!(min <= integer && integer <= max)) {
-    cout << errorMessage << endl;
+    cout << mensajeDeValidacion << endl;
     fflush(stdin);
     cin >> integer;
   }
@@ -120,14 +121,15 @@ int leerNumeroEntero(string requestMessage, string errorMessage, int min,
   return integer;
 }
 
-float leerNumeroDecimal(string requestMessage, string errorMessage, float min) {
+float leerNumeroDecimal(string mensajeDePeticion, string mensajeDeValidacion,
+                        float min) {
   float amount;
 
-  cout << requestMessage << endl;
+  cout << mensajeDePeticion << endl;
   cin >> amount;
 
   while (!(min <= amount)) {
-    cout << errorMessage << endl;
+    cout << mensajeDeValidacion << endl;
     fflush(stdin);
     cin >> amount;
   }
@@ -135,15 +137,15 @@ float leerNumeroDecimal(string requestMessage, string errorMessage, float min) {
   return amount;
 }
 
-float leerNumeroDecimal(string requestMessage, string errorMessage, float min,
-                        float max) {
+float leerNumeroDecimal(string mensajeDePeticion, string mensajeDeValidacion,
+                        float min, float max) {
   float amount;
 
-  cout << requestMessage << endl;
+  cout << mensajeDePeticion << endl;
   cin >> amount;
 
   while (!(min <= amount && amount <= max)) {
-    cout << errorMessage << endl;
+    cout << mensajeDeValidacion << endl;
     fflush(stdin);
     cin >> amount;
   }
