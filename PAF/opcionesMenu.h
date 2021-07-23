@@ -191,6 +191,8 @@ void revisarVentas(deltronStruct deltron, empleadoNodo *empleadoLogeado) {
   gotoxy(20, 10);
   cout << "Ventas realizadas" << endl << endl;
 
+  imprimirCabeceraCompra(10);
+
   int i = 0;
   ventaNodoPuntero = deltron.ventas.cabecera;
   while (ventaNodoPuntero != NULL) {
